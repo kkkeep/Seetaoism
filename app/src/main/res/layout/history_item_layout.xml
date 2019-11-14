@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="15dp"
+    android:layout_marginTop="25dp">
+
+        <TextView
+            android:id="@+id/history_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/history_item"
+            android:text="111111" />
+
+
+
+
+</LinearLayout>

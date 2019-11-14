@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/line"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    >
+    <!--tools:ignore="WebViewLayout"-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="184dp">
+        <WebView
+            android:layout_marginTop="5dp"
+            android:id="@+id/video_webView"
+            android:layout_width="match_parent"
+            android:layout_height="194dp"
+            android:visibility="gone" />
+        <ImageView
+            android:layout_marginTop="5dp"
+            android:id="@+id/iv"
+            android:layout_width="match_parent"
+            android:layout_height="194dp"
+            android:scaleType="fitXY"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/video_play"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginLeft="150dp"
+            android:background="@drawable/video_play"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/them"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="主题"
+        android:maxLines="2"
+        android:textColor="#282B2E"
+        android:textSize="16sp" />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/descrip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:text="主题"
+        android:layout_marginBottom="5dp"
+        android:textColor="#9B9C9E  "
+        android:textSize="12sp" />
+</LinearLayout>

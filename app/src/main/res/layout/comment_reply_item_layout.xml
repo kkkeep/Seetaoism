@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:padding="7dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="48dp"
+        android:layout_marginRight="32dp"
+        android:background="#F4F4F4">
+        <TextView
+            android:id="@+id/reply_item_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="沐风"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:layout_toRightOf="@id/reply_item_user"
+            android:id="@+id/replat_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  回复  "
+            android:textColor="@color/gray_3"
+            android:textSize="15sp" />
+        <TextView
+            android:layout_toRightOf="@id/replat_text"
+            android:id="@+id/reply_item_touser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="沐风:"
+            android:textSize="15sp"/>
+        <TextView
+            android:layout_below="@+id/reply_item_user"
+            android:inputType="textMultiLine"
+            android:id="@+id/reply_item_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="10"
+            android:ellipsize="end"
+            android:textColor="#282B2E"
+            android:textSize="15sp"
+            android:text="世上本没有路，走本没有路，走本没有路，走本没有路，走的人多了，也就成了路"/>
+    </RelativeLayout>
+</LinearLayout>

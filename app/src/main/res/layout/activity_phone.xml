@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dp"
+                android:background="@drawable/ic_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:textSize="18sp"
+                android:text="绑定手机号"
+                android:textColor="#FF282B2E "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <TextView
+            android:background="@color/gray_5"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+        <RelativeLayout
+            android:layout_marginTop="13dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:textSize="16sp"
+                android:layout_centerVertical="true"
+                android:maxLength="11"
+                android:paddingLeft="40dp"
+                android:inputType="numberDecimal"
+                android:background="@color/white"
+                android:id="@+id/et_phoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textSize="15dp"
+                android:id="@+id/iv1"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:text="+86"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_marginLeft="4dp"
+                android:layout_toRightOf="@id/iv1"
+                android:layout_centerVertical="true"
+                android:id="@+id/imageView9"
+                style="@style/SeeWay.VerticalLine"
+                android:layout_height="16dp" />
+            <com.seetaoism.widgets.CleanEditTextButton
+                android:id="@+id/iv_cleanPhone"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/ic_clean"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/et_phoneNumber"
+                android:background="@color/gray_5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/login_iv_line1"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginTop="13dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:inputType="numberDecimal"
+                android:textSize="16sp"
+                android:hint="输入验证码"
+                android:background="@color/white"
+                android:id="@+id/et_verify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_getVerify"
+                android:textColor="@color/red"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:text="获取验证码"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/et_verify"
+                android:background="@color/gray_5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/login_iv_line2"/>
+        </RelativeLayout>
+        <Button
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/register_btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="49dp"
+            android:background="@drawable/login_button_rounder_bg_selector"
+            android:text="完成"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            tools:enabled="false" />
+    </LinearLayout>
+
+</ScrollView>

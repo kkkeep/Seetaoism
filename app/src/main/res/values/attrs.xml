@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ColumnState">
+        <attr name="state_column_edit" format="boolean"/>
+        <attr name="state_column_my_column" format="boolean"/>
+    </declare-styleable>
+
+
+
+
+</resources>

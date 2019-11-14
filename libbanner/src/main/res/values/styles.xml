@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="JBanner">
+        <attr name="titleSize" format="dimension"/>
+        <attr name="titleLeftMargin" format="dimension"/>
+        <attr name="titleRightMargin" format="dimension"/>
+        <attr name="titleTopMargin" format="dimension"/>
+        <attr name="titleBottomMargin" format="dimension"/>
+        <attr name="indicatorRightMargin" format="dimension"/>
+        <attr name="indicatorLeftMargin" format="dimension"/>
+        <attr name="indicatorShow" format="boolean"/>
+        <attr name="titleColor" format="color|reference"/>
+        <attr name="indicatorRadius" format="dimension"/>
+        <attr name="indicatorNormalColor" format="color|reference"/>
+        <attr name="indicatorSelectedColor" format="reference|color"/>
+    </declare-styleable>
+
+
+
+
+</resources>

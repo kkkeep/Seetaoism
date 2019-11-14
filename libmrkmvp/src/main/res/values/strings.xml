@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LibMrkMvp</string>
+
+    <string name="mvp_text_error_server_exception">服务器错误</string>
+    <string name="mvp_text_error_net_exception">网络异常</string>
+    <string name="mvp_text_error_un_know_exception">未知异常</string>
+</resources>

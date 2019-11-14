@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="15dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <org.raphets.roundimageview.RoundImageView
+        android:scaleType="centerCrop"
+        app:leftBottom_corner_radius="4dp"
+        app:leftTop_corner_radius="4dp"
+        app:rightBottom_corner_radius="4dp"
+        app:rightTop_corner_radius="4dp"
+        app:type="round"
+        android:id="@+id/detail_item_news_pic"
+        android:layout_width="91dp"
+        android:layout_height="68dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
+
+    <ImageView
+        style="@style/SeeWay.HorizontalLine"
+        app:layout_constraintBottom_toBottomOf="parent"
+         />
+
+    <TextView
+        android:id="@+id/news_item_tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        tools:text="标题"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/detail_item_news_pic"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/news_item_tv_hot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:textColor="#E60012"
+        android:paddingRight="6dp"
+        android:paddingLeft="6dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:textSize="9dp"
+        android:visibility="gone"
+        android:background="@drawable/hot_rounder_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/news_item_tv_label"
+        app:layout_constraintStart_toStartOf="@+id/news_item_tv_title"
+        app:layout_constraintTop_toTopOf="@+id/news_item_tv_label"
+        tools:text="热点" />
+
+    <TextView
+        android:id="@+id/news_item_tv_label"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="15dp"
+        android:maxLines="1"
+        android:textColor="@color/gray_6"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/detail_item_news_pic"
+        tools:text="建筑设备" />
+</androidx.constraintlayout.widget.ConstraintLayout>

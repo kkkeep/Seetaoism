@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff">
+
+
+    <jy.com.libbanner.JBanner
+        android:id="@+id/news_item_header_j_banner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:indicatorLeftMargin="10dp"
+        app:indicatorRightMargin="16dp"
+        app:layout_constraintDimensionRatio="1.84:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleBottomMargin="10dp"
+        app:titleColor="#fff"
+        app:indicatorShow="false"
+        app:titleLeftMargin="16dp"
+        app:titleRightMargin="10dp"
+        app:titleSize="15dp"
+        app:titleTopMargin="12dp"
+        tools:background="@color/gray_4" />
+
+
+    <ProgressBar
+        android:id="@+id/news_item_header_progressbar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:max="100"
+        android:progress="0"
+        android:progressDrawable="@drawable/header_banner_progress_bar_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/news_item_header_j_banner" />
+
+    <ImageView
+        style="@style/SeeWay.HorizontalLine"
+        app:layout_constraintTop_toBottomOf="@id/news_item_header_progressbar" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        style="@style/SeeWay.HorizontalLine"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteY="261dp" />
+    <!-- 跑马灯效果和 viewpager  有冲突，需要在 text view 外层套一个布局 -->
+    <LinearLayout
+        android:id="@+id/news_item_header_tv_flash_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/news_item_header_iv_flash_more"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/news_item_header_progressbar">
+
+        <jy.com.libbanner.MarqueeTextView
+            android:id="@+id/news_item_header_tv_flash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:ellipsize="marquee"
+            android:scrollHorizontally="true"
+            android:focusableInTouchMode="true"
+            android:singleLine="true"
+            android:textSize="14dp"
+
+            tools:text="你好你好你好你好你好你好你好你好你好你好你好你好你好你好" />
+
+    </LinearLayout>
+
+
+
+    <ImageView
+        android:id="@+id/news_item_header_iv_flash_more"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:background="@drawable/ic_flush_more"
+        app:layout_constraintBottom_toBottomOf="@+id/news_item_header_tv_flash_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/news_item_header_tv_flash_layout" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/news_item_header_flash_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:visibility="visible"
+        app:constraint_referenced_ids="news_item_header_tv_flash_layout,news_item_header_iv_flash_more,imageView4" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

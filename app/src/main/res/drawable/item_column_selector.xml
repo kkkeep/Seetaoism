@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:column="http://schemas.android.com/apk/res-auto">
+
+    <item android:state_enabled="false">
+
+        <shape android:shape="rectangle">
+            <corners android:radius="17dp"/>
+            <solid android:color="@color/gray_9"/>
+        </shape>
+    </item>
+
+    <item android:state_enabled="true" column:state_column_edit = "true" column:state_column_my_column="true" >
+
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <corners android:radius="17dp"/>
+                    <solid android:color="@color/gray_9"/>
+                </shape>
+            </item>
+
+            <item>
+               <bitmap android:src="@drawable/ic_column_delete_2" android:gravity="end|top"/>
+            </item>
+        </layer-list>
+    </item>
+
+    <item android:state_enabled="true" column:state_column_edit = "false" column:state_column_my_column="true" >
+
+        <shape android:shape="rectangle">
+            <corners android:radius="17dp"/>
+            <solid android:color="@color/gray_9"/>
+        </shape>
+    </item>
+
+    <item >
+        <shape
+            android:shape="rectangle">
+            <stroke android:width="0.5dp" android:color="@color/gray_8"/>
+            <solid android:color="@color/white" />
+            <corners android:radius="17dp" />
+        </shape>
+    </item>
+
+</selector>

@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".home.perfect.PerfectActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center_vertical">
+
+            <com.shehuan.niv.NiceImageView
+                android:id="@+id/close"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_back"
+                app:is_circle="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="账户设置"
+                android:textColor="#282B2E "
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#fff4f4f4" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.flyco.roundview.RoundTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:text="个人信息"
+                android:textSize="16sp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#282B2E "
+                app:rv_backgroundColor="@color/white"
+                app:rv_backgroundPressColor="#fff4f4f4" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#ffd6d8da" />
+
+            <com.flyco.roundview.RoundLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                app:rv_backgroundColor="@color/white"
+                app:rv_backgroundPressColor="#fff4f4f4">
+
+                <TextView
+                    android:textSize="16sp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="头像" />
+
+                <com.shehuan.niv.NiceImageView
+                    android:id="@+id/usericon"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="45dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/vector_usericon"
+                    app:is_circle="true" />
+
+            </com.flyco.roundview.RoundLinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#ffd6d8da" />
+
+            <com.flyco.roundview.RoundLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                app:rv_backgroundColor="@color/white"
+                app:rv_backgroundPressColor="#fff4f4f4">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="昵称"
+                    android:textSize="16sp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#282B2E " />
+
+                <TextView
+                    android:id="@+id/nikename"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="45dp"
+                    android:text="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#282B2E " />
+
+            </com.flyco.roundview.RoundLinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#fff4f4f4" />
+
+        <com.flyco.roundview.RoundLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            app:rv_backgroundColor="@color/white"
+            app:rv_backgroundPressColor="#fff4f4f4">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="账户绑定"
+                android:textSize="16sp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#282B2E " />
+
+        </com.flyco.roundview.RoundLinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ffd6d8da" />
+
+
+        <com.flyco.roundview.RoundLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            app:rv_backgroundColor="@color/white"
+            app:rv_backgroundPressColor="#fff4f4f4">
+
+            <TextView
+                android:id="@+id/per_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="手机绑定"
+                android:textSize="16sp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#282B2E " />
+
+            <TextView
+                android:id="@+id/onbindmobile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:text="未绑定"
+                android:textColor="#FF282B2E "
+                android:textSize="15sp"
+                />
+
+        </com.flyco.roundview.RoundLinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="#ffd6d8da" />
+
+        <com.flyco.roundview.RoundLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            app:rv_backgroundColor="@color/white"
+            app:rv_backgroundPressColor="#fff4f4f4">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="电子邮箱"
+                android:textSize="16sp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#282B2E " />
+
+            <TextView
+                android:text="未绑定"
+                android:textColor="#FF282B2E "
+                android:id="@+id/onbindemail"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                />
+
+        </com.flyco.roundview.RoundLinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="#ffd6d8da" />
+
+
+        <com.flyco.roundview.RoundLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            app:rv_backgroundColor="@color/white"
+            app:rv_backgroundPressColor="#fff4f4f4">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="社交账号"
+                android:textSize="16sp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#282B2E " />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="#282B2E ">
+
+                <com.shehuan.niv.NiceImageView
+                    android:id="@+id/weibo"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="15dp"
+                    android:src="@drawable/set_wb"
+                    app:is_circle="true" />
+
+                <com.shehuan.niv.NiceImageView
+                    android:id="@+id/weixin"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="35.5dp"
+                    android:layout_toRightOf="@+id/weibo"
+                    android:src="@drawable/set_wx"
+                    app:is_circle="true" />
+
+                <com.shehuan.niv.NiceImageView
+                    android:id="@+id/qq"
+                    android:layout_toRightOf="@id/weixin"
+                    android:layout_marginLeft="36dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:src="@drawable/set_qq"
+                    app:is_circle="true" />
+
+            </RelativeLayout>
+
+        </com.flyco.roundview.RoundLinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#fff4f4f4" />
+
+        <com.flyco.roundview.RoundRelativeLayout
+            android:id="@+id/modifypassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            app:rv_backgroundColor="@color/white"
+            app:rv_backgroundPressColor="#fff4f4f4">
+
+            <TextView
+                android:id="@+id/updata_psw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:gravity="center_vertical"
+                android:text="修改密码"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#282B2E "
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/mine_fan"
+                android:textColor="#282B2E " />
+
+        </com.flyco.roundview.RoundRelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#fff4f4f4" />
+
+    </LinearLayout>
+
+</LinearLayout>

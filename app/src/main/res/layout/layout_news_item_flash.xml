@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/news_item_flash_tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:maxLines="1"
+        tools:text="测试标题"
+        android:textColor="#333333"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <me.codeboy.android.aligntextview.AlignTextView
+        android:id="@+id/news_item_flash_tv_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:lineSpacingExtra="4dp"
+        android:textColor="#666666"
+        android:textSize="15dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/news_item_flash_tv_title"
+        app:punctuationConvert="true"
+        tools:text="测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容" />
+
+    <TextView
+        android:id="@+id/news_item_flash_tv_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="20dp"
+        android:maxLines="1"
+        android:textColor="#9B9C9E  "
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/news_item_flash_iv_share"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/news_item_flash_tv_content"
+        tools:text="2019-09-12" />
+
+    <ImageView
+        android:id="@+id/news_item_flash_iv_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/news_item_flash_tv_time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/news_item_flash_tv_time"
+        app:srcCompat="@drawable/ic_share" />
+    
+    
+    <ImageView
+        style="@style/SeeWay.HorizontalLine"
+        app:layout_constraintBottom_toBottomOf="parent"
+         />
+</androidx.constraintlayout.widget.ConstraintLayout>

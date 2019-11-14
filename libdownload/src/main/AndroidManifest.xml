@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.seetaoism.libdownlaod" >
+
+    <application>
+
+        <service android:name=".DownloadService"/>
+
+
+
+
+    </application>
+</manifest>

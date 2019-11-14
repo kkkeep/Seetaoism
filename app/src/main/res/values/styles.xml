@@ -1,0 +1,80 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/black</item>
+        <!--<item name="toolbarStyle">@style/Reader.ToolbarStyle</item>-->
+        <item name="android:windowBackground">@color/white</item>
+
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.SplashTheme">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/splash_bg</item>
+    </style>
+
+    <style name="Reader.ToolbarStyle" parent="Widget.AppCompat.Toolbar"><!--设置整个tool bar 的 padding-->
+        <item name="android:padding">0dp</item>
+        <item name="android:paddingLeft">0dp</item>
+
+    </style>
+
+    <style name="SeeWay">
+
+    </style>
+    <style name="SeeWay.HorizontalLine">
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/gray_7</item>
+    </style>
+    <style name="SeeWay.VerticalLine">
+
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:background">@color/black</item>
+    </style>
+
+
+    <style name="SeeWay.HorizontalLine.EditBottom">
+        <item name="android:layout_marginRight">43dp</item>
+        <item name="android:layout_marginStart">43dp</item>
+        <item name="android:layout_marginLeft">43dp</item>
+        <item name="android:layout_marginEnd">43dp</item>
+
+    </style>
+    <style name="SeeWay.EditInput">
+
+        <item name="android:layout_marginRight">45dp</item>
+        <item name="android:layout_marginStart">45dp</item>
+        <item name="android:layout_marginLeft">45dp</item>
+        <item name="android:layout_marginEnd">45dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+
+        <item name="android:background">@color/transparent</item>
+        <item name="android:textColorHint">@color/gray_8</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">@color/black_3</item>
+
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+</resources>

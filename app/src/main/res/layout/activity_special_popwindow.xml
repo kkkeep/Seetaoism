@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:background="#ffffffff"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/edit_content"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:hint="输入回复"
+        android:cursorVisible="false"
+        android:ellipsize="end"
+        android:imeOptions="actionSearch"
+        android:maxLines="2"
+        android:singleLine="true"
+        android:textSize="15sp"
+        android:textColor="#999999"
+        android:padding="12dp"
+        android:gravity="top"
+        android:background="@drawable/activity_shape" />
+
+    <RelativeLayout
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/cleanicon"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="15dp"
+            android:layout_width="24dp"
+            android:layout_height="25dp"
+            android:background="@mipmap/cleanicon" />
+
+        <ImageView
+            android:id="@+id/complete"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="24dp"
+            android:layout_height="25dp"
+            android:background="@mipmap/complete" />
+    </RelativeLayout>
+</LinearLayout>

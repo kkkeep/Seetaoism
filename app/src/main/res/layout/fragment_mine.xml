@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srlDragRate="0.75"
+        app:srlEnableLoadMore="false"
+        app:srlEnableRefresh="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/profile"
+                android:layout_width="match_parent"
+                android:layout_height="192dp"
+                android:background="#ff000000"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <com.shehuan.niv.NiceImageView
+                    android:id="@+id/mine_pic"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/mine_pic"
+                    app:is_circle="true" />
+
+                <TextView
+                    android:id="@+id/text_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="未登录"
+                    android:textColor="@color/white" />
+                <TextView
+                    android:id="@+id/text_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="登录一下内容更精彩"
+                    android:textSize="11sp"
+                    android:textColor="#FFFFFFFF " />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#fff4f4f4" />
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.flyco.roundview.RoundLinearLayout
+                    android:id="@+id/mine_jifen"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    app:rv_backgroundColor="@color/white"
+                    app:rv_backgroundPressColor="#fff4f4f4">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.shehuan.niv.NiceImageView
+                            android:id="@+id/jifen_pic"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/mine_jifen"
+                            app:is_circle="true" />
+
+                        <TextView
+                            android:id="@+id/jifen"
+                            android:layout_toRightOf="@+id/jifen_pic"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="我的积分"
+
+                            android:textSize="16sp"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#282B2E " />
+                        <ImageView
+                            android:layout_toRightOf="@+id/jifen"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/mine_new"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:layout_toLeftOf="@+id/fan"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <ImageView
+                            android:id="@+id/fan"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/mine_fan" />
+                        <TextView
+                            android:id="@+id/qiandao_bt"
+                            android:layout_marginRight="35dp"
+                            android:textColor="#FFFFFFFF"
+                            android:layout_toLeftOf="@+id/fan"
+                            android:background="@drawable/mine_black"
+                            android:text="签到"
+                            android:textSize="12sp"
+                            android:layout_width="60dp"
+                            android:gravity="center"
+                            android:layout_height="25dp"/>
+                    </RelativeLayout>>
+
+                </com.flyco.roundview.RoundLinearLayout>
+
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#ffd6d8da" />
+
+                <com.flyco.roundview.RoundLinearLayout
+                    android:id="@+id/mine_collect"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    app:rv_backgroundColor="@color/white"
+                    app:rv_backgroundPressColor="#fff4f4f4">
+
+                    <com.shehuan.niv.NiceImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:background="@drawable/mine_start"
+                        app:is_circle="true" />
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:text="我的收藏"
+                        android:textSize="16sp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#282B2E " />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/mine_fan" />
+                </com.flyco.roundview.RoundLinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#ffd6d8da" />
+
+                <com.flyco.roundview.RoundLinearLayout
+                    android:id="@+id/mine_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    app:rv_backgroundColor="@color/white"
+                    app:rv_backgroundPressColor="#fff4f4f4">
+
+                    <com.shehuan.niv.NiceImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:background="@drawable/mine_mes"
+                        app:is_circle="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:text="我的消息"
+                        android:textSize="16sp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#282B2E " />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/mine_fan" />
+                </com.flyco.roundview.RoundLinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#fff4f4f4" />
+
+            <com.flyco.roundview.RoundLinearLayout
+                android:id="@+id/mine_seeting"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                app:rv_backgroundColor="@color/white"
+                app:rv_backgroundPressColor="#fff4f4f4">
+
+                <com.shehuan.niv.NiceImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/mine_set"
+                    app:is_circle="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:text="设置"
+                    android:textSize="16sp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#282B2E " />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/mine_fan" />
+            </com.flyco.roundview.RoundLinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#fff4f4f4" />
+
+            <com.flyco.roundview.RoundTextView
+                android:id="@+id/mine_login"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="15dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="登录"
+                android:textColor="@color/white"
+                app:rv_backgroundColor="#000000"
+                app:rv_backgroundPressColor="@color/gray_3"
+                app:rv_isRadiusHalfHeight="true"
+                app:rv_isRippleEnable="false"
+                app:rv_strokeColor="#000000"
+                app:rv_strokePressColor="@color/gray_3"
+                app:rv_strokeWidth="1dp"
+                app:rv_textPressColor="@color/white" />
+        </LinearLayout>
+
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</FrameLayout>

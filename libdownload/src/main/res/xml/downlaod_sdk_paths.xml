@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!--/Android/data/pakagename/cahe/apk_load    apk_load 是一个文件目录名称，必须和你代码里面保存文件的目录名一样-->
+    <!-- name 相当于path 的一个别名，比如获取出来的URL 就变成了/Android/data/pakagename/cahe/cache_download/****.apk -->
+
+    <external-cache-path name="cache_download" path="apk_load" />
+    <root-path
+        name="camera_photos"
+        path="" />
+</paths>

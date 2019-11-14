@@ -1,0 +1,194 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+def RELEASE_BASE_URL = "http://seetaoism.com/"
+def TEST_BASE_URL = "http://test.seetaoism.com"
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.seetaoism"   //以这个为标准包名
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        //
+        multiDexEnabled true
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a', 'mips', 'mips64'
+        }
+    }
+
+    signingConfigs {
+        release {
+            // signingConfig signingConfigs.release 添加到release
+            keyAlias 'jiandao12'
+            keyPassword 'jiandao123'
+            storeFile file('jiandao.jks')
+            storePassword 'jiandao123'
+        }
+        // 把密码等信息保存到系统环境变量里面，key_store_pw和 key1_pw 为环境变量的key
+
+        release2 {
+            storeFile file("jiandao.ks")
+            keyAlias "key1"
+            keyPassword System.getenv("wanandroid_key_store_pw") //
+            println(" -------------------+++ " + System.getenv("JAVA_HOME"))
+            storePassword System.getenv("key1_pw")
+        }
+
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //https://developer.android.google.cn/studio/build/gradle-tips#share-custom-fields-and-resource-values-with-your-app-code
+            buildConfigField("String", "BASE_URL", '"' + RELEASE_BASE_URL + '"')
+
+
+        }
+        debug {
+            signingConfig signingConfigs.release
+            buildConfigField("String", "BASE_URL", '"' + TEST_BASE_URL + '"')
+            resValue("string", "build_time", "0")
+        }
+
+/*
+        dev {
+            initWith debug // 用debug 的配置来初始化 test 这个type
+            // https://developer.android.google.cn/studio/build/dependencies
+            matchingFallbacks = [ 'release',"debug"] // 当 app 依赖的library 没有对应的 build type 时，采用数组里面的type 代替，按照声明的顺序查找
+
+        }*/
+    }
+
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/detail/java', 'src/main/java']
+            res.srcDirs = ['src/main/res', 'src/detail/res']
+        }
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+
+    // https://developer.android.google.cn/studio/build/build-variants
+    flavorDimensions "seetaoism"
+
+    productFlavors {
+
+        channels2.each { map ->
+            "${map.key}" {
+                manifestPlaceholders = [CHANNEL_VALUE: "${map.value.channelValue}"]
+                if (map.value.appId != null) {
+                    applicationId = map.value.appId
+                }
+                if (map.value.versionCode != 0) {
+                    versionCode = map.value.versionCode
+                }
+                if (map.value.versionName != null) {
+                    versionName = map.value.versionName
+                }
+
+                // 如果 build type 里面也注入了相同的 东西，那么 build type 的优先级比 flavors 要高
+                /* if(map.value.url != null){
+                     buildConfigField("String", "BASE_URL_1", '"' + map.value.url + '"')
+                 }*/
+            }
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            def appName = variant.name;
+
+            if (appName == variant.buildType.name) {
+                appName = "Seetaoism"
+            } else {
+                appName = variant.name.substring(0, variant.name.length() - variant.buildType.name.length())
+            }
+            outputFileName = "${appName}-${variant.versionName}-${variant.buildType.name}.apk"
+        }
+
+    }
+}
+def lifecycle_version = "2.1.0"
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+
+
+    implementation deps.androidX.appcompat
+    implementation deps.androidX.constraintlayout
+    implementation deps.androidX.recyclerview
+    implementation deps.googleX.material
+    implementation deps.okhttp3X.logging_interceptor
+    implementation deps.okhttp3X.okhttp3
+    implementation deps.retrofitX.retrofit2
+    implementation deps.retrofitX.retrofit_converter_gson
+    implementation deps.retrofitX.retrofit2_adapter_rxjava
+    implementation deps.retrofitX.retrofit2_rxjava_components
+    implementation deps.rxJavaX.rxjava
+    implementation deps.rxJavaX.rxAndroid
+    implementation deps.rxJavaX.rxPermissions
+    implementation deps.glideX.glide
+    kapt deps.glideX.compiler
+
+    implementation deps.other.smartRefreshLayout
+    implementation deps.other.smartRefreshHeader
+    implementation deps.other.tagFlowLayout
+    implementation deps.greenDaoX.greendao
+
+
+    implementation deps.supportX.annotations
+    annotationProcessor deps.supportX.annotationProcessor
+
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.2@aar'
+    implementation 'me.codeboy.android:align-text-view:2.3.2'
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.raphets:roundimageview:1.2.0"
+
+    implementation project(path: ':libbanner')
+    implementation project(path: ':libdownload')
+    implementation project(path: ':libumengsharelogin')
+    implementation project(path: ':libmrkmvp')
+
+    implementation 'me.jessyan:autosize:1.1.2'
+
+    //万能的ImageView控件 implementation 'com.github.SheHuan:NiceImageView:1.0.5'
+    implementation 'com.github.SheHuan:NiceImageView:1.0.5'
+
+    //包裹控件
+    implementation 'com.flyco.roundview:FlycoRoundView_Lib:1.1.4@aar'
+    implementation 'com.hyman:flowlayout-lib:1.1.2'
+    implementation 'com.android.support:multidex:1.0.3'
+    //推送开关
+    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
+    //上传头像
+    implementation 'com.github.HuanTanSheng:EasyPhotos:3.0.3'
+    //拆包
+    implementation 'com.android.support:multidex:1.0.3'
+
+    implementation files('libs/jcore-android-2.1.6.jar')
+    implementation files('libs/jpush-android-3.3.9.jar')
+
+    implementation 'me.panpf:switch-button:2.0.0'
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
+    // alternately - if using Java8, use the following instead of lifecycle-compiler
+    //implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+    //kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version" // For Kotlin use kapt instead of annotationProcessor
+}
+repositories {
+    mavenCentral()
+}

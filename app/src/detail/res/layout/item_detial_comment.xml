@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <org.raphets.roundimageview.RoundImageView
+        android:id="@+id/detail_comcomt_item_user_head_pic"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:leftBottom_corner_radius="22dp"
+        app:leftTop_corner_radius="22dp"
+        app:rightBottom_corner_radius="22dp"
+        app:rightTop_corner_radius="22dp"
+        app:type="round"
+        tools:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/detail_comment_item_tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        tools:text="用户名"
+        android:textSize="15dp"
+        android:textColor="@color/black_2"
+        app:layout_constraintStart_toEndOf="@+id/detail_comcomt_item_user_head_pic"
+        app:layout_constraintTop_toTopOf="@+id/detail_comcomt_item_user_head_pic" />
+
+    <TextView
+        android:id="@+id/detail_comment_item_tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="1小时前"
+        android:textSize="12dp"
+        android:textColor="@color/gray_10"
+        app:layout_constraintBottom_toBottomOf="@+id/detail_comcomt_item_user_head_pic"
+        app:layout_constraintStart_toStartOf="@+id/detail_comment_item_tv_username" />
+
+    <com.mr.k.mvp.kotlin.widget.ToggleStateView
+        android:id="@+id/detail_comment_item_cb_lick"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginEnd="8dp"
+        android:button="@null"
+        tools:text="1"
+        android:gravity="bottom"
+        android:paddingBottom="3dp"
+        android:drawableEnd="@drawable/ic_news_detail_comment_lick_selector"
+        app:layout_constraintBottom_toBottomOf="@+id/detail_comcomt_item_user_head_pic"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/detail_comment_item_tv_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/black_2"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/detail_comment_item_tv_time"
+        app:layout_constraintTop_toBottomOf="@+id/detail_comment_item_cb_lick"
+        tools:text="回复内容" />
+
+
+    <com.seetaoism.home.detail.page.CommentsView
+
+        android:id="@+id/detail_comment_item_reply"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#fff4f4f4"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/detail_comment_item_tv_content"
+        app:layout_constraintStart_toStartOf="@+id/detail_comment_item_tv_content"
+        app:layout_constraintTop_toBottomOf="@+id/detail_comment_item_tv_content"
+        app:layout_constraintBottom_toTopOf="@+id/detail_comment_item_show_more"
+        app:layout_goneMarginBottom="10dp"
+
+        />
+
+
+    <TextView
+        android:id="@+id/detail_comment_item_show_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingStart="10dp"
+        android:paddingBottom="10dp"
+        android:paddingEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/text_detail_show_more_reply"
+        android:textColor="#58658D"
+        android:textSize="13dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/detail_comment_item_reply"
+
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

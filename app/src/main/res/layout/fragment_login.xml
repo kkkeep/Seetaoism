@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+<com.seetaoism.widgets.MatchScrollParentCLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/login_edt_phone_number"
+        style="@style/SeeWay.EditInput"
+        android:hint="@string/text_phone_number"
+        android:inputType="number|phone"
+        android:maxLength="11"
+        android:text="18741923282"
+
+        app:layout_constraintBottom_toTopOf="@id/login_iv_line1" />
+
+    <com.seetaoism.widgets.CleanEditTextButton
+        android:id="@+id/login_iv_clean"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/login_edt_phone_number"
+        app:layout_constraintEnd_toEndOf="@+id/login_edt_phone_number"
+        app:layout_constraintTop_toTopOf="@+id/login_edt_phone_number"
+        app:srcCompat="@drawable/ic_clean" />
+
+    <EditText
+        android:id="@+id/login_edt_password"
+        style="@style/SeeWay.EditInput"
+
+        android:hint="@string/text_input_password"
+        android:inputType="textPassword"
+        android:text="123456789"
+
+        app:layout_constraintBottom_toTopOf="@id/login_iv_line2"
+
+        />
+
+    <com.seetaoism.widgets.TogglePasswordButton
+        android:id="@+id/login_iv_show_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/login_edt_password"
+        app:layout_constraintEnd_toEndOf="@+id/login_edt_password"
+        app:layout_constraintTop_toTopOf="@+id/login_edt_password"
+        app:srcCompat="@drawable/ic_eyes_close" />
+
+    <Button
+        android:id="@+id/login_btn_login"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/login_button_rounder_bg_selector"
+        android:text="@string/text_login"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/login_iv_show_password"
+        app:layout_constraintStart_toStartOf="@+id/login_edt_password"
+        app:layout_constraintTop_toBottomOf="@+id/login_iv_line2" />
+
+    <ImageView
+        android:id="@+id/login_iv_line1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="218dp"
+        android:layout_marginEnd="43dp"
+        android:background="@color/gray_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/login_iv_line2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="55dp"
+        android:background="@color/gray_3"
+        app:layout_constraintEnd_toEndOf="@+id/login_iv_line1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/login_iv_line1"
+        app:layout_constraintTop_toBottomOf="@id/login_iv_line1"
+        tools:layout_editor_absoluteY="300dp" />
+
+    <TextView
+        android:id="@+id/login_goto_sms_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/text_sms_login"
+        android:textColor="@color/gray_6"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="@+id/login_btn_login"
+        app:layout_constraintTop_toBottomOf="@+id/login_btn_login" />
+
+    <TextView
+        android:id="@+id/login_tv_goto_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_register_immediately"
+        android:textColor="@color/gray_6"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/login_btn_login"
+        app:layout_constraintTop_toTopOf="@+id/login_goto_sms_login" />
+
+
+
+    <ImageView
+        android:id="@+id/anchor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/login_tv_goto_register"
+        />
+    <include layout="@layout/part_layout_user_common"
+        />
+
+
+
+</com.seetaoism.widgets.MatchScrollParentCLayout>
+</ScrollView>

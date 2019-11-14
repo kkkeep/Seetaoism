@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <TextView
+        android:id="@+id/home_drawer_goto_colum_editor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="34dp"
+        android:layout_marginBottom="13dp"
+        android:drawableTop="@drawable/ic_drawer_column_editor"
+        android:drawablePadding="9dp"
+        android:text="@string/text_column_editor"
+        android:textColor="@color/black_2"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/home_drawer_share_app"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/home_drawer_share_app"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_drawer_share"
+        android:drawablePadding="9dp"
+        android:text="@string/text_drawer_share_app"
+        android:textColor="@color/black_2"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/home_drawer_feedback"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/home_drawer_goto_colum_editor"
+        app:layout_constraintTop_toTopOf="@+id/home_drawer_goto_colum_editor" />
+
+    <ImageView
+        android:id="@+id/home_drawer_seach_layout"
+        android:layout_width="0dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="127dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/ic_drawer_search_rounder_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="95dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="45dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_drawer_logo" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="140dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_drawer_search" />
+
+    <TextView
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:background="@null"
+        android:ems="10"
+        android:hint="@string/text_search_hint"
+        android:inputType="textPersonName"
+        android:textColor="@color/gray_10"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintTop_toTopOf="@+id/imageView6" />
+
+    <TextView
+        android:id="@+id/home_drawer_feedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="34dp"
+        android:drawableTop="@drawable/ic_drawer_feedback"
+        android:drawablePadding="9dp"
+        android:text="@string/text_drawer_feedback"
+        android:textColor="@color/black_2"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/home_drawer_share_app"
+        app:layout_constraintTop_toTopOf="@+id/home_drawer_share_app" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/home_drawer_colum_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/home_drawer_goto_colum_editor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_drawer_seach_layout" />
+</androidx.constraintlayout.widget.ConstraintLayout>

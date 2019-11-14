@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+  >
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_marginLeft="32.5dp"
+    android:layout_marginRight="32.5dp"
+    android:background="@drawable/updatename"
+    android:layout_width="310dp"
+    android:layout_height="155dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="昵称修改"
+        android:textSize="18sp"
+        android:textColor="#FF282B2E "
+        />
+   <EditText
+       android:id="@+id/up_name"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:hint="请输入昵称"
+       android:layout_marginLeft="10dp"
+       android:layout_marginRight="10dp"
+       />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#FFD6D8DA "
+        android:layout_marginTop="15dp"
+        />
+    <RelativeLayout
+        android:layout_marginTop="17.5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:clickable="true"
+            android:id="@+id/up_flase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            android:textColor="#FF9B9C9E "
+            android:textSize="15sp"
+            android:layout_marginLeft="63dp"
+            />
+        <View
+            android:background="#FFD6D8DA "
+            android:layout_centerHorizontal="true"
+            android:layout_width="0.5dp"
+            android:layout_height="31dp"/>
+        <TextView
+            android:clickable="true"
+            android:id="@+id/up_true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确定"
+            android:layout_alignParentRight="true"
+            android:textColor="#FF000000  "
+            android:textSize="15sp"
+            android:layout_marginRight="63dp"
+            />
+    </RelativeLayout>>
+</LinearLayout>>
+
+
+
+</LinearLayout>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff">
+
+
+    <jy.com.libbanner.JBanner
+        android:id="@+id/news_item_header_j_banner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:indicatorLeftMargin="10dp"
+        app:indicatorRightMargin="16dp"
+        app:indicatorShow="true"
+        app:layout_constraintDimensionRatio="1.84:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleBottomMargin="10dp"
+        app:titleColor="#fff"
+        app:titleLeftMargin="16dp"
+        app:titleRightMargin="10dp"
+        app:titleSize="15dp"
+        app:titleTopMargin="12dp"
+        tools:background="@color/gray_4" />
+
+
+    <ProgressBar
+        android:id="@+id/news_item_header_progressbar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:max="100"
+        android:progress="0"
+        android:progressDrawable="@drawable/header_banner_progress_bar_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/news_item_header_j_banner" />
+
+    <ImageView
+        style="@style/SeeWay.HorizontalLine"
+        app:layout_constraintTop_toBottomOf="@id/news_item_header_progressbar" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        style="@style/SeeWay.HorizontalLine"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteY="261dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

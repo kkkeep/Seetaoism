@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:scrollbars="none"
+    android:layout_height="match_parent">
+
+    <com.seetaoism.widgets.MatchScrollParentCLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <EditText
+            android:id="@+id/register_edt_phone_number"
+            style="@style/SeeWay.EditInput"
+            android:layout_marginStart="6dp"
+            android:layout_marginBottom="0dp"
+            android:hint="@string/text_phone_number"
+            android:imeOptions="actionNext"
+            android:inputType="number|phone"
+            android:maxLength="11"
+            android:nextFocusForward="@id/register_edt_sms_code"
+            app:layout_constraintBottom_toBottomOf="@+id/textView4"
+            app:layout_constraintStart_toEndOf="@+id/imageView9"
+            app:layout_constraintStart_toStartOf="@null"
+            app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+        <ImageView
+            android:id="@+id/register_iv_clean"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="6dp"
+            android:scaleType="centerInside"
+
+            app:layout_constraintBottom_toBottomOf="@+id/register_edt_phone_number"
+            app:layout_constraintEnd_toEndOf="@+id/register_edt_phone_number"
+            app:layout_constraintTop_toTopOf="@+id/register_edt_phone_number"
+            app:srcCompat="@drawable/ic_clean" />
+
+        <EditText
+            android:id="@+id/register_edt_sms_code"
+            style="@style/SeeWay.EditInput"
+            android:ems="10"
+            android:hint="@string/text_input_sms_code"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:maxLength="6"
+            app:layout_constraintBottom_toBottomOf="@+id/login_iv_line2" />
+
+        <TextView
+            android:id="@+id/register_tv_get_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_register_get_code"
+            android:textColor="@color/gray_6"
+            android:textSize="13dp"
+            app:layout_constraintBottom_toBottomOf="@+id/register_edt_sms_code"
+            app:layout_constraintEnd_toEndOf="@+id/register_edt_sms_code"
+            app:layout_constraintTop_toTopOf="@+id/register_edt_sms_code" />
+
+        <Button
+            android:id="@+id/register_btn_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="49dp"
+            android:background="@drawable/login_button_rounder_bg_selector"
+            android:text="@string/text_register_next_step"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            app:layout_constraintEnd_toEndOf="@+id/register_tv_get_code"
+            app:layout_constraintStart_toStartOf="@+id/register_edt_sms_code"
+            app:layout_constraintTop_toBottomOf="@+id/login_iv_line2"
+            tools:enabled="false" />
+
+        <ImageView
+            android:id="@+id/login_iv_line1"
+            style="@style/SeeWay.HorizontalLine.EditBottom"
+            android:layout_marginTop="218dp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/login_iv_line2"
+            style="@style/SeeWay.HorizontalLine.EditBottom"
+            android:layout_marginTop="55dp"
+            app:layout_constraintTop_toBottomOf="@+id/login_iv_line1" />
+
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginBottom="9dp"
+            android:text="@string/text_contry_code"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toTopOf="@+id/login_iv_line1"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            style="@style/SeeWay.VerticalLine"
+            android:layout_height="16dp"
+            android:layout_marginStart="6dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView4"
+            app:layout_constraintStart_toEndOf="@+id/textView4"
+            app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+        <TextView
+            android:id="@+id/register_setting_psd_tv_goto_sms_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/text_sms_login"
+            android:textColor="@color/gray_6"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/barrier"
+            app:layout_constraintStart_toStartOf="@+id/register_btn_next"
+            app:layout_constraintTop_toBottomOf="@+id/register_btn_next"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/register_setting_psd_tv_goto_psd_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_pwd_login"
+            android:textColor="@color/gray_6"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/register_setting_psd_tv_goto_sms_login"
+            app:layout_constraintEnd_toEndOf="@+id/register_btn_next"
+            app:layout_constraintTop_toTopOf="@+id/register_setting_psd_tv_goto_sms_login"
+            app:layout_constraintVertical_bias="1.0" />
+
+
+
+        <ImageView
+            android:id="@+id/anchor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/register_setting_psd_tv_goto_psd_login"
+            />
+        <include layout="@layout/part_layout_user_common"
+            />
+
+
+    </com.seetaoism.widgets.MatchScrollParentCLayout>
+
+</ScrollView>

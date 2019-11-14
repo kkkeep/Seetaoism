@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_gravity="center"
+    android:layout_height="350dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/ll"
+            android:layout_width="300dp"
+            android:layout_height="250dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="90dp"
+            android:background="@drawable/back"
+           >
+
+            <ImageView
+                android:id="@+id/close_opinion"
+                android:layout_width="14dp"
+                android:layout_marginRight="19dp"
+                android:layout_height="14dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_close" />
+
+            <TextView
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="55dp"
+                android:text="欢迎拨打我们的服务热线"
+                android:textColor="#282B2E "
+                android:textStyle="bold"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="95dp"
+                android:text="010-58760804"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <Button
+                android:autoLink = "phone"
+                android:id="@+id/call_opinion"
+                android:text="拨打电话"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_marginTop="140dp"
+                android:layout_width="194dp"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                android:background="@drawable/opinion_call" />
+            <TextView
+                android:layout_marginBottom="20dp"
+                android:layout_alignParentBottom="true"
+                android:text="工作时间:9:00-18:00(周一 ~ 周五)"
+                android:layout_width="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_marginLeft="146dp"
+            android:id="@+id/personal"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/special" />
+    </RelativeLayout>
+
+</RelativeLayout>

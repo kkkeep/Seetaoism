@@ -1,0 +1,99 @@
+<resources>
+    <string name="app_name">Seetaoism</string>
+    <string name="app_name2">见道</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="tag_hint">Tag为大小写字母，数字，下划线,中文， 多个用以逗号分隔</string>
+    <string name="alias_hint">Alias为大小写字母，数字，下划线</string>
+    <string name="mobilenumber_hint">手机号只能以“+”或数字开头第二位开始只能包含“-”和数字</string>
+    <string name="style_hint">style为数字</string>
+    <string name="hello">Hello World, JPush!</string>
+    <!--<string name="tag_hint">Tag can be number, alphabet, underscore, Chinese. Use , to split many tags.</string>
+    <string name="alias_hint">Alias can be number, alphabet, underscore, Chinese.</string>
+    <string name="mobilenumber_hint">The phone number can only start with a "+" or a number,other can only contain "-" and Numbers</string>
+    <string name="style_hint">style should be number</string>-->
+    <string name="error_style_empty">style cannot be empty</string>
+    <string name="error_alias_empty">alias cannot be empty</string>
+    <string name="error_tag_empty">tag cannot be empty</string>
+    <string name="error_tag_gs_empty">Invalid format</string>
+    <string name="mobilenumber_empty_guide">will clear last set phone number</string>
+    <string name="error_network">Failed to init due to network exception.</string>
+    <string name="logining">Running in background. Please see log.</string>
+    <string name="setting_su">Succeed to set</string>
+
+    <string name="text_error_get_sms_code_fail">获取验证码失败</string>
+    <string name="text_error_input_phone_number">输入手机号有误</string>
+    <string name="text_error_input_sms_code">验证码错误</string>
+    <string name="text_error_null_password">密码不能为空</string>
+    <string name="text_error_tow_password_not_same">两次密码不一致</string>
+
+
+    <string name="text_error_server_exception">服务器错误</string>
+    <string name="text_error_net_exception">网络异常</string>
+    <string name="text_error_un_know_exception">未知异常</string>
+    <string name="text_news_refresh_fail">刷新失败</string>
+    <string name="text_news_load_more_fail">加载更多失败</string>
+    <string name="text_news_no_more_data">没有更多新闻</string>
+
+
+    <string name="text_immediate_experience">理解体验</string>
+    <string name="text_jump">跳转</string>
+    <string name="load_text_top_up">需充值：%1$d金币</string>
+    <string name="text_login">登录</string>
+    <string name="text_register">注册</string>
+    <string name="text_social_login">社交账号登录</string>
+    <string name="text_pwd_login">密码登录</string>
+    <string name="text_user_license">注册即是同意见道的用户协议和隐私声明</string>
+
+    <string name="text_phone_number">手机号</string>
+    <string name="text_input_password">请输入密码</string>
+    <string name="text_input_confirm_password">请输确认密码</string>
+    <string name="text_input_sms_code">请输验证码</string>
+    <string name="text_register_get_code">获取验证码</string>
+    <string name="text_register_next_step">下一步</string>
+    <string name="text_register_goto_login">已有账号？登录</string>
+    <string name="text_setting_psd_goto_register">注册|社交账号登录</string>
+    <string name="text_sms_login">验证码登录</string>
+    <string name="text_reload">重新加载</string>
+
+
+    <string name="text_main_tab_home">推荐</string>
+    <string name="text_main_tab_video">视频</string>
+    <string name="text_main_tab_topic">专题</string>
+    <string name="text_main_tab_selection">精选</string>
+    <string name="text_main_tab_mine">我</string>
+    <string name="text_contry_code">+86</string>
+    <string name="text_register_immediately">立即注册</string>
+    <string name="text_tab_editor_title">管理订阅栏目</string>
+    <string name="text_tab_editor_my_column">我的栏目</string>
+    <string name="text_finish">完成</string>
+    <string name="text_add_column">添加栏目</string>
+    <string name="text_click_to_add">点击添加</string>
+    <string name="text_edit">编辑</string>
+    <string name="text_search_hint">搜索你感兴趣的类容</string>
+    <string name="text_column_editor">管理栏目</string>
+    <string name="text_drawer_share_app">分享App</string>
+    <string name="text_drawer_feedback">意见反馈</string>
+    <string name="serach_qx">取消</string>
+
+    <string name="text_behavior_web_view">com.seetaoism.home.detail.WebViewBehavior</string>
+    <string name="text_behavior_relative_list_view">com.seetaoism.home.detail.RelativeListBehavior</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="jifen">我的积分</string>
+    <string name="about_jifen">关于积分</string>
+    <string name="use_jifen">可用积分</string>
+
+</resources>

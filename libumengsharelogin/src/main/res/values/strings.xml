@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">libUmengShareLogin</string>
+    <string name="text_share_text">纯文本分享</string>
+    <string name="text_share_pic">图片分享</string>
+    <string name="text_share_link">链接分享</string>
+
+</resources>
