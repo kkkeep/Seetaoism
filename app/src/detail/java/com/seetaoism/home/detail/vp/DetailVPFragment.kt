@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.mr.k.mvp.base.MvpBaseFragment
+import com.mr.k.mvp.getUser
 import com.mr.k.mvp.kotlin.base.BaseActivity
 import com.seetaoism.AppConstant
 import com.seetaoism.R
@@ -135,8 +136,9 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
     }
 
     private fun refreshArticleAttr(news: NewsData.News) {
-        newsDetailLike.isChecked = news.is_good == 1
-        newsDetailCollect.isChecked = news.is_collect == 1
+
+        newsDetailLike.isChecked = (news.is_good == 1 && getUser() != null)
+        newsDetailCollect.isChecked =( news.is_collect == 1 && getUser() != null)
     }
 
     override fun createPresenter() = DetailVpPresenter()
