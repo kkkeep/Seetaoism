@@ -50,7 +50,6 @@ public abstract class BaseUserFragment<T extends IBasePresenter> extends MvpBase
     }
 
     protected void login(User user) {
-        startActivity(new Intent(getActivity(), HomeActivity.class));
         Objects.requireNonNull(getActivity()).finish();
     }
 

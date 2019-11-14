@@ -91,12 +91,12 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
 
     @Override
     public void onUserInfoSuccess(User user) {
-        startMainActivity();
+        //startMainActivity();
     }
 
     @Override
     public void onUserInfoFail(String msg) {
-        startMainActivity();
+        //startMainActivity();
     }
 
     @Override

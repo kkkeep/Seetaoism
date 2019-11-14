@@ -78,6 +78,8 @@ public interface AppConstant {
     public interface RequestUrl {
         String LOGIN_BY_PSD = "api/user/login";
         String GET_SMS_CODE = "api/sms/sendsms";
+        String GET_USER_BY_TOKEN = "api/user/getuserinfo"; // 通过 token 获取用户信息
+
 
         String GET_ARTICLE_COMMENT_LIST = "/api/comment_reply/commentlist"; // 文章评论列表
 

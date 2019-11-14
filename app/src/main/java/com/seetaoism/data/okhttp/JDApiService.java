@@ -86,12 +86,9 @@ public interface JDApiService {
 
 
     // 根据token 获取用户信息
-    @GET("api/user/getuserinfo")
+    @GET(GET_USER_BY_TOKEN)
     Observable<HttpResult<User>> getUserinfoByToken(@QueryMap Map<String, String> map);
 
-    // 根据token 获取用户信息
-    @GET("api/user/getuserinfo")
-    Observable<String> getUserinfoByToken1(@QueryMap Map<String, String> map);
 
 
     // 请求 首页新闻 栏目， 如果登录需要传入token,

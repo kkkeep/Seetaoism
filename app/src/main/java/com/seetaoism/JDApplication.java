@@ -17,6 +17,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.seetaoism.data.okhttp.Interceptor.CommonParamsInterceptor;
+import com.seetaoism.data.okhttp.Interceptor.UserInterceptor;
 import com.seetaoism.data.okhttp.JDApiService;
 import com.seetaoism.data.okhttp.convertor.JDGsonConverterFactory;
 
@@ -54,7 +55,7 @@ public class JDApplication extends Application {
 
         MvpManager.init(this);
         List<Interceptor> interceptors = new ArrayList<>();
-       // interceptors.add(new JsonExceptionHandInterceptor());
+        interceptors.add(new UserInterceptor());
         interceptors.add(new CommonParamsInterceptor());
         MvpManager.initOkHttp(AppConstant.BASE_URL, JDApiService.class, JDGsonConverterFactory.create(),interceptors);
 
