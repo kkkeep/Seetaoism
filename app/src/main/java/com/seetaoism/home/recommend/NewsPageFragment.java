@@ -78,21 +78,21 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
         mNewsPageAdapter = new NewsPageAdapter();
         mNewsPageAdapter.setOnItemClickListener(new NewsPageAdapter.OnItemClickListener() {
             @Override
-            public void onClick(NewsData.NewsBean news,int position) {
+            public void onClick(NewsData.NewsBean news, int position) {
 
 
-                NewsData newsData = new NewsData();
+                NewsData newsData = new NewsData(); // 先new 一个 newsData 对象
 
-                newsData.setArticleList(mNewsPageAdapter.getNewsData());
-                newsData.setStart(mNewsStart);
-                newsData.setVideoStart(mVideoStart);
+                newsData.setArticleList(mNewsPageAdapter.getNewsData()); // 把 新闻集合传进去
+                newsData.setStart(mNewsStart); // 设置 下一次加载更多新闻的 start
+                newsData.setVideoStart(mVideoStart); // 设置 下一次加载更多新闻的 video start
 
-               Bundle bundle = new Bundle();
-               bundle.putString(AppConstant.IntentParamsKeys.DETAIL_NEWS_COLUMN_ID, mColumnId);
-               bundle.putInt(AppConstant.IntentParamsKeys.ARTICLE_POSITION, position);
+                Bundle bundle = new Bundle(); //
+                bundle.putString(AppConstant.IntentParamsKeys.DETAIL_NEWS_COLUMN_ID, mColumnId); // 推荐页跳转详情需要传
+                bundle.putInt(AppConstant.IntentParamsKeys.ARTICLE_POSITION, position); // 点击的item 的 position，注意这个不一定是item 的position
 
 
-               DetailVPFragment.Launcher.open((BaseActivity) Objects.requireNonNull(getActivity()), newsData, bundle);
+                DetailVPFragment.Launcher.open((BaseActivity) Objects.requireNonNull(getActivity()), newsData, bundle);
             }
         });
 
@@ -105,7 +105,7 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
     @Override
     protected void initData() {
         showLoadingForViewPager();
-       mPresenter.getNewsData(mColumnId, mVideoStart, mNewsStart, INewsPageModel.REQUEST_TYPE_FIRST_LOAD);
+        mPresenter.getNewsData(mColumnId, mVideoStart, mNewsStart, INewsPageModel.REQUEST_TYPE_FIRST_LOAD);
     }
 
 
@@ -170,7 +170,6 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
         mVideoStart = data.getVideoStart();
         mNewsStart = data.getStart();
     }
-
 
 
     @Override

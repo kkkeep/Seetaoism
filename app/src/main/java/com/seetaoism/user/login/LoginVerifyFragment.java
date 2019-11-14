@@ -248,8 +248,6 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
 //        SPUtils.saveValueToDefaultSpByCommit("editphone", user.getUserInfo().getMobile());
 //        //保存电子邮箱
 //        SPUtils.saveValueToDefaultSpByCommit("editemail", user.getUserInfo().getEmail());
-        startActivity(new Intent(getActivity(), HomeActivity.class));
-        getActivity().finish();
     }
 
     @Override

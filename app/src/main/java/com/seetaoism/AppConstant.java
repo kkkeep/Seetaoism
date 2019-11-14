@@ -92,7 +92,7 @@ public interface AppConstant {
 
     }
 
-
+    // 把需要登录才能进行操作的 URL 放到这个数组里面
     String [] SHOULD_LOGIN_URL = {DETAIL_DO_ARTICLE_LIKE,DETAIL_DO_ARTICLE_COLLECT,DETAIL_COMMENT_ARTICLE,DETAIL_REPLY_COMMENT};
 
 }

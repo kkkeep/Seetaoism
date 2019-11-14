@@ -8,6 +8,7 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.mr.k.mvp.exceptions.ResultException;
+import com.seetaoism.user.login.LoginActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,6 +74,9 @@ public class JDResponseConverter<T> implements Converter<ResponseBody, T> {
                         if (!jsonObject.isNull("code")) {
                             int code = jsonObject.getInt("code");
                             if (code != 1) {
+                                if(code == 3){
+                                    LoginActivity.start();
+                                }
                                 throw new ResultException(jsonObject.getString("message"));
                             }
                         }

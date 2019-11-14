@@ -5,6 +5,7 @@ package com.mr.k.mvp
 import android.app.Application
 import android.content.Context
 import com.mr.k.mvp.utils.DataCacheUtils
+import com.mr.k.mvp.utils.Logger
 import com.mr.k.mvp.utils.SystemFacade
 import java.io.File
 
@@ -25,6 +26,12 @@ internal fun init(application: Context) {
 
 @Synchronized
 fun login(user: IUser?) {
+    if(user == null){
+        Logger.d("UserManager  login out clean user info  : { ${ user.toString()} }")
+    }else{
+        Logger.d("UserManager  login  cache user info : { ${ user.toString()} }")
+    }
+
     mUser = user
     user?.let { saveUserToSdcard(it) };
 }
@@ -80,6 +87,8 @@ private fun clearUserFromSdcard(){
         if (it.exists()) it.delete()
     }
 }
+
+
 
 interface IUser {
     @Override fun getTokenString() : String?
