@@ -10,7 +10,7 @@ import com.mr.k.mvp.utils.Logger
 
 
 /*
- * created by taofu on 2019-10-31
+ * created by Cherry on 2019-10-31
 **/
 
 private const val TAG = "MvpFragmentManager"

@@ -16,6 +16,8 @@ public class NewsData {
     private List<Flash> flash_list;
     private List<News> article_list;
 
+    private List<? extends NewsBean> detailPageList;
+
 
     public List<Banner> getBannerList() {
         return banner_list;
@@ -39,6 +41,14 @@ public class NewsData {
 
     public void setArticleList(List<News> article_list) {
         this.article_list = article_list;
+    }
+
+    public List<? extends NewsBean> getDetailPageList() {
+        return detailPageList;
+    }
+
+    public void setDetailPageList(List<? extends NewsBean> detailPageList) {
+        this.detailPageList = detailPageList;
     }
 
     public int getStart() {
@@ -100,14 +110,14 @@ public class NewsData {
          * share_link : http://www.cmsino.com/m_details/4292/from/android/lang/zh.html
          */
 
-        private String id;
-        private String theme;
-        private String description;
-        private String image_url;
-        private int is_good;
-        private int is_collect;
-        private String link;
-        private String share_link;
+        protected String id;
+        protected String theme;
+        protected String description;
+        protected String image_url;
+        protected int is_good;
+        protected int is_collect;
+        protected String link;
+        protected String share_link;
 
         public String getId() {
             return id;
@@ -216,8 +226,7 @@ public class NewsData {
 
         private int type; //'文章类型：1新闻，2快讯，3图片，4视频，5期刊，6专题',
         private String column_name;
-        private String content;
-        private String edit_time;
+        private String content;        private String edit_time;
         private String lead_one;
         private String video_is_sans_href;
         private String video_url;

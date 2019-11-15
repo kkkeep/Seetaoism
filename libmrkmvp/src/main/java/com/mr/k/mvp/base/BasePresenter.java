@@ -10,7 +10,7 @@ import com.trello.rxlifecycle2.LifecycleProvider;
 import io.reactivex.disposables.Disposable;
 
 /*
- * created by taofu on 2019-08-26
+ * created by Cherry on 2019-08-26
  **/
 public  class BasePresenter<V extends IBaseView> implements IBasePresenter<V> {
 

@@ -1,7 +1,7 @@
 package com.seetaoism.libdownlaod;
 
 /*
- * created by taofu on 2019-10-24
+ * created by Cherry on 2019-10-24
  **/
  interface DownloadListener {
 

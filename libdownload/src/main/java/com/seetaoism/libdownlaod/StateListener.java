@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment;
 import java.lang.ref.WeakReference;
 
 /*
- * created by taofu on 2019-10-28
+ * created by Cherry on 2019-10-28
  **/
 public abstract class StateListener implements DownloadListener{
 

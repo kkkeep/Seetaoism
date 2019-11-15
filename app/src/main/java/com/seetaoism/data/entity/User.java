@@ -5,7 +5,7 @@ import com.mr.k.mvp.IUser;
 import org.jetbrains.annotations.NotNull;
 
 /*
- * created by taofu on 2019-08-26
+ * created by Cherry on 2019-08-26
  **/
 public class User implements IUser {
 

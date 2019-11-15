@@ -19,7 +19,7 @@ import com.seetaoism.data.entity.CommentData;
 import java.util.List;
 
 /*
- * created by taofu on 2019-11-10
+ * created by Cherry on 2019-11-10
  **/
 public class CommentsView extends LinearLayout {
 

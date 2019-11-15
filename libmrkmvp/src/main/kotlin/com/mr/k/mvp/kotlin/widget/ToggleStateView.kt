@@ -8,7 +8,7 @@ import android.widget.TextView
 
 
 /*
- * created by taofu on 2019-11-13
+ * created by Cherry on 2019-11-13
 **/
 class ToggleStateView : TextView,Checkable{
 

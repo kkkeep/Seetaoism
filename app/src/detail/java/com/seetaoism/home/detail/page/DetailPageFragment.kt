@@ -16,9 +16,7 @@ import com.mr.k.mvp.kotlin.base.BaseActivity
 import com.mr.k.mvp.utils.SystemFacade
 import com.seetaoism.AppConstant
 import com.seetaoism.R
-import com.seetaoism.data.entity.CommentData
-import com.seetaoism.data.entity.CommentReplyData
-import com.seetaoism.data.entity.NewsData
+import com.seetaoism.data.entity.*
 import com.seetaoism.home.detail.DetailsContract
 import com.seetaoism.home.detail.vp.DetailVPFragment
 import com.seetaoism.libloadingview.LoadingView
@@ -32,7 +30,7 @@ import kotlinx.android.synthetic.main.fragment_details.*
 
 
 /*
- * created by taofu on 2019-11-03
+ * created by Cherry on 2019-11-03
 **/
 class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>(), DetailsContract.IDetailPageView,UMShareListener {
 
@@ -200,10 +198,9 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
             layoutManager = LinearLayoutManager(context)
             adapter = mListAdapter.apply {
                 setItemOnClickListener(object : DetailPageNewsAdapter.DetailItemOnClickListener {
-                    override fun onNewsClick( newsList : List<NewsData.News>,realPosition: Int) {
-                        DetailVPFragment.Launcher.openInner(activity as BaseActivity, NewsData().apply {
-                            articleList = newsList;
-                        },realPosition)
+                    override fun onNewsClick( newsList : MutableList<out NewsData.NewsBean>,realPosition: Int) {
+
+                        DetailVPFragment.Launcher.openInner(activity as BaseActivity, DetailExclusiveData(FROM.INNER,newsList,realPosition))
                     }
 
                     override fun onCommentClick(comment: CommentData.Comment,itemPostion : Int) {

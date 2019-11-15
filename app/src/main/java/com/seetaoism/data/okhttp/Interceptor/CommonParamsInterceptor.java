@@ -28,7 +28,7 @@ import okhttp3.Response;
 import static com.seetaoism.AppConstant.RequestParamsKey;
 
 /*
- * created by taofu on 2019-08-29
+ * created by Cherry on 2019-08-29
  **/
 public class CommonParamsInterceptor implements Interceptor {
 

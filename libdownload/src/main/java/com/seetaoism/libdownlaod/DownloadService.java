@@ -6,7 +6,7 @@ import android.content.Intent;
 import androidx.annotation.Nullable;
 
 /*
- * created by taofu on 2019-10-23
+ * created by Cherry on 2019-10-23
  **/
 public class DownloadService extends IntentService {
 

@@ -15,7 +15,7 @@ import java.io.File
 
 
 /*
- * created by taofu on 2019-10-29
+ * created by Cherry on 2019-10-29
 **/
 
 private const val CACHE_USER_DATA_FILE_NAME = "user_info.json"

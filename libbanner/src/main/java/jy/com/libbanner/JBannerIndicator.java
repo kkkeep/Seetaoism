@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 
 
 /*
- * created by taofu on 2019-06-18
+ * created by Cherry on 2019-06-18
  **/
 public class JBannerIndicator extends View {
 

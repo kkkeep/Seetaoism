@@ -24,7 +24,7 @@ import io.reactivex.functions.Function;
 import static com.seetaoism.data.okhttp.JDDataService.service;
 
 /*
- * created by taofu on 2019-10-21
+ * created by Cherry on 2019-10-21
  **/
 public class DetailRepository extends BaseRepository implements DetailsContract.IDetailRepository {
     @Override

@@ -2,7 +2,7 @@ package com.mr.k.mvp.utils
 
 
 /*
- * created by taofu on 2019-11-09
+ * created by Cherry on 2019-11-09
 **/
 
 class MapBuilder<K,V> {

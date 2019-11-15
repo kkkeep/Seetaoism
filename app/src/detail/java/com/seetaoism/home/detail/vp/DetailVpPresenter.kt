@@ -16,7 +16,7 @@ import io.reactivex.disposables.Disposable
 
 
 /*
- * created by taofu on 2019-11-05
+ * created by Cherry on 2019-11-05
 **/
 class DetailVpPresenter : BasePresenter<DetailsContract.IDetailVpView>(), DetailsContract.IDetailVpPresenter {
 

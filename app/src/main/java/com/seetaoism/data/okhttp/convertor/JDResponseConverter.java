@@ -24,7 +24,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Converter;
 
 /*
- * created by taofu on 2019-10-12
+ * created by Cherry on 2019-10-12
  **/
 public class JDResponseConverter<T> implements Converter<ResponseBody, T> {
 

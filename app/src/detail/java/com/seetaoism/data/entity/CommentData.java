@@ -3,7 +3,7 @@ package com.seetaoism.data.entity;
 import java.util.List;
 
 /*
- * created by taofu on 2019-10-22
+ * created by Cherry on 2019-10-22
  **/
 public class CommentData {
 

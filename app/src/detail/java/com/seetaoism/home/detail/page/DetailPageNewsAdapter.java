@@ -28,7 +28,7 @@ import java.util.List;
 import retrofit2.http.POST;
 
 /*
- * created by taofu on 2019-10-21
+ * created by Cherry on 2019-10-21
  **/
 public class DetailPageNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -255,7 +255,7 @@ public class DetailPageNewsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     public static interface DetailItemOnClickListener {
 
-        void onNewsClick(List<NewsData.News> newsList, int realPosition);
+        void onNewsClick(List<? extends  NewsData.NewsBean> newsList, int realPosition);
 
         void onCommentClick(CommentData.Comment comment, int itemPosition);
 

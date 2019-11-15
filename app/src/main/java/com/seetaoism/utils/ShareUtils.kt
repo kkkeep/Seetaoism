@@ -15,7 +15,7 @@ import com.umeng.socialize.media.UMWeb
 
 
 /*
- * created by taofu on 2019-11-13
+ * created by Cherry on 2019-11-13
 **/
 
 fun shareNews(activity: FragmentActivity, news: NewsData.NewsBean, listener: UMShareListener) {

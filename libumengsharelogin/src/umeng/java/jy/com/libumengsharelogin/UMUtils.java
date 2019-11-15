@@ -5,7 +5,7 @@ import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 
 /*
- * created by taofu on 2019/5/7
+ * created by Cherry on 2019/5/7
  **/
 public class UMUtils {
 

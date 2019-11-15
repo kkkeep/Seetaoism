@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
- * created by taofu on 2019-06-19
+ * created by Cherry on 2019-06-19
  **/
 public class JBanner extends ConstraintLayout {
 

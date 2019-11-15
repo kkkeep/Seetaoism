@@ -20,14 +20,19 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.seetaoism.R;
 import com.seetaoism.data.entity.NewList;
+import com.seetaoism.data.entity.NewsData;
 import com.seetaoism.data.entity.VideoData;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class VideoAdapter extends RecyclerView.Adapter {
 
     public ArrayList<VideoData.NewList> mlist;
     private Context mContext;
+
+    private OnItemClickListener mOnItemClickListener;
+
 
     public VideoAdapter(ArrayList<VideoData.NewList> mlist, Context mContext) {
         this.mlist = mlist;
@@ -65,6 +70,11 @@ public class VideoAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
+    }
+
     class VideoHolder extends RecyclerView.ViewHolder {
 
 
@@ -80,8 +90,17 @@ public class VideoAdapter extends RecyclerView.Adapter {
             item_title = itemView.findViewById(R.id.them);
             item_content = itemView.findViewById(R.id.descrip);
 
+            itemView.setOnClickListener(v ->{
+                if(mOnItemClickListener != null){
+                    mOnItemClickListener.onItemClick(mlist, getAdapterPosition());
+                }
+            });
+
         }
     }
 
 
+    public static interface OnItemClickListener{
+        void onItemClick(List<? extends NewsData.NewsBean> list,int position);
+    }
 }

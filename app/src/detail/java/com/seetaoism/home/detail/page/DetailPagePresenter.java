@@ -19,7 +19,7 @@ import java.util.Map;
 import io.reactivex.disposables.Disposable;
 
 /*
- * created by taofu on 2019-10-21
+ * created by Cherry on 2019-10-21
  **/
 public class DetailPagePresenter extends BasePresenter<DetailsContract.IDetailPageView> implements DetailsContract.IDetailPagePresenter {
 

@@ -2,7 +2,7 @@ package com.seetaoism.data.entity
 
 
 /*
- * created by taofu on 2019-11-05
+ * created by Cherry on 2019-11-05
 **/
 class NewsAttribute{
 

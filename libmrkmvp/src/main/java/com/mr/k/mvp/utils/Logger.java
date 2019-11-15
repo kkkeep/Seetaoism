@@ -11,7 +11,7 @@ import java.util.Locale;
 /**
  * adb shell
  * setprop log.tag.{@link #PRIVATE_TAG} LOG_LEVEL
- * Created by taofu on 2018/06/07.
+ * Created by Cherry on 2018/06/07.
  * adb shell log.tag.Test V
  *
  *

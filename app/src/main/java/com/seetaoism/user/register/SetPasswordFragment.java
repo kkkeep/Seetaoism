@@ -26,7 +26,7 @@ import com.seetaoism.widgets.CleanEditTextButton;
 import com.seetaoism.widgets.TogglePasswordButton;
 
 /*
- * created by taofu on 2019-08-29
+ * created by Cherry on 2019-08-29
  **/
 public class SetPasswordFragment extends BaseUserFragment<LoginContract.IRegisterSetPsdPresenter> implements View.OnClickListener,LoginContract.IRegisterSetPsdView {
 

@@ -2,7 +2,7 @@ package com.seetaoism.widgets
 
 
 /*
- * created by taofu on 2019-10-09
+ * created by Cherry on 2019-10-09
 **/
 import android.content.Context
 import android.graphics.*

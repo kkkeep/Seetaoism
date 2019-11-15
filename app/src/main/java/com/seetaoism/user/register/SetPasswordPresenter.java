@@ -14,7 +14,7 @@ import java.util.Map;
 import io.reactivex.disposables.Disposable;
 
 /*
- * created by taofu on 2019-08-30
+ * created by Cherry on 2019-08-30
  **/
 public class SetPasswordPresenter extends BasePresenter<LoginContract.IRegisterSetPsdView> implements LoginContract.IRegisterSetPsdPresenter {
 

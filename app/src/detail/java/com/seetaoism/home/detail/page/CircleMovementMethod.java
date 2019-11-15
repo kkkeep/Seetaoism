@@ -11,7 +11,7 @@ import android.view.MotionEvent;
 import android.widget.TextView;
 
 /*
- * created by taofu on 2019-11-10
+ * created by Cherry on 2019-11-10
  **/
 public class CircleMovementMethod extends BaseMovementMethod {
     private final static int DEFAULT_COLOR_ID = android.R.color.transparent;

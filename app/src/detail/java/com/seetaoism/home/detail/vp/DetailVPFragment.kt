@@ -21,6 +21,8 @@ import com.mr.k.mvp.unRegisterUserBroadcastReceiver
 import com.mr.k.mvp.utils.SystemFacade
 import com.seetaoism.AppConstant
 import com.seetaoism.R
+import com.seetaoism.data.entity.DetailExclusiveData
+import com.seetaoism.data.entity.FROM
 import com.seetaoism.data.entity.NewsAttribute
 import com.seetaoism.data.entity.NewsData
 import com.seetaoism.home.NewsViewModel
@@ -37,7 +39,7 @@ import kotlinx.android.synthetic.main.fragment_detail_vp.*
 
 
 /*
- * created by taofu on 2019-11-03
+ * created by Cherry on 2019-11-03
 **/
 class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), DetailsContract.IDetailVpView, View.OnClickListener,UMShareListener {
 
@@ -67,29 +69,21 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
 
     private lateinit var mNewsDetailAdapter: NewsDetailAdapter
 
-    private var mNewsData: NewsData? = null
+    private var detailExclusiveData: DetailExclusiveData? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (mNewsData == null) {
+        if (detailExclusiveData == null || detailExclusiveData!!.from != FROM.INNER) {
             mViewModel = ViewModelProviders.of(activity as FragmentActivity).get(NewsViewModel::class.java)
 
             mViewModel.getNewsDataLiveData().observe(this, Observer {
                 //mNewsDetailAdapter.addData(it.articleList)
-
-                var bean : NewsData.NewsBean? = null
-                if(SystemFacade.isListEmpty(it.articleList)){
-                    bean = it.bannerList[mIndex]
-                    mNewsDetailAdapter.addData(arrayListOf( bean))
-                }else{
-                    bean = it.articleList[mIndex]
-                    mNewsDetailAdapter.addData(arrayListOf(bean) )
-                }
+                detailExclusiveData = it
+                mNewsDetailAdapter.addData(arrayListOf(it.list[it.index]))
                 mNewsDetailAdapter.notifyDataSetChanged()
-                newsDetailVp.currentItem = mIndex
-
-                refreshArticleAttr(bean!!)
+                newsDetailVp.currentItem = it.index
+                refreshArticleAttr(it.list[it.index])
 
             })
         }
@@ -103,20 +97,20 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
         }
     }
 
-    fun setNewsListData(data: NewsData, position: Int) {
-        mIndex = position;
-        mNewsData = data;
+    fun setNewsListData(data: DetailExclusiveData) {
+        mIndex = data.index
+        detailExclusiveData = data;
 
     }
 
     override fun setArguments(args: Bundle?) {
         super.setArguments(args)
 
-        args?.run {
+       /* args?.run {
             mColumnId = getString(AppConstant.IntentParamsKeys.DETAIL_NEWS_COLUMN_ID)
             mIndex = getInt(AppConstant.IntentParamsKeys.ARTICLE_POSITION)
 
-        }
+        }*/
 
 
     }
@@ -127,10 +121,12 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
 
         newsDetailVp.offscreenPageLimit = 1;
         mNewsDetailAdapter = NewsDetailAdapter(childFragmentManager, mutableListOf()).apply {
-            mNewsData?.let {
+            detailExclusiveData?.let {
                 //this.addData(it.articleList)
-                this.addData(arrayListOf(it.articleList[mIndex]))
-                refreshArticleAttr(it.articleList[mIndex])
+                it.list[mIndex].run {
+                    this@apply.addData(arrayListOf(this))
+                    refreshArticleAttr(this)
+                }
             }
 
             newsDetailVp.adapter = this;
@@ -275,18 +271,19 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
     object Launcher {
 
         @JvmStatic
-        fun open(activity: BaseActivity, data: NewsData, args: Bundle): DetailVPFragment? {
+        fun open(activity: BaseActivity, data: DetailExclusiveData, args: Bundle?): DetailVPFragment? {
             val newsViewModel = ViewModelProviders.of(activity).get(NewsViewModel::class.java)
             newsViewModel.setData(data)
             return activity.addFragment(activity.supportFragmentManager, DetailVPFragment::class.java, android.R.id.content, args)
         }
 
         @JvmStatic
-        internal fun openInner(activity: BaseActivity, data: NewsData, position: Int): DetailVPFragment? {
+        internal fun openInner(activity: BaseActivity, data: DetailExclusiveData): DetailVPFragment? {
 
             val tag = activity.getFragmentTag(DetailVPFragment::class.java) + "_" + data.hashCode()
+
             return activity.addFragment(activity.supportFragmentManager, DetailVPFragment::class.java, android.R.id.content, tag = tag) {
-                it.setNewsListData(data, position)
+                it.setNewsListData(data)
             }
 
         }

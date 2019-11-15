@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 /*
- * created by taofu on 2019/5/7
+ * created by Cherry on 2019/5/7
  **/
 public class LoginActivity extends AppCompatActivity implements UMAuthListener {
 

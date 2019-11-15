@@ -13,7 +13,7 @@ import retrofit2.Converter;
 import retrofit2.Retrofit;
 
 /*
- * created by taofu on 2019-10-12
+ * created by Cherry on 2019-10-12
  **/
 public class JDGsonConverterFactory extends  Converter.Factory {
 

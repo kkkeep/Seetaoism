@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /*
- * created by taofu on 2019-10-21
+ * created by Cherry on 2019-10-21
  **/
 public interface DetailsContract {
 

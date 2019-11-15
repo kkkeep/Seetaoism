@@ -1,5 +1,6 @@
 package com.seetaoism.home.video;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
@@ -8,13 +9,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mr.k.mvp.base.MvpBaseFragment;
+import com.mr.k.mvp.kotlin.base.BaseActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.seetaoism.AppConstant;
 import com.seetaoism.R;
+import com.seetaoism.data.entity.DetailExclusiveData;
+import com.seetaoism.data.entity.FROM;
+import com.seetaoism.data.entity.NewsData;
 import com.seetaoism.data.entity.VideoData;
+import com.seetaoism.home.detail.vp.DetailVPFragment;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -63,6 +72,14 @@ public class VideoFragment extends MvpBaseFragment<VideoContract.VideoPresenter>
                 adapter.mlist.clear();
                 mPresenter.video(start,time);
             }
+        });
+
+        adapter.setOnItemClickListener((list, position) ->{
+
+            DetailExclusiveData data = new DetailExclusiveData(FROM.VIDEO,list,position);
+            data.setStart(start);
+            data.setTime(time);
+            DetailVPFragment.Launcher.open((BaseActivity) Objects.requireNonNull(getActivity()), data, null);
         });
     }
 

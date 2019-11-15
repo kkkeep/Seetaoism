@@ -15,7 +15,7 @@ import okio.Buffer;
 import retrofit2.Converter;
 
 /*
- * created by taofu on 2019-10-12
+ * created by Cherry on 2019-10-12
  **/
 public class JDRequestBodyConverter<T>  implements Converter<T, RequestBody> {
     private static final MediaType MEDIA_TYPE = MediaType.get("application/json; charset=UTF-8");

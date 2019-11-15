@@ -19,7 +19,7 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import java.util.List;
 
 /*
- * created by taofu on 2019-08-26
+ * created by Cherry on 2019-08-26
  **/
 public class BaseActivity extends RxAppCompatActivity {
 

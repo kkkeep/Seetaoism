@@ -3,7 +3,7 @@ package com.seetaoism;
 import static com.seetaoism.AppConstant.RequestUrl.*;
 
 /*
- * created by taofu on 2019-08-25
+ * created by Cherry on 2019-08-25
  **/
 public interface AppConstant {
 //    String BASE_URL = "http://www.seetao.com";

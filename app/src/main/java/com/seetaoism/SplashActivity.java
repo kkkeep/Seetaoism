@@ -33,7 +33,7 @@ import com.seetaoism.user.login.LoginGetUserPresenter;
 
 
 /*
- * created by taofu on 2019-09-02
+ * created by Cherry on 2019-09-02
  **/
 public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserInfoPresenter> implements LoginContract.ILoginGetUserInfoView {
 

@@ -101,18 +101,22 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
         switch (position) {
             case 1: {
                 aClass = RecommendFragment.class;
+                StatusBarUtils.setStatusBarLightMode(this,Color.WHITE);
                 break;
             }
             case 2: {
                 aClass = VideoFragment.class;
+                StatusBarUtils.setStatusBarLightMode(this,Color.WHITE);
                 break;
             }
             case 3: {
                 aClass = TopicFragment.class;
+                StatusBarUtils.setStatusBarLightMode(this,Color.WHITE);
                 break;
             }
             case 4: {
                 aClass = MineFragment.class;
+                StatusBarUtils.setStatusBarDarkMode(this,Color.BLACK);
                 break;
             }
 
