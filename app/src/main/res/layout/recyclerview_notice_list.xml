@@ -8,6 +8,17 @@
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:orientation="horizontal">
+        <CheckBox
+            android:visibility="gone"
+            android:button="@null"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/cb_select"
+            android:background="@drawable/select_news_selector"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true" />
+
+
         <ImageView
             android:visibility="gone"
             android:id="@+id/tag"

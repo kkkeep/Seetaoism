@@ -128,7 +128,6 @@ public class CollectAllAdapter extends RecyclerView.Adapter {
                 iterator.remove();
             }
         }
-
         notifyDataSetChanged();
     }
 

@@ -64,6 +64,19 @@ public class MessageData {
         private int is_read;
         private String time;
         private int notice_status;
+        private boolean select;
+
+        public MessageList(boolean select) {
+            this.select = select;
+        }
+
+        public boolean isSelect() {
+            return select;
+        }
+
+        public void setSelect(boolean select) {
+            this.select = select;
+        }
 
         public MessageList(int id) {
             this.id = id;

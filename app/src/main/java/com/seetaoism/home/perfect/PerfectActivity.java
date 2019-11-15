@@ -89,7 +89,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
         mOnbindmobile.setOnClickListener(this);
         mOnbindemail.setOnClickListener(this);
         mClose.setOnClickListener(this);
-        //修改头像 昵称 这些都得回传
+
         photoPath = "";
         name = "";
 

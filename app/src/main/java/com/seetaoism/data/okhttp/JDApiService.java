@@ -10,6 +10,7 @@ import com.seetaoism.data.entity.IntergrelData;
 import com.seetaoism.data.entity.MessageData;
 import com.seetaoism.data.entity.NewsColumnData;
 import com.seetaoism.data.entity.NewsData;
+import com.seetaoism.data.entity.NoticedetailsBean;
 import com.seetaoism.data.entity.SearchData;
 import com.seetaoism.data.entity.TopicData;
 import com.seetaoism.data.entity.User;
@@ -102,14 +103,11 @@ public interface JDApiService {
     @GET("/app/v_1_1/article/recommendlist")
     Observable<HttpResult<NewsData>> getNewsData(@QueryMap Map<String, String> map);
 
-
-
     //请求评论点赞
     @FormUrlEncoded
     @POST("/api/comment_reply/commentpraise")
     Observable<HttpResult<String>> commentpraise(@FieldMap Map<String, String> map);
 
-    //                        //api/comment_reply/userreply
     //请求用户评论
     @FormUrlEncoded
     @POST("/api/comment_reply/usercomment")
@@ -185,7 +183,6 @@ public interface JDApiService {
     //请求我的收藏
     @GET("/api/user/collect")
     Observable<HttpResult<VideoData>> collect(@QueryMap Map<String, String> map);
-
 
 
     //请求积分
@@ -276,5 +273,22 @@ public interface JDApiService {
     @FormUrlEncoded
     @POST(AppConstant.RequestUrl.DETAIL_DO_ARTICLE_COLLECT)
     Observable<HttpResult<String>> doArticleCollect(@FieldMap Map<String, String> map);
+
+
+
+    /**
+     * 删除我的消息
+     */
+    @FormUrlEncoded
+    @POST("/app/v_1_1/user/deletenotice")
+    Observable<HttpResult<String>> deletenotice(@FieldMap Map<String, String> map);
+
+
+    // 获取消息详情
+    @GET("/api/user/noticedetails")
+    Observable<HttpResult<NoticedetailsBean>> noticedetails(@QueryMap Map<String, String> map);
+
+
+
 
 }

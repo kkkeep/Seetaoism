@@ -1,10 +1,13 @@
 package com.seetaoism.home.message;
 
+import androidx.annotation.NonNull;
+
 import com.mr.k.mvp.base.BasePresenter;
 import com.mr.k.mvp.base.IBaseCallBack;
 import com.mr.k.mvp.exceptions.ResultException;
 import com.seetaoism.AppConstant;
 import com.seetaoism.data.entity.MessageData;
+import com.seetaoism.data.entity.NoticedetailsBean;
 import com.seetaoism.data.repositories.MessageRepository;
 
 import java.util.HashMap;
@@ -42,5 +45,52 @@ public class MessagePresenter extends BasePresenter<MessageContract.MessageView>
             }
         });
 
+    }
+
+    //我的消息详情
+    @Override
+    public void getMessagedetails(int id) {
+        HashMap<String, String> params = new HashMap<>();
+
+        params.put("id", String.valueOf(id));
+
+        mMode.getMessagedetails(getLifecycleProvider(), params, new IBaseCallBack<NoticedetailsBean>() {
+            @Override
+            public void onSuccess(@NonNull NoticedetailsBean data) {
+                if (mView != null) {
+                    mView.MessagedetailsSucceed(data);
+                }
+            }
+
+            @Override
+            public void onFail(@NonNull ResultException e) {
+                if (mView != null) {
+                    mView.MessagedetailsFail(e.getMessage());
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getMeaasgeDelete(String id) {
+        HashMap<String, String> params = new HashMap<>();
+
+        params.put("id", id);
+
+        mMode.getMeaasgeDelete(getLifecycleProvider(), params, new IBaseCallBack<String>() {
+            @Override
+            public void onSuccess(@NonNull String data) {
+                if (mView != null) {
+                    mView.MeaasgeDeleteSucceed(data);
+                }
+            }
+
+            @Override
+            public void onFail(@NonNull ResultException e) {
+                if (mView != null) {
+                    mView.MeaasgeDeleteFail(e.getMessage());
+                }
+            }
+        });
     }
 }
