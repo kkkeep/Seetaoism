@@ -168,6 +168,10 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
     public List<NewsData.News> getNewsData(){
         return mNews;
     }
+    public List<NewsData.Banner> getBannerData(){
+        return mBanners;
+    }
+
     public void loadMore(List<NewsData.News> articleList) {
         mNews.addAll(articleList);
         notifyItemRangeChanged(getItemCount(), articleList.size());
@@ -241,21 +245,9 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
             });
 
 
-            jBanner.setOnBannerItemClickListener(new JBanner.OnBannerItemClickListener<NewsData.Banner>() {
-
-                @Override
-                public void onClick(NewsData.Banner banner) {
-                    if (mOnItemClickListener != null) {
-                        mOnItemClickListener.onClick(banner,getAdapterPosition());
-
-                        /*jBanner.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                jBanner.testFo();
-                                Toast.makeText(jBanner.getContext(), "dd", Toast.LENGTH_SHORT).show();
-                            }
-                        },10000);*/
-                    }
+            jBanner.setOnBannerItemClickListener((JBanner.OnBannerItemClickListener<NewsData.Banner>) (banner, position) -> {
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onClick(banner,position);
                 }
             });
 

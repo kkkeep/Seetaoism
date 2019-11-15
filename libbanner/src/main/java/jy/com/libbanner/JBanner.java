@@ -554,7 +554,8 @@ public class JBanner extends ConstraintLayout {
                     @Override
                     public void onClick(View v) {
                         if (mBannerItemClickListener != null) {
-                            mBannerItemClickListener.onClick(mDatas.get(mViewPager.getCurrentItem() % mDatas.size()));
+                            int position = mViewPager.getCurrentItem() % mDatas.size();
+                            mBannerItemClickListener.onClick(mDatas.get(position),position);
                         }
                     }
                 });
@@ -587,6 +588,6 @@ public class JBanner extends ConstraintLayout {
     }
 
     public interface OnBannerItemClickListener<M> {
-        void onClick(M m);
+        void onClick(M m,int position);
     }
 }

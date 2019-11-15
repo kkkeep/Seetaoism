@@ -90,6 +90,7 @@ public interface AppConstant {
 
         String DETAIL_DO_ARTICLE_LIKE = "/api/article/userevaluate"; // 文章评论回复列表
         String DETAIL_DO_ARTICLE_COLLECT = "/api/article/usercollect"; // 文章评论回复列表
+        String DETAIL_GET_ARTICLE_ATTRIBUTE = "/api/article/articleattribute"; // 文章评论回复列表
 
 
     }

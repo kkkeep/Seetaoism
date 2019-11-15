@@ -83,7 +83,7 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
             //登录
             case R.id.mine_login:
                 startActivity(new Intent(getContext(), LoginActivity.class));
-                getActivity().finish();
+               // getActivity().finish();
                 break;
             //设置
             case R.id.mine_seeting:
@@ -97,7 +97,7 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
                     startActivityForResult(new Intent(getContext(), PerfectActivity.class),100);
                 } else {
                     startActivity(new Intent(getContext(), LoginActivity.class));
-                    getActivity().finish();
+                    //getActivity().finish();
                 }
                 break;
             //我的收藏
@@ -107,7 +107,7 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
                     startActivity(new Intent(getContext(), CollectActivity.class));
                 } else {
                     startActivity(new Intent(getContext(), LoginActivity.class));
-                    getActivity().finish();
+                   // getActivity().finish();
                 }
                 break;
             //我的积分
@@ -117,7 +117,7 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
                     startActivity(new Intent(getContext(), IntegralActivity.class));
                 } else {
                     startActivity(new Intent(getContext(), LoginActivity.class));
-                    getActivity().finish();
+                    //getActivity().finish();
 
                 }
                 break;
@@ -129,7 +129,7 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
                     mPresenter.getMine();
                 } else {
                     startActivity(new Intent(getContext(), LoginActivity.class));
-                    getActivity().finish();
+                   // getActivity().finish();
                 }
                 break;
             case R.id.mine_message:
@@ -138,7 +138,7 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
                     startActivity(new Intent(getContext(), MessageActivity.class));
                 } else {
                     startActivity(new Intent(getContext(), LoginActivity.class));
-                    getActivity().finish();
+                  //  getActivity().finish();
                 }
                 break;
         }

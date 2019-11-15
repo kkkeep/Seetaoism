@@ -314,7 +314,7 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
 
 
 
-    internal fun commitArticle(news : NewsData.News){
+    internal fun commitArticle(news : NewsData.NewsBean){
         showCommentDialog(news)
     }
 
@@ -322,7 +322,7 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
     /**
      * 显示评论新闻的Pop
      */
-    private fun showCommentDialog(news : NewsData.News){
+    private fun showCommentDialog(news : NewsData.NewsBean){
         CommentPopView(context!!).show(detailWebView,CommentPopView.TYPE_COMMENT, mLastInputContent , getString(R.string.text_detail_write_comment), object : OnActionListener {
             override fun onAction(type: Int, content: String) {
                 if(type == CommentPopView.TYPE_COMMENT){

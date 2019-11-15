@@ -91,7 +91,9 @@ public abstract class BaseUserFragment<T extends IBasePresenter> extends MvpBase
                 break;
             }
             case R.id.user_iv_sina_login: {
-
+                UMShareAPI umShareAPI = UMShareAPI.get(getActivity());
+                // wx 的 有效期是1个月。过了1个月就必须重新授权登录。没有过期则不用跳转到授权页面，直接返回用户相关信息。
+                umShareAPI.getPlatformInfo(getActivity(), SHARE_MEDIA.SINA, this);
                 break;
             }
 

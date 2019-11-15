@@ -8,6 +8,7 @@ import com.seetaoism.data.entity.CommentReplyData;
 import com.seetaoism.data.entity.HttpResult;
 import com.seetaoism.data.entity.IntergrelData;
 import com.seetaoism.data.entity.MessageData;
+import com.seetaoism.data.entity.NewsAttribute;
 import com.seetaoism.data.entity.NewsColumnData;
 import com.seetaoism.data.entity.NewsData;
 import com.seetaoism.data.entity.SearchData;
@@ -273,5 +274,12 @@ public interface JDApiService {
     @FormUrlEncoded
     @POST(AppConstant.RequestUrl.DETAIL_DO_ARTICLE_COLLECT)
     Observable<HttpResult<String>> doArticleCollect(@FieldMap Map<String, String> map);
+
+    /**
+     * 获取该文章是否已经点赞和收藏
+     */
+    @FormUrlEncoded
+    @POST(AppConstant.RequestUrl.DETAIL_GET_ARTICLE_ATTRIBUTE)
+    Observable<HttpResult<NewsAttribute>> getNewsAttribute(@FieldMap Map<String, String> map);
 
 }

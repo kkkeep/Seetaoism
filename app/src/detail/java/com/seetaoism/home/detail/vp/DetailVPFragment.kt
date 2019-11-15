@@ -1,7 +1,9 @@
 package com.seetaoism.home.detail.vp
 
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -14,6 +16,9 @@ import androidx.viewpager.widget.ViewPager
 import com.mr.k.mvp.base.MvpBaseFragment
 import com.mr.k.mvp.getUser
 import com.mr.k.mvp.kotlin.base.BaseActivity
+import com.mr.k.mvp.registerUserBroadcastReceiver
+import com.mr.k.mvp.unRegisterUserBroadcastReceiver
+import com.mr.k.mvp.utils.SystemFacade
 import com.seetaoism.AppConstant
 import com.seetaoism.R
 import com.seetaoism.data.entity.NewsAttribute
@@ -35,16 +40,23 @@ import kotlinx.android.synthetic.main.fragment_detail_vp.*
  * created by taofu on 2019-11-03
 **/
 class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), DetailsContract.IDetailVpView, View.OnClickListener,UMShareListener {
+
+    private  var mReceiver : BroadcastReceiver? = null
+
     override fun onError(p0: SHARE_MEDIA?, p1: Throwable?) {
+        Log.d("Test","test");
     }
 
     override fun onStart(p0: SHARE_MEDIA?) {
+        Log.d("Test","test");
     }
 
     override fun onResult(p0: SHARE_MEDIA?) {
+        Log.d("Test","test");
     }
 
     override fun onCancel(p0: SHARE_MEDIA?) {
+        Log.d("Test","test");
     }
 
 
@@ -65,17 +77,33 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
 
             mViewModel.getNewsDataLiveData().observe(this, Observer {
                 //mNewsDetailAdapter.addData(it.articleList)
-                mNewsDetailAdapter.addData(arrayListOf(it.articleList[mIndex]))
+
+                var bean : NewsData.NewsBean? = null
+                if(SystemFacade.isListEmpty(it.articleList)){
+                    bean = it.bannerList[mIndex]
+                    mNewsDetailAdapter.addData(arrayListOf( bean))
+                }else{
+                    bean = it.articleList[mIndex]
+                    mNewsDetailAdapter.addData(arrayListOf(bean) )
+                }
                 mNewsDetailAdapter.notifyDataSetChanged()
                 newsDetailVp.currentItem = mIndex
-                refreshArticleAttr(it.articleList[mIndex])
+
+                refreshArticleAttr(bean!!)
 
             })
+        }
+
+       mReceiver =  registerUserBroadcastReceiver {
+           if(it == null){
+               refreshArticleAttr(mNewsDetailAdapter.getCurrentNew())
+           }else{
+               mPresenter.getArticleAttribute(mNewsDetailAdapter.getCurrentNew().id)
+           }
         }
     }
 
     fun setNewsListData(data: NewsData, position: Int) {
-
         mIndex = position;
         mNewsData = data;
 
@@ -135,7 +163,7 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
 
     }
 
-    private fun refreshArticleAttr(news: NewsData.News) {
+    private fun refreshArticleAttr(news: NewsData.NewsBean) {
 
         newsDetailLike.isChecked = (news.is_good == 1 && getUser() != null)
         newsDetailCollect.isChecked =( news.is_collect == 1 && getUser() != null)
@@ -150,6 +178,14 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
     override fun exit() = 0;
     override fun popEnter() = 0;
 
+    override fun onDetach() {
+        super.onDetach()
+
+        mReceiver?.run {
+            unRegisterUserBroadcastReceiver(this)
+        }
+
+    }
 
     override fun onClick(v: View?) {
 
@@ -193,7 +229,12 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
     }
 
     override fun onArticleAttributeResult(newsAttribute: NewsAttribute?, errorMsg: String?) {
-
+        if(newsAttribute != null){
+            val news = mNewsDetailAdapter.getCurrentNew()
+            news.is_good = newsAttribute.is_good ?: 0
+            news.is_collect = newsAttribute.is_collect ?: 0
+            refreshArticleAttr(news)
+        }
     }
 
     override fun onDoArticleLikeResult(data: String?, msg: String?) {
@@ -212,10 +253,17 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
 
     override fun onDoArticleCollectResult(data: String?, msg: String?) {
         closeLoading()
-        closeLoading()
         if (data != null && msg == null) {
-            mNewsDetailAdapter.getCurrentNew().is_collect = 1
-            newsDetailCollect.isChecked = true
+
+
+            newsDetailCollect.isChecked = !newsDetailCollect.isChecked
+
+            if(newsDetailCollect.isChecked){
+                mNewsDetailAdapter.getCurrentNew().is_collect = 1
+            }else{
+                mNewsDetailAdapter.getCurrentNew().is_collect = 0
+            }
+
         } else {
             msg?.run {
                 showToast(this)
@@ -245,15 +293,17 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
 
     }
 
-    fun NewsDetailAdapter.getCurrentNew() : NewsData.News{
+    fun NewsDetailAdapter.getCurrentNew() : NewsData.NewsBean{
         return getNews(newsDetailVp.currentItem)
     }
+
+
 
 }
 
 
 
-class NewsDetailAdapter(fm: FragmentManager, val news: MutableList<NewsData.News>) : FragmentStatePagerAdapter(fm) {
+class NewsDetailAdapter(fm: FragmentManager, val news: MutableList< NewsData.NewsBean>) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         val newsData = news[position]
@@ -270,7 +320,7 @@ class NewsDetailAdapter(fm: FragmentManager, val news: MutableList<NewsData.News
         return fragment
     }
 
-    fun getNews(position: Int): NewsData.News {
+    fun getNews(position: Int): NewsData.NewsBean {
         return news[position]
     }
 
@@ -286,14 +336,16 @@ class NewsDetailAdapter(fm: FragmentManager, val news: MutableList<NewsData.News
         return news.size
     }
 
-    fun addData(newDataList: List<NewsData.News>) {
+    fun addData(newDataList: List<NewsData.NewsBean>) {
         news.addAll(newDataList)
     }
 
 
-    fun getDataFromPosition(position: Int): NewsData.News {
+    fun getDataFromPosition(position: Int): NewsData.NewsBean {
         return news[position]
     }
+
+
 
 }
 

@@ -249,8 +249,6 @@ public class DetailPageNewsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             } else {
                 tvShowMore.setVisibility(View.GONE);
             }
-
-
         }
     }
 

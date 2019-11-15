@@ -93,7 +93,15 @@ public class DetailRepository extends BaseRepository implements DetailsContract.
 
     @Override
     public void getArticleAttribute(LifecycleProvider provider, Map<String, String> params, IBaseCallBack<NewsAttribute> callBack) {
+        observer(provider, service().getNewsAttribute(params), newsAttributeHttpResult ->{
+            if(newsAttributeHttpResult.data != null){
+                return Observable.just(newsAttributeHttpResult.data);
+            }else{
+                return Observable.error(new ResultException(newsAttributeHttpResult.message));
+            }
 
+
+        } , callBack);
 
     }
 
