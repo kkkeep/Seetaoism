@@ -27,7 +27,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /*
- * created by taofu on 2019-09-04
+ * created by Cherry on 2019-09-04
  **/
 public class LoadingView extends ConstraintLayout {
 

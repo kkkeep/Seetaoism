@@ -8,7 +8,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.seetaoism.R;
 
 /*
- * created by taofu on 2019-10-11
+ * created by Cherry on 2019-10-11
  **/
 public class ColumnItemView extends AppCompatTextView {
 

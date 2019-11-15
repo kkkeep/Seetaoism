@@ -17,7 +17,7 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 
 /*
- * created by taofu on 2019/5/7
+ * created by Cherry on 2019/5/7
  **/
 public class ShareActivity  extends AppCompatActivity implements View.OnClickListener,UMShareListener {
 

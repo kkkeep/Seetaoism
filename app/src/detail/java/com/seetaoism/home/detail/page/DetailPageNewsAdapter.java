@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mr.k.mvp.UserManager;
 import com.mr.k.mvp.kotlin.widget.ToggleStateView;
 import com.mr.k.mvp.utils.SystemFacade;
 import com.seetaoism.GlideApp;
@@ -27,7 +28,7 @@ import java.util.List;
 import retrofit2.http.POST;
 
 /*
- * created by taofu on 2019-10-21
+ * created by Cherry on 2019-10-21
  **/
 public class DetailPageNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -237,27 +238,24 @@ public class DetailPageNewsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             tvUserName.setText(data.getUsername());
             tvTime.setText(data.getTime_describe());
             cbLike.setText(data.getPraise_count_describe() + "");
-            cbLike.setChecked(data.getIs_praise() == 1);
             tvContent.setText(data.getContent());
 
-           cbLike.setChecked( data.getIs_praise() == 1);
+           cbLike.setChecked( (data.getIs_praise() == 1 && UserManager.getUser() != null));
             commentsView.setList(data.getReply_list());
 
             commentsView.notifyDataSetChanged();
-            if (data.getReply_more() == 1) {
+            if (data.getReply_more() == 1 ) {
                 tvShowMore.setVisibility(View.VISIBLE);
             } else {
                 tvShowMore.setVisibility(View.GONE);
             }
-
-
         }
     }
 
 
     public static interface DetailItemOnClickListener {
 
-        void onNewsClick(List<NewsData.News> newsList, int realPosition);
+        void onNewsClick(List<? extends  NewsData.NewsBean> newsList, int realPosition);
 
         void onCommentClick(CommentData.Comment comment, int itemPosition);
 

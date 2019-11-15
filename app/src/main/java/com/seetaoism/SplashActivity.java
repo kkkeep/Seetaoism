@@ -33,7 +33,7 @@ import com.seetaoism.user.login.LoginGetUserPresenter;
 
 
 /*
- * created by taofu on 2019-09-02
+ * created by Cherry on 2019-09-02
  **/
 public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserInfoPresenter> implements LoginContract.ILoginGetUserInfoView {
 
@@ -55,25 +55,20 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
             setContentView(R.layout.activity_splash);
             mViewPager = findViewById(R.id.splash_guild_page);
 
-            mGuideImages = new int[]{R.drawable.splash_guild1,R.drawable.splash_guide2,R.drawable.splash_guide3};
+            mGuideImages = new int[]{R.drawable.splash_guild1, R.drawable.splash_guide2, R.drawable.splash_guide3};
 
             mViewPager.setAdapter(new SplashGuidePageAdapter());
 
         } else {
 
-            new Thread(){
+            new Thread() {
                 @Override
                 public void run() {
-                    User user = UserManager.loginLocal(User.class);
 
-                    if(user != null && user.getToken() != null && !TextUtils.isEmpty(user.getToken().getValue())){
+                    User user = UserManager.loginLocal(User.class);
+                    if (user != null && user.getToken() != null && !TextUtils.isEmpty(user.getToken().getValue())) {
                         mPresenter.getUserInfoByToken(user.getToken().getValue());
-                    }/*else{
-                        runOnUiThread(() -> {
-                            startActivity(new Intent(SplashActivity.this, HomeActivity.class));
-                            finish();
-                        });
-                    }*/
+                    }
 
                 }
             }.start();
@@ -82,16 +77,11 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
             getWindow().getDecorView().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if(!isFinishing()){
+                    if (!isFinishing()) {
                         startMainActivity();
                     }
                 }
             }, 5000);
-
-
-
-
-
 
 
         }
@@ -101,14 +91,12 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
 
     @Override
     public void onUserInfoSuccess(User user) {
-        startMainActivity();
+        //startMainActivity();
     }
 
     @Override
     public void onUserInfoFail(String msg) {
-        showToast(msg);
-        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-        finish();
+        //startMainActivity();
     }
 
     @Override
@@ -116,8 +104,7 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
         return new LoginGetUserPresenter();
     }
 
-
-    private  class SplashGuidePageAdapter extends PagerAdapter {
+    private class SplashGuidePageAdapter extends PagerAdapter {
 
 
         @Override
@@ -127,7 +114,7 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
 
         @Override
         public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-            return  view == object;
+            return view == object;
         }
 
 
@@ -136,8 +123,8 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
 
-            if(position != mGuideImages.length - 1){
-                ImageView imageView  = new ImageView(container.getContext());
+            if (position != mGuideImages.length - 1) {
+                ImageView imageView = new ImageView(container.getContext());
 
                 ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 imageView.setLayoutParams(layoutParams);
@@ -147,7 +134,7 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
                 container.addView(imageView);
                 return imageView;
 
-            }else{
+            } else {
 
                 ConstraintLayout constraintLayout = new ConstraintLayout(container.getContext());
 
@@ -171,8 +158,8 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
 
                 tvJump.setTextColor(Color.parseColor("#9B9B9B"));
 
-                constraintSet.connect(tvJump.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP,SystemFacade.dp2px(container.getContext(), 30));
-                constraintSet.connect(tvJump.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT,SystemFacade.dp2px(container.getContext(), 20));
+                constraintSet.connect(tvJump.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, SystemFacade.dp2px(container.getContext(), 30));
+                constraintSet.connect(tvJump.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, SystemFacade.dp2px(container.getContext(), 20));
 
                 constraintSet.constrainWidth(tvJump.getId(), ConstraintSet.WRAP_CONTENT);
                 constraintSet.constrainHeight(tvJump.getId(), ConstraintSet.WRAP_CONTENT);
@@ -192,8 +179,7 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
 
                 constraintSet.connect(btnStart.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT);
                 constraintSet.connect(btnStart.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT);
-                constraintSet.connect(btnStart.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM,SystemFacade.dip2px(container.getContext(), 65));
-
+                constraintSet.connect(btnStart.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, SystemFacade.dip2px(container.getContext(), 65));
 
 
                 constraintLayout.addView(btnStart);
@@ -218,17 +204,17 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
     }
 
 
-    private class SplashOnClickListener implements View.OnClickListener{
+    private class SplashOnClickListener implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
-        startMainActivity();
+            startMainActivity();
 
         }
     }
 
 
-    private void startMainActivity(){
+    private void startMainActivity() {
         startActivity(new Intent(SplashActivity.this, HomeActivity.class));
         finish();
     }

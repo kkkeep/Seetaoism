@@ -9,7 +9,7 @@ import com.mr.k.mvp.kotlin.base.BaseActivity;
 import com.mr.k.mvp.statusbar.StatusBarUtils;
 
 /*
- * created by taofu on 2019-10-28
+ * created by Cherry on 2019-10-28
  **/
 public abstract class JDBaseActivity extends BaseActivity {
 

@@ -53,21 +53,22 @@ public class VideoData {
         this.list = list;
     }
 
-    public static class NewList {
+    public static class NewList extends NewsData.NewsBean {
 
 
-        private String id;
+   /*     private String id;
         private String theme;
         private String description;
-        private String lead;
-        private int view_type;
-        private int type;
-        private String column_name;
         private String image_url;
+
         private int is_good;
         private int is_collect;
         private String link;
-        private String share_link;
+        private String share_link;*/
+         private String lead;
+        private int view_type;
+        private int type;
+        private String column_name;
         private String video_is_sans_href;
         private String video_url;
         private String time;
@@ -109,7 +110,7 @@ public class VideoData {
             this.collect_id = collect_id;
         }
 
-        public NewList(String id, String theme, String description, String lead, int view_type, int type, String column_name, String image_url, int is_good, int is_collect, String link, String share_link, String video_is_sans_href, String video_url, String time, String read_count, boolean select, String collect_id) {
+       /* public NewList(String id, String theme, String description, String lead, int view_type, int type, String column_name, String image_url, int is_good, int is_collect, String link, String share_link, String video_is_sans_href, String video_url, String time, String read_count, boolean select, String collect_id) {
             this.id = id;
             this.theme = theme;
             this.description = description;
@@ -128,7 +129,7 @@ public class VideoData {
             this.read_count = read_count;
             this.select = select;
             this.collect_id = collect_id;
-        }
+        }*/
 
         public boolean isSelect() {
             return select;

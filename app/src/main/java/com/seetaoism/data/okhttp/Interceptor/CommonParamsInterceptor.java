@@ -28,7 +28,7 @@ import okhttp3.Response;
 import static com.seetaoism.AppConstant.RequestParamsKey;
 
 /*
- * created by taofu on 2019-08-29
+ * created by Cherry on 2019-08-29
  **/
 public class CommonParamsInterceptor implements Interceptor {
 
@@ -65,24 +65,15 @@ public class CommonParamsInterceptor implements Interceptor {
 
         if (!TextUtils.isEmpty(token)) {
             mParams.put(RequestParamsKey.TOKEN, UserManager.getToken());
-        }else{
+        } else {
 
-            for(String url : AppConstant.SHOULD_LOGIN_URL){
-                if(oldUrl.contains(url)){
-                    Intent intent = new Intent(JDApplication.mApplicationContext, LoginActivity.class);
-                    intent.putExtra("from", "unlogin");
-                    JDApplication.mApplicationContext.startActivity(intent);
-                    throw new ResultException( JDApplication.mApplicationContext.getString(R.string.text_need_login));
+            for (String url : AppConstant.SHOULD_LOGIN_URL) {
+                if (oldUrl.contains(url)) {
+                    LoginActivity.start();
+                    throw new ResultException(JDApplication.mApplicationContext.getString(R.string.text_need_login));
                 }
             }
         }
-
-
-
-
-
-
-
 
 
         if ("GET".equals(method.toUpperCase())) {
@@ -144,7 +135,7 @@ public class CommonParamsInterceptor implements Interceptor {
 
                 //构建一个新的请求
                 request = request.newBuilder().url(oldUrl).post(builder.build()).build();
-            }else if( requestBody instanceof MultipartBody){
+            } else if (requestBody instanceof MultipartBody) {
                 MultipartBody multipartBody = (MultipartBody) requestBody;
 
                 MultipartBody.Builder builder = new MultipartBody.Builder();
@@ -153,10 +144,10 @@ public class CommonParamsInterceptor implements Interceptor {
 
                 //添加公共参数
                 for (Map.Entry<String, String> entry : mParams.entrySet()) {
-                    builder.addPart(MultipartBody.Part.createFormData(entry.getKey(),null,RequestBody.create(MediaType.parse("multipart/form-data"),entry.getValue())));
+                    builder.addPart(MultipartBody.Part.createFormData(entry.getKey(), null, RequestBody.create(MediaType.parse("multipart/form-data"), entry.getValue())));
                 }
 
-                for(MultipartBody.Part part : multipartBody.parts()){
+                for (MultipartBody.Part part : multipartBody.parts()) {
                     builder.addPart(part);
                 }
 

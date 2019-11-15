@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 
 /*
- * created by taofu on 2019-11-11
+ * created by Cherry on 2019-11-11
  **/
 public class MarqueeTextView extends AppCompatTextView {
     public MarqueeTextView(Context context) {

@@ -16,6 +16,8 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.seetaoism.AppConstant;
 import com.seetaoism.R;
+import com.seetaoism.data.entity.DetailExclusiveData;
+import com.seetaoism.data.entity.FROM;
 import com.seetaoism.data.entity.NewsData;
 import com.seetaoism.data.repositories.NewsRepository;
 import com.seetaoism.home.NewsViewModel;
@@ -23,6 +25,7 @@ import com.seetaoism.home.detail.vp.DetailVPFragment;
 import com.seetaoism.home.recommend.RecommendContract.INewsPageModel;
 import com.seetaoism.libloadingview.LoadingView;
 
+import java.util.List;
 import java.util.Objects;
 
 public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPagePresenter> implements RecommendContract.INewsPageView {
@@ -78,21 +81,26 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
         mNewsPageAdapter = new NewsPageAdapter();
         mNewsPageAdapter.setOnItemClickListener(new NewsPageAdapter.OnItemClickListener() {
             @Override
-            public void onClick(NewsData.NewsBean news,int position) {
+            public void onClick(NewsData.NewsBean news, int position) {
 
 
-                NewsData newsData = new NewsData();
 
-                newsData.setArticleList(mNewsPageAdapter.getNewsData());
-                newsData.setStart(mNewsStart);
-                newsData.setVideoStart(mVideoStart);
+                List<? extends NewsData.NewsBean> list = null;
 
-               Bundle bundle = new Bundle();
-               bundle.putString(AppConstant.IntentParamsKeys.DETAIL_NEWS_COLUMN_ID, mColumnId);
-               bundle.putInt(AppConstant.IntentParamsKeys.ARTICLE_POSITION, position);
+                if(news instanceof NewsData.Banner){
+                    list = mNewsPageAdapter.getBannerData();
+                }else{
+                    list= mNewsPageAdapter.getNewsData();
+                }
+
+                DetailExclusiveData data = new DetailExclusiveData(FROM.RECOMMEND,list,position);
+                data.setStart(mNewsStart);
+                data.setVideoStartForRecommend(mVideoStart);
+                data.setMColumnId(mColumnId);
 
 
-               DetailVPFragment.Launcher.open((BaseActivity) Objects.requireNonNull(getActivity()), newsData, bundle);
+
+                DetailVPFragment.Launcher.open((BaseActivity) Objects.requireNonNull(getActivity()), data, null);
             }
         });
 
@@ -105,7 +113,7 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
     @Override
     protected void initData() {
         showLoadingForViewPager();
-       mPresenter.getNewsData(mColumnId, mVideoStart, mNewsStart, INewsPageModel.REQUEST_TYPE_FIRST_LOAD);
+        mPresenter.getNewsData(mColumnId, mVideoStart, mNewsStart, INewsPageModel.REQUEST_TYPE_FIRST_LOAD);
     }
 
 
@@ -170,7 +178,6 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
         mVideoStart = data.getVideoStart();
         mNewsStart = data.getStart();
     }
-
 
 
     @Override

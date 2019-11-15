@@ -3,17 +3,24 @@
 package com.mr.k.mvp
 
 import android.app.Application
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.mr.k.mvp.utils.DataCacheUtils
+import com.mr.k.mvp.utils.Logger
 import com.mr.k.mvp.utils.SystemFacade
 import java.io.File
 
 
 /*
- * created by taofu on 2019-10-29
+ * created by Cherry on 2019-10-29
 **/
 
 private const val CACHE_USER_DATA_FILE_NAME = "user_info.json"
+
+private const val BROADCAST_USER_LOGIN_OR_OUT = "user.login.or.out"
 
 private lateinit var mApplication: Context
 
@@ -25,9 +32,38 @@ internal fun init(application: Context) {
 
 @Synchronized
 fun login(user: IUser?) {
+    if (user == null) {
+        Logger.d("UserManager  login out clean user info  : { ${user.toString()} }")
+    } else {
+        Logger.d("UserManager  login  cache user info : { ${user.toString()} }")
+    }
     mUser = user
+    broadcastUserGlobally()
     user?.let { saveUserToSdcard(it) };
 }
+
+
+//private val mBroadcastReceiverList  = mutableListOf<BroadcastReceiver>()
+
+fun  registerUserBroadcastReceiver(callback : (T : IUser?) -> Unit) : BroadcastReceiver{
+
+    val filter = IntentFilter(BROADCAST_USER_LOGIN_OR_OUT)
+    val broadcastManager = LocalBroadcastManager.getInstance(mApplication)
+    val broadcastReceiver = object : BroadcastReceiver(){
+        override fun onReceive(context: Context?, intent: Intent?) {
+            callback.invoke(mUser)
+        }
+    }
+   // mBroadcastReceiverList.add(broadcastReceiver)
+    broadcastManager.registerReceiver(broadcastReceiver,filter)
+    return broadcastReceiver
+}
+
+fun unRegisterUserBroadcastReceiver(receiver: BroadcastReceiver){
+    val broadcastManager = LocalBroadcastManager.getInstance(mApplication)
+    broadcastManager.unregisterReceiver(receiver)
+}
+
 
 @Synchronized
 fun getToken() = mUser?.getTokenString()
@@ -40,37 +76,43 @@ fun loginOut() {
     clearUserFromSdcard()
 }
 
+
+private fun broadcastUserGlobally() {
+
+    val broadcastManager = LocalBroadcastManager.getInstance(mApplication)
+    broadcastManager.sendBroadcast(Intent(BROADCAST_USER_LOGIN_OR_OUT))
+}
+
 private fun getCacheUserFile(): File? {
     return SystemFacade.getExternalCacheDir(mApplication, CACHE_USER_DATA_FILE_NAME)
 }
 
 
-
-
-private fun saveUserToSdcard(user : IUser){
-    if(SystemFacade.isMainThread()){
+private fun saveUserToSdcard(user: IUser) {
+    if (SystemFacade.isMainThread()) {
         throw IllegalAccessException(" must invoked in work thread");
     }
 
     DataCacheUtils.saveDataToFile(user, getCacheUserFile())
 }
 
-fun <R : IUser>getUserFromSdcard(aClass : Class<R>) : R?{
+fun <R : IUser> getUserFromSdcard(aClass: Class<R>): R? {
 
-    if(SystemFacade.isMainThread()){
+    if (SystemFacade.isMainThread()) {
         throw IllegalAccessException(" must invoked in work thread");
     }
     return DataCacheUtils.getDataFromFile(aClass, getCacheUserFile())
 }
 
-fun <R : IUser> loginLocal(cls :Class<R>): R?{
+fun <R : IUser> loginLocal(cls: Class<R>): R? {
     var r = getUserFromSdcard(cls)
     mUser = r
     return r
 }
-private fun clearUserFromSdcard(){
 
-    if(SystemFacade.isMainThread()){
+private fun clearUserFromSdcard() {
+
+    if (SystemFacade.isMainThread()) {
         throw IllegalAccessException(" must invoked in work thread");
     }
 
@@ -81,6 +123,8 @@ private fun clearUserFromSdcard(){
     }
 }
 
+
 interface IUser {
-    @Override fun getTokenString() : String?
+    @Override
+    fun getTokenString(): String?
 }

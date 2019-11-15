@@ -16,7 +16,7 @@ import java.util.Map;
 import io.reactivex.disposables.Disposable;
 
 /*
- * created by taofu on 2019-08-29
+ * created by Cherry on 2019-08-29
  **/
 public class RegisterPresenter extends BasePresenter<LoginContract.IRegisterView> implements LoginContract.IRegisterPresenter {
 

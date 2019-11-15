@@ -1,7 +1,9 @@
 package com.seetaoism.home.detail.vp
 
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -12,9 +14,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.mr.k.mvp.base.MvpBaseFragment
+import com.mr.k.mvp.getUser
 import com.mr.k.mvp.kotlin.base.BaseActivity
+import com.mr.k.mvp.registerUserBroadcastReceiver
+import com.mr.k.mvp.unRegisterUserBroadcastReceiver
+import com.mr.k.mvp.utils.SystemFacade
 import com.seetaoism.AppConstant
 import com.seetaoism.R
+import com.seetaoism.data.entity.DetailExclusiveData
+import com.seetaoism.data.entity.FROM
 import com.seetaoism.data.entity.NewsAttribute
 import com.seetaoism.data.entity.NewsData
 import com.seetaoism.home.NewsViewModel
@@ -31,19 +39,26 @@ import kotlinx.android.synthetic.main.fragment_detail_vp.*
 
 
 /*
- * created by taofu on 2019-11-03
+ * created by Cherry on 2019-11-03
 **/
 class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), DetailsContract.IDetailVpView, View.OnClickListener,UMShareListener {
+
+    private  var mReceiver : BroadcastReceiver? = null
+
     override fun onError(p0: SHARE_MEDIA?, p1: Throwable?) {
+        Log.d("Test","test");
     }
 
     override fun onStart(p0: SHARE_MEDIA?) {
+        Log.d("Test","test");
     }
 
     override fun onResult(p0: SHARE_MEDIA?) {
+        Log.d("Test","test");
     }
 
     override fun onCancel(p0: SHARE_MEDIA?) {
+        Log.d("Test","test");
     }
 
 
@@ -54,40 +69,48 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
 
     private lateinit var mNewsDetailAdapter: NewsDetailAdapter
 
-    private var mNewsData: NewsData? = null
+    private var detailExclusiveData: DetailExclusiveData? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (mNewsData == null) {
+        if (detailExclusiveData == null || detailExclusiveData!!.from != FROM.INNER) {
             mViewModel = ViewModelProviders.of(activity as FragmentActivity).get(NewsViewModel::class.java)
 
             mViewModel.getNewsDataLiveData().observe(this, Observer {
                 //mNewsDetailAdapter.addData(it.articleList)
-                mNewsDetailAdapter.addData(arrayListOf(it.articleList[mIndex]))
+                detailExclusiveData = it
+                mNewsDetailAdapter.addData(arrayListOf(it.list[it.index]))
                 mNewsDetailAdapter.notifyDataSetChanged()
-                newsDetailVp.currentItem = mIndex
-                refreshArticleAttr(it.articleList[mIndex])
+                newsDetailVp.currentItem = it.index
+                refreshArticleAttr(it.list[it.index])
 
             })
         }
+
+       mReceiver =  registerUserBroadcastReceiver {
+           if(it == null){
+               refreshArticleAttr(mNewsDetailAdapter.getCurrentNew())
+           }else{
+               mPresenter.getArticleAttribute(mNewsDetailAdapter.getCurrentNew().id)
+           }
+        }
     }
 
-    fun setNewsListData(data: NewsData, position: Int) {
-
-        mIndex = position;
-        mNewsData = data;
+    fun setNewsListData(data: DetailExclusiveData) {
+        mIndex = data.index
+        detailExclusiveData = data;
 
     }
 
     override fun setArguments(args: Bundle?) {
         super.setArguments(args)
 
-        args?.run {
+       /* args?.run {
             mColumnId = getString(AppConstant.IntentParamsKeys.DETAIL_NEWS_COLUMN_ID)
             mIndex = getInt(AppConstant.IntentParamsKeys.ARTICLE_POSITION)
 
-        }
+        }*/
 
 
     }
@@ -98,10 +121,12 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
 
         newsDetailVp.offscreenPageLimit = 1;
         mNewsDetailAdapter = NewsDetailAdapter(childFragmentManager, mutableListOf()).apply {
-            mNewsData?.let {
+            detailExclusiveData?.let {
                 //this.addData(it.articleList)
-                this.addData(arrayListOf(it.articleList[mIndex]))
-                refreshArticleAttr(it.articleList[mIndex])
+                it.list[mIndex].run {
+                    this@apply.addData(arrayListOf(this))
+                    refreshArticleAttr(this)
+                }
             }
 
             newsDetailVp.adapter = this;
@@ -134,9 +159,10 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
 
     }
 
-    private fun refreshArticleAttr(news: NewsData.News) {
-        newsDetailLike.isChecked = news.is_good == 1
-        newsDetailCollect.isChecked = news.is_collect == 1
+    private fun refreshArticleAttr(news: NewsData.NewsBean) {
+
+        newsDetailLike.isChecked = (news.is_good == 1 && getUser() != null)
+        newsDetailCollect.isChecked =( news.is_collect == 1 && getUser() != null)
     }
 
     override fun createPresenter() = DetailVpPresenter()
@@ -148,6 +174,14 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
     override fun exit() = 0;
     override fun popEnter() = 0;
 
+    override fun onDetach() {
+        super.onDetach()
+
+        mReceiver?.run {
+            unRegisterUserBroadcastReceiver(this)
+        }
+
+    }
 
     override fun onClick(v: View?) {
 
@@ -191,7 +225,12 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
     }
 
     override fun onArticleAttributeResult(newsAttribute: NewsAttribute?, errorMsg: String?) {
-
+        if(newsAttribute != null){
+            val news = mNewsDetailAdapter.getCurrentNew()
+            news.is_good = newsAttribute.is_good ?: 0
+            news.is_collect = newsAttribute.is_collect ?: 0
+            refreshArticleAttr(news)
+        }
     }
 
     override fun onDoArticleLikeResult(data: String?, msg: String?) {
@@ -210,10 +249,17 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
 
     override fun onDoArticleCollectResult(data: String?, msg: String?) {
         closeLoading()
-        closeLoading()
         if (data != null && msg == null) {
-            mNewsDetailAdapter.getCurrentNew().is_collect = 1
-            newsDetailCollect.isChecked = true
+
+
+            newsDetailCollect.isChecked = !newsDetailCollect.isChecked
+
+            if(newsDetailCollect.isChecked){
+                mNewsDetailAdapter.getCurrentNew().is_collect = 1
+            }else{
+                mNewsDetailAdapter.getCurrentNew().is_collect = 0
+            }
+
         } else {
             msg?.run {
                 showToast(this)
@@ -225,33 +271,36 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
     object Launcher {
 
         @JvmStatic
-        fun open(activity: BaseActivity, data: NewsData, args: Bundle): DetailVPFragment? {
+        fun open(activity: BaseActivity, data: DetailExclusiveData, args: Bundle?): DetailVPFragment? {
             val newsViewModel = ViewModelProviders.of(activity).get(NewsViewModel::class.java)
             newsViewModel.setData(data)
             return activity.addFragment(activity.supportFragmentManager, DetailVPFragment::class.java, android.R.id.content, args)
         }
 
         @JvmStatic
-        internal fun openInner(activity: BaseActivity, data: NewsData, position: Int): DetailVPFragment? {
+        internal fun openInner(activity: BaseActivity, data: DetailExclusiveData): DetailVPFragment? {
 
             val tag = activity.getFragmentTag(DetailVPFragment::class.java) + "_" + data.hashCode()
+
             return activity.addFragment(activity.supportFragmentManager, DetailVPFragment::class.java, android.R.id.content, tag = tag) {
-                it.setNewsListData(data, position)
+                it.setNewsListData(data)
             }
 
         }
 
     }
 
-    fun NewsDetailAdapter.getCurrentNew() : NewsData.News{
+    fun NewsDetailAdapter.getCurrentNew() : NewsData.NewsBean{
         return getNews(newsDetailVp.currentItem)
     }
+
+
 
 }
 
 
 
-class NewsDetailAdapter(fm: FragmentManager, val news: MutableList<NewsData.News>) : FragmentStatePagerAdapter(fm) {
+class NewsDetailAdapter(fm: FragmentManager, val news: MutableList< NewsData.NewsBean>) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         val newsData = news[position]
@@ -268,7 +317,7 @@ class NewsDetailAdapter(fm: FragmentManager, val news: MutableList<NewsData.News
         return fragment
     }
 
-    fun getNews(position: Int): NewsData.News {
+    fun getNews(position: Int): NewsData.NewsBean {
         return news[position]
     }
 
@@ -284,14 +333,16 @@ class NewsDetailAdapter(fm: FragmentManager, val news: MutableList<NewsData.News
         return news.size
     }
 
-    fun addData(newDataList: List<NewsData.News>) {
+    fun addData(newDataList: List<NewsData.NewsBean>) {
         news.addAll(newDataList)
     }
 
 
-    fun getDataFromPosition(position: Int): NewsData.News {
+    fun getDataFromPosition(position: Int): NewsData.NewsBean {
         return news[position]
     }
+
+
 
 }
 

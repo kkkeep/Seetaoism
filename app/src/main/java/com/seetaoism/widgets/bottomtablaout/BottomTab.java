@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 /*
- * created by taofu on 2019-09-09
+ * created by Cherry on 2019-09-09
  **/
 public class BottomTab extends LinearLayout {
 

@@ -95,5 +95,6 @@
     <string name="jifen">我的积分</string>
     <string name="about_jifen">关于积分</string>
     <string name="use_jifen">可用积分</string>
+    <string name="text_share_qq_need_permission">QQ 分享需要文件读写权限</string>
 
 </resources>

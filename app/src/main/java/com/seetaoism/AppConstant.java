@@ -3,7 +3,7 @@ package com.seetaoism;
 import static com.seetaoism.AppConstant.RequestUrl.*;
 
 /*
- * created by taofu on 2019-08-25
+ * created by Cherry on 2019-08-25
  **/
 public interface AppConstant {
 //    String BASE_URL = "http://www.seetao.com";
@@ -78,6 +78,8 @@ public interface AppConstant {
     public interface RequestUrl {
         String LOGIN_BY_PSD = "api/user/login";
         String GET_SMS_CODE = "api/sms/sendsms";
+        String GET_USER_BY_TOKEN = "api/user/getuserinfo"; // 通过 token 获取用户信息
+
 
         String GET_ARTICLE_COMMENT_LIST = "/api/comment_reply/commentlist"; // 文章评论列表
 
@@ -88,11 +90,12 @@ public interface AppConstant {
 
         String DETAIL_DO_ARTICLE_LIKE = "/api/article/userevaluate"; // 文章评论回复列表
         String DETAIL_DO_ARTICLE_COLLECT = "/api/article/usercollect"; // 文章评论回复列表
+        String DETAIL_GET_ARTICLE_ATTRIBUTE = "/api/article/articleattribute"; // 文章评论回复列表
 
 
     }
 
-
+    // 把需要登录才能进行操作的 URL 放到这个数组里面
     String [] SHOULD_LOGIN_URL = {DETAIL_DO_ARTICLE_LIKE,DETAIL_DO_ARTICLE_COLLECT,DETAIL_COMMENT_ARTICLE,DETAIL_REPLY_COMMENT};
 
 }

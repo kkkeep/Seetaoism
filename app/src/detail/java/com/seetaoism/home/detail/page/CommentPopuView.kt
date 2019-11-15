@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.layout_comment.*
 import org.w3c.dom.Text
 
 /*
- * created by taofu on 2019-11-10
+ * created by Cherry on 2019-11-10
 **/
 class CommentPopView(var context: Context) : PopupWindow(context) {
     private lateinit var mEtContent: EditText

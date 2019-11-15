@@ -25,12 +25,10 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 
-
 public class UserRepository extends BaseRepository implements LoginContract.ILoginModel {
 
 
     private volatile static UserRepository mInstance;
-
 
 
     private UserRepository() {
@@ -53,14 +51,12 @@ public class UserRepository extends BaseRepository implements LoginContract.ILog
         observer(provider, JDDataService.service().loginByPs(params), userHttpResult -> {
 
 
-                if (userHttpResult.code == 1 && userHttpResult.data != null) { // 表示请求成功
-                    // 保存User 和 token
+            if (userHttpResult.code == 1 && userHttpResult.data != null) { // 表示请求成功
+                // 保存User 和 token
 
-                    saveUser(userHttpResult.data);
-
-
-                    return Observable.just(userHttpResult.data);
-                }
+                saveUser(userHttpResult.data);
+                return Observable.just(userHttpResult.data);
+            }
 
             return Observable.error(new ResultException(userHttpResult.message));
         }, callBack);
@@ -129,19 +125,18 @@ public class UserRepository extends BaseRepository implements LoginContract.ILog
                 // 通过 toke 获取的 user 里面不带用 token。所有我们需要把原来保存的用户信息里面的toke 重新这只给新的user 里面
                 User user = userHttpResult.data;
                 if (user.getToken() == null) {
-
                     User old = (User) UserManager.getUserFromSdcard(User.class);
-
                     if (old != null && old.getToken() != null) {
                         user.setToken(old.getToken());
                     }
                 }
-
                 // 再次保存用户信息
                 saveUser(userHttpResult.data);
-
                 return Observable.just(userHttpResult.data);
             }
+
+            // 自动登录失败时需要 情况对用用户信息的保存，包括内存和 sdcard
+            cleanUser();
             return Observable.error(new ResultException(ResultException.SERVER_ERROR));
         }, callBack);
     }
@@ -166,7 +161,7 @@ public class UserRepository extends BaseRepository implements LoginContract.ILog
         }, callBack);
     }
 
-    public  Disposable getCacheUser(IBaseCallBack<User> callBack) {
+    public Disposable getCacheUser(IBaseCallBack<User> callBack) {
         return Observable.create((ObservableOnSubscribe<User>) emitter -> {
             User user = (User) UserManager.getUserFromSdcard(User.class);
             if (user != null) {
@@ -181,16 +176,11 @@ public class UserRepository extends BaseRepository implements LoginContract.ILog
     }
 
 
-
-
-
     public static void destroy() {
         if (mInstance != null) {
             mInstance = null;
         }
     }
-
-
 
 
     // 保存用户信息到本地
@@ -201,13 +191,11 @@ public class UserRepository extends BaseRepository implements LoginContract.ILog
 
 
     // 当调用退出登录接口成功时需要调用这个方法
-    public static void cleanUser(Context context){
-
+    private static void cleanUser() {
         Disposable subscribe = Observable.create(emitter -> {
             UserManager.loginOut();
         }).subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe();
     }
-
 
 
 }

@@ -3,7 +3,7 @@ package jy.com.libbanner;
 import android.content.Context;
 
 /*
- * created by taofu on 2019-06-19
+ * created by Cherry on 2019-06-19
  **/
 public class JBannerUtils {
 

@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import com.mr.k.mvp.kotlin.base.BaseActivity;
 
 /*
- * created by taofu on 2019-08-26
+ * created by Cherry on 2019-08-26
  **/
 @SuppressWarnings("ALL")
 public abstract class MvpBaseActivity<P extends IBasePresenter> extends BaseActivity implements IBaseView<P> {

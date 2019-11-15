@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 
 /*
- * created by taofu on 2019-09-09
+ * created by Cherry on 2019-09-09
  **/
 @SuppressLint("AppCompatCustomView")
 public class TabIcon extends ImageView implements Checkable {

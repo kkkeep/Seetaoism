@@ -29,7 +29,7 @@ import com.seetaoism.user.login.PasswordLoginFragment;
 import java.util.Locale;
 
 /*
- * created by taofu on 2019-08-29
+ * created by Cherry on 2019-08-29
  **/
 public class RegisterFragment extends BaseUserFragment<LoginContract.IRegisterPresenter> implements View.OnClickListener, LoginContract.IRegisterView {
 

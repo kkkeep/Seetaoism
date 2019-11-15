@@ -13,7 +13,7 @@ import androidx.appcompat.widget.AppCompatImageView
 
 
 /*
- * created by taofu on 2019-09-15
+ * created by Cherry on 2019-09-15
 **/
 
 class CleanEditTextButton : AppCompatImageView{

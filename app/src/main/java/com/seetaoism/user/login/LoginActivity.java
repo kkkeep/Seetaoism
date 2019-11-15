@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
+import com.mr.k.mvp.MvpManager;
 import com.seetaoism.R;
 import com.seetaoism.base.JDBaseActivity;
 import com.seetaoism.user.register.RegisterFragment;
@@ -43,5 +44,10 @@ public class LoginActivity extends JDBaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    public static void start(){
+        MvpManager.getContext().startActivity(new Intent(MvpManager.getContext(),LoginActivity.class));
     }
 }

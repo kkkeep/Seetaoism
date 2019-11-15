@@ -26,7 +26,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /*
- * created by taofu on 2019-10-23
+ * created by Cherry on 2019-10-23
  **/
 public class DownLoadManager {
 

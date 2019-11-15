@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 /*
- * created by taofu on 2019-09-09
+ * created by Cherry on 2019-09-09
  **/
 public class BottomTabLayout extends ConstraintLayout {
 

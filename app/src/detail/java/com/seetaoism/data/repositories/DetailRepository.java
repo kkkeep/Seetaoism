@@ -24,7 +24,7 @@ import io.reactivex.functions.Function;
 import static com.seetaoism.data.okhttp.JDDataService.service;
 
 /*
- * created by taofu on 2019-10-21
+ * created by Cherry on 2019-10-21
  **/
 public class DetailRepository extends BaseRepository implements DetailsContract.IDetailRepository {
     @Override
@@ -93,7 +93,15 @@ public class DetailRepository extends BaseRepository implements DetailsContract.
 
     @Override
     public void getArticleAttribute(LifecycleProvider provider, Map<String, String> params, IBaseCallBack<NewsAttribute> callBack) {
+        observer(provider, service().getNewsAttribute(params), newsAttributeHttpResult ->{
+            if(newsAttributeHttpResult.data != null){
+                return Observable.just(newsAttributeHttpResult.data);
+            }else{
+                return Observable.error(new ResultException(newsAttributeHttpResult.message));
+            }
 
+
+        } , callBack);
 
     }
 

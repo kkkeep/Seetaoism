@@ -8,7 +8,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 /*
- * created by taofu on 2019-08-26
+ * created by Cherry on 2019-08-26
  **/
 @SuppressWarnings("ALL")
 public abstract class MvpBaseFragment< P extends IBasePresenter> extends BaseFragment implements IBaseView<P> {

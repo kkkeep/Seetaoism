@@ -21,7 +21,7 @@ import com.trello.rxlifecycle2.components.support.RxFragment;
 
 
 /*
- * created by taofu on 2019-08-26
+ * created by Cherry on 2019-08-26
  **/
 public abstract class BaseFragment extends RxFragment {
 

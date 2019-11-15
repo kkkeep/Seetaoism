@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
- * created by taofu on 2019-06-19
+ * created by Cherry on 2019-06-19
  **/
 public class JBanner extends ConstraintLayout {
 
@@ -554,7 +554,8 @@ public class JBanner extends ConstraintLayout {
                     @Override
                     public void onClick(View v) {
                         if (mBannerItemClickListener != null) {
-                            mBannerItemClickListener.onClick(mDatas.get(mViewPager.getCurrentItem() % mDatas.size()));
+                            int position = mViewPager.getCurrentItem() % mDatas.size();
+                            mBannerItemClickListener.onClick(mDatas.get(position),position);
                         }
                     }
                 });
@@ -587,6 +588,6 @@ public class JBanner extends ConstraintLayout {
     }
 
     public interface OnBannerItemClickListener<M> {
-        void onClick(M m);
+        void onClick(M m,int position);
     }
 }

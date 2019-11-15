@@ -3,7 +3,7 @@ package com.seetaoism.libdownlaod;
 import java.io.File;
 
 /*
- * created by taofu on 2019-10-23
+ * created by Cherry on 2019-10-23
  **/
 public class Task {
 

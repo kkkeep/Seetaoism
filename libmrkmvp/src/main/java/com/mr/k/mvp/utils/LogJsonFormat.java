@@ -3,7 +3,7 @@ package com.mr.k.mvp.utils;
 import android.text.TextUtils;
 
 /**
- * Created by taofu
+ * Created by Cherry
  * on 26/04/2017.
  */
 

@@ -17,7 +17,7 @@ import com.seetaoism.R
 
 
 /*
- * created by taofu on 2019-09-15
+ * created by Cherry on 2019-09-15
 **/
 
 class TogglePasswordButton : AppCompatImageView {

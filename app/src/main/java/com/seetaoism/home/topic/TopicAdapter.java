@@ -16,9 +16,11 @@ import com.mr.k.mvp.utils.SystemFacade;
 import com.seetaoism.GlideApp;
 import com.seetaoism.GlideRequests;
 import com.seetaoism.R;
+import com.seetaoism.data.entity.NewsData;
 import com.seetaoism.data.entity.TopicData;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import jy.com.libbanner.IJBannerAdapter;
 import jy.com.libbanner.JBanner;
@@ -28,6 +30,7 @@ public class TopicAdapter extends RecyclerView.Adapter {
     private static final int BANNER_VIEW = 0;       //banner
     private static final int NEWSLIST_VIEW = 1;     //下边数据
     private final Context context;
+    private OnItemClickListener onItemClickListener;
     public final ArrayList<TopicData.Bannerlist> mBannerlist;
     public final ArrayList<TopicData.Topiclist> mlist;
 
@@ -70,6 +73,11 @@ public class TopicAdapter extends RecyclerView.Adapter {
         }
     }
 
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
     @Override
     public int getItemViewType(int position) {
 
@@ -86,10 +94,20 @@ public class TopicAdapter extends RecyclerView.Adapter {
         //这里其实相当于一个大的recycleview，返回的size，如果bannerlist大于0，他会把下标是0的位置空出来，
         // 如果bannerlist是空的，那么就不会把下标是0的空出来，他会自己顶上去  那他是怎么知道我的banner在第一个
         // 因为如果bannerlist有数据，首先我先在这里把整体的size+1了
-        if (mBannerlist != null && mBannerlist.size() > 0) {
-            return mlist.size() + 1;
+        int count = SystemFacade.isListEmpty(mlist) ? 0 : mlist.size();
+        if (!SystemFacade.isListEmpty(mBannerlist)) {
+
+            return count + 1;
         } else {
-            return mlist.size();
+            return count;
+        }
+    }
+
+    private int getRealPosition(int itemPosition){
+        if(SystemFacade.isListEmpty(mBannerlist)){
+            return itemPosition;
+        }else{
+            return itemPosition -1;
         }
     }
 
@@ -116,6 +134,12 @@ public class TopicAdapter extends RecyclerView.Adapter {
             tvTitle = itemView.findViewById(R.id.news_item_tv_title);
             tvHot = itemView.findViewById(R.id.news_item_tv_hot);
             tvLabel = itemView.findViewById(R.id.news_item_tv_label);
+
+            itemView.setOnClickListener(v ->{
+                if(onItemClickListener != null){
+                    onItemClickListener.onItemClick(mlist, getRealPosition(getAdapterPosition()));
+                }
+            });
         }
 
 
@@ -158,6 +182,12 @@ public class TopicAdapter extends RecyclerView.Adapter {
                 }
             });
 
+            jBanner.setOnBannerItemClickListener((d,p) ->{
+                if(onItemClickListener != null){
+                    onItemClickListener.onItemClick(mBannerlist, p);
+                }
+            });
+
         }
 
         public void setData(ArrayList<TopicData.Bannerlist> banners) {
@@ -190,6 +220,8 @@ public class TopicAdapter extends RecyclerView.Adapter {
         }
     }
 
-
+    public static interface OnItemClickListener{
+        void onItemClick(List<? extends NewsData.NewsBean> list, int position);
+    }
 }
 

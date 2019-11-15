@@ -73,7 +73,7 @@ public class TopicData {
         this.list = list;
     }
 
-    public static class Bannerlist {
+    public static class Bannerlist extends NewsData.NewsBean {
             /*'id': '文章id',
             'theme': '文章标题',
             'description': '文章描述',
@@ -82,27 +82,6 @@ public class TopicData {
             'is_collect': '是否收藏，1已收藏，0未收藏',
             'link': '文章链接',
             'share_link': '文章分享链接',*/
-
-
-            private String id;
-            private String theme;
-            private String description;
-            private String image_url;
-            private int is_good;
-            private int is_collect;
-            private String link;
-            private String share_link;
-
-        public Bannerlist(String id, String theme, String description, String image_url, int is_good, int is_collect, String link, String share_link) {
-            this.id = id;
-            this.theme = theme;
-            this.description = description;
-            this.image_url = image_url;
-            this.is_good = is_good;
-            this.is_collect = is_collect;
-            this.link = link;
-            this.share_link = share_link;
-        }
 
         @Override
         public String toString() {
@@ -186,7 +165,7 @@ public class TopicData {
         }
     }
 
-    public static class Topiclist {
+    public static class Topiclist extends NewsData.NewsBean {
         /*'id': '文章id',
         'view_type': '视图类型：1左图，2中间大图，3右图，4视频，5即时',
         'type': '文章类型：1新闻，2快讯，3图片，4视频，5期刊，6专题',
@@ -200,18 +179,13 @@ public class TopicData {
         'link': '文章链接',
         'share_link': '文章分享链接',*/
 
-        private String id;
+
+
+
         private int view_type;
         private int type;
         private String column_name;
-        private String theme;
-        private String description;
         private String lead;
-        private String image_url;
-        private int is_good;
-        private int is_collect;
-        private String link;
-        private String share_link;
 
         @Override
         public String toString() {

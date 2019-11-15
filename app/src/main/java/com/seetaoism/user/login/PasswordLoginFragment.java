@@ -76,8 +76,7 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
 //        //保存电子邮箱
 //        SPUtils.saveValueToDefaultSpByCommit("editemail", user.getUserInfo().getEmail());
         login(user);
-        startActivity(new Intent(getActivity(), HomeActivity.class));
-        getActivity().finish();
+
     }
 
     @Override

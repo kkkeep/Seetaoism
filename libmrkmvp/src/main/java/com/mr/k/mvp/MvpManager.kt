@@ -13,7 +13,7 @@ import com.mr.k.mvp.init as userManagerInit
 
 
 /*
- * created by taofu on 2019-10-26
+ * created by Cherry on 2019-10-26
 **/
 
 @SuppressLint("StaticFieldLeak")

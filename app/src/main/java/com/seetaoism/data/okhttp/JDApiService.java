@@ -8,6 +8,7 @@ import com.seetaoism.data.entity.CommentReplyData;
 import com.seetaoism.data.entity.HttpResult;
 import com.seetaoism.data.entity.IntergrelData;
 import com.seetaoism.data.entity.MessageData;
+import com.seetaoism.data.entity.NewsAttribute;
 import com.seetaoism.data.entity.NewsColumnData;
 import com.seetaoism.data.entity.NewsData;
 import com.seetaoism.data.entity.NoticedetailsBean;
@@ -103,11 +104,14 @@ public interface JDApiService {
     @GET("/app/v_1_1/article/recommendlist")
     Observable<HttpResult<NewsData>> getNewsData(@QueryMap Map<String, String> map);
 
+
+
     //请求评论点赞
     @FormUrlEncoded
     @POST("/api/comment_reply/commentpraise")
     Observable<HttpResult<String>> commentpraise(@FieldMap Map<String, String> map);
 
+    //                        //api/comment_reply/userreply
     //请求用户评论
     @FormUrlEncoded
     @POST("/api/comment_reply/usercomment")
@@ -183,6 +187,7 @@ public interface JDApiService {
     //请求我的收藏
     @GET("/api/user/collect")
     Observable<HttpResult<VideoData>> collect(@QueryMap Map<String, String> map);
+
 
 
     //请求积分
@@ -290,5 +295,12 @@ public interface JDApiService {
 
 
 
+
+    /**
+     * 获取该文章是否已经点赞和收藏
+     */
+    @FormUrlEncoded
+    @POST(AppConstant.RequestUrl.DETAIL_GET_ARTICLE_ATTRIBUTE)
+    Observable<HttpResult<NewsAttribute>> getNewsAttribute(@FieldMap Map<String, String> map);
 
 }

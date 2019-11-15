@@ -7,13 +7,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mr.k.mvp.base.MvpBaseFragment;
+import com.mr.k.mvp.kotlin.base.BaseActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.seetaoism.R;
+import com.seetaoism.data.entity.DetailExclusiveData;
+import com.seetaoism.data.entity.FROM;
 import com.seetaoism.data.entity.TopicData;
+import com.seetaoism.home.detail.vp.DetailVPFragment;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class TopicFragment extends MvpBaseFragment<TopicContract.ITopicPresnter> implements TopicContract.ITopicView, OnRefreshLoadMoreListener {
@@ -47,7 +52,15 @@ public class TopicFragment extends MvpBaseFragment<TopicContract.ITopicPresnter>
 
         topic_rec.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new TopicAdapter(getContext(), mBannerlist, mlist);
+
+        adapter.setOnItemClickListener((list,index)->{
+            DetailExclusiveData data = new DetailExclusiveData(FROM.TOPIC,list,index);
+            data.setStart(start);
+            data.setTime(time);
+            DetailVPFragment.Launcher.open((BaseActivity) Objects.requireNonNull(getActivity()), data, null);
+        });
         topic_rec.setAdapter(adapter);
+
 
         topic_smart.setOnRefreshLoadMoreListener(this);
 

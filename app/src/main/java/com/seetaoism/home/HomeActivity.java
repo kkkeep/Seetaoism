@@ -34,6 +34,7 @@ import com.seetaoism.home.topic.TopicFragment;
 import com.seetaoism.home.video.VideoFragment;
 import com.seetaoism.widgets.FeedbackPopwindow;
 import com.seetaoism.widgets.bottomtablaout.BottomTabLayout;
+import com.umeng.socialize.UMShareAPI;
 
 import java.util.List;
 
@@ -100,18 +101,22 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
         switch (position) {
             case 1: {
                 aClass = RecommendFragment.class;
+                StatusBarUtils.setStatusBarLightMode(this,Color.WHITE);
                 break;
             }
             case 2: {
                 aClass = VideoFragment.class;
+                StatusBarUtils.setStatusBarLightMode(this,Color.WHITE);
                 break;
             }
             case 3: {
                 aClass = TopicFragment.class;
+                StatusBarUtils.setStatusBarLightMode(this,Color.WHITE);
                 break;
             }
             case 4: {
                 aClass = MineFragment.class;
+                StatusBarUtils.setStatusBarDarkMode(this,Color.BLACK);
                 break;
             }
 
@@ -120,6 +125,12 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
         addFragment(getSupportFragmentManager(), aClass, R.id.home_fragment_container, null);
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
     public void updateTabTitle(int tabIndex, String tabValue) {
