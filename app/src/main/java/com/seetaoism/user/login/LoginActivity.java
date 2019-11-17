@@ -26,7 +26,7 @@ public class LoginActivity extends JDBaseActivity {
 
     @Override
     protected void doOnCreate(@Nullable Bundle savedInstanceState) {
-        addFragment(getSupportFragmentManager(), RegisterFragment.class, R.id.login_fragment_container, null);
+        addFragment(getSupportFragmentManager(), LoginVerifyFragment.class, R.id.login_fragment_container, null);
     }
 
     @Override

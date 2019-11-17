@@ -709,4 +709,9 @@ public class SystemFacade {
         return sb.toString();
     }
 
+    public static String hidePhoneNum(String phone) {
+
+        return phone.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
+    }
+
 }

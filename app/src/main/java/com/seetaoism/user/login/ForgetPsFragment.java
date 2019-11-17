@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import com.mr.k.mvp.base.MvpBaseFragment;
 import com.mr.k.mvp.utils.Logger;
 import com.mr.k.mvp.utils.SystemFacade;
@@ -20,6 +22,8 @@ import com.seetaoism.data.repositories.UserRepository;
 import com.seetaoism.libloadingview.LoadingView;
 import com.seetaoism.user.register.RegisterFragment;
 import com.seetaoism.widgets.CleanEditTextButton;
+
+import org.w3c.dom.Text;
 
 import java.util.Locale;
 
@@ -33,6 +37,8 @@ public class ForgetPsFragment extends MvpBaseFragment<LoginContract.IForgetPrese
     private CleanEditTextButton mIvAdminClean;
     private ImageView mIvClose;
     private Button mBtnNext;
+
+    private String mAccount;
 
     @Override
     protected int getLayoutId() {
@@ -49,7 +55,13 @@ public class ForgetPsFragment extends MvpBaseFragment<LoginContract.IForgetPrese
         mIvClose = bindViewAndSetListener(R.id.iv_close, this);
         mIvAdminClean.bindEditText(mEdtPhoneNumber);
 
+        if (mAccount != null && mAccount.length() == 11) {
+            mEdtPhoneNumber.setText(SystemFacade.hidePhoneNum(mAccount));
+        }
+
+        mBtnNext.setEnabled(false);
         //验证码
+
         mEtVerify.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -72,14 +84,23 @@ public class ForgetPsFragment extends MvpBaseFragment<LoginContract.IForgetPrese
         });
     }
 
+    @Override
+    public void setArguments(@Nullable Bundle args) {
+        super.setArguments(args);
+        if (args != null) {
+            mAccount = args.getString(AppConstant.BundleParamsKeys.ACCOUNT);
+        }
+
+    }
 
     @Override
     public LoginContract.IForgetPresenter createPresenter() {
 
         return new ForgetPsdPresenter(UserRepository.getInstance());
     }
+
     @Override
-    public void onLoginSuccess(String msg,boolean success) {
+    public void onLoginSuccess(String msg, boolean success) {
         Logger.d("%s msg = %s , success = %s", TAG, msg, success);
         if (!success) {
             showToast(msg);
@@ -87,21 +108,22 @@ public class ForgetPsFragment extends MvpBaseFragment<LoginContract.IForgetPrese
             resetGetCodeTextView();
         }
     }
-  @Override
-    public void onLoginFail(String msg,boolean success) {
-        //成功关闭loding
-      closeLoading();
-      if (success) {
 
-          Bundle bundle = new Bundle();
-          //传用户名密码
-          bundle.putString(AppConstant.RequestParamsKey.MOBILE, mEdtPhoneNumber.getText().toString().trim());
-          bundle.putString(AppConstant.RequestParamsKey.SMS_CODE,mEtVerify.getText().toString().trim());
-          //显示修改界面
-          addFragment(getFragmentManager(), UpdatePswFragment.class, R.id.login_fragment_container, bundle);
-      } else {
-          showToast(msg);
-      }
+    @Override
+    public void onLoginFail(String msg, boolean success) {
+        //成功关闭loding
+        closeLoading();
+        if (success) {
+
+            Bundle bundle = new Bundle();
+            //传用户名密码
+            bundle.putString(AppConstant.RequestParamsKey.MOBILE, mEdtPhoneNumber.getText().toString().trim());
+            bundle.putString(AppConstant.RequestParamsKey.SMS_CODE, mEtVerify.getText().toString().trim());
+            //显示修改界面
+            addFragment(getFragmentManager(), UpdatePswFragment.class, R.id.login_fragment_container, bundle);
+        } else {
+            showToast(msg);
+        }
 
     }
 
@@ -114,8 +136,8 @@ public class ForgetPsFragment extends MvpBaseFragment<LoginContract.IForgetPrese
                 break;
             }
             case R.id.tv_getVerify: {
-              //获取验证码
-              handGetSmsCode();
+                //获取验证码
+                handGetSmsCode();
                 break;
             }
             case R.id.iv_close: {
@@ -136,8 +158,10 @@ public class ForgetPsFragment extends MvpBaseFragment<LoginContract.IForgetPrese
                 break;
         }
     }
+
     private int mCountDown;
     private CountDownTimer mCountDownTimer;
+
     private void handVerifySmsCode() {
 
         if (mPresenter == null) {
@@ -149,12 +173,15 @@ public class ForgetPsFragment extends MvpBaseFragment<LoginContract.IForgetPrese
             showToast(R.string.text_error_input_sms_code);
             return;
         }
-        String phoneNumber = mEdtPhoneNumber.getText().toString().trim();
 
-        if (!SystemFacade.isValidPhoneNumber(phoneNumber)) {
+        String phoneNumber = getPhoneNumber();
+
+        if (TextUtils.isEmpty(phoneNumber)) {
             showToast(R.string.text_error_input_phone_number);
             return;
         }
+
+
         showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
 
         mPresenter.ForgetSmsCode(phoneNumber, smsCode);
@@ -162,9 +189,10 @@ public class ForgetPsFragment extends MvpBaseFragment<LoginContract.IForgetPrese
     }
 
     private void handGetSmsCode() {
-        String phoneNumber = mEdtPhoneNumber.getText().toString().trim();
 
-        if (!SystemFacade.isValidPhoneNumber(phoneNumber)) {
+        String phoneNumber = getPhoneNumber();
+
+        if (TextUtils.isEmpty(phoneNumber)) {
             showToast(R.string.text_error_input_phone_number);
             return;
         }
@@ -188,15 +216,36 @@ public class ForgetPsFragment extends MvpBaseFragment<LoginContract.IForgetPrese
         mCountDownTimer.start();
         mTvGetVerify.setEnabled(false);
 
-       // 请求验证码
-      mPresenter.ForgetCode(phoneNumber);
-
+        // 请求验证码
+        mPresenter.ForgetCode(phoneNumber);
 
     }
+
+    private String getPhoneNumber() {
+
+        String phoneNumber = mEdtPhoneNumber.getText().toString().trim();
+
+        if (mAccount != null && mAccount.length() == 11) {
+            String account = SystemFacade.hidePhoneNum(mAccount);
+            if (account.equals(phoneNumber)) {
+                phoneNumber = mAccount;
+            }
+        }
+
+
+        if (!SystemFacade.isValidPhoneNumber(phoneNumber)) {
+            return null;
+        }
+
+        return phoneNumber;
+    }
+
+
     private void resetGetCodeTextView() {
         mTvGetVerify.setText(R.string.text_register_get_code);
         mTvGetVerify.setEnabled(true);
     }
+
     @Override
     public boolean isNeedAddToBackStack() {
         return true;

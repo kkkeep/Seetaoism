@@ -4,6 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:scrollbars="none"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
 
@@ -11,6 +13,7 @@
 <com.seetaoism.widgets.MatchScrollParentCLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:orientation="vertical">
 
     <EditText
@@ -23,11 +26,12 @@
 
         app:layout_constraintBottom_toTopOf="@id/login_iv_line1" />
 
+
+
     <com.seetaoism.widgets.CleanEditTextButton
-        android:id="@+id/login_iv_clean"
+        android:id="@+id/login_iv_clean_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="6dp"
         app:layout_constraintBottom_toBottomOf="@+id/login_edt_phone_number"
         app:layout_constraintEnd_toEndOf="@+id/login_edt_phone_number"
         app:layout_constraintTop_toTopOf="@+id/login_edt_phone_number"
@@ -36,34 +40,42 @@
     <EditText
         android:id="@+id/login_edt_password"
         style="@style/SeeWay.EditInput"
-
         android:hint="@string/text_input_password"
         android:inputType="textPassword"
         android:text="123456789"
-
         app:layout_constraintBottom_toTopOf="@id/login_iv_line2"
 
         />
+    <com.seetaoism.widgets.CleanEditTextButton
+        android:id="@+id/login_pwd_iv_clean_psw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/login_tv_forget_psw"
+        app:layout_constraintEnd_toStartOf="@+id/login_tv_forget_psw"
+        app:layout_constraintTop_toTopOf="@+id/login_tv_forget_psw"
+        app:srcCompat="@drawable/ic_clean" />
 
     <com.seetaoism.widgets.TogglePasswordButton
         android:id="@+id/login_iv_show_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="6dp"
-        app:layout_constraintBottom_toBottomOf="@+id/login_edt_password"
-        app:layout_constraintEnd_toEndOf="@+id/login_edt_password"
-        app:layout_constraintTop_toTopOf="@+id/login_edt_password"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/login_pwd_iv_clean_psw"
+        app:layout_constraintEnd_toStartOf="@+id/login_pwd_iv_clean_psw"
+        app:layout_constraintTop_toTopOf="@+id/login_pwd_iv_clean_psw"
         app:srcCompat="@drawable/ic_eyes_close" />
 
-    <Button
+    <com.mr.k.mvp.kotlin.widget.EditTextButton
         android:id="@+id/login_btn_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/login_button_rounder_bg_selector"
         android:text="@string/text_login"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/login_iv_show_password"
+        app:layout_constraintEnd_toEndOf="@+id/login_tv_forget_psw"
         app:layout_constraintStart_toStartOf="@+id/login_edt_password"
         app:layout_constraintTop_toBottomOf="@+id/login_iv_line2" />
 
@@ -123,6 +135,17 @@
     <include layout="@layout/part_layout_user_common"
         />
 
+    <TextView
+        android:id="@+id/login_tv_forget_psw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_login_forget_pw"
+        android:textSize="13dp"
+        android:textColor="@color/gray_10"
+        app:layout_constraintBottom_toBottomOf="@+id/login_edt_password"
+        app:layout_constraintEnd_toEndOf="@+id/login_edt_password"
+        app:layout_constraintTop_toTopOf="@+id/login_edt_password"
+        app:layout_constraintVertical_bias="0.166" />
 
 
 </com.seetaoism.widgets.MatchScrollParentCLayout>

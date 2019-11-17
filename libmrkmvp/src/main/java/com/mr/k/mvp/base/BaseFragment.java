@@ -11,10 +11,12 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.mr.k.mvp.R;
 import com.mr.k.mvp.kotlin.base.BaseActivity;
+import com.mr.k.mvp.kotlin.base.MvpFragmentManager;
 import com.mr.k.mvp.utils.Logger;
 import com.seetaoism.libloadingview.LoadingView;
 import com.trello.rxlifecycle2.components.support.RxFragment;
@@ -102,7 +104,33 @@ public abstract class BaseFragment extends RxFragment {
 
         return null;
     }
+    protected void backToOrAdd(Class<? extends BaseFragment> aClass,int containerId,Bundle args){
 
+        String name = MvpFragmentManager.getFragmentTag(aClass);
+
+        FragmentManager fragmentManager = getFragmentManager();
+
+        Fragment baseFragment =  getFragmentManager().findFragmentByTag(name);
+        if(baseFragment == null){
+            addFragment(getFragmentManager(), aClass, containerId, args);
+        }else{
+            int count =  fragmentManager.getBackStackEntryCount();
+            FragmentManager.BackStackEntry stackEntry = null;
+            for(int i = 0 ; i < count; i++){
+                stackEntry = fragmentManager.getBackStackEntryAt(i);
+                if(stackEntry.getName().equals(name)){
+                    fragmentManager.popBackStackImmediate(name, 0);
+                    return;
+                }
+
+            }
+            if(count > 0){
+                fragmentManager.popBackStackImmediate(fragmentManager.getBackStackEntryAt(0).getName(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                // fragmentManager.popBackStack();
+            }
+
+        }
+    }
     private ViewGroup getParentViewGroup(){
         ViewGroup viewGroup = (ViewGroup) getView().getParent();
         return viewGroup;
@@ -169,6 +197,20 @@ public abstract class BaseFragment extends RxFragment {
     protected  void back(){
         getFragmentManager().popBackStack();
     }
+ /*   protected  void backTo(Class<? extends BaseFragment> fragmentClass){
+        String tag = MvpFragmentManager.getFragmentTag(fragmentClass);
+
+        getFragmentManager().popBackStackImmediate(tag, 0);
+      int count =   getFragmentManager().getBackStackEntryCount();
+
+      for(int i = 0 ; i< count; i++){
+          FragmentManager.BackStackEntry stackEntry = getFragmentManager().getBackStackEntryAt(i);
+          if(stackEntry.getName().equals(tag)){
+              getFragmentManager().popBackStack(tag,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+          }
+        }
+
+    }*/
 
     public int enter() {
         if (!isNeedAnimation()) {

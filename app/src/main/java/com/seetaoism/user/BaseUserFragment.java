@@ -5,13 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import com.mr.k.mvp.base.BaseFragment;
 import com.mr.k.mvp.base.IBasePresenter;
 import com.mr.k.mvp.base.MvpBaseFragment;
+import com.mr.k.mvp.kotlin.base.MvpFragmentManager;
 import com.seetaoism.R;
 import com.seetaoism.data.entity.User;
 import com.seetaoism.home.HomeActivity;
@@ -69,6 +74,9 @@ public abstract class BaseUserFragment<T extends IBasePresenter> extends MvpBase
     protected void loginSocial(@SocialType int type) {
 
     }
+
+
+
 
     private View.OnClickListener mSocialOnClickListener = v -> {
 

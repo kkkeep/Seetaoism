@@ -95,7 +95,8 @@
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/tv_getVerify"
-                android:textColor="@color/red"
+                android:textColor="@color/black_2"
+                android:textSize="13dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:text="获取验证码"

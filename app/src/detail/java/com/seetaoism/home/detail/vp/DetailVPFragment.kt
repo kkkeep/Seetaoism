@@ -18,7 +18,6 @@ import com.mr.k.mvp.getUser
 import com.mr.k.mvp.kotlin.base.BaseActivity
 import com.mr.k.mvp.registerUserBroadcastReceiver
 import com.mr.k.mvp.unRegisterUserBroadcastReceiver
-import com.mr.k.mvp.utils.SystemFacade
 import com.seetaoism.AppConstant
 import com.seetaoism.R
 import com.seetaoism.data.entity.DetailExclusiveData
@@ -30,11 +29,8 @@ import com.seetaoism.home.detail.page.DetailPageFragment
 import com.seetaoism.home.detail.DetailsContract
 import com.seetaoism.libloadingview.LoadingView
 import com.seetaoism.utils.shareNews
-import com.umeng.socialize.ShareAction
 import com.umeng.socialize.UMShareListener
 import com.umeng.socialize.bean.SHARE_MEDIA
-import com.umeng.socialize.media.UMImage
-import com.umeng.socialize.media.UMWeb
 import kotlinx.android.synthetic.main.fragment_detail_vp.*
 
 
@@ -73,7 +69,7 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
+        mIndex.also {  }
         if (detailExclusiveData == null || detailExclusiveData!!.from != FROM.INNER) {
             mViewModel = ViewModelProviders.of(activity as FragmentActivity).get(NewsViewModel::class.java)
 
@@ -107,8 +103,8 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
         super.setArguments(args)
 
        /* args?.run {
-            mColumnId = getString(AppConstant.IntentParamsKeys.DETAIL_NEWS_COLUMN_ID)
-            mIndex = getInt(AppConstant.IntentParamsKeys.ARTICLE_POSITION)
+            mColumnId = getString(AppConstant.BundleParamsKeys.DETAIL_NEWS_COLUMN_ID)
+            mIndex = getInt(AppConstant.BundleParamsKeys.ARTICLE_POSITION)
 
         }*/
 
@@ -307,10 +303,10 @@ class NewsDetailAdapter(fm: FragmentManager, val news: MutableList< NewsData.New
         val fragment = DetailPageFragment();
         val bundle = Bundle()
 
-        bundle.putString(AppConstant.IntentParamsKeys.ARTICLE_ID, newsData.id)
-        bundle.putString(AppConstant.IntentParamsKeys.ARTICLE_LINK_URL, newsData.link)
-        bundle.putString(AppConstant.IntentParamsKeys.ARTICLE_DESCRIPTION, newsData.description)
-        bundle.putString(AppConstant.IntentParamsKeys.ARTICLE_TITLE, newsData.theme)
+        bundle.putString(AppConstant.BundleParamsKeys.ARTICLE_ID, newsData.id)
+        bundle.putString(AppConstant.BundleParamsKeys.ARTICLE_LINK_URL, newsData.link)
+        bundle.putString(AppConstant.BundleParamsKeys.ARTICLE_DESCRIPTION, newsData.description)
+        bundle.putString(AppConstant.BundleParamsKeys.ARTICLE_TITLE, newsData.theme)
 
         fragment.arguments = bundle;
 

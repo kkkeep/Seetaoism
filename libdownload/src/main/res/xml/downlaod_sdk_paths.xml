@@ -4,7 +4,7 @@
     <!-- name 相当于path 的一个别名，比如获取出来的URL 就变成了/Android/data/pakagename/cahe/cache_download/****.apk -->
 
     <external-cache-path name="cache_download" path="apk_load" />
-    <root-path
+   <!-- <root-path
         name="camera_photos"
-        path="" />
+        path="" />-->
 </paths>

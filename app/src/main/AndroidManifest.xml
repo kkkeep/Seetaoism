@@ -125,16 +125,16 @@
             android:value="ea04929c517b2e6efd69abd2" /> <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
         <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
 
-       <!-- <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${packageName}.download.fileProvider"
+        <provider
+            android:name="com.seetaoism.libdownlaod.ApkLoadProvider"
+            android:authorities="${applicationId}.download.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/downlaod_sdk_paths" />
         </provider>
--->
+
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -14,7 +14,7 @@ public interface AppConstant {
     String CACHE_USER_DATA_FILE_NAME = "user_info.json";
 
 
-    interface IntentParamsKeys{
+    interface BundleParamsKeys {
 
         String ARTICLE_ID = "articleId";
         String ARTICLE_POSITION = "articlePosition";
@@ -22,6 +22,8 @@ public interface AppConstant {
         String ARTICLE_LINK_URL = "article_link_url";
         String ARTICLE_DESCRIPTION = "article_description";
         String ARTICLE_TITLE = "article_title";
+
+        String ACCOUNT = "account";
     }
 
     interface SPKeys{

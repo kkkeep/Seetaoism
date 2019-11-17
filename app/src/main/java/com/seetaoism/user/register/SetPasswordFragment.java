@@ -22,6 +22,8 @@ import com.seetaoism.home.HomeActivity;
 import com.seetaoism.libloadingview.LoadingView;
 import com.seetaoism.user.BaseUserFragment;
 import com.seetaoism.user.login.LoginContract;
+import com.seetaoism.user.login.LoginVerifyFragment;
+import com.seetaoism.user.login.PasswordLoginFragment;
 import com.seetaoism.widgets.CleanEditTextButton;
 import com.seetaoism.widgets.TogglePasswordButton;
 
@@ -128,30 +130,19 @@ public class SetPasswordFragment extends BaseUserFragment<LoginContract.IRegiste
                 break;
             }
 
-            case R.id.register_setting_psd_iv_show_psd: {
-                break;
-            }
 
-            case R.id.register_setting_psd_iv_show_confirm_psd: {
-                break;
-            }
-
-            case R.id.register_setting_psd_iv_clean_psd: {
-                break;
-            }
-            case R.id.register_setting_psd_iv_clean_cpsd: {
-                break;
-            }
 
             case R.id.register_setting_psd_tv_license: {
                 break;
             }
 
             case R.id.register_setting_psd_tv_goto_sms_login: {
+                backToOrAdd(LoginVerifyFragment.class, R.id.login_fragment_container, null);
                 break;
             }
 
             case R.id.register_setting_psd_tv_goto_psd_login: {
+                backToOrAdd(PasswordLoginFragment.class, R.id.login_fragment_container, null);
                 break;
             }
 
