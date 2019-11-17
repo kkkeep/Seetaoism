@@ -303,4 +303,40 @@ public interface JDApiService {
     @POST(AppConstant.RequestUrl.DETAIL_GET_ARTICLE_ATTRIBUTE)
     Observable<HttpResult<NewsAttribute>> getNewsAttribute(@FieldMap Map<String, String> map);
 
+
+    /**
+     * 获取删除评论接口
+     */
+    @FormUrlEncoded
+    @POST("/api/comment_reply/commentdelete")
+    Observable<HttpResult<String>> commentdelete(@FieldMap Map<String, String> map);
+
+
+    /**
+     * 获取评论回复删除
+     */
+    @FormUrlEncoded
+    @POST("/api/comment_reply/replydelete")
+    Observable<HttpResult<String>> replydelete(@FieldMap Map<String, String> map);
+
+
+
+    /**
+     * 获取文章删除
+     */
+    @FormUrlEncoded
+    @POST("/api/article/articledelete")
+    Observable<HttpResult<String>> articledelete(@FieldMap Map<String, String> map);
+
+
+
+
+
+
+
+
+
+
+
+
 }

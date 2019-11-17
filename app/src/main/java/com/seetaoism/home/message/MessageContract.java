@@ -27,16 +27,37 @@ public interface MessageContract {
 
         void MeaasgeDeleteFail(String msg);
 
+        //详情主评论删除
+        void MessagedetailsDeleteSucceed(String s);
+
+        void MessagedetailsDeleteFail(String s);
+
+        //评论回复删除
+        void MessagedetailsreplyDeleteSucceed(String s);
+
+        void MessagedetailsreplyDeleteFail(String s);
+
+
+        //文章删除
+        void ArticledeleteSucceed(String s);
+        void ArticledeleteFail(String s);
+
     }
 
     public interface MessagePresenter extends IBasePresenter<MessageView> {
-        void getMessageList(int start,int time);
+        void getMessageList(int start, int time);
 
         //我的消息详情
         void getMessagedetails(int id);
 
         //编辑删除消息
         void getMeaasgeDelete(String id);
+
+        void getMessagedetailsDelete(int id);
+
+        void getMessagedetailsreplyDelete(int id);
+
+        void getArticledelete(int id);
     }
 
     public interface MessageModel {
@@ -48,6 +69,12 @@ public interface MessageContract {
 
         //编辑删除消息
         void getMeaasgeDelete(LifecycleProvider provider, Map<String, String> params, IBaseCallBack<String> callBack);
+
+        void getgetMessagedetailsDelete(LifecycleProvider provider, Map<String, String> params, IBaseCallBack<String> callBack);
+
+        void  getMessagedetailsreplyDelete(LifecycleProvider provider, Map<String, String> params, IBaseCallBack<String> callBack);
+
+        void  getArticledelete(LifecycleProvider provider, Map<String, String> params, IBaseCallBack<String> callBack);
 
     }
 }

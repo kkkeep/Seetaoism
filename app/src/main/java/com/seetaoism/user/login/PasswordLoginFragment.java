@@ -67,14 +67,6 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
     @Override
     public void onLoginSuccess(User user) {
         closeLoading();
-//        //保存头像
-//        SPUtils.saveValueToDefaultSpByCommit("pic", user.getUserInfo().getHeadUrl());
-//        //保存用户名
-//        SPUtils.saveValueToDefaultSpByCommit("name", user.getUserInfo().getNickname());
-//        //保存手机号
-//        SPUtils.saveValueToDefaultSpByCommit("editphone", user.getUserInfo().getMobile());
-//        //保存电子邮箱
-//        SPUtils.saveValueToDefaultSpByCommit("editemail", user.getUserInfo().getEmail());
         login(user);
 
     }

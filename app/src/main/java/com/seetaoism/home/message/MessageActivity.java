@@ -186,6 +186,36 @@ public class MessageActivity extends JDMvpBaseActivity<MessageContract.MessagePr
     }
 
     @Override
+    public void MessagedetailsDeleteSucceed(String s) {
+
+    }
+
+    @Override
+    public void MessagedetailsDeleteFail(String s) {
+
+    }
+
+    @Override
+    public void MessagedetailsreplyDeleteSucceed(String s) {
+
+    }
+
+    @Override
+    public void MessagedetailsreplyDeleteFail(String s) {
+
+    }
+
+    @Override
+    public void ArticledeleteSucceed(String s) {
+
+    }
+
+    @Override
+    public void ArticledeleteFail(String s) {
+
+    }
+
+    @Override
     public MessageContract.MessagePresenter createPresenter() {
         return new MessagePresenter();
     }

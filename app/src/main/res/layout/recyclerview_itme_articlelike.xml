@@ -66,8 +66,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="15dp"
-                android:text="1.7k人攒过"
                 android:textColor="#4A90E2"
                 android:textSize="15sp" />
         </RelativeLayout>

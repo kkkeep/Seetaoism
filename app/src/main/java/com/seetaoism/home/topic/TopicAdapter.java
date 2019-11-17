@@ -62,7 +62,7 @@ public class TopicAdapter extends RecyclerView.Adapter {
             holder1.setData(mBannerlist);
         } else if (itemViewType == NEWSLIST_VIEW) {
             NewsHolder holder1 = (NewsHolder) holder;
-            //第二次加载的时候没有banner了，但是你的第一个位置还是给他留了，所以就蹦了
+
             int lastPos = position;
             //
             if (mBannerlist.size() > 0){

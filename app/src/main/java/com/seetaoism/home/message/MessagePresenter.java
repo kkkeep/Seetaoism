@@ -93,4 +93,73 @@ public class MessagePresenter extends BasePresenter<MessageContract.MessageView>
             }
         });
     }
+    //评论删除
+    @Override
+    public void getMessagedetailsDelete(int id) {
+        HashMap<String, String> params = new HashMap<>();
+
+        params.put("comment_id", String.valueOf(id));
+
+        mMode.getgetMessagedetailsDelete(getLifecycleProvider(), params, new IBaseCallBack<String>() {
+            @Override
+            public void onSuccess(@NonNull String data) {
+                if (mView!=null){
+                    mView.MessagedetailsDeleteSucceed(data);
+                }
+            }
+
+            @Override
+            public void onFail(@NonNull ResultException e) {
+                if (mView!=null){
+                    mView.MessagedetailsDeleteFail(e.getMessage());
+                }
+            }
+        });
+    }
+    //评论回复删除
+    @Override
+    public void getMessagedetailsreplyDelete(int id) {
+        HashMap<String, String> params = new HashMap<>();
+
+        params.put("reply_id", String.valueOf(id));
+
+        mMode.getMessagedetailsreplyDelete(getLifecycleProvider(), params, new IBaseCallBack<String>() {
+            @Override
+            public void onSuccess(@NonNull String data) {
+                if (mView!=null){
+                    mView.MessagedetailsreplyDeleteSucceed(data);
+                }
+            }
+
+            @Override
+            public void onFail(@NonNull ResultException e) {
+                if (mView!=null){
+                    mView.MessagedetailsreplyDeleteFail(e.getMessage());
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getArticledelete(int id) {
+        HashMap<String, String> params = new HashMap<>();
+
+        params.put("id", String.valueOf(id));
+
+        mMode.getArticledelete(getLifecycleProvider(), params, new IBaseCallBack<String>() {
+            @Override
+            public void onSuccess(@NonNull String data) {
+                if (mView!=null){
+                    mView.ArticledeleteSucceed(data);
+                }
+            }
+
+            @Override
+            public void onFail(@NonNull ResultException e) {
+                if (mView!=null){
+                    mView.ArticledeleteFail(e.getMessage());
+                }
+            }
+        });
+    }
 }

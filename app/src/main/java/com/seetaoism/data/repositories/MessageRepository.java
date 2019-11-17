@@ -57,4 +57,43 @@ public class MessageRepository  extends BaseRepository implements MessageContrac
             }
         }, callBack);
     }
+
+    @Override
+    public void getgetMessagedetailsDelete(LifecycleProvider provider, Map<String, String> params, IBaseCallBack<String> callBack) {
+        observer(provider, JDDataService.service().commentdelete(params), new Function<HttpResult<String>, ObservableSource<String>>() {
+            @Override
+            public ObservableSource<String> apply(HttpResult<String> newsColumnDataHttpResult) throws Exception {
+                if (newsColumnDataHttpResult.code == 1 && newsColumnDataHttpResult.data != null) {
+                    return Observable.just(newsColumnDataHttpResult.data);
+                }
+                return Observable.error(new ResultException(ResultException.SERVER_ERROR));
+            }
+        }, callBack);
+    }
+
+    @Override
+    public void getMessagedetailsreplyDelete(LifecycleProvider provider, Map<String, String> params, IBaseCallBack<String> callBack) {
+        observer(provider, JDDataService.service().replydelete(params), new Function<HttpResult<String>, ObservableSource<String>>() {
+            @Override
+            public ObservableSource<String> apply(HttpResult<String> newsColumnDataHttpResult) throws Exception {
+                if (newsColumnDataHttpResult.code == 1 && newsColumnDataHttpResult.data != null) {
+                    return Observable.just(newsColumnDataHttpResult.data);
+                }
+                return Observable.error(new ResultException(ResultException.SERVER_ERROR));
+            }
+        }, callBack);
+    }
+
+    @Override
+    public void getArticledelete(LifecycleProvider provider, Map<String, String> params, IBaseCallBack<String> callBack) {
+        observer(provider, JDDataService.service().articledelete(params), new Function<HttpResult<String>, ObservableSource<String>>() {
+            @Override
+            public ObservableSource<String> apply(HttpResult<String> newsColumnDataHttpResult) throws Exception {
+                if (newsColumnDataHttpResult.code == 1 && newsColumnDataHttpResult.data != null) {
+                    return Observable.just(newsColumnDataHttpResult.data);
+                }
+                return Observable.error(new ResultException(ResultException.SERVER_ERROR));
+            }
+        }, callBack);
+    }
 }

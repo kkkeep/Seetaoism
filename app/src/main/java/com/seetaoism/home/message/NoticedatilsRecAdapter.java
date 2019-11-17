@@ -80,6 +80,7 @@ public class NoticedatilsRecAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         notifyDataSetChanged();
     }
 
+
     class SystemacticHolder extends RecyclerView.ViewHolder {
         TextView notice_content;
         TextView notice_time;
@@ -139,6 +140,9 @@ public class NoticedatilsRecAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             commentBackHolder.comment_link.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (mListener != null) {
+                        mListener.setOnLinkListener(i, mData.get(i));
+                    }
                 }
             });
         }
@@ -188,6 +192,10 @@ public class NoticedatilsRecAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             commentLikeHolder.comment_link.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    if (mListener != null) {
+                        mListener.setOnLinkListener(i, mData.get(i));
+                    }
                 }
             });
         }
@@ -232,6 +240,10 @@ public class NoticedatilsRecAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             articleLikeHolder.comment_link.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    if (mListener != null) {
+                        mListener.setOnLinkListener(i, mData.get(i));
+                    }
                 }
             });
         }
@@ -273,6 +285,10 @@ public class NoticedatilsRecAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             articleCommentHolder.comment_link.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    if (mListener != null) {
+                        mListener.setOnLinkListener(i, mData.get(i));
+                    }
                 }
             });
         }
@@ -295,7 +311,7 @@ public class NoticedatilsRecAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     public interface setOnItemCLick {
-        void setOnLinkListener(int position, List<NoticedetailsBean> mData);
+        void setOnLinkListener(int position,NoticedetailsBean mData);
     }
 
     public void setOnItemCLick(setOnItemCLick setOnItemCLick) {

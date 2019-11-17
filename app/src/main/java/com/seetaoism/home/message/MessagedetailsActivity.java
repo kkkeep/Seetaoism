@@ -22,7 +22,7 @@ import com.shehuan.niv.NiceImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessagedetailsActivity extends JDMvpBaseActivity<MessageContract.MessagePresenter> implements MessageContract.MessageView {
+public class MessagedetailsActivity extends JDMvpBaseActivity<MessageContract.MessagePresenter> implements MessageContract.MessageView, NoticedatilsRecAdapter.setOnItemCLick {
 
 
     private NiceImageView mClose;
@@ -55,10 +55,11 @@ public class MessagedetailsActivity extends JDMvpBaseActivity<MessageContract.Me
         mBtnAllSelect = findViewById(R.id.btn_allSelect);
         mBtnDelete = findViewById(R.id.btn_delete);
         mPop = findViewById(R.id.pop);
+        //我的消息详情列表
 
         mPresenter.getMessagedetails(id);
 
-        }
+    }
 
     @Override
     protected int getLayoutId() {
@@ -75,7 +76,7 @@ public class MessagedetailsActivity extends JDMvpBaseActivity<MessageContract.Me
 
     }
 
-    @Override
+    //详情回调  data好像得判断这个数据
     public void MessagedetailsSucceed(NoticedetailsBean data) {
         closeLoading();
         if (data != null) {
@@ -84,6 +85,8 @@ public class MessagedetailsActivity extends JDMvpBaseActivity<MessageContract.Me
         noticedatilsRecAdapter = new NoticedatilsRecAdapter(mList);
         mCollectAllRc.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mCollectAllRc.setAdapter(noticedatilsRecAdapter);
+        noticedatilsRecAdapter.setOnItemCLick(this);
+
     }
 
     @Override
@@ -101,8 +104,74 @@ public class MessagedetailsActivity extends JDMvpBaseActivity<MessageContract.Me
 
     }
 
+    //删除一级评论回复
+    @Override
+    public void MessagedetailsDeleteSucceed(String s) {
+        showToast(s);
+    }
+
+    //删除评论
+    @Override
+    public void MessagedetailsDeleteFail(String s) {
+        showToast(s);
+    }
+
+    //删除二级评论回复
+    @Override
+    public void MessagedetailsreplyDeleteSucceed(String s) {
+        showToast(s);
+    }
+
+    //回复删除
+    @Override
+    public void MessagedetailsreplyDeleteFail(String s) {
+        showToast(s);
+    }
+
+    @Override
+    public void ArticledeleteSucceed(String s) {
+        showToast("文章删除成功");
+    }
+
+    @Override
+    public void ArticledeleteFail(String s) {
+
+    }
+
     @Override
     public MessageContract.MessagePresenter createPresenter() {
         return new MessagePresenter();
+    }
+
+    @Override
+    public void setOnLinkListener(int position, NoticedetailsBean mData) {
+        String fromType = mData.getFrom_type();
+        String reply_type = mData.getReply_type();
+        String delete_comment_reply_id = mData.getDelete_comment_reply_id();
+        String articleId = mData.getArticle_id();
+
+
+        //1系统通知，2评论被回复通知，3评论被点赞通知，4文章被点赞，5文章被评论
+
+
+        if ("2".equals(fromType)) {
+            if ("1".equals(reply_type)) {
+                ///api/comment_reply/commentdelete
+                mPresenter.getMessagedetailsDelete(Integer.valueOf(delete_comment_reply_id));
+            } else if ("2".equals(reply_type)) {
+                ///api/comment_reply/replydelete
+                mPresenter.getMessagedetailsreplyDelete(Integer.valueOf(delete_comment_reply_id));
+            }
+        } else if ("3".equals(fromType)) {
+
+            showToast("评论被点赞通知");
+        } else if ("4".equals(fromType)) {
+            mPresenter.getArticledelete(Integer.valueOf(articleId));
+            //showToast("文章被点赞");
+        } else if ("5".equals(fromType)) {
+            mPresenter.getArticledelete(Integer.valueOf(articleId));
+        }
+
+
     }
 }
