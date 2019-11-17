@@ -19,12 +19,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mr.k.mvp.base.MvpBaseFragment;
+import com.mr.k.mvp.kotlin.base.BaseActivity;
 import com.mr.k.mvp.utils.SystemFacade;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.seetaoism.R;
+import com.seetaoism.data.entity.DetailExclusiveData;
+import com.seetaoism.data.entity.FROM;
+import com.seetaoism.data.entity.NewsData;
 import com.seetaoism.data.entity.User;
 import com.seetaoism.data.entity.VideoData;
 import com.seetaoism.home.HomeActivity;
+import com.seetaoism.home.detail.vp.DetailVPFragment;
 import com.seetaoism.libloadingview.LoadingView;
 import com.seetaoism.user.login.LoginActivity;
 
@@ -128,18 +133,24 @@ public class CollectAllFragment extends MvpBaseFragment<CollectContract.ICollect
         });
         allAdapter.setOnItemClickListener(new CollectAllAdapter.OnItemClickListener() {
             @Override
-            public void setOnItemClickListener(View view, int position) {
-                //用一个变量记录
-                List<VideoData.NewList> selectedList = allAdapter.getSelectedNews();
-                if (SystemFacade.isListEmpty(selectedList)) {
-                    btnAllSelect.setText("全选");
-                    setBtnBackground(0);
-                } else {
-                    btnAllSelect.setText("取消全选");
-                    setBtnBackground(selectedList.size());
-                }
+            public void onItemClick(List<? extends NewsData.NewsBean> list, int position) {
+                if (mEditMode == CollectActivity.MODE_EDIT) {
+                    List<VideoData.NewList> selectedList = allAdapter.getSelectedNews();
+                    if (SystemFacade.isListEmpty(selectedList)) {
+                       // btnAllSelect.setText("全选");
+                        setBtnBackground(0);
+                    } else {
+                       // btnAllSelect.setText("取消全选");
+                        setBtnBackground(selectedList.size());
+                    }
+                }else{
+                    DetailExclusiveData data  = new DetailExclusiveData(FROM.COLLECT,list,position);
+                    DetailVPFragment.Launcher.open((BaseActivity) getActivity(), data, null);
 
+
+                }
             }
+
         });
     }
 
@@ -193,6 +204,7 @@ public class CollectAllFragment extends MvpBaseFragment<CollectContract.ICollect
     }
 
     public void chooseNews(boolean isSelect, int editMode) {
+
         mEditMode = editMode;
         //控制全选删除按钮显示隐藏
         if (isSelect) {

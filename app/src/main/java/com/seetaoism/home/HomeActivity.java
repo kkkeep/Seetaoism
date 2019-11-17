@@ -32,9 +32,12 @@ import com.seetaoism.home.recommend.RecommendFragment;
 import com.seetaoism.home.recommend.column.ColumnEditorFragment;
 import com.seetaoism.home.topic.TopicFragment;
 import com.seetaoism.home.video.VideoFragment;
+import com.seetaoism.utils.ShareUtilsKt;
 import com.seetaoism.widgets.FeedbackPopwindow;
 import com.seetaoism.widgets.bottomtablaout.BottomTabLayout;
 import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.List;
 
@@ -183,6 +186,28 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
                 addFragment(getSupportFragmentManager(), ColumnEditorFragment.class, android.R.id.content, null);
                 break;
             case R.id.home_drawer_share_app:
+                ShareUtilsKt.shareApp(this, new UMShareListener() {
+                    @Override
+                    public void onStart(SHARE_MEDIA share_media) {
+
+                    }
+
+                    @Override
+                    public void onResult(SHARE_MEDIA share_media) {
+
+                    }
+
+                    @Override
+                    public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+
+                    }
+
+                    @Override
+                    public void onCancel(SHARE_MEDIA share_media) {
+
+                    }
+                });
+
                 break;
             case R.id.home_drawer_feedback:
                 //意见反馈

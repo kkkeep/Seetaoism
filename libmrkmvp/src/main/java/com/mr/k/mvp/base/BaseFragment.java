@@ -146,6 +146,9 @@ public abstract class BaseFragment extends RxFragment {
     protected void showLoading(@LoadingView.LoadingMode int mode, boolean cancelAble){
         showLoading(mode,getParentViewGroup(),cancelAble);
     }
+    protected void showLoading(@LoadingView.LoadingMode int mode, @IdRes int containerId){
+        showLoading(mode,(ViewGroup) getView().findViewById(containerId),false);
+    }
 
     protected void showLoading(@LoadingView.LoadingMode int mode, @IdRes int containerId, boolean cancelAble){
         showLoading(mode,(ViewGroup) getView().findViewById(containerId),cancelAble);

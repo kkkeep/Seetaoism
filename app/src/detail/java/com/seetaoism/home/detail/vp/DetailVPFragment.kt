@@ -41,21 +41,7 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
 
     private  var mReceiver : BroadcastReceiver? = null
 
-    override fun onError(p0: SHARE_MEDIA?, p1: Throwable?) {
-        Log.d("Test","test");
-    }
 
-    override fun onStart(p0: SHARE_MEDIA?) {
-        Log.d("Test","test");
-    }
-
-    override fun onResult(p0: SHARE_MEDIA?) {
-        Log.d("Test","test");
-    }
-
-    override fun onCancel(p0: SHARE_MEDIA?) {
-        Log.d("Test","test");
-    }
 
 
     private var mColumnId: String? = null
@@ -273,6 +259,8 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
             return activity.addFragment(activity.supportFragmentManager, DetailVPFragment::class.java, android.R.id.content, args)
         }
 
+
+
         @JvmStatic
         internal fun openInner(activity: BaseActivity, data: DetailExclusiveData): DetailVPFragment? {
 
@@ -286,11 +274,33 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
 
     }
 
-    fun NewsDetailAdapter.getCurrentNew() : NewsData.NewsBean{
+    fun NewsDetailAdapter.getCurrentNew() : NewsData.NewsBean {
         return getNews(newsDetailVp.currentItem)
     }
 
+    override fun onError(p0: SHARE_MEDIA?, p1: Throwable?) {
+        if(p0 != SHARE_MEDIA.WEIXIN){
+            closeLoading()
+        }
+    }
 
+    override fun onStart(p0: SHARE_MEDIA?) {
+        if(p0 != SHARE_MEDIA.WEIXIN){
+            showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG)
+        }
+    }
+
+    override fun onResult(p0: SHARE_MEDIA?) {
+        if(p0 != SHARE_MEDIA.WEIXIN){
+            closeLoading()
+        }
+    }
+
+    override fun onCancel(p0: SHARE_MEDIA?) {
+        if(p0 != SHARE_MEDIA.WEIXIN){
+            closeLoading()
+        }
+    }
 
 }
 

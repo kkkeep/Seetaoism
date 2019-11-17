@@ -14,10 +14,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mr.k.mvp.base.MvpBaseFragment;
+import com.mr.k.mvp.kotlin.base.BaseActivity;
 import com.mr.k.mvp.utils.SystemFacade;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.seetaoism.R;
+import com.seetaoism.data.entity.DetailExclusiveData;
+import com.seetaoism.data.entity.FROM;
+import com.seetaoism.data.entity.NewsData;
 import com.seetaoism.data.entity.VideoData;
+import com.seetaoism.home.detail.vp.DetailVPFragment;
 import com.seetaoism.libloadingview.LoadingView;
 
 import java.util.ArrayList;
@@ -111,7 +116,6 @@ public class CollectVideoFragment extends MvpBaseFragment<CollectContract.IColle
 
                     int index = 0;
                     if (isSelectAll) {
-
                         for (int i = 0, j = allAdapter.recyclerview_item_collect.size(); i < j; i++) {
                             allAdapter.recyclerview_item_collect.get(i).setSelect(false);
                         }
@@ -127,17 +131,17 @@ public class CollectVideoFragment extends MvpBaseFragment<CollectContract.IColle
 
 
 
-        allAdapter.setOnItemClickListener(new CollectAllAdapter.OnItemClickListener() {
-            @Override
-            public void setOnItemClickListener(View view, int position) {
-                //用一个变量记录
+        allAdapter.setOnItemClickListener((list, position) -> {
+            if(mEditMode == CollectActivity.MODE_EDIT){
                 List<VideoData.NewList> selectedList = allAdapter.getSelectedNews();
                 if(SystemFacade.isListEmpty(selectedList)){
                     setBtnBackground(0);
                 }else{
                     setBtnBackground(selectedList.size());
                 }
-
+            }else{
+                DetailExclusiveData data  = new DetailExclusiveData(FROM.COLLECT,list,position);
+                DetailVPFragment.Launcher.open((BaseActivity) getActivity(), data, null);
             }
         });;
 

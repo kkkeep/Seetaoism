@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mr.k.mvp.utils.SPUtils;
+import com.mr.k.mvp.utils.SystemFacade;
 import com.seetaoism.AppConstant.RequestParamsKey;
 import com.seetaoism.R;
 import com.seetaoism.data.entity.User;
@@ -164,6 +165,7 @@ public class SetPasswordFragment extends BaseUserFragment<LoginContract.IRegiste
             showToast(R.string.text_error_null_password);
             return;
         }
+
 
         if (!psd.equals(cpsd)) {
             showToast(R.string.text_error_tow_password_not_same);

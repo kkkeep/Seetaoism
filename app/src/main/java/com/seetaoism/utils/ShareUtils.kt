@@ -20,14 +20,14 @@ import com.umeng.socialize.media.UMWeb
 
 fun shareNews(activity: FragmentActivity, news: NewsData.NewsBean, listener: UMShareListener) {
     val permissionUtils = PermissionUtils(activity)
-    permissionUtils.checkPermission(activity, object : PermissionUtils.OnPermissionCallBack{
+    permissionUtils.checkPermission(activity, object : PermissionUtils.OnPermissionCallBack {
         override fun onAllMustAccept() {
             val thumb = UMImage(activity, R.drawable.ic_drawer_logo)
             val web = UMWeb(news.share_link)
             web.title = news.theme
             web.setThumb(thumb)  //缩略图
             web.description = news.description
-            ShareAction(activity).withMedia(web).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QQ, SHARE_MEDIA.SINA, SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN_CIRCLE)
+            ShareAction(activity).withMedia(web).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QQ, SHARE_MEDIA.SINA, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN_CIRCLE)
                     .setCallback(listener).open();
         }
 
@@ -38,13 +38,12 @@ fun shareNews(activity: FragmentActivity, news: NewsData.NewsBean, listener: UMS
         }
 
         override fun onDenied() {
-            Toast.makeText(activity,activity.getString(R.string.text_share_qq_need_permission),Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, activity.getString(R.string.text_share_qq_need_permission), Toast.LENGTH_LONG).show()
         }
-    },arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),null)
+    }, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), null)
 
 
 }
-
 
 
 fun shareNewsToWechat(activity: FragmentActivity, news: NewsData.NewsBean, listener: UMShareListener) {
@@ -54,7 +53,7 @@ fun shareNewsToWechat(activity: FragmentActivity, news: NewsData.NewsBean, liste
 
 fun shareNewsToQQ(activity: FragmentActivity, news: NewsData.NewsBean, listener: UMShareListener) {
     val permissionUtils = PermissionUtils(activity)
-    permissionUtils.checkPermission(activity, object : PermissionUtils.OnPermissionCallBack{
+    permissionUtils.checkPermission(activity, object : PermissionUtils.OnPermissionCallBack {
         override fun onAllMustAccept() {
             share(activity, news, SHARE_MEDIA.QQ, listener)
         }
@@ -66,11 +65,11 @@ fun shareNewsToQQ(activity: FragmentActivity, news: NewsData.NewsBean, listener:
         }
 
         override fun onDenied() {
-            Toast.makeText(activity,activity.getString(R.string.text_share_qq_need_permission),Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, activity.getString(R.string.text_share_qq_need_permission), Toast.LENGTH_LONG).show()
         }
-    },arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),null)
+    }, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), null)
 
-    
+
 }
 
 
@@ -80,7 +79,7 @@ fun shareNewsToSina(activity: FragmentActivity, news: NewsData.NewsBean, listene
 
 fun shareNewsToMore(activity: FragmentActivity, news: NewsData.NewsBean, listener: UMShareListener) {
     val permissionUtils = PermissionUtils(activity)
-    permissionUtils.checkPermission(activity, object : PermissionUtils.OnPermissionCallBack{
+    permissionUtils.checkPermission(activity, object : PermissionUtils.OnPermissionCallBack {
         override fun onAllMustAccept() {
             val thumb = UMImage(activity, R.drawable.ic_drawer_logo)
             val web = UMWeb(news.share_link)
@@ -98,12 +97,38 @@ fun shareNewsToMore(activity: FragmentActivity, news: NewsData.NewsBean, listene
         }
 
         override fun onDenied() {
-            Toast.makeText(activity,activity.getString(R.string.text_share_qq_need_permission),Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, activity.getString(R.string.text_share_qq_need_permission), Toast.LENGTH_LONG).show()
         }
-    },arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),null)
+    }, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), null)
 
 }
 
+fun shareApp(activity: FragmentActivity, listener: UMShareListener) {
+
+    val permissionUtils = PermissionUtils(activity)
+    permissionUtils.checkPermission(activity, object : PermissionUtils.OnPermissionCallBack {
+        override fun onAllMustAccept() {
+            val thumb = UMImage(activity, R.drawable.ic_drawer_logo)
+            val web = UMWeb("http://www.seetaoism.com/m_greet")
+            web.title = activity.getString(R.string.app_name)
+            web.setThumb(thumb)  //缩略图
+            web.description = activity.getString(R.string.text_share_app_desciption)
+            ShareAction(activity).withMedia(web).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QQ, SHARE_MEDIA.SINA, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN_CIRCLE).setCallback(listener).open()
+        }
+
+        override fun shouldShowRationale(call: PermissionUtils.PermissionCall?) {
+        }
+
+        override fun shouldShowPermissionSetting() {
+        }
+
+        override fun onDenied() {
+            Toast.makeText(activity, activity.getString(R.string.text_share_qq_need_permission), Toast.LENGTH_LONG).show()
+        }
+    }, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), null)
+
+
+}
 
 
 private fun share(activity: FragmentActivity, news: NewsData.NewsBean, platform: SHARE_MEDIA, listener: UMShareListener) {

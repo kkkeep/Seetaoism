@@ -179,7 +179,22 @@ public class LoadingView extends ConstraintLayout {
         mCurMode = mode;
         if(mode == LOADING_MODE_WHITE_BG){
             setBackgroundColor(Color.WHITE);
+            mLoadingLayout.setBackground(null);
+            ConstraintSet constraintSet = new ConstraintSet();
+            constraintSet.clone(this);
+            constraintSet.constrainWidth(mLoadingLayout.getId(), ViewGroup.LayoutParams.WRAP_CONTENT);
+            constraintSet.constrainHeight(mLoadingLayout.getId(), ViewGroup.LayoutParams.WRAP_CONTENT);
+            constraintSet.applyTo(this);
+
+
         }else{
+            mLoadingLayout.setBackgroundResource(R.drawable.loading_bg);
+            int width = dip2px(getContext(), 100);
+            ConstraintSet constraintSet = new ConstraintSet();
+            constraintSet.clone(this);
+            constraintSet.constrainWidth(mLoadingLayout.getId(), width);
+            constraintSet.constrainHeight(mLoadingLayout.getId(), width);
+            constraintSet.applyTo(this);
             setBackgroundColor(Color.TRANSPARENT);
         }
         mErrorGroup.setVisibility(GONE);
@@ -252,7 +267,10 @@ public class LoadingView extends ConstraintLayout {
         return getParent() != null;
     }
 
-
+    private  int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
     public interface  RetryCallBack{
         void onRetry();
     }

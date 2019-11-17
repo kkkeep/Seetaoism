@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Seetaoism</string>
+    <string name="app_name">见道</string>
     <string name="app_name2">见道</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -97,5 +97,6 @@
     <string name="use_jifen">可用积分</string>
     <string name="text_share_qq_need_permission">QQ 分享需要文件读写权限</string>
     <string name="text_login_forget_pw">忘记密码?</string>
+    <string name="text_share_app_desciption">为您提供最新的全球工程商业新闻内容</string>
 
 </resources>

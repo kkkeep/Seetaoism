@@ -19,6 +19,7 @@ import com.seetaoism.R
 import com.seetaoism.data.entity.*
 import com.seetaoism.home.detail.DetailsContract
 import com.seetaoism.home.detail.vp.DetailVPFragment
+import com.seetaoism.home.detail.vp.NewsDetailAdapter
 import com.seetaoism.libloadingview.LoadingView
 import com.seetaoism.utils.shareNewsToMore
 import com.seetaoism.utils.shareNewsToQQ
@@ -26,6 +27,7 @@ import com.seetaoism.utils.shareNewsToSina
 import com.seetaoism.utils.shareNewsToWechat
 import com.umeng.socialize.UMShareListener
 import com.umeng.socialize.bean.SHARE_MEDIA
+import kotlinx.android.synthetic.main.fragment_detail_vp.*
 import kotlinx.android.synthetic.main.fragment_details.*
 
 
@@ -362,16 +364,31 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
     }
 
 
+    fun NewsDetailAdapter.getCurrentNew() : NewsData.NewsBean{
+        return getNews(newsDetailVp.currentItem)
+    }
+
     override fun onError(p0: SHARE_MEDIA?, p1: Throwable?) {
+        if(p0 != SHARE_MEDIA.WEIXIN && p0 != SHARE_MEDIA.WEIXIN_CIRCLE){
+            closeLoading()
+        }
     }
 
     override fun onStart(p0: SHARE_MEDIA?) {
+        if(p0 != SHARE_MEDIA.WEIXIN && p0 != SHARE_MEDIA.WEIXIN_CIRCLE){
+            showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG,view as ViewGroup,false)
+        }
     }
 
     override fun onResult(p0: SHARE_MEDIA?) {
+        if(p0 != SHARE_MEDIA.WEIXIN && p0 != SHARE_MEDIA.WEIXIN_CIRCLE){
+            closeLoading()
+        }
     }
-
     override fun onCancel(p0: SHARE_MEDIA?) {
+        if(p0 != SHARE_MEDIA.WEIXIN && p0 != SHARE_MEDIA.WEIXIN_CIRCLE){
+            closeLoading()
+        }
     }
 }
 

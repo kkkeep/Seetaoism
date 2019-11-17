@@ -28,8 +28,7 @@ public class CollectAllAdapter extends RecyclerView.Adapter {
 
     public ArrayList<VideoData.NewList> recyclerview_item_collect;
     private Context context;
-    private static final int MYLIVE_MODE_CHECK = 0;
-    int mEditMode = MYLIVE_MODE_CHECK;
+    int mEditMode = CollectActivity.MODE_VIEW;
     private OnItemClickListener mListener;
 
     public CollectAllAdapter(ArrayList<VideoData.NewList> recyclerview_item_collect, Context context) {
@@ -63,7 +62,7 @@ public class CollectAllAdapter extends RecyclerView.Adapter {
         holder1.setIsRecyclable(false); // 为了条目不复用
         VideoData.NewList bean = recyclerview_item_collect.get(position);
 
-        if (mEditMode == MYLIVE_MODE_CHECK) {
+        if (mEditMode == CollectActivity.MODE_VIEW) {
             holder1.cb_select.setVisibility(View.GONE);
         } else {
             holder1.cb_select.setVisibility(View.VISIBLE);
@@ -74,35 +73,29 @@ public class CollectAllAdapter extends RecyclerView.Adapter {
             }
         }
 
-        holder1.cb_select.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mListener != null) {
-                    CheckBox cb = (CheckBox) v;
-                    if (bean.isSelect()) {
-                        cb.setChecked(false);
-                        bean.setSelect(false);
-                    } else {
-                        cb.setChecked(true);
-                        bean.setSelect(true);
-                    }
-                    mListener.setOnItemClickListener(v, position);
+        holder1.cb_select.setOnClickListener(v -> {
+            if (mListener != null) {
+                CheckBox cb = (CheckBox) v;
+                if (bean.isSelect()) {
+                    cb.setChecked(false);
+                    bean.setSelect(false);
+                } else {
+                    cb.setChecked(true);
+                    bean.setSelect(true);
                 }
+                mListener.onItemClick(recyclerview_item_collect, position);
             }
         });
-        holder1.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mListener != null) {
-                    if (holder1.cb_select.isChecked()) {
-                        holder1.cb_select.setChecked(false);
-                        bean.setSelect(false);
-                    } else {
-                        holder1.cb_select.setChecked(true);
-                        bean.setSelect(true);
-                    }
-                    mListener.setOnItemClickListener(view, position);
+        holder1.itemView.setOnClickListener(view -> {
+            if (mListener != null) {
+                if (holder1.cb_select.isChecked()) {
+                    holder1.cb_select.setChecked(false);
+                    bean.setSelect(false);
+                } else {
+                    holder1.cb_select.setChecked(true);
+                    bean.setSelect(true);
                 }
+                mListener.onItemClick(recyclerview_item_collect, position);
             }
         });
     }
@@ -159,11 +152,20 @@ public class CollectAllAdapter extends RecyclerView.Adapter {
             collect_all_pic = inflate.findViewById(R.id.collect_all_pic);
             ll = inflate.findViewById(R.id.ll);
             cb_select = inflate.findViewById(R.id.cb_select);
+
+
+            inflate.setOnClickListener(v ->{
+                if(mListener != null){
+                    mListener.onItemClick(recyclerview_item_collect,getAdapterPosition());
+                }
+            });
+
+
         }
     }
 
     public interface OnItemClickListener {
-        void setOnItemClickListener(View view, int position);
+        void onItemClick(List<? extends NewsData.NewsBean> list, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

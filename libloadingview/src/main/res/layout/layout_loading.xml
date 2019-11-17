@@ -7,11 +7,9 @@
 
 
     <LinearLayout
-
         android:id="@+id/loading_load_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +19,7 @@
             android:id="@+id/loading_gif_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:gif="@drawable/loading_2" />
+            app:gif="@drawable/loading_3" />
 
     </LinearLayout>
 

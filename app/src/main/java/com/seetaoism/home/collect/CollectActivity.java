@@ -19,12 +19,14 @@ import java.util.ArrayList;
 
 public class CollectActivity extends JDMvpBaseActivity<CollectContract.ICollectPresenter> implements CollectContract.ICollectView, View.OnClickListener {
     //首先定义一个变量
-    private static final int CHECK_GONE = 0;     //这个是表示隐藏
-    private static final int CHECK_VISIBLE = 1;      //这个是表示显示
-    private int mEditMode = CHECK_GONE;
+    public static final int MODE_VIEW = 0;     //正常模式，也叫视图模式
+    public static final int MODE_EDIT = 1;      //编辑模式
+
+    private int mEditMode = MODE_VIEW;
 
     public static final String COLLECTALL = "0";
     public static final String COLLECT_VIDEO = "4";
+
     private NiceImageView mClose;
     private Toolbar mToolbar;
     private TabLayout mTablayoutCollect;
@@ -106,7 +108,7 @@ public class CollectActivity extends JDMvpBaseActivity<CollectContract.ICollectP
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bianji:
-                redact();
+                edit();
                 break;
             case R.id.close:
                 finish();
@@ -114,17 +116,19 @@ public class CollectActivity extends JDMvpBaseActivity<CollectContract.ICollectP
         }
     }
 
-    private void redact() {
+    private void edit() {
         boolean isSelect = false;
         //0是为了控制后边适配器子条目中的多选框隐藏，1是显示
-        int i = mEditMode == CHECK_GONE ? CHECK_VISIBLE : CHECK_GONE;
+        int i = mEditMode == MODE_VIEW ? MODE_EDIT : MODE_VIEW;
+
         mEditMode = i;
+
         int tabPosition = mTablayoutCollect.getSelectedTabPosition();
         //这个方法为了获取当前tab选中的下标
         if (tabPosition == 0) {
             CollectAllFragment collectAllFragment = (CollectAllFragment) fragmentList.get(0);
             if (collectAllFragment != null) {
-                if (mEditMode == CHECK_VISIBLE) {
+                if (mEditMode == MODE_EDIT) {
                     //这个判断是true，所以把编辑二字改成了取消
                     bianji.setText("取消");
                     isSelect = true;
@@ -141,7 +145,7 @@ public class CollectActivity extends JDMvpBaseActivity<CollectContract.ICollectP
 
             CollectVideoFragment collectVideoFragment = (CollectVideoFragment) fragmentList.get(1);
             if (collectVideoFragment != null) {
-                if (mEditMode == CHECK_VISIBLE) {
+                if (mEditMode == MODE_EDIT) {
                     //这个判断是true，所以把编辑二字改成了取消
                     bianji.setText("取消");
                     isSelect = true;
