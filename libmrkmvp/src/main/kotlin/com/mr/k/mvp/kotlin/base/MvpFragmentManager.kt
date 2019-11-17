@@ -64,7 +64,7 @@ internal fun <C : BaseFragment> addFragment(fragmentManager: FragmentManager, cl
     return baseFragment
 }
 
-fun <C : BaseFragment> FragmentTransaction.toAdd(fragment: C?, id: Int, tag: String) {
+private fun <C : BaseFragment> FragmentTransaction.toAdd(fragment: C?, id: Int, tag: String) {
 
     fragment?.let {
         setCustomAnimations(it.enter(), it.exit(), it.popEnter(), it.popExit())

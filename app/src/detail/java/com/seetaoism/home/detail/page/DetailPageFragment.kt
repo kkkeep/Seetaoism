@@ -59,10 +59,10 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
     override fun setArguments(args: Bundle?) {
         super.setArguments(args)
         args?.run {
-            mArticleId = getString(AppConstant.IntentParamsKeys.ARTICLE_ID)
-            mArticleLinkUrl = getString(AppConstant.IntentParamsKeys.ARTICLE_LINK_URL)
-            mArticleDescription = getString(AppConstant.IntentParamsKeys.ARTICLE_DESCRIPTION)
-            mArticleTtile = getString(AppConstant.IntentParamsKeys.ARTICLE_TITLE)
+            mArticleId = getString(AppConstant.BundleParamsKeys.ARTICLE_ID)
+            mArticleLinkUrl = getString(AppConstant.BundleParamsKeys.ARTICLE_LINK_URL)
+            mArticleDescription = getString(AppConstant.BundleParamsKeys.ARTICLE_DESCRIPTION)
+            mArticleTtile = getString(AppConstant.BundleParamsKeys.ARTICLE_TITLE)
 
         }
     }

@@ -1,18 +1,18 @@
 package com.seetaoism.user.login;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.mr.k.mvp.utils.SPUtils;
+import com.mr.k.mvp.kotlin.widget.EditTextButton;
 import com.mr.k.mvp.utils.SystemFacade;
+import com.seetaoism.AppConstant;
 import com.seetaoism.R;
 import com.seetaoism.data.entity.User;
 import com.seetaoism.data.repositories.UserRepository;
-import com.seetaoism.home.HomeActivity;
 import com.seetaoism.libloadingview.LoadingView;
 import com.seetaoism.user.BaseUserFragment;
 import com.seetaoism.user.register.RegisterFragment;
@@ -29,14 +29,19 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
     private EditText mEdtPassword;
 
     private CleanEditTextButton mBtnCleanPhoneNumber;
+    private CleanEditTextButton mBtnCleanPassword;
 
     private TogglePasswordButton mBtnShowPassword;
 
-    private Button mBtnLogin;
+    private TextView mTvmGotoForgetPassword;
+
+
+
+    private EditTextButton mBtnLogin;
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_login;
+        return R.layout.fragment_pwd_login;
     }
 
     @Override
@@ -45,16 +50,25 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
         mEdtPhoneNumber = bindViewAndSetListener(R.id.login_edt_phone_number, this);
         mEdtPassword = bindViewAndSetListener(R.id.login_edt_password, this);
 
-        mBtnCleanPhoneNumber = bindViewAndSetListener(R.id.login_iv_clean, null);
+        mBtnCleanPhoneNumber = bindViewAndSetListener(R.id.login_iv_clean_account, null);
+        mBtnCleanPassword = bindViewAndSetListener(R.id.login_pwd_iv_clean_psw, null);
+
+
+        mTvmGotoForgetPassword = bindViewAndSetListener(R.id.login_tv_forget_psw, this);
         mBtnShowPassword = bindViewAndSetListener(R.id.login_iv_show_password, null);
         login_goto_sms_login = bindViewAndSetListener(R.id.login_goto_sms_login, this);
 
 
         mBtnCleanPhoneNumber.bindEditText(mEdtPhoneNumber);
+
+
+        mBtnCleanPassword.bindEditText(mEdtPassword);
         mBtnShowPassword.bindPasswordEditText(mEdtPassword);
 
 
         mBtnLogin = bindViewAndSetListener(R.id.login_btn_login, this);
+
+        mBtnLogin.bindEditText(mEdtPassword);
     }
 
 
@@ -80,8 +94,10 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
     public void onClick(View v) {
         switch (v.getId()) {
 
+            // 去注册
             case R.id.login_tv_goto_register: {
-                addFragment(getFragmentManager(), RegisterFragment.class, R.id.login_fragment_container, null);
+                //addFragment(getFragmentManager(), RegisterFragment.class, R.id.login_fragment_container, null);
+                backToOrAdd(RegisterFragment.class, R.id.login_fragment_container, null);
                 break;
             }
 
@@ -104,21 +120,28 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
                 mPresenter.login(phoneNumber, password);
                 break;
             }
-            case R.id.login_goto_sms_login:
-                addFragment(getFragmentManager(), LoginVerifyFragment.class, R.id.login_fragment_container, null);
+            // 验证码登录
+            case R.id.login_goto_sms_login: {
+                backToOrAdd(LoginVerifyFragment.class, R.id.login_fragment_container, null);
                 break;
+            }
+            case R.id.login_tv_forget_psw:{
+                String phoneNumber = mEdtPhoneNumber.getText().toString().trim();
+                if (!SystemFacade.isValidPhoneNumber(phoneNumber)) {
+                    showToast(R.string.text_error_input_phone_number);
+                    return;
+                }
+
+                Bundle bundle = new Bundle();
+                bundle.putString(AppConstant.BundleParamsKeys.ACCOUNT, mEdtPhoneNumber.getText().toString());
+
+                backToOrAdd(ForgetPsFragment.class, R.id.login_fragment_container, bundle);
+                break;
+            }
+
         }
     }
 
-    @Override
-    public boolean isNeedAddToBackStack() {
-        return true;
-    }
-
-    @Override
-    public boolean isNeedAnimation() {
-        return true;
-    }
 
 
 }

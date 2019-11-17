@@ -4,15 +4,20 @@ package com.seetaoism.user.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.Nullable;
+
 import com.mr.k.mvp.base.MvpBaseFragment;
+import com.mr.k.mvp.kotlin.widget.EditTextButton;
 import com.seetaoism.AppConstant;
 import com.seetaoism.R;
 import com.seetaoism.home.HomeActivity;
+import com.seetaoism.libloadingview.LoadingView;
 import com.seetaoism.widgets.CleanEditTextButton;
 import com.seetaoism.widgets.TogglePasswordButton;
 
@@ -26,7 +31,7 @@ public class UpdatePswFragment extends MvpBaseFragment<LoginContract.IUpdatePres
     private CleanEditTextButton iv_cleanPhone2;
     private EditText et_phoneNumber;
     private EditText et_verify;
-    private Button register_btn_next;
+    private EditTextButton register_btn_next;
     private String phone;
     private String sms_code;
 
@@ -35,6 +40,16 @@ public class UpdatePswFragment extends MvpBaseFragment<LoginContract.IUpdatePres
     protected int getLayoutId() {
 
         return R.layout.fragment_update_psw;
+    }
+
+    @Override
+    public void setArguments(@Nullable Bundle args) {
+        super.setArguments(args);
+        //获取传过来的数据
+        if (args != null) {
+            phone = args.getString(AppConstant.RequestParamsKey.MOBILE);
+            sms_code = args.getString(AppConstant.RequestParamsKey.SMS_CODE);
+        }
     }
 
     @Override
@@ -48,34 +63,14 @@ public class UpdatePswFragment extends MvpBaseFragment<LoginContract.IUpdatePres
         register_btn_next = bindViewAndSetListener(R.id.register_btn_next, this);
 
 
+        iv_cleanPhone1.bindEditText(et_phoneNumber);
+        iv_cleanPhone2.bindEditText(et_verify);
 
-        //获取传过来的数据
-        Bundle bundle = getArguments();
-        phone = bundle.getString(AppConstant.RequestParamsKey.MOBILE);
-        sms_code = bundle.getString(AppConstant.RequestParamsKey.SMS_CODE);
+        update_close_eye.bindPasswordEditText(et_phoneNumber);
 
+        update_eye.bindPasswordEditText(et_verify);
 
-       iv_cleanPhone1.bindEditText(et_phoneNumber);
-       iv_cleanPhone2.bindEditText(et_verify);
-       update_close_eye.bindPasswordEditText(et_phoneNumber);
-       update_eye.bindPasswordEditText(et_verify);
-       //按钮的状态
-       et_verify.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                register_btn_next .setEnabled(et_verify.getText().toString().trim().length() > 0);
-            }
-        });
+        register_btn_next.bindEditText(et_verify);
 
     }
 
@@ -88,11 +83,12 @@ public class UpdatePswFragment extends MvpBaseFragment<LoginContract.IUpdatePres
     @Override
     public void IUpdateSuccess(String user) {
         closeLoading();
-        startActivity(new Intent(getActivity(), HomeActivity.class));
+        getActivity().finish();
     }
 
     @Override
     public void IUpdatetFail(String msg) {
+        closeLoading();
         showToast(msg);
     }
 
@@ -101,7 +97,22 @@ public class UpdatePswFragment extends MvpBaseFragment<LoginContract.IUpdatePres
         switch (view.getId()) {
 
             case R.id.register_btn_next: {
-                mPresenter.IUpdatePsw(phone,sms_code,et_verify.getText().toString());
+                String psd = et_phoneNumber.getText().toString().trim();
+
+                String cpsd = et_verify.getText().toString().trim();
+
+                if (TextUtils.isEmpty(psd) || TextUtils.isEmpty(cpsd)) {
+                    showToast(R.string.text_error_null_password);
+                    return;
+                }
+
+                if (!psd.equals(cpsd)) {
+                    showToast(R.string.text_error_tow_password_not_same);
+                    return;
+                }
+                showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
+
+                mPresenter.IUpdatePsw(phone, sms_code, et_verify.getText().toString());
                 break;
             }
 

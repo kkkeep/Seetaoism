@@ -26,6 +26,7 @@ public  class BasePresenter<V extends IBaseView> implements IBasePresenter<V> {
     @Override
     public void detachView() {
         mView = null;
+        mRecentRequest = null;
     }
 
 

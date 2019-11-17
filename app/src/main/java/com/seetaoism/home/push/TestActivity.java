@@ -38,8 +38,8 @@ public class TestActivity extends Activity {
                /* String id = pushBean.getId();
                 String link = pushBean.getLink();
                 Intent intent1 = new Intent(TestActivity.this, DetailActivity.class);
-                intent1.putExtra(AppConstant.IntentParamsKeys.ARTICLE_ID, id);
-                intent1.putExtra(AppConstant.IntentParamsKeys.ARTICLE_LINK_URL,link );
+                intent1.putExtra(AppConstant.BundleParamsKeys.ARTICLE_ID, id);
+                intent1.putExtra(AppConstant.BundleParamsKeys.ARTICLE_LINK_URL,link );
                 startActivity(intent1);
                 finish();*/
             }

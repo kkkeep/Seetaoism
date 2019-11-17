@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:scrollbars="none"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
 
@@ -21,7 +23,7 @@
 
         <ImageView
             android:visibility="invisible"
-            android:id="@+id/login_iv_clean"
+            android:id="@+id/login_iv_clean_psw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="6dp"
@@ -39,10 +41,11 @@
             />
 
         <TextView
-            android:textColor="@color/red"
+            android:textColor="@color/black_2"
             android:id="@+id/login_tv_getverify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="13dp"
             android:text="@string/text_register_get_code"
             app:layout_constraintBottom_toBottomOf="@+id/login_edt_verify"
             app:layout_constraintEnd_toEndOf="@+id/login_edt_verify"
@@ -88,7 +91,7 @@
             tools:layout_editor_absoluteY="300dp" />
 
         <TextView
-            android:id="@+id/login_goto_sms_login"
+            android:id="@+id/login_goto_ps_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -106,7 +109,7 @@
             android:textColor="@color/gray_6"
             android:textSize="12dp"
             app:layout_constraintEnd_toEndOf="@+id/login_btn_login"
-            app:layout_constraintTop_toTopOf="@+id/login_goto_sms_login" />
+            app:layout_constraintTop_toTopOf="@+id/login_goto_ps_login" />
 
 
         <ImageView

@@ -55,7 +55,8 @@ class TogglePasswordButton : AppCompatImageView {
 
             })
         }
-
+        setImageResource(R.drawable.ic_eyes_close)
+        //toggle()
     }
 
      fun toggle(){

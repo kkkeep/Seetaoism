@@ -20,7 +20,7 @@ public class LoginFragment extends MvpBaseFragment<LoginContract.ILoginPsPresent
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_login;
+        return R.layout.fragment_pwd_login;
     }
 
     @Override

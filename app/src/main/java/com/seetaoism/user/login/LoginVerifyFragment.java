@@ -1,6 +1,5 @@
 package com.seetaoism.user.login;
 
-import android.content.Intent;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -12,12 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mr.k.mvp.utils.Logger;
-import com.mr.k.mvp.utils.SPUtils;
 import com.mr.k.mvp.utils.SystemFacade;
 import com.seetaoism.R;
 import com.seetaoism.data.entity.User;
 import com.seetaoism.data.repositories.UserRepository;
-import com.seetaoism.home.HomeActivity;
 import com.seetaoism.libloadingview.LoadingView;
 import com.seetaoism.user.BaseUserFragment;
 import com.seetaoism.user.register.RegisterFragment;
@@ -46,11 +43,11 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
 
     @Override
     protected void initView(View root) {
-        mIvClearPhoneNumber = bindViewAndSetListener(R.id.login_iv_clean, this);
+        mIvClearPhoneNumber = bindViewAndSetListener(R.id.login_iv_clean_psw, this);
         mEdtPhoneNumber = bindViewAndSetListener(R.id.login_edt_phone_number, this);
         mTvGetVerify = bindViewAndSetListener(R.id.login_tv_getverify, this);
         mEtVerify = bindViewAndSetListener(R.id.login_edt_verify, this);
-        mTvGoToPsdLogin = bindViewAndSetListener(R.id.login_goto_sms_login, this);
+        mTvGoToPsdLogin = bindViewAndSetListener(R.id.login_goto_ps_login, this);
         mTvGoToPsdRegister = bindViewAndSetListener(R.id.login_tv_goto_register, this);
         mBtnLogin = bindViewAndSetListener(R.id.login_btn_login, this);
 
@@ -123,7 +120,7 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.login_iv_clean: {
+            case R.id.login_iv_clean_psw: {
                 mEdtPhoneNumber.setText("");
                 break;
             }
@@ -133,14 +130,15 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
                 break;
             }
             //密码登录
-            case R.id.login_goto_sms_login: {
-                //addFragment(getFragmentManager(), LoginPsFragment.class, R.id.login_fragment_container, null);
-                back();
+            case R.id.login_goto_ps_login: {
+                backToOrAdd(PasswordLoginFragment.class, R.id.login_fragment_container, null);
+                //back();
                 break;
             }
             //立即注册
             case R.id.login_tv_goto_register: {
-                addFragment(getFragmentManager(), RegisterFragment.class, R.id.login_fragment_container, null);
+                backToOrAdd(RegisterFragment.class, R.id.login_fragment_container, null);
+                //backTo(RegisterFragment.class);
                 break;
             }
             case R.id.login_btn_login: {
@@ -176,7 +174,19 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
 
     private void login() {
         String phoneNumber = mEdtPhoneNumber.getText().toString().trim();
+
+        if(!SystemFacade.isValidPhoneNumber(phoneNumber)){
+            showToast(R.string.text_error_input_phone_number);
+            return;
+        }
+
         String verify = mEtVerify.getText().toString().trim();
+
+        if (!SystemFacade.isValidSmsCodeNumber(verify)) {
+            showToast(R.string.text_error_input_sms_code);
+            return;
+        }
+
         showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG, true);
         mPresenter.loginByCode(phoneNumber, verify);
     }
@@ -221,9 +231,11 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
     }
 
 
+
+
     @Override
-    public boolean isNeedAnimation() {
-        return true;
+    public boolean isNeedAddToBackStack() {
+        return false;
     }
 
     @Override
@@ -240,19 +252,18 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
     public void onLoginSuccess(User user) {
         closeLoading();
         login(user);
-//        //保存头像
-//        SPUtils.saveValueToDefaultSpByCommit("pic", user.getUserInfo().getHeadUrl());
-//        //保存用户名
-//        SPUtils.saveValueToDefaultSpByCommit("name", user.getUserInfo().getNickname());
-//        //保存手机号
-//        SPUtils.saveValueToDefaultSpByCommit("editphone", user.getUserInfo().getMobile());
-//        //保存电子邮箱
-//        SPUtils.saveValueToDefaultSpByCommit("editemail", user.getUserInfo().getEmail());
+
     }
 
     @Override
     public void onLoginFail(String msg, boolean success) {
         closeLoading();
         showToast(msg);
+    }
+
+
+    @Override
+    public boolean isNeedAnimation() {
+        return false;
     }
 }

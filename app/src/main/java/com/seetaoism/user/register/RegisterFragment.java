@@ -158,7 +158,7 @@ public class RegisterFragment extends BaseUserFragment<LoginContract.IRegisterPr
             }
 
             case R.id.register_setting_psd_tv_goto_sms_login: {
-                addFragment(getFragmentManager(), LoginVerifyFragment.class, R.id.login_fragment_container, null);
+                backToOrAdd( LoginVerifyFragment.class, R.id.login_fragment_container, null);
                 break;
             }
 
@@ -177,7 +177,7 @@ public class RegisterFragment extends BaseUserFragment<LoginContract.IRegisterPr
             }
 
             case R.id.register_setting_psd_tv_goto_psd_login: {
-                addFragment(getFragmentManager(), PasswordLoginFragment.class, R.id.login_fragment_container, null);
+                backToOrAdd(PasswordLoginFragment.class, R.id.login_fragment_container, null);
                 break;
             }
 
@@ -301,13 +301,5 @@ public class RegisterFragment extends BaseUserFragment<LoginContract.IRegisterPr
         }
     }
 
-    @Override
-    public boolean isNeedAddToBackStack() {
-        return false;
-    }
 
-    @Override
-    public boolean isNeedAnimation() {
-        return false;
-    }
 }

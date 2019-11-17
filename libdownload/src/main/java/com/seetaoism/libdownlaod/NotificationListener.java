@@ -153,7 +153,7 @@ import java.io.File;
                 // content:/Android/data/jy.com.wanandroid/cache/{name}/xxxx.apk,这儿这个name 和 xml 里面定义的那个name.用name 代替 apk_load
 
                 // 第二个参数一定要和 AndroidManifest.xml 文件中声明的FileProvider 中的   android:authorities 一样
-                return FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".download.fileProvider", file);
+                return ApkLoadProvider.getUriForFile(mContext, mContext.getPackageName() + ".download.fileProvider", file);
             } else {
                 // file://Android/data/jy.com.wanandroid/cache/apk_load/xxxx.apk
                 return Uri.fromFile(file);
