@@ -4,6 +4,7 @@ package com.seetaoism.user.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -96,9 +97,20 @@ public class UpdatePswFragment extends MvpBaseFragment<LoginContract.IUpdatePres
         switch (view.getId()) {
 
             case R.id.register_btn_next: {
-                showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
+                String psd = et_phoneNumber.getText().toString().trim();
 
-                //todo 没有判断两次输入密码是否一致
+                String cpsd = et_verify.getText().toString().trim();
+
+                if (TextUtils.isEmpty(psd) || TextUtils.isEmpty(cpsd)) {
+                    showToast(R.string.text_error_null_password);
+                    return;
+                }
+
+                if (!psd.equals(cpsd)) {
+                    showToast(R.string.text_error_tow_password_not_same);
+                    return;
+                }
+                showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
 
                 mPresenter.IUpdatePsw(phone, sms_code, et_verify.getText().toString());
                 break;
