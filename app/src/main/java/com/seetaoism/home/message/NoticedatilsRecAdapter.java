@@ -87,6 +87,8 @@ public class NoticedatilsRecAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         public SystemacticHolder(View itemView) {
             super(itemView);
+            notice_content=itemView.findViewById(R.id.notice_content);
+            notice_time=itemView.findViewById(R.id.notice_time);
         }
 
         public void setData(SystemacticHolder systemacticHolder, int i) {
@@ -137,7 +139,7 @@ public class NoticedatilsRecAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             commentBackHolder.comment_reply_content.setText(mData.get(i).getReply_content());
             commentBackHolder.comment_by_reply_content.setText(mData.get(i).getBy_reply_content());
             commentBackHolder.comment_reply_time.setText(mData.get(i).getReply_time());
-            commentBackHolder.comment_link.setOnClickListener(new View.OnClickListener() {
+            commentBackHolder.comment_detele.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mListener != null) {
@@ -189,7 +191,7 @@ public class NoticedatilsRecAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             commentLikeHolder.comment_by_reply_content.setText(mData.get(i).getComment_content());
             commentLikeHolder.comment_reply_time.setText(mData.get(i).getPraise_time());
             commentLikeHolder.comment_count.setText(mData.get(i).getComment_praise_count() + "人赞过");
-            commentLikeHolder.comment_link.setOnClickListener(new View.OnClickListener() {
+            commentLikeHolder.comment_detele.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -237,7 +239,7 @@ public class NoticedatilsRecAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             articleLikeHolder.comment_article_time.setText(mData.get(i).getArticle_time());
             articleLikeHolder.comment_reply_time.setText(mData.get(i).getPraise_time());
             articleLikeHolder.comment_count.setText(mData.get(i).getArticle_praise_count() + "人赞过");
-            articleLikeHolder.comment_link.setOnClickListener(new View.OnClickListener() {
+            articleLikeHolder.comment_detele.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -282,7 +284,7 @@ public class NoticedatilsRecAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             articleCommentHolder.comment_article_theme.setText(mData.get(i).getArticle_theme());
             articleCommentHolder.comment_article_time.setText(mData.get(i).getArticle_time());
             articleCommentHolder.comment_reply_time.setText(mData.get(i).getComment_time());
-            articleCommentHolder.comment_link.setOnClickListener(new View.OnClickListener() {
+            articleCommentHolder.comment_detele.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 

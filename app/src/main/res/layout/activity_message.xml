@@ -93,4 +93,28 @@
             android:background="@color/gray_5" />
 
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/kong"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="61.5dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="3.5dp"
+            android:layout_marginRight="3.5dp"
+            android:src="@drawable/collect_all" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="128dp"
+            android:text="空空如也，您还没有收藏～"
+            android:textColor="#FF999999 "
+            android:textSize="15sp" />
+    </RelativeLayout>
 </LinearLayout>

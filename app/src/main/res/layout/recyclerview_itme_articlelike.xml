@@ -103,8 +103,8 @@
                     android:textColor="@color/black"
                     android:textSize="13dp" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
@@ -120,17 +120,16 @@
                         android:textSize="12sp" />
 
                     <TextView
+                        android:layout_alignParentRight="true"
                         android:id="@+id/comment_detele"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="91dp"
                         android:layout_marginRight="24dp"
                         android:layout_marginTop="30dp"
                         android:text="删除"
                         android:textColor="#999999"
                         android:textSize="12sp" />
-                </LinearLayout>
+                </RelativeLayout>
 
             </LinearLayout>
 

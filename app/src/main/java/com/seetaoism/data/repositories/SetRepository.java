@@ -41,7 +41,6 @@ public class SetRepository extends BaseRepository implements SetContract.ISetMod
             @Override
             public ObservableSource<String> apply(HttpResult<String> newsColumnDataHttpResult) throws Exception {
                 if (newsColumnDataHttpResult.code == 1 ) {
-                    cleanUser();
                     return Observable.just(newsColumnDataHttpResult.data);
                 }
                 return Observable.error(new ResultException(ResultException.SERVER_ERROR));

@@ -56,7 +56,6 @@ public class MessagedetailsActivity extends JDMvpBaseActivity<MessageContract.Me
         mBtnDelete = findViewById(R.id.btn_delete);
         mPop = findViewById(R.id.pop);
         //我的消息详情列表
-
         mPresenter.getMessagedetails(id);
 
     }
@@ -76,12 +75,12 @@ public class MessagedetailsActivity extends JDMvpBaseActivity<MessageContract.Me
 
     }
 
-    //详情回调  data好像得判断这个数据
     public void MessagedetailsSucceed(NoticedetailsBean data) {
         closeLoading();
         if (data != null) {
             mList.add(data);
         }
+
         noticedatilsRecAdapter = new NoticedatilsRecAdapter(mList);
         mCollectAllRc.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mCollectAllRc.setAdapter(noticedatilsRecAdapter);
@@ -107,7 +106,7 @@ public class MessagedetailsActivity extends JDMvpBaseActivity<MessageContract.Me
     //删除一级评论回复
     @Override
     public void MessagedetailsDeleteSucceed(String s) {
-        showToast(s);
+        finish();
     }
 
     //删除评论
@@ -119,18 +118,19 @@ public class MessagedetailsActivity extends JDMvpBaseActivity<MessageContract.Me
     //删除二级评论回复
     @Override
     public void MessagedetailsreplyDeleteSucceed(String s) {
-        showToast(s);
+        finish();
     }
 
     //回复删除
     @Override
     public void MessagedetailsreplyDeleteFail(String s) {
         showToast(s);
+
     }
 
     @Override
     public void ArticledeleteSucceed(String s) {
-        showToast("文章删除成功");
+        finish();
     }
 
     @Override
@@ -148,6 +148,7 @@ public class MessagedetailsActivity extends JDMvpBaseActivity<MessageContract.Me
         String fromType = mData.getFrom_type();
         String reply_type = mData.getReply_type();
         String delete_comment_reply_id = mData.getDelete_comment_reply_id();
+        int id = mData.getDelete_comment_id();
         String articleId = mData.getArticle_id();
 
 
@@ -156,18 +157,15 @@ public class MessagedetailsActivity extends JDMvpBaseActivity<MessageContract.Me
 
         if ("2".equals(fromType)) {
             if ("1".equals(reply_type)) {
-                ///api/comment_reply/commentdelete
                 mPresenter.getMessagedetailsDelete(Integer.valueOf(delete_comment_reply_id));
             } else if ("2".equals(reply_type)) {
-                ///api/comment_reply/replydelete
                 mPresenter.getMessagedetailsreplyDelete(Integer.valueOf(delete_comment_reply_id));
             }
         } else if ("3".equals(fromType)) {
-
+            mPresenter.getMessagedetailsDelete(Integer.valueOf(id));
             showToast("评论被点赞通知");
         } else if ("4".equals(fromType)) {
             mPresenter.getArticledelete(Integer.valueOf(articleId));
-            //showToast("文章被点赞");
         } else if ("5".equals(fromType)) {
             mPresenter.getArticledelete(Integer.valueOf(articleId));
         }

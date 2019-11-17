@@ -27,7 +27,7 @@ fun shareNews(activity: FragmentActivity, news: NewsData.NewsBean, listener: UMS
             web.title = news.theme
             web.setThumb(thumb)  //缩略图
             web.description = news.description
-            ShareAction(activity).withMedia(web).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QQ, SHARE_MEDIA.SINA)
+            ShareAction(activity).withMedia(web).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QQ, SHARE_MEDIA.SINA, SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN_CIRCLE)
                     .setCallback(listener).open();
         }
 
@@ -73,12 +73,35 @@ fun shareNewsToQQ(activity: FragmentActivity, news: NewsData.NewsBean, listener:
     
 }
 
+
 fun shareNewsToSina(activity: FragmentActivity, news: NewsData.NewsBean, listener: UMShareListener) {
     share(activity, news, SHARE_MEDIA.SINA, listener)
 }
 
-fun shareNewsToMoment(activity: FragmentActivity, news: NewsData.NewsBean, listener: UMShareListener) {
-    share(activity, news, SHARE_MEDIA.WEIXIN_CIRCLE, listener)
+fun shareNewsToMore(activity: FragmentActivity, news: NewsData.NewsBean, listener: UMShareListener) {
+    val permissionUtils = PermissionUtils(activity)
+    permissionUtils.checkPermission(activity, object : PermissionUtils.OnPermissionCallBack{
+        override fun onAllMustAccept() {
+            val thumb = UMImage(activity, R.drawable.ic_drawer_logo)
+            val web = UMWeb(news.share_link)
+            web.title = news.theme
+            web.setThumb(thumb)  //缩略图
+            web.description = news.description
+            ShareAction(activity).withMedia(web).setDisplayList(SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QZONE)
+                    .setCallback(listener).open();
+        }
+
+        override fun shouldShowRationale(call: PermissionUtils.PermissionCall?) {
+        }
+
+        override fun shouldShowPermissionSetting() {
+        }
+
+        override fun onDenied() {
+            Toast.makeText(activity,activity.getString(R.string.text_share_qq_need_permission),Toast.LENGTH_LONG).show()
+        }
+    },arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),null)
+
 }
 
 

@@ -2,6 +2,7 @@ package com.seetaoism.home.integral;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,7 +29,9 @@ public class IntegralActivity extends JDMvpBaseActivity<IntegrelContract.Integre
     private ImageView mMoneyRead;
     private TextView mShare;
     private ImageView mMoneyShare;
-
+    private TextView qiandao_tv;
+    private TextView ten1_tv;
+    private TextView ten_tv;
 
 
     @Override
@@ -47,6 +50,9 @@ public class IntegralActivity extends JDMvpBaseActivity<IntegrelContract.Integre
         mMoneyRead = findViewById(R.id.money_read);
         mShare = findViewById(R.id.share);
         mMoneyShare = findViewById(R.id.money_share);
+        qiandao_tv = findViewById(R.id.qiandao_tv);
+        ten1_tv = findViewById(R.id.ten1_tv);
+        ten_tv = findViewById(R.id.ten_tv);
 
         mPresenter.getIntegrel();
 
@@ -62,7 +68,17 @@ public class IntegralActivity extends JDMvpBaseActivity<IntegrelContract.Integre
     @Override
     public void onIntegrelSuccess(IntergrelData data) {
         //文本框只可以设置string类型的
-        mJifenTitle.setText(data.getMy_integral()+"");
+        mJifenTitle.setText(data.getMy_integral() + "");
+        if (data.getCheck_in_status() == 1) {
+            qiandao_tv.setText("已签到");
+        } else {
+            qiandao_tv.setText("未签到");
+
+        }
+        ten_tv.setText(data.getRead_article_count()+"");
+        ten1_tv.setText(data.getShare_article_count()+"");
+
+
     }
 
     @Override
@@ -77,9 +93,9 @@ public class IntegralActivity extends JDMvpBaseActivity<IntegrelContract.Integre
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.about_jifen:
-                startActivity(new Intent(IntegralActivity.this,Main2Activity.class));
+                startActivity(new Intent(IntegralActivity.this, Main2Activity.class));
                 break;
         }
     }

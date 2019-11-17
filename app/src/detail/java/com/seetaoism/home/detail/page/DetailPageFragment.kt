@@ -20,7 +20,7 @@ import com.seetaoism.data.entity.*
 import com.seetaoism.home.detail.DetailsContract
 import com.seetaoism.home.detail.vp.DetailVPFragment
 import com.seetaoism.libloadingview.LoadingView
-import com.seetaoism.utils.shareNewsToMoment
+import com.seetaoism.utils.shareNewsToMore
 import com.seetaoism.utils.shareNewsToQQ
 import com.seetaoism.utils.shareNewsToSina
 import com.seetaoism.utils.shareNewsToWechat
@@ -260,7 +260,7 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
         }
 
         detailPageShareMoments.setOnClickListener {
-            shareNewsToMoment(activity!!,buildNews(),this);
+            shareNewsToMore(activity!!,buildNews(),this);
         }
     }
 

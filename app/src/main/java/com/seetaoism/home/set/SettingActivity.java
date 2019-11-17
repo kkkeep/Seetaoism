@@ -43,6 +43,8 @@ import java.io.File;
 import cn.jpush.android.api.BasicPushNotificationBuilder;
 import cn.jpush.android.api.JPushInterface;
 
+import static com.mr.k.mvp.UserManager.login;
+
 public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter> implements View.OnClickListener, SetContract.ISetView {
 
     private NiceImageView mClose;
@@ -62,11 +64,19 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
     public static final String KEY_MESSAGE = "message";
     public static final String KEY_EXTRAS = "extras";
     public static boolean isForeground = false;
+    private User user;
 
     @Override
     protected void doOnCreate(@Nullable Bundle savedInstanceState) {
         initView();
         registerMessageReceiver();
+//        String b = SPUtils.getValue("b");
+//        if (b.equals("open")){
+//            switchButton.setChecked(true);
+//        }else {
+//            switchButton.setChecked(false);
+//
+//        }
     }
 
     @Override
@@ -108,12 +118,13 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
                     startActivity(localIntent);
                 }
                 if (b) {
+//                    SPUtils.saveValueToDefaultSpByCommit("b","open");
                     //选中说明打开了
                     JPushInterface.resumePush(getApplicationContext());
                     BasicPushNotificationBuilder builder = new BasicPushNotificationBuilder(SettingActivity.this);
                     builder.statusBarDrawable = R.mipmap.ic_launcher_foreground;
                     JPushInterface.setPushNotificationBuilder(1, builder);
-                    User user = (User) UserManager.getUser();
+                    user = (User) UserManager.getUser();
                     if (user != null) {
                         //在这里掉方法   一个是登录
                         String registrationID = JPushInterface.getRegistrationID(SettingActivity.this);
@@ -126,6 +137,8 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
                     }
                 } else {
                     //否则就关闭了
+//                    SPUtils.saveValueToDefaultSpByCommit("b",null);
+
                     JPushInterface.stopPush(getApplicationContext());
 
                 }
@@ -150,7 +163,6 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
     public void onOutLoginSuccess(String user) {
         SPUtils.saveValueToDefaultSpByCommit("pic", null);
         showToast("成功");
-       // UserManager.loginOut();
         finish();
 
     }
@@ -161,7 +173,7 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
     }
 
     @Override
-    public void onPushidSuccess(String user) {
+    public void onPushidSuccess(String success) {
         showToast("成功");
     }
 
@@ -196,7 +208,6 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
                     if (!ExampleUtil.isEmpty(extras)) {
                         showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
                     }
-//                    setCostomMsg(showMsg.toString());
                     showToast(showMsg.toString());
                 }
             } catch (Exception e) {

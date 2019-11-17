@@ -4,13 +4,16 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mr.k.mvp.utils.SystemFacade;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.seetaoism.R;
 import com.seetaoism.base.JDMvpBaseActivity;
 import com.seetaoism.data.entity.MessageData;
@@ -28,6 +33,8 @@ import com.shehuan.niv.NiceImageView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class MessageActivity extends JDMvpBaseActivity<MessageContract.MessagePresenter> implements MessageContract.MessageView, View.OnClickListener {
 
@@ -46,6 +53,10 @@ public class MessageActivity extends JDMvpBaseActivity<MessageContract.MessagePr
     private static final int CHECK_VISIBLE = 1;      //这个是表示显示
     private int mEditMode = CHECK_GONE;
     private RelativeLayout pop;
+    private int more = 1;//默认可加载更多
+    private int start = 0;
+    private int time = 0;
+    private RelativeLayout kong;
 
     @Override
     protected void doOnCreate(@Nullable Bundle savedInstanceState) {
@@ -57,17 +68,35 @@ public class MessageActivity extends JDMvpBaseActivity<MessageContract.MessagePr
         pop = findViewById(R.id.pop);
         btnAllSelect = findViewById(R.id.btn_allSelect);
         btnDelete = findViewById(R.id.btn_delete);
+        kong = findViewById(R.id.kong);
 
         mBianji.setOnClickListener(this);
         btnDelete.setOnClickListener(this);
 
         mClose.setOnClickListener(this);
 
-        mPresenter.getMessageList(0, 0);
+        mPresenter.getMessageList(start, time);
 
         mMessageRec.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         adapter = new MessageAdapter(this);
         mMessageRec.setAdapter(adapter);
+
+        mMessageSm.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                mMessageSm.finishLoadMore(2000);       //2s加载结束
+                mPresenter.getMessageList(start, time);
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                mMessageSm.finishRefresh(2000);    //2s刷新结束
+                start = 0;
+                time = 0;
+                adapter.mList.clear();
+                mPresenter.getMessageList(start, time);
+            }
+        });
 
 
         adapter.setonItemClickListener(new MessageAdapter.onItemClickListener() {
@@ -88,6 +117,9 @@ public class MessageActivity extends JDMvpBaseActivity<MessageContract.MessagePr
                     if (adapter.mList.get(position).getNotice_status() == 1) {
                         Intent intent = new Intent(MessageActivity.this, MessagedetailsActivity.class);
                         intent.putExtra("id", adapter.mList.get(position).getId());
+                        adapter.mList.get(position).setIs_read(1);
+                        ImageView tag = view.findViewById(R.id.tag);
+                        tag.setVisibility(View.GONE);
                         startActivity(intent);
                     } else {
                         showToast("页面异常");
@@ -154,13 +186,26 @@ public class MessageActivity extends JDMvpBaseActivity<MessageContract.MessagePr
     public void MessageSucceed(MessageData data) {
         if (data.getList().size() > 0) {
             adapter.setData(data.getList());
+            more = data.getMore();
+            time = data.getPoint_time();
+            start = data.getStart();
+            kong.setVisibility(View.GONE);
+            mMessageSm.setVisibility(View.VISIBLE);
+
+        } else {
+            mMessageSm.setVisibility(View.GONE);
+            kong.setVisibility(View.VISIBLE);
+            mBianji.setVisibility(View.GONE);
         }
 
     }
 
     @Override
     public void MessageFail(String s) {
-        showToast(s);
+        mMessageSm.setVisibility(View.GONE);
+        kong.setVisibility(View.VISIBLE);
+        mBianji.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -230,7 +275,6 @@ public class MessageActivity extends JDMvpBaseActivity<MessageContract.MessagePr
                 //编辑
                 compile();
                 break;
-
             case R.id.btn_delete:
                 deleteVideo();
                 break;
@@ -265,8 +309,6 @@ public class MessageActivity extends JDMvpBaseActivity<MessageContract.MessagePr
      * 删除逻辑
      */
     private void deleteVideo() {
-
-        //final ArrayList<VideoData.NewList> selectedList = allAdapter.getSelectedNews();
 
         List<MessageData.MessageList> mList = adapter.mList;
 
