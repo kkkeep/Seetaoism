@@ -77,4 +77,7 @@ open class BaseActivity : RxAppCompatActivity() {
             if (isShow) close()
         }
     }
+
+
+
 }

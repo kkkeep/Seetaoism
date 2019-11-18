@@ -12,6 +12,7 @@ import android.webkit.WebView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mr.k.mvp.base.MvpBaseFragment
+import com.mr.k.mvp.kotlin.widget.CommentDecoration
 import com.mr.k.mvp.kotlin.base.BaseActivity
 import com.mr.k.mvp.utils.SystemFacade
 import com.seetaoism.AppConstant
@@ -72,9 +73,11 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
     override fun createPresenter() = DetailPagePresenter()
 
     override fun onArticleListResult(data: MutableList<NewsData.News>?, msg: String?) {
+        closeLoading()
         data?.run {
             mListAdapter.run {
                 setNews(data)
+                detailRelativeList.addItemDecoration(CommentDecoration(data.size - 1))
                 notifyDataSetChanged()
             }
 
@@ -117,6 +120,7 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
             mHasMoreComment = more == 1
             comment_list?.run {
                 mListAdapter.addComments(this);
+
 
             }
         }
@@ -190,7 +194,7 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
                     if (newProgress == 100 && !mIsFinish) {
                         mPresenter.getRelatedArticleList(mArticleId)
                         getComments()
-                        closeLoading()
+
                         mIsFinish = true;
                     }
                 }
