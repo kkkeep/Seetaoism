@@ -98,15 +98,6 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
         });
 
 
-        /*mEtVerify.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_ACTION_DONE){
-                    handVerifySmsCode();
-                }
-                return false;
-            }
-        });*/
 
     }
 
@@ -202,7 +193,6 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
 
 
         mCountDown = 60;
-
         mCountDownTimer = new CountDownTimer(60 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {

@@ -70,13 +70,13 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
     protected void doOnCreate(@Nullable Bundle savedInstanceState) {
         initView();
         registerMessageReceiver();
-//        String b = SPUtils.getValue("b");
-//        if (b.equals("open")){
-//            switchButton.setChecked(true);
-//        }else {
-//            switchButton.setChecked(false);
-//
-//        }
+        String b = SPUtils.getValue("b");
+        if (b.equals("open")){
+            switchButton.setChecked(true);
+        }else {
+            switchButton.setChecked(false);
+
+        }
     }
 
     @Override
@@ -118,7 +118,7 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
                     startActivity(localIntent);
                 }
                 if (b) {
-//                    SPUtils.saveValueToDefaultSpByCommit("b","open");
+                    SPUtils.saveValueToDefaultSpByCommit("b","open");
                     //选中说明打开了
                     JPushInterface.resumePush(getApplicationContext());
                     BasicPushNotificationBuilder builder = new BasicPushNotificationBuilder(SettingActivity.this);
@@ -137,7 +137,7 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
                     }
                 } else {
                     //否则就关闭了
-//                    SPUtils.saveValueToDefaultSpByCommit("b",null);
+                    SPUtils.saveValueToDefaultSpByCommit("b",null);
 
                     JPushInterface.stopPush(getApplicationContext());
 
