@@ -95,7 +95,9 @@ public abstract class BaseUserFragment<T extends IBasePresenter> extends MvpBase
             }
 
             case R.id.user_iv_qq_login: {
-                qqLogin(this);
+                UMShareAPI umShareAPI = UMShareAPI.get(getActivity());
+                // wx 的 有效期是1个月。过了1个月就必须重新授权登录。没有过期则不用跳转到授权页面，直接返回用户相关信息。
+                umShareAPI.getPlatformInfo(getActivity(), SHARE_MEDIA.QQ, this);
                 break;
             }
             case R.id.user_iv_sina_login: {
@@ -136,10 +138,6 @@ public abstract class BaseUserFragment<T extends IBasePresenter> extends MvpBase
         Log.d("Test", "onCancel");
     }
 
-    public void qqLogin(UMAuthListener listener) {
-        UMShareAPI umShareAPI = UMShareAPI.get(getActivity());
-        // wx 的 有效期是1个月。过了1个月就必须重新授权登录。没有过期则不用跳转到授权页面，直接返回用户相关信息。
-        umShareAPI.getPlatformInfo(getActivity(), SHARE_MEDIA.QQ, listener);
-    }
+
 
 }
