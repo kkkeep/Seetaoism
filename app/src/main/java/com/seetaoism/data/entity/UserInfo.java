@@ -9,6 +9,19 @@ public class UserInfo {
     private String email;
     private int check_in_status;
 
+    private int sina_bind;
+
+    public UserInfo(int sina_bind) {
+        this.sina_bind = sina_bind;
+    }
+
+    public int getSina_bind() {
+        return sina_bind;
+    }
+
+    public void setSina_bind(int sina_bind) {
+        this.sina_bind = sina_bind;
+    }
 
     public UserInfo(String head_url, String nickname, String mobile, String email, int check_in_status) {
         this.head_url = head_url;

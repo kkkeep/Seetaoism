@@ -1,9 +1,12 @@
 package com.seetaoism.home.perfect;
 
+import androidx.annotation.NonNull;
+
 import com.mr.k.mvp.base.BasePresenter;
 import com.mr.k.mvp.base.IBaseCallBack;
 import com.mr.k.mvp.exceptions.ResultException;
 import com.seetaoism.data.entity.User;
+import com.seetaoism.data.entity.VideoData;
 import com.seetaoism.data.repositories.PerfectRepository;
 
 import java.util.HashMap;
@@ -73,9 +76,37 @@ public class PerfectPresenter extends BasePresenter<PerfectContract.IPerfectView
 
             @Override
             public void onFail(ResultException e) {
-                //mView.onUserSuccess(e.getMessage());
             }
         });
+    }
+
+    @Override
+    public void getSocialbind(String type, String openid, String nickname, String head_url, String unionid) {
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("type",type);
+        map.put("openid",openid);
+        map.put("nickname",nickname);
+        map.put("head_url",head_url);
+        map.put("unionid",unionid);
+
+
+        mMode.getSocialbind(getLifecycleProvider(), map, new IBaseCallBack<VideoData.NewList>() {
+            @Override
+            public void onSuccess(@NonNull VideoData.NewList data) {
+                if (mView!=null){
+                    mView.onSocialbindSuccess(data);
+                }
+            }
+
+            @Override
+            public void onFail(@NonNull ResultException e) {
+                if (mView!=null){
+                    mView.onSocialbindFail(e.getMessage());
+                }
+            }
+        });
+
     }
 
 

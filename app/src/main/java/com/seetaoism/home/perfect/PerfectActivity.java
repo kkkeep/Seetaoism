@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -31,21 +32,28 @@ import com.mr.k.mvp.utils.SPUtils;
 import com.seetaoism.R;
 import com.seetaoism.base.JDMvpBaseActivity;
 import com.seetaoism.data.entity.User;
+import com.seetaoism.data.entity.VideoData;
 import com.seetaoism.home.changepassword.VerificationPswActivity;
 import com.seetaoism.home.email.EmailActivity;
 import com.seetaoism.home.phone.PhoneActivity;
 import com.seetaoism.utils.MobileNumUtils;
 import com.shehuan.niv.NiceImageView;
 import com.umeng.commonsdk.debug.I;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectPresenter> implements View.OnClickListener, PerfectContract.IPerfectView {
+public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectPresenter> implements View.OnClickListener, PerfectContract.IPerfectView, UMAuthListener {
 
     private NiceImageView mClose;
     private Toolbar mToolbar;
@@ -65,6 +73,10 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
     private TextView updata_psw;
     private String photoPath;
     private String name;
+    private ImageView weibo;
+    private String id;
+    private String nickname;
+    private String head_url;
 
 
     @Override
@@ -83,19 +95,25 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
         updata_psw = findViewById(R.id.updata_psw);
         per_phone = findViewById(R.id.per_phone);
         per_phone = findViewById(R.id.per_phone);
+        weibo = findViewById(R.id.weibo);
         mUsericon.setOnClickListener(this);
         mNikename.setOnClickListener(this);
         updata_psw.setOnClickListener(this);
         mOnbindmobile.setOnClickListener(this);
         mOnbindemail.setOnClickListener(this);
         mClose.setOnClickListener(this);
-
+        weibo.setOnClickListener(this);
         photoPath = "";
         name = "";
+        //社交
+        id = "";
+        nickname="";
+        head_url="";
 
         mPresenter.getUser();
 
     }
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_perfect;
@@ -115,18 +133,23 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
                 break;
             case R.id.onbindmobile:
                 Intent intent = new Intent(PerfectActivity.this, PhoneActivity.class);
-                startActivityForResult(intent,1);
+                startActivityForResult(intent, 1);
                 break;
             case R.id.onbindemail:
-                Intent intent1= new Intent(PerfectActivity.this, EmailActivity.class);
-                startActivityForResult(intent1,2);
+                Intent intent1 = new Intent(PerfectActivity.this, EmailActivity.class);
+                startActivityForResult(intent1, 2);
                 break;
             case R.id.close:
                 Intent clos = new Intent();
-                clos.putExtra("photow",photoPath);
-                clos.putExtra("name",name);
-                setResult(400,clos);
+                clos.putExtra("photow", photoPath);
+                clos.putExtra("name", name);
+                setResult(400, clos);
                 finish();
+                break;
+            case R.id.weibo:
+                UMShareAPI umShareAPI = UMShareAPI.get(this);
+                // wx 的 有效期是1个月。过了1个月就必须重新授权登录。没有过期则不用跳转到授权页面，直接返回用户相关信息。
+                umShareAPI.getPlatformInfo(this, SHARE_MEDIA.SINA, this);
                 break;
         }
     }
@@ -243,7 +266,6 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
     }
 
 
-
     private void setHeadImg(String path) {
         File file = new File(path);
         RequestBody body = RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -260,12 +282,12 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
     @Override
     public void onPerfectSuccess(User s, String msg) {
         //图片5兆限制
-        if (s != null){
+        if (s != null) {
             if (!TextUtils.isEmpty(s.getUserInfo().getHead_url())) {
                 Glide.with(this).load(s.getUserInfo().getHead_url()).into(mUsericon);
                 photoPath = s.getUserInfo().getHead_url();
             }
-        }else {
+        } else {
             showToast(msg);
         }
     }
@@ -294,18 +316,33 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
             mOnbindemail.setText(MobileNumUtils.changeMobileNum(user.getUserInfo().getEmail()));
         } else {
             mOnbindemail.setText("未绑定");
+        }if (user.getUserInfo().getSina_bind()==1){
+            weibo.setImageResource(R.drawable.weibo_per);
         }
 
+
+    }
+
+    @Override
+    public void onSocialbindSuccess(VideoData.NewList data) {
+        showToast(data.getType());
+        weibo.setImageResource(R.drawable.weibo_per);
+    }
+
+    @Override
+    public void onSocialbindFail(String msg) {
+        showToast(msg);
     }
 
     @Override
     public void onBackPressed() {
         Intent intent = new Intent();
-        intent.putExtra("photow",photoPath);
-        intent.putExtra("name",name);
-        setResult(400,intent);
+        intent.putExtra("photow", photoPath);
+        intent.putExtra("name", name);
+        setResult(400, intent);
         finish();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -315,19 +352,60 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
                 Photo photo = resultPhotos.get(0);
                 String path = photo.path;
                 long size = photo.size;
-                Log.d("size", "onActivityResult: "+size);
+                Log.d("size", "onActivityResult: " + size);
                 setHeadImg(path);
             }
         }
-        if (requestCode == 1 && resultCode == 200){
+        if (requestCode == 1 && resultCode == 200) {
             String phone = data.getStringExtra("phone");
             //Log.d("phone", "onActivityResult: "+phone);
             mOnbindmobile.setText(phone);
         }
-        if (requestCode == 2 && resultCode == 300){
+        if (requestCode == 2 && resultCode == 300) {
             String email = data.getStringExtra("email");
             //Log.d("phone", "onActivityResult: "+phone);
             mOnbindemail.setText(email);
         }
+    }
+
+    @Override
+    public void onStart(SHARE_MEDIA share_media) {
+
+    }
+
+    @Override
+    public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
+        Iterator<Map.Entry<String, String>> it = map.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<String, String> entry = it.next();
+            //uid
+            if (entry.getKey().equals("uid")){
+                String value = entry.getValue();
+                id = value;
+            }
+            //昵称
+            if (entry.getKey().equals("screen_name")){
+                String value = entry.getValue();
+                nickname = value;
+            }
+            //头像
+            if (entry.getKey().equals("profile_image_url")){
+                String value = entry.getValue();
+                head_url = value;
+            }
+
+            mPresenter.getSocialbind("sina",id,nickname,head_url,"");
+            Log.d("Test", entry.getKey() + " = " + entry.getValue());
+        }
+    }
+
+    @Override
+    public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
+
+    }
+
+    @Override
+    public void onCancel(SHARE_MEDIA share_media, int i) {
+
     }
 }

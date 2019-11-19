@@ -105,7 +105,6 @@ public interface JDApiService {
     Observable<HttpResult<NewsData>> getNewsData(@QueryMap Map<String, String> map);
 
 
-
     //请求评论点赞
     @FormUrlEncoded
     @POST("/api/comment_reply/commentpraise")
@@ -189,7 +188,6 @@ public interface JDApiService {
     Observable<HttpResult<VideoData>> collect(@QueryMap Map<String, String> map);
 
 
-
     //请求积分
     @GET("/app/v_1_1/user/myintegral")
     Observable<HttpResult<IntergrelData>> myintegral(@QueryMap Map<String, String> map);
@@ -225,7 +223,6 @@ public interface JDApiService {
     Observable<HttpResult<AccessArticleData>> getArticleAccess(@QueryMap Map<String, String> map);
 
 
-
     // 获取评论列表
     @GET(AppConstant.RequestUrl.GET_ARTICLE_COMMENT_LIST)
     Observable<HttpResult<CommentData>> getCommentList(@QueryMap Map<String, String> map);
@@ -237,6 +234,7 @@ public interface JDApiService {
 
     /**
      * 用户评论文章
+     *
      * @param map
      * @return
      */
@@ -247,6 +245,7 @@ public interface JDApiService {
 
     /**
      * 回复别人的评论
+     *
      * @param map
      * @return
      */
@@ -256,6 +255,7 @@ public interface JDApiService {
 
     /**
      * 评论点赞
+     *
      * @param map
      * @return
      */
@@ -280,7 +280,6 @@ public interface JDApiService {
     Observable<HttpResult<String>> doArticleCollect(@FieldMap Map<String, String> map);
 
 
-
     /**
      * 删除我的消息
      */
@@ -292,8 +291,6 @@ public interface JDApiService {
     // 获取消息详情
     @GET("/api/user/noticedetails")
     Observable<HttpResult<NoticedetailsBean>> noticedetails(@QueryMap Map<String, String> map);
-
-
 
 
     /**
@@ -320,7 +317,6 @@ public interface JDApiService {
     Observable<HttpResult<String>> replydelete(@FieldMap Map<String, String> map);
 
 
-
     /**
      * 获取文章删除
      */
@@ -329,14 +325,12 @@ public interface JDApiService {
     Observable<HttpResult<String>> articledelete(@FieldMap Map<String, String> map);
 
 
-
-
-
-
-
-
-
-
+    /**
+     * 获取社交绑定
+     */
+    @FormUrlEncoded
+    @POST("/api/user/socialbind")
+    Observable<HttpResult<VideoData.NewList>> socialbind(@FieldMap Map<String, String> map);
 
 
 }
