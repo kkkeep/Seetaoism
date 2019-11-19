@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.mr.k.mvp.base.BasePresenter;
 import com.mr.k.mvp.base.IBaseCallBack;
 import com.mr.k.mvp.exceptions.ResultException;
+import com.seetaoism.data.entity.SocialBindData;
 import com.seetaoism.data.entity.User;
 import com.seetaoism.data.entity.VideoData;
 import com.seetaoism.data.repositories.PerfectRepository;
@@ -91,9 +92,9 @@ public class PerfectPresenter extends BasePresenter<PerfectContract.IPerfectView
         map.put("unionid",unionid);
 
 
-        mMode.getSocialbind(getLifecycleProvider(), map, new IBaseCallBack<VideoData.NewList>() {
+        mMode.getSocialbind(getLifecycleProvider(), map, new IBaseCallBack<SocialBindData>() {
             @Override
-            public void onSuccess(@NonNull VideoData.NewList data) {
+            public void onSuccess(@NonNull SocialBindData data) {
                 if (mView!=null){
                     mView.onSocialbindSuccess(data);
                 }

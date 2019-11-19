@@ -1,5 +1,7 @@
 package com.seetaoism.home.mine;
 
+import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.flyco.roundview.RoundLinearLayout;
 import com.flyco.roundview.RoundTextView;
+import com.mr.k.mvp.IUser;
 import com.mr.k.mvp.UserManager;
 import com.mr.k.mvp.base.IBasePresenter;
 import com.mr.k.mvp.base.MvpBaseFragment;
@@ -25,6 +28,9 @@ import com.seetaoism.home.set.SettingActivity;
 import com.seetaoism.user.login.LoginActivity;
 import com.shehuan.niv.NiceImageView;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+
 
 public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> implements MineContract.IMineView, View.OnClickListener {
     private RoundTextView mine_login;
@@ -37,9 +43,19 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
     private TextView text_hint;
     private TextView text_title;
 
+    private BroadcastReceiver mReceiver;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_mine;
+    }
+
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+       mReceiver =  UserManager.registerUserBroadcastReceiver(iUser -> Unit.INSTANCE);
     }
 
     @Override

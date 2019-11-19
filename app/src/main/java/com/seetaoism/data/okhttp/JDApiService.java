@@ -13,6 +13,7 @@ import com.seetaoism.data.entity.NewsColumnData;
 import com.seetaoism.data.entity.NewsData;
 import com.seetaoism.data.entity.NoticedetailsBean;
 import com.seetaoism.data.entity.SearchData;
+import com.seetaoism.data.entity.SocialBindData;
 import com.seetaoism.data.entity.TopicData;
 import com.seetaoism.data.entity.User;
 import com.seetaoism.data.entity.UserCollect;
@@ -330,7 +331,7 @@ public interface JDApiService {
      */
     @FormUrlEncoded
     @POST("/api/user/socialbind")
-    Observable<HttpResult<VideoData.NewList>> socialbind(@FieldMap Map<String, String> map);
+    Observable<HttpResult<SocialBindData>> socialbind(@FieldMap Map<String, String> map);
 
 
 }

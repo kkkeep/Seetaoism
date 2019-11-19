@@ -3,6 +3,7 @@ package com.seetaoism.home.perfect;
 import com.mr.k.mvp.base.IBaseCallBack;
 import com.mr.k.mvp.base.IBasePresenter;
 import com.mr.k.mvp.base.IBaseView;
+import com.seetaoism.data.entity.SocialBindData;
 import com.seetaoism.data.entity.User;
 import com.seetaoism.data.entity.VideoData;
 import com.trello.rxlifecycle2.LifecycleProvider;
@@ -20,7 +21,7 @@ public interface PerfectContract {
         //获取用户信息
         void onUserSuccess(User user);
         //社交绑定
-        void onSocialbindSuccess(VideoData.NewList data);
+        void onSocialbindSuccess(SocialBindData data);
         void onSocialbindFail(String msg);
 
 
@@ -40,7 +41,7 @@ public interface PerfectContract {
         void getUser(LifecycleProvider provider, HashMap<String, String> hashMap, IBaseCallBack<User> callBack);
 
         //社交绑定
-        void getSocialbind(LifecycleProvider provider, HashMap<String, String> hashMap, IBaseCallBack<VideoData.NewList> callBack);
+        void getSocialbind(LifecycleProvider provider, HashMap<String, String> hashMap, IBaseCallBack<SocialBindData> callBack);
 
     }
 }

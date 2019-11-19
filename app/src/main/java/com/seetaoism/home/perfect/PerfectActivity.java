@@ -28,14 +28,17 @@ import com.bumptech.glide.request.RequestOptions;
 import com.flyco.roundview.RoundRelativeLayout;
 import com.huantansheng.easyphotos.EasyPhotos;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
+import com.mr.k.mvp.UserManager;
 import com.mr.k.mvp.utils.SPUtils;
 import com.seetaoism.R;
 import com.seetaoism.base.JDMvpBaseActivity;
+import com.seetaoism.data.entity.SocialBindData;
 import com.seetaoism.data.entity.User;
 import com.seetaoism.data.entity.VideoData;
 import com.seetaoism.home.changepassword.VerificationPswActivity;
 import com.seetaoism.home.email.EmailActivity;
 import com.seetaoism.home.phone.PhoneActivity;
+import com.seetaoism.libloadingview.LoadingView;
 import com.seetaoism.utils.MobileNumUtils;
 import com.shehuan.niv.NiceImageView;
 import com.umeng.commonsdk.debug.I;
@@ -55,6 +58,10 @@ import okhttp3.RequestBody;
 
 public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectPresenter> implements View.OnClickListener, PerfectContract.IPerfectView, UMAuthListener {
 
+    private static final int  BINT_TYPE_SINA = 0x100;
+    private static final int  BINT_TYPE_WECHAT = 0x101;
+    private static final int  BINT_TYPE_QQ = 0x102;
+
     private NiceImageView mClose;
     private Toolbar mToolbar;
     private NiceImageView mUsericon;
@@ -73,10 +80,11 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
     private TextView updata_psw;
     private String photoPath;
     private String name;
-    private ImageView weibo;
-    private String id;
-    private String nickname;
-    private String head_url;
+
+    private int mClickBindType = -1;
+
+    private User mUser;
+
 
 
     @Override
@@ -95,22 +103,22 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
         updata_psw = findViewById(R.id.updata_psw);
         per_phone = findViewById(R.id.per_phone);
         per_phone = findViewById(R.id.per_phone);
-        weibo = findViewById(R.id.weibo);
         mUsericon.setOnClickListener(this);
         mNikename.setOnClickListener(this);
         updata_psw.setOnClickListener(this);
         mOnbindmobile.setOnClickListener(this);
         mOnbindemail.setOnClickListener(this);
         mClose.setOnClickListener(this);
-        weibo.setOnClickListener(this);
+        mWeibo.setOnClickListener(this);
+        mQq.setOnClickListener(this);
+        mWeixin.setOnClickListener(this);
+
         photoPath = "";
         name = "";
-        //社交
-        id = "";
-        nickname="";
-        head_url="";
 
-        mPresenter.getUser();
+        mUser = (User) UserManager.getUser();
+
+        onUserSuccess(mUser);
 
     }
 
@@ -146,11 +154,39 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
                 setResult(400, clos);
                 finish();
                 break;
-            case R.id.weibo:
+            case R.id.weibo: {
+                //showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
+
+                if(mUser.getUserInfo().getSina_bind() == 1){
+                    // todo 解绑
+                }else{
+                    mClickBindType = BINT_TYPE_SINA;
+                    UMShareAPI umShareAPI = UMShareAPI.get(this);
+                    // wx 的 有效期是1个月。过了1个月就必须重新授权登录。没有过期则不用跳转到授权页面，直接返回用户相关信息。
+                    umShareAPI.getPlatformInfo(this, SHARE_MEDIA.SINA, this);
+                }
+
+                break;
+            }
+
+            case R.id.weixin: {
+                //showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
+                mClickBindType = BINT_TYPE_WECHAT;
                 UMShareAPI umShareAPI = UMShareAPI.get(this);
                 // wx 的 有效期是1个月。过了1个月就必须重新授权登录。没有过期则不用跳转到授权页面，直接返回用户相关信息。
-                umShareAPI.getPlatformInfo(this, SHARE_MEDIA.SINA, this);
+                umShareAPI.getPlatformInfo(this, SHARE_MEDIA.WEIXIN, this);
                 break;
+            }
+            case R.id.qq: {
+              //  showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
+                mClickBindType = BINT_TYPE_QQ;
+                UMShareAPI umShareAPI = UMShareAPI.get(this);
+                // wx 的 有效期是1个月。过了1个月就必须重新授权登录。没有过期则不用跳转到授权页面，直接返回用户相关信息。
+                umShareAPI.getPlatformInfo(this, SHARE_MEDIA.QQ, this);
+                break;
+            }
+
+
         }
     }
 
@@ -301,6 +337,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
 
     @Override
     public void onUserSuccess(User user) {
+
         if (user.getUserInfo().getHead_url() != null) {
             Glide.with(this).load(user.getUserInfo().getHead_url()).apply(RequestOptions.circleCropTransform().placeholder(R.drawable.ic_launcher_background)).into(mUsericon);
         }
@@ -316,21 +353,41 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
             mOnbindemail.setText(MobileNumUtils.changeMobileNum(user.getUserInfo().getEmail()));
         } else {
             mOnbindemail.setText("未绑定");
-        }if (user.getUserInfo().getSina_bind()==1){
-            weibo.setImageResource(R.drawable.weibo_per);
+        }
+        if (user.getUserInfo().getSina_bind() == 1) {
+            mWeibo.setImageResource(R.drawable.weibo_per);
+        }else{
+            mWeibo.setImageResource(R.drawable.set_wb);
         }
 
+        if (user.getUserInfo().getWechat_bind() == 1) {
+            mWeixin.setImageResource(R.drawable.weibo_per);
+        }else{
+            mWeixin.setImageResource(R.drawable.set_wx);
+        }
+        if (user.getUserInfo().getQq_bind() == 1) {
+            mQq.setImageResource(R.drawable.weibo_per);
+        }else{
+            mQq.setImageResource(R.drawable.set_qq);
+        }
 
     }
 
     @Override
-    public void onSocialbindSuccess(VideoData.NewList data) {
+    public void onSocialbindSuccess(SocialBindData data) {
+        if(mClickBindType == BINT_TYPE_SINA){
+            mWeibo.setImageResource(R.drawable.weibo_per);
+        }else if(mClickBindType == BINT_TYPE_QQ){
+            mQq.setImageResource(R.drawable.weibo_per);
+        }else if(mClickBindType == BINT_TYPE_WECHAT){
+            mWeixin.setImageResource(R.drawable.weibo_per);
+        }
         showToast(data.getType());
-        weibo.setImageResource(R.drawable.weibo_per);
     }
 
     @Override
     public void onSocialbindFail(String msg) {
+        mClickBindType = -1;
         showToast(msg);
     }
 
@@ -375,28 +432,47 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
 
     @Override
     public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
-        Iterator<Map.Entry<String, String>> it = map.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<String, String> entry = it.next();
+
+        String type = "";
+        String openId = "";
+        String nickname = "";
+        String head_url = " ";
+        String unionid = "";
+
+
+        String openIdKey = "openid";
+
+
+        if (share_media == SHARE_MEDIA.SINA) {
+            type = "sina";
+            openIdKey = "uid";
+        } else if (share_media == SHARE_MEDIA.WEIXIN) {
+            type = "wechat";
+        } else if (share_media == SHARE_MEDIA.QQ) {
+            type = "qq";
+        }
+
+        for (Map.Entry<String, String> entry : map.entrySet()) {
             //uid
-            if (entry.getKey().equals("uid")){
-                String value = entry.getValue();
-                id = value;
+            if (entry.getKey().equals(openIdKey)) {
+                openId = entry.getValue();
             }
             //昵称
-            if (entry.getKey().equals("screen_name")){
-                String value = entry.getValue();
-                nickname = value;
+            if (entry.getKey().equals("name")) {
+                nickname = entry.getValue();
             }
             //头像
-            if (entry.getKey().equals("profile_image_url")){
-                String value = entry.getValue();
-                head_url = value;
+            if (entry.getKey().equals("profile_image_url")) {
+                head_url = entry.getValue();
+                ;
             }
 
-            mPresenter.getSocialbind("sina",id,nickname,head_url,"");
-            Log.d("Test", entry.getKey() + " = " + entry.getValue());
+            if (entry.getKey().equals("unionid")) {
+                unionid = entry.getValue();
+            }
         }
+
+        mPresenter.getSocialbind(type, openId, nickname, head_url, unionid);
     }
 
     @Override

@@ -137,4 +137,11 @@ public class TestMian {
             System.out.println("in sencod");
         }
     }
+
+
+
+    public static void test(){
+
+        System.out.println("dd");
+    }
 }

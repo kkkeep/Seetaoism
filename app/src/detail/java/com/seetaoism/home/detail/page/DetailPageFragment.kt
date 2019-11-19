@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mr.k.mvp.base.MvpBaseFragment
 import com.mr.k.mvp.kotlin.widget.CommentDecoration
 import com.mr.k.mvp.kotlin.base.BaseActivity
+import com.mr.k.mvp.utils.Logger
 import com.mr.k.mvp.utils.SystemFacade
 import com.seetaoism.AppConstant
 import com.seetaoism.R
@@ -36,6 +37,10 @@ import kotlinx.android.synthetic.main.fragment_details.*
  * created by Cherry on 2019-11-03
 **/
 class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>(), DetailsContract.IDetailPageView,UMShareListener {
+
+    companion object{
+        private  const val TAG = "DetailPageFragment"
+    }
 
 
     private val mListAdapter = DetailPageNewsAdapter()
@@ -242,11 +247,13 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
                 if(newState == RecyclerView.SCROLL_STATE_IDLE && isResumed){
                     if(isBottom() ){
                         //if(mHasMoreComment){
+                        Logger.d("%s set load more enable ",TAG)
                             detailSrl.setEnableLoadMore(true)
                        // }else{
 
                        // }
                     }else{
+                        Logger.d("%s set load more not enable ",TAG)
                         detailSrl.setEnableLoadMore(false)
                     }
                 }

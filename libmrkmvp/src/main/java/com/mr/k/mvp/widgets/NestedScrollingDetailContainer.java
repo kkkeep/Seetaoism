@@ -140,6 +140,7 @@ public class NestedScrollingDetailContainer extends ViewGroup implements NestedS
                 lastY = (int) ev.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
+
                 if(Math.abs(lastX - ev.getX()) > Math.abs(lastY - ev.getY()) ){
                     ev.setAction(MotionEvent.ACTION_CANCEL);
                     getParent().requestDisallowInterceptTouchEvent(false);

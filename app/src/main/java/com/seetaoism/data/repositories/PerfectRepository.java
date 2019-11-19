@@ -4,6 +4,7 @@ import com.mr.k.mvp.base.BaseRepository;
 import com.mr.k.mvp.base.IBaseCallBack;
 import com.mr.k.mvp.exceptions.ResultException;
 import com.seetaoism.data.entity.HttpResult;
+import com.seetaoism.data.entity.SocialBindData;
 import com.seetaoism.data.entity.User;
 import com.seetaoism.data.entity.VideoData;
 import com.seetaoism.data.okhttp.JDDataService;
@@ -61,15 +62,12 @@ public class PerfectRepository extends BaseRepository implements PerfectContract
     }
     //社交绑定
     @Override
-    public void getSocialbind(LifecycleProvider provider, HashMap<String, String> hashMap, IBaseCallBack<VideoData.NewList> callBack) {
-        observer(provider, JDDataService.service().socialbind(hashMap), new Function<HttpResult<VideoData.NewList>, ObservableSource<VideoData.NewList>>() {
-            @Override
-            public ObservableSource<VideoData.NewList> apply(HttpResult<VideoData.NewList> newsColumnDataHttpResult) throws Exception {
-                if (newsColumnDataHttpResult.code == 1 && newsColumnDataHttpResult.data != null) {
-                    return Observable.just(newsColumnDataHttpResult.data);
-                }
-                return Observable.error(new ResultException(ResultException.SERVER_ERROR));
+    public void getSocialbind(LifecycleProvider provider, HashMap<String, String> hashMap, IBaseCallBack<SocialBindData> callBack) {
+        observer(provider, JDDataService.service().socialbind(hashMap), newsColumnDataHttpResult -> {
+            if (newsColumnDataHttpResult.code == 1 && newsColumnDataHttpResult.data != null) {
+                return Observable.just(newsColumnDataHttpResult.data);
             }
+            return Observable.error(new ResultException(ResultException.SERVER_ERROR));
         }, callBack);
     }
 
