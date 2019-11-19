@@ -18,31 +18,40 @@ import com.mr.k.mvp.getUser
 import com.mr.k.mvp.kotlin.base.BaseActivity
 import com.mr.k.mvp.registerUserBroadcastReceiver
 import com.mr.k.mvp.unRegisterUserBroadcastReceiver
+import com.mr.k.mvp.utils.Logger
 import com.seetaoism.AppConstant
 import com.seetaoism.R
+import com.seetaoism.base.JDBaseActivity
 import com.seetaoism.data.entity.DetailExclusiveData
 import com.seetaoism.data.entity.FROM
 import com.seetaoism.data.entity.NewsAttribute
 import com.seetaoism.data.entity.NewsData
+import com.seetaoism.home.HomeActivity
 import com.seetaoism.home.NewsViewModel
 import com.seetaoism.home.detail.page.DetailPageFragment
 import com.seetaoism.home.detail.DetailsContract
 import com.seetaoism.libloadingview.LoadingView
+import com.seetaoism.utils.shareApp
 import com.seetaoism.utils.shareNews
 import com.umeng.socialize.UMShareListener
 import com.umeng.socialize.bean.SHARE_MEDIA
 import kotlinx.android.synthetic.main.fragment_detail_vp.*
+import java.util.*
 
 
 /*
  * created by Cherry on 2019-11-03
 **/
+
+
+
 class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), DetailsContract.IDetailVpView, View.OnClickListener,UMShareListener {
 
+
+
+    private val  TAG = "DetailVPFragment"
+
     private  var mReceiver : BroadcastReceiver? = null
-
-
-
 
     private var mColumnId: String? = null
 
@@ -201,6 +210,7 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
 
             R.id.newsDetailShare -> {
                 shareNews(activity!!,mNewsDetailAdapter.getCurrentNew(),this)
+
             }
         }
 
@@ -279,28 +289,34 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
     }
 
     override fun onError(p0: SHARE_MEDIA?, p1: Throwable?) {
+        Logger.d("%s onError = %s",TAG, p0?.getName() );
         if(p0 != SHARE_MEDIA.WEIXIN){
             closeLoading()
         }
     }
 
     override fun onStart(p0: SHARE_MEDIA?) {
+        Logger.d("%s onStart = %s",TAG, p0?.getName())
         if(p0 != SHARE_MEDIA.WEIXIN){
             showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG)
         }
     }
 
     override fun onResult(p0: SHARE_MEDIA?) {
+        Logger.d("%s onResult = %s",TAG, p0?.getName())
         if(p0 != SHARE_MEDIA.WEIXIN){
             closeLoading()
         }
     }
 
     override fun onCancel(p0: SHARE_MEDIA?) {
+        Logger.d("%s onCancel = %s",TAG, p0?.getName())
         if(p0 != SHARE_MEDIA.WEIXIN){
             closeLoading()
         }
     }
+
+
 
 }
 

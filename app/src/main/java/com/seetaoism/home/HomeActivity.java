@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,11 +22,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mr.k.mvp.base.BaseActivity;
 import com.mr.k.mvp.base.BaseFragment;
 import com.mr.k.mvp.statusbar.StatusBarUtils;
+import com.mr.k.mvp.utils.Logger;
 import com.seetaoism.R;
 import com.seetaoism.TestConstraintActivity;
 import com.seetaoism.base.JDBaseActivity;
 import com.seetaoism.data.entity.NewsColumn;
 import com.seetaoism.data.entity.NewsColumnData;
+import com.seetaoism.data.entity.NewsData;
 import com.seetaoism.data.repositories.NewsRepository;
 import com.seetaoism.home.mine.MineFragment;
 import com.seetaoism.home.recommend.RecommendFragment;
@@ -38,11 +41,14 @@ import com.seetaoism.widgets.bottomtablaout.BottomTabLayout;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMWeb;
 
 import java.util.List;
 
 
 public class HomeActivity extends JDBaseActivity implements View.OnClickListener {
+
+    private static final String TAG = "HomeActivity";
 
     private BottomTabLayout mBottomTabLayout;
     private DrawerLayout mDrawerLayout;
@@ -130,6 +136,7 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
 
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -189,22 +196,22 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
                 ShareUtilsKt.shareApp(this, new UMShareListener() {
                     @Override
                     public void onStart(SHARE_MEDIA share_media) {
-
+                        Logger.d("%s onStart = %s",TAG,share_media.getName());
                     }
 
                     @Override
                     public void onResult(SHARE_MEDIA share_media) {
-
+                        Logger.d("%s onResult = %s",TAG,share_media.getName());
                     }
 
                     @Override
                     public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-
+                        Logger.d("%s onError = %s",TAG,share_media.getName());
                     }
 
                     @Override
                     public void onCancel(SHARE_MEDIA share_media) {
-
+                        Logger.d("%s onCancel = %s",TAG,share_media.getName());
                     }
                 });
 
@@ -217,6 +224,8 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
         }
 
     }
+
+
 
     //意见反馈
     private View.OnClickListener getItemsOnClick = new View.OnClickListener() {

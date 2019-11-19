@@ -22,7 +22,9 @@ fun shareNews(activity: FragmentActivity, news: NewsData.NewsBean, listener: UMS
     val permissionUtils = PermissionUtils(activity)
     permissionUtils.checkPermission(activity, object : PermissionUtils.OnPermissionCallBack {
         override fun onAllMustAccept() {
-            val thumb = UMImage(activity, R.drawable.ic_drawer_logo)
+            val thumb = UMImage(activity, news.imageUrl)
+            //http://www.seetao.com/m_details/9915.html
+           // http://www.seetaoism.com/m_greet"
             val web = UMWeb(news.share_link)
             web.title = news.theme
             web.setThumb(thumb)  //缩略图
@@ -78,6 +80,7 @@ fun shareNewsToSina(activity: FragmentActivity, news: NewsData.NewsBean, listene
 }
 
 fun shareNewsToMore(activity: FragmentActivity, news: NewsData.NewsBean, listener: UMShareListener) {
+
     val permissionUtils = PermissionUtils(activity)
     permissionUtils.checkPermission(activity, object : PermissionUtils.OnPermissionCallBack {
         override fun onAllMustAccept() {
