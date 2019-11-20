@@ -288,6 +288,11 @@ public class RecommendFragment extends MvpBaseFragment<RecommendContract.IRecomm
                 startActivity(new Intent(getContext(), SsearchActivity.class));
 
                 break;
+
+            }
+            case R.id.home_recommend_top_logo:{
+                //打开侧滑
+                break;
             }
         }
     }

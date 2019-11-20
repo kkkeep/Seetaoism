@@ -333,5 +333,20 @@ public interface JDApiService {
     @POST("/api/user/socialbind")
     Observable<HttpResult<SocialBindData>> socialbind(@FieldMap Map<String, String> map);
 
+    /**
+     * 获取社交解除绑定
+     */
+    @FormUrlEncoded
+    @POST("/api/user/socialunbind")
+    Observable<HttpResult<SocialBindData>> socialunbind(@FieldMap Map<String, String> map);
+
+
+    /**
+     * 获取社交登录
+     */
+    @FormUrlEncoded
+    @POST("/api/user/sociallogin")
+    Observable<HttpResult<SocialBindData>> sociallogin(@FieldMap Map<String, String> map);
+
 
 }

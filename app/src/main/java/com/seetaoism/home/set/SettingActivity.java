@@ -23,6 +23,7 @@ import androidx.core.app.NotificationManagerCompat;
 import com.flyco.roundview.RoundTextView;
 import com.mr.k.mvp.UserManager;
 import com.mr.k.mvp.utils.DataCacheUtils;
+import com.mr.k.mvp.utils.Logger;
 import com.mr.k.mvp.utils.SPUtils;
 import com.mr.k.mvp.utils.SystemFacade;
 import com.seetaoism.AppConstant;
@@ -35,8 +36,11 @@ import com.seetaoism.home.HomeActivity;
 import com.seetaoism.home.push.ExampleUtil;
 import com.seetaoism.home.push.LocalBroadcastManager;
 import com.seetaoism.user.login.LoginActivity;
+import com.seetaoism.utils.ShareUtilsKt;
 import com.shehuan.niv.NiceImageView;
 import com.suke.widget.SwitchButton;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.io.File;
 
@@ -96,6 +100,9 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
         mVersion = findViewById(R.id.version);
         mActivityLogin = findViewById(R.id.activity_login);
         mOutlogin.setOnClickListener(this);
+        mRecommend.setOnClickListener(this);
+        mClose.setOnClickListener(this);
+        mCall.setOnClickListener(this);
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -155,6 +162,33 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
             case R.id.close:
                 finish();
                 break;
+            case R.id.recommend:
+                //分享
+                ShareUtilsKt.shareApp(this, new UMShareListener() {
+                    @Override
+                    public void onStart(SHARE_MEDIA share_media) {
+                    }
+
+                    @Override
+                    public void onResult(SHARE_MEDIA share_media) {
+                    }
+
+                    @Override
+                    public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+                    }
+
+                    @Override
+                    public void onCancel(SHARE_MEDIA share_media) {
+                    }
+                });
+                break;
+            case R.id.call:
+                //打电话
+                Intent myCallIntent = new Intent(Intent.ACTION_DIAL,
+                        Uri.parse("tel:010-58760804"));
+                startActivity(myCallIntent);
+                break;
+
         }
 
     }
@@ -162,7 +196,6 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
     @Override
     public void onOutLoginSuccess(String user) {
         SPUtils.saveValueToDefaultSpByCommit("pic", null);
-        showToast("成功");
         finish();
 
     }

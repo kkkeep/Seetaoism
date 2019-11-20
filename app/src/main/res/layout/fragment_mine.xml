@@ -195,6 +195,7 @@
                     android:layout_marginRight="10dp"
                     android:background="#ffd6d8da" />
 
+
                 <com.flyco.roundview.RoundLinearLayout
                     android:id="@+id/mine_message"
                     android:layout_width="match_parent"
@@ -205,36 +206,59 @@
                     android:paddingRight="15dp"
                     app:rv_backgroundColor="@color/white"
                     app:rv_backgroundPressColor="#fff4f4f4">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
                     <com.shehuan.niv.NiceImageView
+                        android:id="@+id/m"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
+                        android:layout_centerVertical="true"
                         android:background="@drawable/mine_mes"
                         app:is_circle="true" />
 
                     <TextView
+                        android:id="@+id/mes"
+                        android:layout_toRightOf="@+id/m"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:layout_weight="1"
                         android:text="我的消息"
                         android:textSize="16sp"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#282B2E " />
 
+                        <TextView
+                            android:id="@+id/yuan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/mes"
+                            android:background="@drawable/red"
+                            android:textColor="#FFFFFFFF"
+                            android:layout_centerVertical="true"
+                            android:paddingLeft="2dp"
+                            android:paddingRight="2dp"
+                            android:text="11" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="right"
+                        android:layout_toLeftOf="@+id/fan1"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <ImageView
+                        android:id="@+id/fan1"
+                        android:layout_alignParentRight="true"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
+                        android:layout_centerVertical="true"
                         android:src="@drawable/mine_fan" />
+                </RelativeLayout>
                 </com.flyco.roundview.RoundLinearLayout>
+
 
             </LinearLayout>
 

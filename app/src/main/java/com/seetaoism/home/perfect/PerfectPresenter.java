@@ -110,5 +110,29 @@ public class PerfectPresenter extends BasePresenter<PerfectContract.IPerfectView
 
     }
 
+    @Override
+    public void getSocialunbind(String type, String openid, String unionid) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("type",type);
+        map.put("openid",openid);
+        map.put("unionid",unionid);
+
+        mMode.getSocialunbind(getLifecycleProvider(), map, new IBaseCallBack<SocialBindData>() {
+            @Override
+            public void onSuccess(@NonNull SocialBindData data) {
+                if (mView!=null){
+                    mView.onSocialunbindSuccess(data);
+                }
+            }
+
+            @Override
+            public void onFail(@NonNull ResultException e) {
+                if (mView!=null){
+                    mView.onSocialunbindFail(e.getMessage());
+                }
+            }
+        });
+    }
+
 
 }

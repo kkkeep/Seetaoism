@@ -1,6 +1,7 @@
 package com.seetaoism.home.perfect;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.BitmapDrawable;
@@ -56,12 +57,13 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
+import static com.mr.k.mvp.MvpManager.getContext;
+
 public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectPresenter> implements View.OnClickListener, PerfectContract.IPerfectView, UMAuthListener {
 
-    private static final int  BINT_TYPE_SINA = 0x100;
-    private static final int  BINT_TYPE_WECHAT = 0x101;
-    private static final int  BINT_TYPE_QQ = 0x102;
-
+    private static final int BINT_TYPE_SINA = 0x100;
+    private static final int BINT_TYPE_WECHAT = 0x101;
+    private static final int BINT_TYPE_QQ = 0x102;
     private NiceImageView mClose;
     private Toolbar mToolbar;
     private NiceImageView mUsericon;
@@ -80,11 +82,9 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
     private TextView updata_psw;
     private String photoPath;
     private String name;
-
     private int mClickBindType = -1;
-
     private User mUser;
-
+    private AlertDialog builder;
 
 
     @Override
@@ -117,9 +117,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
         name = "";
 
         mUser = (User) UserManager.getUser();
-
-        onUserSuccess(mUser);
-
+        mPresenter.getUser();
     }
 
     @Override
@@ -156,13 +154,36 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
                 break;
             case R.id.weibo: {
                 //showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
+                if (mUser.getUserInfo().getSina_bind() == 1) {
+                    builder = new AlertDialog.Builder(PerfectActivity.this)
+                            .create();
+                    builder.show();
+                    if (builder.getWindow() == null) {
+                        return;
+                    }
+                    builder.getWindow().setContentView(R.layout.pop_user);//设置弹出框加载的布局
+                    TextView msg = (TextView) builder.findViewById(R.id.tv_msg);
+                    Button cancle = (Button) builder.findViewById(R.id.btn_cancle);
+                    Button sure = (Button) builder.findViewById(R.id.btn_sure);
 
-                if(mUser.getUserInfo().getSina_bind() == 1){
-                    // todo 解绑
-                }else{
+                    sure.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mPresenter.getSocialunbind("sina", mUser.getUserInfo().getSina_openid(), "");
+                            showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
+                            builder.dismiss();
+                        }
+                    });
+                    cancle.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            builder.dismiss();
+                        }
+                    });
+
+                } else {
                     mClickBindType = BINT_TYPE_SINA;
                     UMShareAPI umShareAPI = UMShareAPI.get(this);
-                    // wx 的 有效期是1个月。过了1个月就必须重新授权登录。没有过期则不用跳转到授权页面，直接返回用户相关信息。
                     umShareAPI.getPlatformInfo(this, SHARE_MEDIA.SINA, this);
                 }
 
@@ -171,18 +192,75 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
 
             case R.id.weixin: {
                 //showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
-                mClickBindType = BINT_TYPE_WECHAT;
-                UMShareAPI umShareAPI = UMShareAPI.get(this);
-                // wx 的 有效期是1个月。过了1个月就必须重新授权登录。没有过期则不用跳转到授权页面，直接返回用户相关信息。
-                umShareAPI.getPlatformInfo(this, SHARE_MEDIA.WEIXIN, this);
+                if (mUser.getUserInfo().getWechat_bind() == 1) {
+                    builder = new AlertDialog.Builder(PerfectActivity.this)
+                            .create();
+                    builder.show();
+                    if (builder.getWindow() == null) {
+                        return;
+                    }
+                    builder.getWindow().setContentView(R.layout.pop_user);//设置弹出框加载的布局
+                    TextView msg = (TextView) builder.findViewById(R.id.tv_msg);
+                    Button cancle = (Button) builder.findViewById(R.id.btn_cancle);
+                    Button sure = (Button) builder.findViewById(R.id.btn_sure);
+
+                    sure.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mPresenter.getSocialunbind("wechat", mUser.getUserInfo().getWechat_openid(), mUser.getUserInfo().getWechat_unionid());
+                            showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
+                            builder.dismiss();
+                        }
+                    });
+                    cancle.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            builder.dismiss();
+                        }
+                    });
+
+                } else {
+                    mClickBindType = BINT_TYPE_WECHAT;
+                    UMShareAPI umShareAPI = UMShareAPI.get(this);
+                    // wx 的 有效期是1个月。过了1个月就必须重新授权登录。没有过期则不用跳转到授权页面，直接返回用户相关信息。
+                    umShareAPI.getPlatformInfo(this, SHARE_MEDIA.WEIXIN, this);
+                }
                 break;
             }
             case R.id.qq: {
-              //  showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
-                mClickBindType = BINT_TYPE_QQ;
-                UMShareAPI umShareAPI = UMShareAPI.get(this);
-                // wx 的 有效期是1个月。过了1个月就必须重新授权登录。没有过期则不用跳转到授权页面，直接返回用户相关信息。
-                umShareAPI.getPlatformInfo(this, SHARE_MEDIA.QQ, this);
+                //  showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
+                if (mUser.getUserInfo().getQq_bind() == 1) {
+                    builder = new AlertDialog.Builder(PerfectActivity.this)
+                            .create();
+                    builder.show();
+                    if (builder.getWindow() == null) {
+                        return;
+                    }
+                    builder.getWindow().setContentView(R.layout.pop_user);//设置弹出框加载的布局
+                    TextView msg = (TextView) builder.findViewById(R.id.tv_msg);
+                    Button cancle = (Button) builder.findViewById(R.id.btn_cancle);
+                    Button sure = (Button) builder.findViewById(R.id.btn_sure);
+
+                    sure.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mPresenter.getSocialunbind("qq", mUser.getUserInfo().getQq_openid(), "");
+                            showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
+                            builder.dismiss();
+                        }
+                    });
+                    cancle.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            builder.dismiss();
+                        }
+                    });
+
+                } else {
+                    mClickBindType = BINT_TYPE_QQ;
+                    UMShareAPI umShareAPI = UMShareAPI.get(this);
+                    umShareAPI.getPlatformInfo(this, SHARE_MEDIA.QQ, this);
+                }
                 break;
             }
 
@@ -356,18 +434,18 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
         }
         if (user.getUserInfo().getSina_bind() == 1) {
             mWeibo.setImageResource(R.drawable.weibo_per);
-        }else{
+        } else {
             mWeibo.setImageResource(R.drawable.set_wb);
         }
 
         if (user.getUserInfo().getWechat_bind() == 1) {
-            mWeixin.setImageResource(R.drawable.weibo_per);
-        }else{
+            mWeixin.setImageResource(R.drawable.weatch_per);
+        } else {
             mWeixin.setImageResource(R.drawable.set_wx);
         }
         if (user.getUserInfo().getQq_bind() == 1) {
-            mQq.setImageResource(R.drawable.weibo_per);
-        }else{
+            mQq.setImageResource(R.drawable.qq);
+        } else {
             mQq.setImageResource(R.drawable.set_qq);
         }
 
@@ -375,12 +453,12 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
 
     @Override
     public void onSocialbindSuccess(SocialBindData data) {
-        if(mClickBindType == BINT_TYPE_SINA){
+        if (mClickBindType == BINT_TYPE_SINA) {
             mWeibo.setImageResource(R.drawable.weibo_per);
-        }else if(mClickBindType == BINT_TYPE_QQ){
-            mQq.setImageResource(R.drawable.weibo_per);
-        }else if(mClickBindType == BINT_TYPE_WECHAT){
-            mWeixin.setImageResource(R.drawable.weibo_per);
+        } else if (mClickBindType == BINT_TYPE_QQ) {
+            mQq.setImageResource(R.drawable.qq);
+        } else if (mClickBindType == BINT_TYPE_WECHAT) {
+            mWeixin.setImageResource(R.drawable.weatch_per);
         }
         showToast(data.getType());
     }
@@ -388,6 +466,24 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
     @Override
     public void onSocialbindFail(String msg) {
         mClickBindType = -1;
+        showToast(msg);
+    }
+
+    @Override
+    public void onSocialunbindSuccess(SocialBindData data) {
+        if (data.getType().equals("sina")) {
+            mWeibo.setImageResource(R.drawable.set_wb);
+        } else if (data.getType().equals("qq")) {
+            mQq.setImageResource(R.drawable.set_qq);
+        } else if (data.getType().equals("wechat")) {
+            mWeixin.setImageResource(R.drawable.set_wx);
+        }
+        closeLoading();
+        showToast("解除绑定成功");
+    }
+
+    @Override
+    public void onSocialunbindFail(String msg) {
         showToast(msg);
     }
 

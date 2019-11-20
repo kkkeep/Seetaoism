@@ -8,15 +8,10 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <org.raphets.roundimageview.RoundImageView
+    <ImageView
         android:scaleType="centerCrop"
-        app:leftBottom_corner_radius="0dp"
-        app:leftTop_corner_radius="0dp"
-        app:rightBottom_corner_radius="0dp"
-        app:rightTop_corner_radius="0dp"
         android:layout_width="91dp"
         android:layout_height="68dp"
-        app:type="round"
         android:id="@+id/detail_item_news_pic"
         android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toBottomOf="parent"

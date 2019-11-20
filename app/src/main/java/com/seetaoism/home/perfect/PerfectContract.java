@@ -23,6 +23,9 @@ public interface PerfectContract {
         //社交绑定
         void onSocialbindSuccess(SocialBindData data);
         void onSocialbindFail(String msg);
+        //社交解除绑定
+        void onSocialunbindSuccess(SocialBindData data);
+        void onSocialunbindFail(String msg);
 
 
     }
@@ -33,6 +36,9 @@ public interface PerfectContract {
         void getUser();
         //社交绑定
         void getSocialbind(String type,String openid,String nickname,String head_url,String unionid);
+        //社交解除绑定
+        void getSocialunbind(String type,String openid,String unionid);
+
     }
 
     public interface IPerfectModel {
@@ -42,6 +48,8 @@ public interface PerfectContract {
 
         //社交绑定
         void getSocialbind(LifecycleProvider provider, HashMap<String, String> hashMap, IBaseCallBack<SocialBindData> callBack);
+        //社交解除绑定
+        void getSocialunbind(LifecycleProvider provider, HashMap<String, String> hashMap, IBaseCallBack<SocialBindData> callBack);
 
     }
 }

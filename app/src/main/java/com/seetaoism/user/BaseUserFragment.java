@@ -124,6 +124,7 @@ public abstract class BaseUserFragment<T extends IBasePresenter> extends MvpBase
             Map.Entry<String, String> entry = it.next();
 
             Log.d("Test", entry.getKey() + " = " + entry.getValue());
+
         }
 
     }

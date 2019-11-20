@@ -70,6 +70,16 @@ public class PerfectRepository extends BaseRepository implements PerfectContract
             return Observable.error(new ResultException(ResultException.SERVER_ERROR));
         }, callBack);
     }
+    //社交解除绑定
+    @Override
+    public void getSocialunbind(LifecycleProvider provider, HashMap<String, String> hashMap, IBaseCallBack<SocialBindData> callBack) {
+        observer(provider, JDDataService.service().socialunbind(hashMap), newsColumnDataHttpResult -> {
+            if (newsColumnDataHttpResult.code == 1 && newsColumnDataHttpResult.data != null) {
+                return Observable.just(newsColumnDataHttpResult.data);
+            }
+            return Observable.error(new ResultException(ResultException.SERVER_ERROR));
+        }, callBack);
+    }
 
 
 }

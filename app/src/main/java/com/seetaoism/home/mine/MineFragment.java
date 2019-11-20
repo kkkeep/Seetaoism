@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -42,6 +43,7 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
     private TextView qiandao_bt;
     private TextView text_hint;
     private TextView text_title;
+    private TextView yuan;
 
     private BroadcastReceiver mReceiver;
 
@@ -69,6 +71,7 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
         mine_pic = root.findViewById(R.id.mine_pic);
         jifen = root.findViewById(R.id.jifen);
         qiandao_bt = root.findViewById(R.id.qiandao_bt);
+        yuan = root.findViewById(R.id.yuan);
         mine_collect.setOnClickListener(this);
         mine_login.setOnClickListener(this);
         mine_message.setOnClickListener(this);
@@ -99,7 +102,6 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
             //登录
             case R.id.mine_login:
                 startActivity(new Intent(getContext(), LoginActivity.class));
-               // getActivity().finish();
                 break;
             //设置
             case R.id.mine_seeting:
@@ -133,7 +135,6 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
                     startActivity(new Intent(getContext(), IntegralActivity.class));
                 } else {
                     startActivity(new Intent(getContext(), LoginActivity.class));
-                    //getActivity().finish();
 
                 }
                 break;
@@ -145,7 +146,6 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
                     mPresenter.getMine();
                 } else {
                     startActivity(new Intent(getContext(), LoginActivity.class));
-                   // getActivity().finish();
                 }
                 break;
             case R.id.mine_message:
@@ -154,7 +154,6 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
                     startActivity(new Intent(getContext(), MessageActivity.class));
                 } else {
                     startActivity(new Intent(getContext(), LoginActivity.class));
-                  //  getActivity().finish();
                 }
                 break;
         }
@@ -196,6 +195,12 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
                 mine_login.setVisibility(View.GONE);
             } else {
                 mine_login.setVisibility(View.VISIBLE);
+            }
+
+            if (user1.getUserInfo()!=null){
+                yuan.setText(user1.getUserInfo().getNotice_count()+"");
+            }else {
+                yuan.setVisibility(View.GONE);
             }
         }
     }

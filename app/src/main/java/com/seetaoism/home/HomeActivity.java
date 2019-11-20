@@ -130,7 +130,7 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
             }
 
         }
-        //我感觉是得这样写、、、
+
         addFragment(getSupportFragmentManager(), aClass, R.id.home_fragment_container, null);
 
 

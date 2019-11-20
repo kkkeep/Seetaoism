@@ -92,15 +92,11 @@
                     android:text="首页焦点图自动轮播"
                     android:textColor="#282B2E " />
 
-<!--                <com.suke.widget.SwitchButton-->
-<!--                    android:id="@+id/lunbo_Button"-->
-<!--                    android:layout_width="32dp"-->
-<!--                    android:layout_height="16dp"-->
-<!--                    app:sbIsChecked="false"-->
-<!--                    app:sbMarginBottom="2dp"-->
-<!--                    app:sbMarginLeft="0dp"-->
-<!--                    app:sbMarginRight="2dp"-->
-<!--                    app:sbMarginTop="2dp" />-->
+                <Switch
+                    android:textColor="#fff4f4f4"
+                    android:id="@+id/push1_Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
             </com.flyco.roundview.RoundLinearLayout>
 
