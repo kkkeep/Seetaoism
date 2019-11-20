@@ -453,12 +453,15 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
 
     @Override
     public void onSocialbindSuccess(SocialBindData data) {
-        if (mClickBindType == BINT_TYPE_SINA) {
+        if (data.getType().equals("sina")) {
             mWeibo.setImageResource(R.drawable.weibo_per);
-        } else if (mClickBindType == BINT_TYPE_QQ) {
+            mUser.getUserInfo().setSina_bind(1);
+        } else if (data.getType().equals("qq")) {
             mQq.setImageResource(R.drawable.qq);
-        } else if (mClickBindType == BINT_TYPE_WECHAT) {
+            mUser.getUserInfo().setQq_bind(1);
+        } else if (data.getType().equals("wechat")) {
             mWeixin.setImageResource(R.drawable.weatch_per);
+            mUser.getUserInfo().setWechat_bind(1);
         }
         showToast(data.getType());
     }
@@ -473,10 +476,13 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
     public void onSocialunbindSuccess(SocialBindData data) {
         if (data.getType().equals("sina")) {
             mWeibo.setImageResource(R.drawable.set_wb);
+            mUser.getUserInfo().setSina_bind(0);
         } else if (data.getType().equals("qq")) {
             mQq.setImageResource(R.drawable.set_qq);
+            mUser.getUserInfo().setQq_bind(0);
         } else if (data.getType().equals("wechat")) {
             mWeixin.setImageResource(R.drawable.set_wx);
+            mUser.getUserInfo().setWechat_bind(0);
         }
         closeLoading();
         showToast("解除绑定成功");
@@ -484,6 +490,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
 
     @Override
     public void onSocialunbindFail(String msg) {
+        closeLoading();
         showToast(msg);
     }
 
@@ -542,6 +549,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
         if (share_media == SHARE_MEDIA.SINA) {
             type = "sina";
             openIdKey = "uid";
+
         } else if (share_media == SHARE_MEDIA.WEIXIN) {
             type = "wechat";
         } else if (share_media == SHARE_MEDIA.QQ) {
@@ -552,6 +560,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
             //uid
             if (entry.getKey().equals(openIdKey)) {
                 openId = entry.getValue();
+
             }
             //昵称
             if (entry.getKey().equals("name")) {
@@ -566,6 +575,15 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
             if (entry.getKey().equals("unionid")) {
                 unionid = entry.getValue();
             }
+
+        }
+        if (share_media == SHARE_MEDIA.SINA) {
+            mUser.getUserInfo().setSina_openid(openId);
+        } else if (share_media == SHARE_MEDIA.WEIXIN) {
+            mUser.getUserInfo().setWechat_unionid(openId);
+            mUser.getUserInfo().setWechat_unionid(unionid);
+        } else if (share_media == SHARE_MEDIA.QQ) {
+            mUser.getUserInfo().setQq_openid(openId);
         }
 
         mPresenter.getSocialbind(type, openId, nickname, head_url, unionid);
