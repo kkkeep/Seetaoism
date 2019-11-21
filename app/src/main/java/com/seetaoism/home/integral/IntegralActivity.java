@@ -1,6 +1,7 @@
 package com.seetaoism.home.integral;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.mr.k.mvp.statusbar.StatusBarUtils;
 import com.seetaoism.R;
 import com.seetaoism.base.JDMvpBaseActivity;
 import com.seetaoism.data.entity.IntergrelData;
@@ -36,6 +38,8 @@ public class IntegralActivity extends JDMvpBaseActivity<IntegrelContract.Integre
 
     @Override
     protected void doOnCreate(@Nullable Bundle savedInstanceState) {
+        //状态栏
+        StatusBarUtils.setStatusBarDarkMode(this, Color.BLACK);
 
         mBack = findViewById(R.id.back);
         mJifen = findViewById(R.id.jifen);
@@ -57,6 +61,7 @@ public class IntegralActivity extends JDMvpBaseActivity<IntegrelContract.Integre
         mPresenter.getIntegrel();
 
         mAboutJifen.setOnClickListener(this);
+        mBack.setOnClickListener(this);
 
     }
 
@@ -96,6 +101,9 @@ public class IntegralActivity extends JDMvpBaseActivity<IntegrelContract.Integre
         switch (view.getId()) {
             case R.id.about_jifen:
                 startActivity(new Intent(IntegralActivity.this, Main2Activity.class));
+                break;
+            case R.id.back:
+                finish();
                 break;
         }
     }

@@ -95,7 +95,6 @@ public class VideoFragment extends MvpBaseFragment<VideoContract.VideoPresenter>
 
     @Override
     public void onVideoSuccess(VideoData data, String msg) {
-        //第二个断点，打在数据回来的时候看看有没有数据        在这里就行了
         if (data!=null&&data.getList().size()>0){
             start = data.getStart();
             more=data.getMore();

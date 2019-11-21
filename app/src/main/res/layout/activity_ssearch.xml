@@ -124,7 +124,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/clean"
+                android:id="@+id/clean_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -135,16 +135,11 @@
                 android:textSize="14sp" />
             <com.zhy.view.flowlayout.TagFlowLayout
                 android:id="@+id/flow_layout"
-                android:layout_below="@+id/clean"
+                android:layout_below="@+id/clean_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 app:max_select="0" />
-            <!--<androidx.recyclerview.widget.RecyclerView
-                android:layout_below="@+id/clean"
-                android:id="@+id/record_rec"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>-->
         </RelativeLayout>
     </FrameLayout>
 

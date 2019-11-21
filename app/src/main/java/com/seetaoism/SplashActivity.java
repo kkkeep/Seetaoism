@@ -81,7 +81,7 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
                         startMainActivity();
                     }
                 }
-            }, 5000);
+            }, 3000);
 
 
         }

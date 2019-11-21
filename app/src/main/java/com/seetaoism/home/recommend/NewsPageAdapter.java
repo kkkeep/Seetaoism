@@ -213,14 +213,25 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
 
         private ProgressBar mProgressBar;
 
+        private ImageView mTvFlashimg;
+
 
         public HeaderHolder(@NonNull View itemView) {
             super(itemView);
             jBanner = itemView.findViewById(R.id.news_item_header_j_banner);
             mFlashGroup = itemView.findViewById(R.id.news_item_header_flash_layout);
             mTvFlash = itemView.findViewById(R.id.news_item_header_tv_flash);
+            mTvFlashimg = itemView.findViewById(R.id.news_item_header_iv_flash_more);
 
             mProgressBar = itemView.findViewById(R.id.news_item_header_progressbar);
+
+
+            mTvFlashimg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
 
 
             jBanner.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

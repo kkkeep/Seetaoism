@@ -3,6 +3,7 @@ package com.seetaoism.home.recommend;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -292,6 +293,8 @@ public class RecommendFragment extends MvpBaseFragment<RecommendContract.IRecomm
             }
             case R.id.home_recommend_top_logo:{
                 //打开侧滑
+                HomeActivity activity = (HomeActivity) getActivity();
+                activity.mDrawerLayout.openDrawer(Gravity.LEFT);
                 break;
             }
         }

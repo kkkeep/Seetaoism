@@ -3,6 +3,7 @@ package com.seetaoism.home;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mr.k.mvp.utils.Logger;
 import com.mr.k.mvp.utils.SystemFacade;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.seetaoism.AppConstant;
 import com.seetaoism.R;
 import com.seetaoism.base.JDMvpBaseActivity;
@@ -31,6 +35,8 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPresenter> implements View.OnClickListener, SearchContract.ISearchView, TextView.OnEditorActionListener {
 
@@ -67,7 +73,7 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
         mRvNews = findViewById(R.id.rv_news);
         mRefreshLayout = findViewById(R.id.refreshLayout);
         mRecord = findViewById(R.id.record);
-        mClean = findViewById(R.id.clean);
+        mClean = findViewById(R.id.clean_list);
         mHistory = findViewById(R.id.history);
         flow = findViewById(R.id.flow_layout);
         mRvNews.setLayoutManager(new LinearLayoutManager(this));
@@ -76,8 +82,29 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
 
         mClose.setOnClickListener(this);
         mSearchText.setOnClickListener(this);
+        mClean.setOnClickListener(this);
         mEditSearch.setOnEditorActionListener(this);
         histroy();
+
+        mRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                mRefreshLayout.finishLoadMore(2000);       //2s加载结束
+                mPresenter.getSearchs(start, time, mEditSearch.getText().toString());
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                mRefreshLayout.finishRefresh(2000);    //2s刷新结束
+                start = 0;
+                time = 0;
+                adapter.mlist.clear();
+                mPresenter.getSearchs(start, time, mEditSearch.getText().toString());
+
+            }
+        });
+
+
         //历史点击事件
         flow.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
             @Override
@@ -168,6 +195,13 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
             case R.id.search_text:
                 finish();
                 break;
+            case R.id.clean_list:
+                //清除历史
+                showToast("清除");
+                his.clear();
+                flowSetData(his);
+                SharedPrefrenceUtils.putStringList(this, AppConstant.SPKeys.SEARCH, his);
+                break;
         }
     }
 
@@ -212,6 +246,8 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
     @Override
     public void onSearchSuccess(SearchData data, String msg) {
         if (data != null && data.getList().size() > 0) {
+            start=data.getStart();
+            time=data.getPoint_time();
             mlist.addAll(data.getList());
             adapter.notifyDataSetChanged();
             mRefreshLayout.setVisibility(View.VISIBLE);

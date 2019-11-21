@@ -1,10 +1,12 @@
 package com.seetaoism.home.perfect;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +14,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -275,8 +278,14 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
 
         LinearLayout view = (LinearLayout) getLayoutInflater().inflate(R.layout.update_name_layout, null);
         popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow.setFocusable(true);
+        //popupWindow.setFocusable(true);
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        //实例化一个ColorDrawable颜色为半透明
+        ColorDrawable dw = new ColorDrawable(0x00000000);
+        //设置SelectPicPopupWindow弹出窗体的背景
+        popupWindow.setBackgroundDrawable(dw);
+        popupWindow.setOutsideTouchable(false);
+        backgroundAlpha(PerfectActivity.this, 0.5f);//0.0-1.0
         popupWindow.showAtLocation(mNikename, Gravity.LEFT | Gravity.RIGHT, 0, 0);
         setupdatename(view);
 
@@ -292,6 +301,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
             @Override
             public void onClick(View view) {
                 popupWindow.dismiss();
+                backgroundAlpha(PerfectActivity.this,1f);
             }
         });
         up_true.setOnClickListener(new View.OnClickListener() {
@@ -300,6 +310,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
                 String string = up_name.getText().toString();
                 mPresenter.getUpdateNameP(string);
                 popupWindow.dismiss();
+                backgroundAlpha(PerfectActivity.this,1f);
             }
         });
     }
@@ -312,14 +323,30 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
         LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.window_popup, null);
         popupWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         //点击空白处时，隐藏掉pop窗口
-        popupWindow.setFocusable(true);
+        //popupWindow.setFocusable(true);
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
-
+        //实例化一个ColorDrawable颜色为半透明
+        ColorDrawable dw = new ColorDrawable(0x00000000);
+        //设置SelectPicPopupWindow弹出窗体的背景
+        popupWindow.setBackgroundDrawable(dw);
+        popupWindow.setOutsideTouchable(false);
+        backgroundAlpha(PerfectActivity.this, 0.5f);//0.0-1.0
         int[] location = new int[2];
         mUsericon.getLocationOnScreen(location);
         popupWindow.showAtLocation(mUsericon, Gravity.LEFT | Gravity.BOTTOM, 0, -location[1]);
         //添加按键事件监听
         setButtonListeners(layout);
+    }
+    /**
+     * 设置添加屏幕的背景透明度
+     *
+     * @param bgAlpha
+     */
+    public void backgroundAlpha(Activity context, float bgAlpha) {
+        WindowManager.LayoutParams lp = context.getWindow().getAttributes();
+        lp.alpha = bgAlpha;
+        context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        context.getWindow().setAttributes(lp);
     }
 
     //popwindpw监听事件
@@ -335,6 +362,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
                         .setFileProviderAuthority("com.huantansheng.easyphotos.demo.fileprovider")
                         .start(101);
                 popupWindow.dismiss();
+                backgroundAlpha(PerfectActivity.this, 1f);
             }
         });
         //相册点击事件
@@ -345,6 +373,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
                         .setCount(1)
                         .start(101);
                 popupWindow.dismiss();
+                backgroundAlpha(PerfectActivity.this, 1f);
             }
         });
 
@@ -353,6 +382,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
             public void onClick(View view) {
                 if (popupWindow != null && popupWindow.isShowing()) {
                     popupWindow.dismiss();
+                    backgroundAlpha(PerfectActivity.this, 1f);
                 }
             }
         });
@@ -362,7 +392,6 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
      * 打开相册的方法
      */
     private void openAlbum() {
-
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_PICK);
         intent.setType("image/*");
@@ -518,12 +547,10 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
         }
         if (requestCode == 1 && resultCode == 200) {
             String phone = data.getStringExtra("phone");
-            //Log.d("phone", "onActivityResult: "+phone);
             mOnbindmobile.setText(phone);
         }
         if (requestCode == 2 && resultCode == 300) {
             String email = data.getStringExtra("email");
-            //Log.d("phone", "onActivityResult: "+phone);
             mOnbindemail.setText(email);
         }
     }

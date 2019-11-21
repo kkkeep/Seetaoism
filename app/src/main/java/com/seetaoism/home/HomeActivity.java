@@ -51,7 +51,7 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
     private static final String TAG = "HomeActivity";
 
     private BottomTabLayout mBottomTabLayout;
-    private DrawerLayout mDrawerLayout;
+    public DrawerLayout mDrawerLayout;
     private TextView editText;
     private TextView home_drawer_goto_colum_editor;
     private TextView home_drawer_feedback;
@@ -68,6 +68,8 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
         home_drawer_share_app = findViewById(R.id.home_drawer_share_app);
         mDrawerColumnListView = mDrawerLayout.findViewById(R.id.home_drawer_colum_list);
         mBottomTabLayout = findViewById(R.id.home_bottom_layout);
+        //DrawerLayout的侧边滑动可以通过设置锁定模式来禁用
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
 
         editText.setOnClickListener(this);

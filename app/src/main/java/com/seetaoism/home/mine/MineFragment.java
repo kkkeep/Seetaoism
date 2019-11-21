@@ -44,6 +44,7 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
     private TextView text_hint;
     private TextView text_title;
     private TextView yuan;
+    private ImageView fan;
 
     private BroadcastReceiver mReceiver;
 
@@ -57,12 +58,13 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-       mReceiver =  UserManager.registerUserBroadcastReceiver(iUser -> Unit.INSTANCE);
+        mReceiver = UserManager.registerUserBroadcastReceiver(iUser -> Unit.INSTANCE);
     }
 
     @Override
     protected void initView(View root) {
         mine_collect = root.findViewById(R.id.mine_collect);
+        fan = root.findViewById(R.id.fan);
         mine_login = root.findViewById(R.id.mine_login);
         mine_message = root.findViewById(R.id.mine_message);
         mine_seeting = root.findViewById(R.id.mine_seeting);
@@ -79,6 +81,7 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
         mine_pic.setOnClickListener(this);
         jifen.setOnClickListener(this);
         qiandao_bt.setOnClickListener(this);
+        fan.setOnClickListener(this);
 
         mPresenter.getMineUser();
 
@@ -88,7 +91,7 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
     public void onResume() {
         super.onResume();
         User user = (User) UserManager.getUser();
-        if (user == null){
+        if (user == null) {
             text_hint.setText("未登录");
             qiandao_bt.setText("未签到");
             text_title.setVisibility(View.VISIBLE);
@@ -112,7 +115,7 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
                 //如果登录直接跳转，如果没有登录跳转登录
                 User user = (User) UserManager.getUser();
                 if (user != null && user.getToken() != null && !TextUtils.isEmpty(user.getToken().getValue())) {
-                    startActivityForResult(new Intent(getContext(), PerfectActivity.class),100);
+                    startActivityForResult(new Intent(getContext(), PerfectActivity.class), 100);
                 } else {
                     startActivity(new Intent(getContext(), LoginActivity.class));
                     //getActivity().finish();
@@ -125,11 +128,11 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
                     startActivity(new Intent(getContext(), CollectActivity.class));
                 } else {
                     startActivity(new Intent(getContext(), LoginActivity.class));
-                   // getActivity().finish();
+                    // getActivity().finish();
                 }
                 break;
             //我的积分
-            case R.id.jifen:
+            case R.id.jifen: {
                 User jifen = (User) UserManager.getUser();
                 if (jifen != null && jifen.getToken() != null && !TextUtils.isEmpty(jifen.getToken().getValue())) {
                     startActivity(new Intent(getContext(), IntegralActivity.class));
@@ -138,6 +141,7 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
 
                 }
                 break;
+            }
 
             case R.id.qiandao_bt:
                 //签到
@@ -156,6 +160,16 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
                     startActivity(new Intent(getContext(), LoginActivity.class));
                 }
                 break;
+            case R.id.fan: {
+                User jifen = (User) UserManager.getUser();
+                if (jifen != null && jifen.getToken() != null && !TextUtils.isEmpty(jifen.getToken().getValue())) {
+                    startActivity(new Intent(getContext(), IntegralActivity.class));
+                } else {
+                    startActivity(new Intent(getContext(), LoginActivity.class));
+                    break;
+                }
+            }
+
         }
     }
 
@@ -168,7 +182,6 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
     public void onMineFail(String msg) {
         showToast(msg);
     }
-
 
 
     @Override
@@ -184,7 +197,7 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
 
             //签到按钮
             User user1 = (User) UserManager.getUser();
-            if (user1.getToken() != null&&user1.getUserInfo().getCheck_in_status()==1) {
+            if (user1.getToken() != null && user1.getUserInfo().getCheck_in_status() == 1) {
                 //签到按钮调接口
                 qiandao_bt.setText("已签到");
             }
@@ -197,9 +210,9 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
                 mine_login.setVisibility(View.VISIBLE);
             }
 
-            if (user1.getUserInfo()!=null){
-                yuan.setText(user1.getUserInfo().getNotice_count()+"");
-            }else {
+            if (user1.getUserInfo() != null) {
+                yuan.setText(user1.getUserInfo().getNotice_count() + "");
+            } else {
                 yuan.setVisibility(View.GONE);
             }
         }
@@ -228,13 +241,13 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100 && resultCode == 400){
+        if (requestCode == 100 && resultCode == 400) {
             String photo = data.getStringExtra("photow");
             String name = data.getStringExtra("name");
-            if (!TextUtils.isEmpty(photo)){
+            if (!TextUtils.isEmpty(photo)) {
                 Glide.with(getContext()).load(photo).apply(RequestOptions.circleCropTransform().placeholder(R.drawable.mine_pic)).into(mine_pic);
             }
-            if (!TextUtils.isEmpty(name)){
+            if (!TextUtils.isEmpty(name)) {
                 text_hint.setText(name);
             }
         }

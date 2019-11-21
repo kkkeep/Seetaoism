@@ -47,7 +47,7 @@ public class FeedbackPopwindow extends PopupWindow {
         //设置SelectPicPopupWindow弹出窗体的高
         this.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
         //设置SelectPicPopupWindow弹出窗体可点击
-        this.setFocusable(true);
+//        this.setFocusable(true);
         //设置PopupWindow可触摸
         this.setTouchable(true);
         //设置非PopupWindow区域是否可触摸
