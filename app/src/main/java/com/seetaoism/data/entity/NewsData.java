@@ -1,7 +1,11 @@
 package com.seetaoism.data.entity;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 import java.util.List;
+
+import jy.com.libbanner.MarqueeView;
 
 
 public class NewsData {
@@ -201,7 +205,12 @@ public class NewsData {
     public static class Banner extends NewsBean {
     }
 
-    public static class Flash  extends NewsBean{
+    public static class Flash  extends NewsBean implements MarqueeView.MarqueeData {
+        @NotNull
+        @Override
+        public String getString() {
+            return getTheme();
+        }
     }
 
     public static class News  extends NewsBean{

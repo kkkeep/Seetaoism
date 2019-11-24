@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.Group;
@@ -20,13 +19,15 @@ import com.seetaoism.GlideRequests;
 import com.seetaoism.R;
 import com.seetaoism.data.entity.NewsData;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
 import jy.com.libbanner.IJBannerAdapter;
 import jy.com.libbanner.JBanner;
-import jy.com.libbanner.MarqueeTextView;
+import jy.com.libbanner.MarqueeView;
 
 
 public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHolder> {
@@ -168,7 +169,9 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
     public List<NewsData.News> getNewsData() {
         return mNews;
     }
-
+    public List<NewsData.Flash> getFlashData() {
+        return mFlashes;
+    }
     public List<NewsData.Banner> getBannerData() {
         return mBanners;
     }
@@ -211,7 +214,7 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
 
         private Group mFlashGroup;
 
-        private MarqueeTextView mTvFlash;
+        private MarqueeView mTvFlash;
 
         private ProgressBar mProgressBar;
 
@@ -228,12 +231,14 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
             mProgressBar = itemView.findViewById(R.id.news_item_header_progressbar);
 
 
-            mTvFlashimg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
+           mTvFlash.setOnMarqueeTextClickListener(new MarqueeView.OnMarqueeTextClickListener<MarqueeView.MarqueeData>() {
+               @Override
+               public void onClick(MarqueeView.MarqueeData data, int position) {
+                   if(mOnItemClickListener != null){
+                       mOnItemClickListener.onClick((NewsData.Flash)data, position);
+                   }
+               }
+           });
 
 
             jBanner.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -296,30 +301,8 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
                 mFlashGroup.setVisibility(View.GONE);
             } else {
                 mFlashGroup.setVisibility(View.VISIBLE);
+                mTvFlash.setClickableText(flashes);
 
-                List<MarqueeTextView.MarqueeData> list = new ArrayList<>();
-                MarqueeTextView.MarqueeData margueeData = null;
-                for (NewsData.Flash flash : flashes) {
-                    margueeData = new MarqueeTextView.MarqueeData();
-                    margueeData.setId(flash.getId());
-                    margueeData.setDescription(flash.getDescription());
-                    margueeData.setImage_url(flash.getImageUrl());
-                    margueeData.setIs_collect(flash.getIs_collect());
-                    margueeData.setIs_good(flash.getIs_good());
-                    margueeData.setLink(flash.getLink());
-                    margueeData.setShare_link(flash.getShare_link());
-                    margueeData.setTheme(flash.getTheme());
-                    list.add(margueeData);
-                }
-
-                mTvFlash.setData(list);
-                /*StringBuffer sb = new StringBuffer();
-
-                for (NewsData.Flash flash : flashes) {
-                    sb.append(flash.getTheme()).append("  ");
-                }
-
-                mTvFlash.setText(sb.toString());*/
             }
 
 

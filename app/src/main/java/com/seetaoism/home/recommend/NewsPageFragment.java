@@ -90,8 +90,10 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
 
                 if(news instanceof NewsData.Banner){
                     list = mNewsPageAdapter.getBannerData();
-                }else{
+                }else if(news instanceof NewsData.News){
                     list= mNewsPageAdapter.getNewsData();
+                }else{
+                    list= mNewsPageAdapter.getFlashData();
                 }
 
                 DetailExclusiveData data = new DetailExclusiveData(FROM.RECOMMEND,list,position);

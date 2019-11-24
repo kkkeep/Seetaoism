@@ -62,11 +62,9 @@ public class MarqueeTextView extends AppCompatTextView {
         final CircleMovementMethod method = new CircleMovementMethod(0xffcccccc, 0xffcccccc);
 
        SpannableStringBuilder builder = new SpannableStringBuilder();
-        //StringBuilder builder = new StringBuilder();
-        for(MarqueeData margueeData : datas){
-            builder.append(setClickableSpan(margueeData)).append("    ");
+        for(MarqueeData marqueeData : datas){
+            builder.append(setClickableSpan(marqueeData)).append("    ");
         }
-       // setMovementMethod(LinkMovementMethod.getInstance());
         setText(builder);
         setSelected(true);
     }
