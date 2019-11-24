@@ -118,7 +118,6 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
             }
             case 2: {
 
-                IntegralWidget.show(this, 20);
                 aClass = VideoFragment.class;
                 StatusBarUtils.setStatusBarLightMode(this,Color.WHITE);
                 break;
