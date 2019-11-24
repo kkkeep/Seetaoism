@@ -12,6 +12,7 @@ public class User implements IUser {
     private Token token;
     private UserInfo user_info;
 
+    private boolean isRefresh;
 
     public Token getToken() {
         return token;
@@ -29,6 +30,23 @@ public class User implements IUser {
         this.user_info = user_info;
     }
 
+    public UserInfo getUser_info() {
+        return user_info;
+    }
+
+    public void setUser_info(UserInfo user_info) {
+        this.user_info = user_info;
+    }
+
+    @Override
+    public boolean isRefresh() {
+        return isRefresh;
+    }
+
+    public void setRefresh(boolean refresh) {
+        isRefresh = refresh;
+
+    }
 
     @Override
     public String toString() {

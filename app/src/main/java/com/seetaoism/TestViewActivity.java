@@ -59,4 +59,9 @@ public class TestViewActivity extends BaseActivity implements LoginContract.ILog
 
         mPresenter.detachView();
     }
+
+    @Override
+    public void onSocialLoginResult(User user, String msg) {
+
+    }
 }

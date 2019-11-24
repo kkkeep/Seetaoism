@@ -31,13 +31,13 @@ public class BaseRepository {
         return list != null && list.size() != 0;
     }
 
-    protected <T, R> void observer(LifecycleProvider provider, Observable<T> observable, Function<T, ObservableSource<R>> flatMap, final IBaseCallBack<R> callBack) {
+    public  <T, R> void observer(LifecycleProvider provider, Observable<T> observable, Function<T, ObservableSource<R>> flatMap, final IBaseCallBack<R> callBack) {
         if(provider == null){
             return;
         }
          observable.flatMap(flatMap).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
-                .compose(provider instanceof RxFragment ? ((RxFragment) provider).<R>bindUntilEvent(FragmentEvent.DESTROY) : ((RxAppCompatActivity) (provider)).<R>bindUntilEvent(ActivityEvent.DESTROY))
+                .compose(provider instanceof RxFragment ? ((RxFragment) provider).<R>bindUntilEvent(FragmentEvent.DESTROY_VIEW) : ((RxAppCompatActivity) (provider)).<R>bindUntilEvent(ActivityEvent.DESTROY))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<R>() {
                     @Override

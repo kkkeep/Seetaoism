@@ -88,11 +88,7 @@ public class VideoData {
                 return true;
             }
             if(obj instanceof NewList ){
-                if(((NewList) obj).getId() == this.getId()){
-                    return true;
-                }else{
-                    return false;
-                }
+                return ((NewList) obj).getId().equals(this.getId());
 
             }
             return false;

@@ -7,7 +7,7 @@ import static com.seetaoism.AppConstant.RequestUrl.*;
  **/
 public interface AppConstant {
 //    String BASE_URL = "http://www.seetao.com";
-    String BASE_URL = "http://test.seetaoism.com";
+    String BASE_URL = BuildConfig.BASE_URL;
 
 
 
@@ -81,6 +81,8 @@ public interface AppConstant {
         String LOGIN_BY_PSD = "api/user/login";
         String GET_SMS_CODE = "api/sms/sendsms";
         String GET_USER_BY_TOKEN = "api/user/getuserinfo"; // 通过 token 获取用户信息
+        String SOCIAL_LOGIN = "/api/user/sociallogin"; // 社交登录
+
 
 
         String GET_ARTICLE_COMMENT_LIST = "/api/comment_reply/commentlist"; // 文章评论列表
@@ -91,8 +93,11 @@ public interface AppConstant {
         String DETAIL_COMMENT_ARTICLE = "/api/comment_reply/usercomment";
 
         String DETAIL_DO_ARTICLE_LIKE = "/api/article/userevaluate"; // 文章评论回复列表
-        String DETAIL_DO_ARTICLE_COLLECT = "/api/article/usercollect"; // 文章评论回复列表
-        String DETAIL_GET_ARTICLE_ATTRIBUTE = "/api/article/articleattribute"; // 文章评论回复列表
+        String DETAIL_DO_ARTICLE_COLLECT = "/api/article/usercollect"; //
+        String DETAIL_GET_ARTICLE_ATTRIBUTE = "/api/article/articleattribute"; //
+        String SHARE_ADD_INTEGRAL = "/api/user/sharearticleaddintegral"; //
+
+
 
 
     }

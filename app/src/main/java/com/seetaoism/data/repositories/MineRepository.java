@@ -1,5 +1,6 @@
 package com.seetaoism.data.repositories;
 
+import com.mr.k.mvp.UserManager;
 import com.mr.k.mvp.base.BaseRepository;
 import com.mr.k.mvp.base.IBaseCallBack;
 import com.mr.k.mvp.exceptions.ResultException;
@@ -36,6 +37,7 @@ public class MineRepository extends BaseRepository implements MineContract.MineM
             @Override
             public ObservableSource<User> apply(HttpResult<User> newsColumnDataHttpResult) throws Exception {
                 if (newsColumnDataHttpResult.code == 1 && newsColumnDataHttpResult.data != null) {
+                    UserManager.login(newsColumnDataHttpResult.data);
                     return Observable.just(newsColumnDataHttpResult.data);
                 }
                 return Observable.error(new ResultException(ResultException.SERVER_ERROR));

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.IdRes;
@@ -65,8 +66,19 @@ public abstract class BaseFragment extends RxFragment {
         if(Logger.DEBUG_D){
             Logger.d("%s column = %s", getClass().getSimpleName(),getColumnId());
         }
+
+        // todo  如果不包装，如果rootview 是 非 framelayou 会报错
         View v =  inflater.inflate(getLayoutId(),container,false);
-        return v;
+        if(v.getClass().getSimpleName().equals(FrameLayout.class.getSimpleName())){
+            return v;
+        }
+        FrameLayout frameLayout = new FrameLayout(getContext());
+
+        frameLayout.setLayoutParams(v.getLayoutParams());
+
+        frameLayout.addView(v);
+
+        return frameLayout;
     }
 
     @Override
@@ -131,35 +143,34 @@ public abstract class BaseFragment extends RxFragment {
 
         }
     }
-    private ViewGroup getParentViewGroup(){
-        ViewGroup viewGroup = (ViewGroup) getView().getParent();
-        return viewGroup;
+    private ViewGroup getRootView(){
+        return (ViewGroup) getView();
     }
 
     protected abstract void cancelRequest();
 
 
-    protected void showLoading(@LoadingView.LoadingMode int mode){
-        showLoading(mode,getParentViewGroup(),false);
+    public void showLoading(@LoadingView.LoadingMode int mode){
+        showLoading(mode, getRootView(),false);
     }
 
-    protected void showLoading(@LoadingView.LoadingMode int mode, boolean cancelAble){
-        showLoading(mode,getParentViewGroup(),cancelAble);
+    public void showLoading(@LoadingView.LoadingMode int mode, boolean cancelAble){
+        showLoading(mode, getRootView(),cancelAble);
     }
-    protected void showLoading(@LoadingView.LoadingMode int mode, @IdRes int containerId){
+    public void showLoading(@LoadingView.LoadingMode int mode, @IdRes int containerId){
         showLoading(mode,(ViewGroup) getView().findViewById(containerId),false);
     }
 
-    protected void showLoading(@LoadingView.LoadingMode int mode, @IdRes int containerId, boolean cancelAble){
+    public void showLoading(@LoadingView.LoadingMode int mode, @IdRes int containerId, boolean cancelAble){
         showLoading(mode,(ViewGroup) getView().findViewById(containerId),cancelAble);
     }
 
 
-    protected  void showLoadingForViewPager(){
+    public  void showLoadingForViewPager(){
         showLoading(LoadingView.LOADING_MODE_WHITE_BG,(ViewGroup) getView(),false);
     }
 
-    protected void showLoading(int mode, ViewGroup group,boolean cancelAble){
+    public void showLoading(int mode, ViewGroup group,boolean cancelAble){
 
         mLoadingView = LoadingView.inject(getContext(),group);
 
@@ -186,7 +197,7 @@ public abstract class BaseFragment extends RxFragment {
         }
     }
 
-    protected  void closeLoading(){
+    public  void closeLoading(){
         if(mLoadingView != null && mLoadingView.isShow()){// 如果这个loading 页面已经被添加显示
             mLoadingView.close();
         }

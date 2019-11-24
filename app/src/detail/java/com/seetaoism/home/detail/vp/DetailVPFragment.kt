@@ -3,7 +3,6 @@ package com.seetaoism.home.detail.vp
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -13,7 +12,6 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
-import com.mr.k.mvp.base.MvpBaseFragment
 import com.mr.k.mvp.getUser
 import com.mr.k.mvp.kotlin.base.BaseActivity
 import com.mr.k.mvp.registerUserBroadcastReceiver
@@ -21,22 +19,19 @@ import com.mr.k.mvp.unRegisterUserBroadcastReceiver
 import com.mr.k.mvp.utils.Logger
 import com.seetaoism.AppConstant
 import com.seetaoism.R
-import com.seetaoism.base.JDBaseActivity
+import com.seetaoism.base.JDShareNewsBaseMvpFragment
 import com.seetaoism.data.entity.DetailExclusiveData
 import com.seetaoism.data.entity.FROM
 import com.seetaoism.data.entity.NewsAttribute
 import com.seetaoism.data.entity.NewsData
-import com.seetaoism.home.HomeActivity
 import com.seetaoism.home.NewsViewModel
+import com.seetaoism.home.collect.CollectViewModel
 import com.seetaoism.home.detail.page.DetailPageFragment
 import com.seetaoism.home.detail.DetailsContract
 import com.seetaoism.libloadingview.LoadingView
-import com.seetaoism.utils.shareApp
-import com.seetaoism.utils.shareNews
 import com.umeng.socialize.UMShareListener
 import com.umeng.socialize.bean.SHARE_MEDIA
 import kotlinx.android.synthetic.main.fragment_detail_vp.*
-import java.util.*
 
 
 /*
@@ -45,7 +40,7 @@ import java.util.*
 
 
 
-class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), DetailsContract.IDetailVpView, View.OnClickListener,UMShareListener {
+class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPresenter>(), DetailsContract.IDetailVpView, View.OnClickListener,UMShareListener {
 
 
 
@@ -64,7 +59,6 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mIndex.also {  }
         if (detailExclusiveData == null || detailExclusiveData!!.from != FROM.INNER) {
             mViewModel = ViewModelProviders.of(activity as FragmentActivity).get(NewsViewModel::class.java)
 
@@ -74,7 +68,8 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
                 mNewsDetailAdapter.addData(arrayListOf(it.list[it.index]))
                 mNewsDetailAdapter.notifyDataSetChanged()
                 newsDetailVp.currentItem = it.index
-                refreshArticleAttr(it.list[it.index])
+                mPresenter.getArticleAttribute(mNewsDetailAdapter.getCurrentNew().id)
+               // refreshArticleAttr(it.list[it.index])
 
             })
         }
@@ -116,7 +111,8 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
                 //this.addData(it.articleList)
                 it.list[mIndex].run {
                     this@apply.addData(arrayListOf(this))
-                    refreshArticleAttr(this)
+                  //  refreshArticleAttr(this)
+                    mPresenter.getArticleAttribute(this.id)
                 }
             }
 
@@ -133,7 +129,7 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
             }
 
             override fun onPageSelected(position: Int) {
-               refreshArticleAttr(mNewsDetailAdapter.getCurrentNew())
+                mPresenter.getArticleAttribute(mNewsDetailAdapter.getCurrentNew().id)
             }
 
         })
@@ -152,6 +148,7 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
 
     private fun refreshArticleAttr(news: NewsData.NewsBean) {
 
+
         newsDetailLike.isChecked = (news.is_good == 1 && getUser() != null)
         newsDetailCollect.isChecked =( news.is_collect == 1 && getUser() != null)
     }
@@ -159,6 +156,8 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
     override fun createPresenter() = DetailVpPresenter()
 
     override fun getLayoutId() = R.layout.fragment_detail_vp
+
+
 
 
     override fun isHidePreFragment() = false
@@ -209,7 +208,7 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
             }
 
             R.id.newsDetailShare -> {
-                shareNews(activity!!,mNewsDetailAdapter.getCurrentNew(),this)
+                openShareNewsPanel(mNewsDetailAdapter.getCurrentNew(),SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QQ, SHARE_MEDIA.SINA, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN_CIRCLE)
 
             }
         }
@@ -242,14 +241,16 @@ class DetailVPFragment : MvpBaseFragment<DetailsContract.IDetailVpPresenter>(), 
     override fun onDoArticleCollectResult(data: String?, msg: String?) {
         closeLoading()
         if (data != null && msg == null) {
-
-
             newsDetailCollect.isChecked = !newsDetailCollect.isChecked
 
             if(newsDetailCollect.isChecked){
                 mNewsDetailAdapter.getCurrentNew().is_collect = 1
             }else{
                 mNewsDetailAdapter.getCurrentNew().is_collect = 0
+                if(detailExclusiveData?.from == FROM.COLLECT){
+                  val viewModel =   ViewModelProviders.of(activity!!).get(CollectViewModel::class.java)
+                    viewModel.unCollect(mNewsDetailAdapter.getCurrentNew())
+                }
             }
 
         } else {

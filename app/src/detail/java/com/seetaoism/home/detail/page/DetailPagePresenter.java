@@ -1,5 +1,7 @@
 package com.seetaoism.home.detail.page;
 
+import androidx.annotation.NonNull;
+
 import com.mr.k.mvp.base.BasePresenter;
 import com.mr.k.mvp.base.IBaseCallBack;
 import com.mr.k.mvp.base.ICancelBaseCallBack;
@@ -192,6 +194,27 @@ public class DetailPagePresenter extends BasePresenter<DetailsContract.IDetailPa
             public void onFail(ResultException e) {
                 if(mView != null){
                     mView.onDoLikeResult(null, e.getMessage());
+                }
+            }
+        });
+    }
+
+    @Override
+    public void readArticleFroIntegral(String articleId) {
+
+        mRepository.readArticleFroIntegral(getLifecycleProvider(), new MapBuilder<String, String>().put(AppConstant.RequestParamsKey.DETAIL_ARTICLE_ID, articleId).builder(), new IBaseCallBack<String>() {
+            @Override
+            public void onSuccess(@NonNull String data) {
+                if(mView != null){
+                    mView.onReadArticleFroIntegralResult(data, null);
+                }
+
+            }
+
+            @Override
+            public void onFail(@NonNull ResultException e) {
+                if(mView != null){
+                    mView.onReadArticleFroIntegralResult(null, e.getMessage());
                 }
             }
         });

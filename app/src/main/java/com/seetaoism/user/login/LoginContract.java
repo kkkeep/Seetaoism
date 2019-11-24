@@ -14,9 +14,25 @@ public interface LoginContract {
     // 用户登录时全局广播
     String USER_LOGIN_ACTION = LoginContract.class.getName() + ".user.login";
 
+
+    public interface ISocialLoginView {
+
+        void onSocialLoginResult(User user,String msg);
+
+    }
+
+    public interface ISocialLoginPresenter{
+
+        void socialLogin(String type,String openId,String head_url,String nickname,String unionid);
+    }
+
+
+
     // -------------- 密码登录 -------------------
 
-    public interface ILoginPsView extends IBaseView<ILoginPsPresenter> {
+
+
+    public interface ILoginPsView extends IBaseView<ILoginPsPresenter>,ISocialLoginView{
 
         void onLoginSuccess(User user);
 
@@ -24,18 +40,19 @@ public interface LoginContract {
     }
 
 
-    public interface ILoginPsPresenter extends IBasePresenter<ILoginPsView> {
+    public interface ILoginPsPresenter extends IBasePresenter<ILoginPsView>,ISocialLoginPresenter {
 
         void login(String phoneNum, String ps);
+
     }
 
     // -------------- 密码登录 -------------------
 
-    // -------------- 密码登录 -------------------
+
 
 
     // -------------- 验证码登录 -------------------
-    public interface ILoginCodeView extends IBaseView<ILoginCodePresenter> {
+    public interface ILoginCodeView extends IBaseView<ILoginCodePresenter>,ISocialLoginView{
         void onSmsCodeResult(String user,boolean success);
 
         void onLoginSuccess(User user);
@@ -44,7 +61,7 @@ public interface LoginContract {
     }
 
 
-    public interface ILoginCodePresenter extends IBasePresenter<ILoginCodeView> {
+    public interface ILoginCodePresenter extends IBasePresenter<ILoginCodeView>,ISocialLoginPresenter {
 
         void getSmsCode(String phoneNumber);
         void loginByCode(String phoneNumber,String verify);
@@ -56,7 +73,7 @@ public interface LoginContract {
 
 
     // -------------- 注册 -------------------
-    public interface IRegisterView extends IBaseView<IRegisterPresenter> {
+    public interface IRegisterView extends IBaseView<IRegisterPresenter> ,ISocialLoginView{
 
         void onSmsCodeResult(String msg,boolean success);
 
@@ -65,7 +82,7 @@ public interface LoginContract {
     }
 
 
-    public interface IRegisterPresenter extends IBasePresenter<IRegisterView> {
+    public interface IRegisterPresenter extends IBasePresenter<IRegisterView> ,ISocialLoginPresenter{
 
         void getSmsCode(String phoneNumber);
 
@@ -81,14 +98,14 @@ public interface LoginContract {
 
 
     // -------------- 注册确认密码 -------------------
-    public interface IRegisterSetPsdView extends IBaseView<IRegisterSetPsdPresenter> {
+    public interface IRegisterSetPsdView extends IBaseView<IRegisterSetPsdPresenter>,ISocialLoginView {
 
         void onRegisterResultSuccess(User user);
         void onRegisterResultFail(String msg);
     }
 
 
-    public interface IRegisterSetPsdPresenter extends IBasePresenter<IRegisterSetPsdView> {
+    public interface IRegisterSetPsdPresenter extends IBasePresenter<IRegisterSetPsdView>,ISocialLoginPresenter {
             void register(String phoneNumber,String psd,String confirmPsd);
     }
 
@@ -173,6 +190,11 @@ public interface LoginContract {
 
         //我的模块修改密码
         void editpassword(LifecycleProvider provider, Map<String, String> params, IBaseCallBack<String> callBack);
+
+
+        void socialLogin(LifecycleProvider provider,Map<String,String> params,IBaseCallBack<User> callBack);
+
+
 
 
     }

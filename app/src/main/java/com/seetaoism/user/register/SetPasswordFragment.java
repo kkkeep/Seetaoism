@@ -198,4 +198,19 @@ public class SetPasswordFragment extends BaseUserFragment<LoginContract.IRegiste
         showToast(msg);
     }
 
+    @Override
+    protected void handBindSocial(String type, String openId, String head_url, String nickname, String unionid) {
+        showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG, true);
+        mPresenter.socialLogin(type, openId, head_url, nickname, unionid);
+    }
+
+    @Override
+    public void onSocialLoginResult(User user, String msg) {
+        closeLoading();
+        if(user != null){
+            login(user);
+        }else{
+            showToast(msg);
+        }
+    }
 }

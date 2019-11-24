@@ -14,7 +14,6 @@ import com.mr.k.mvp.utils.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
-import com.seetaoism.AppConstant;
 import com.seetaoism.R;
 import com.seetaoism.data.entity.DetailExclusiveData;
 import com.seetaoism.data.entity.FROM;
@@ -24,6 +23,9 @@ import com.seetaoism.home.NewsViewModel;
 import com.seetaoism.home.detail.vp.DetailVPFragment;
 import com.seetaoism.home.recommend.RecommendContract.INewsPageModel;
 import com.seetaoism.libloadingview.LoadingView;
+import com.seetaoism.utils.ShareUtils;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.List;
 import java.util.Objects;
@@ -84,7 +86,6 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
             public void onClick(NewsData.NewsBean news, int position) {
 
 
-
                 List<? extends NewsData.NewsBean> list = null;
 
                 if(news instanceof NewsData.Banner){
@@ -101,6 +102,31 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
 
 
                 DetailVPFragment.Launcher.open((BaseActivity) Objects.requireNonNull(getActivity()), data, null);
+            }
+
+            @Override
+            public void onShareAction(NewsData.NewsBean news, int position) {
+                ShareUtils.openShareNewsPanel(getActivity(), news, new UMShareListener() {
+                    @Override
+                    public void onStart(SHARE_MEDIA share_media) {
+
+                    }
+
+                    @Override
+                    public void onResult(SHARE_MEDIA share_media) {
+
+                    }
+
+                    @Override
+                    public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+
+                    }
+
+                    @Override
+                    public void onCancel(SHARE_MEDIA share_media) {
+
+                    }
+                });
             }
         });
 

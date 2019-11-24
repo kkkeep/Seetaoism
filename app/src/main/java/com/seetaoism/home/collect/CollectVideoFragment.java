@@ -3,6 +3,8 @@ package com.seetaoism.home.collect;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.graphics.Color;
+
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
@@ -146,6 +148,14 @@ public class CollectVideoFragment extends MvpBaseFragment<CollectContract.IColle
         });;
 
 
+        CollectViewModel collectViewModel = ViewModelProviders.of(getActivity()).get(CollectViewModel.class);
+
+        collectViewModel.getNewsLiveData().observe(this, newsBean ->{
+            allAdapter.delete(newsBean);
+            if(allAdapter.getItemCount() == 0){
+                onICollectVideoFail("");
+            }
+        });
     }
 
     @Override
@@ -193,6 +203,10 @@ public class CollectVideoFragment extends MvpBaseFragment<CollectContract.IColle
         closeLoading();
 
         allAdapter.deleteSuccess();
+
+        if(allAdapter.getItemCount() == 0){
+            onICollectVideoFail("");
+        }
     }
 
     @Override

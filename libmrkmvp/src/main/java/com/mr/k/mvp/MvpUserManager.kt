@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.text.TextUtils
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.mr.k.mvp.utils.DataCacheUtils
 import com.mr.k.mvp.utils.Logger
@@ -37,11 +38,23 @@ fun login(user: IUser?) {
     } else {
         Logger.d("UserManager  login  cache user info : { ${user.toString()} }")
     }
+    user?.run {
+        if(TextUtils.isEmpty(getTokenString())){
+            return
+        }
+    }
     mUser = user
+    mUser?.run {
+        setRefresh(true)
+    }
     broadcastUserGlobally()
     user?.let { saveUserToSdcard(it) };
 }
 
+
+fun onUserUpdate(){
+    broadcastUserGlobally()
+}
 
 //private val mBroadcastReceiverList  = mutableListOf<BroadcastReceiver>()
 
@@ -106,6 +119,9 @@ fun <R : IUser> getUserFromSdcard(aClass: Class<R>): R? {
 
 fun <R : IUser> loginLocal(cls: Class<R>): R? {
     var r = getUserFromSdcard(cls)
+    r?.run {
+        setRefresh(false)
+    }
     mUser = r
     return r
 }
@@ -127,4 +143,8 @@ private fun clearUserFromSdcard() {
 interface IUser {
     @Override
     fun getTokenString(): String?
+
+    fun isRefresh() : Boolean
+
+    fun setRefresh(refresh : Boolean)
 }

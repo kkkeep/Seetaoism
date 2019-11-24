@@ -1,6 +1,8 @@
 package com.seetaoism.data.okhttp;
 
 
+import android.service.autofill.UserData;
+
 import com.seetaoism.AppConstant;
 import com.seetaoism.data.entity.AccessArticleData;
 import com.seetaoism.data.entity.CommentData;
@@ -209,7 +211,7 @@ public interface JDApiService {
     Observable<HttpResult<String>> setpushid(@FieldMap Map<String, String> map);
 
 
-    //请求閱讀積分
+    //阅读文章增加积分
     @FormUrlEncoded
     @POST("/api/article/readarticleaddintegral")
     Observable<HttpResult<String>> readarticleaddintegral(@FieldMap Map<String, String> map);
@@ -346,7 +348,15 @@ public interface JDApiService {
      */
     @FormUrlEncoded
     @POST("/api/user/sociallogin")
-    Observable<HttpResult<SocialBindData>> sociallogin(@FieldMap Map<String, String> map);
+    Observable<HttpResult<User>> sociallogin(@FieldMap Map<String, String> map);
 
+
+
+    /**
+     * 分享增加积分
+     */
+    @FormUrlEncoded
+    @POST(SHARE_ADD_INTEGRAL)
+    Observable<HttpResult<String>> shareAddIntegral(@FieldMap Map<String, String> map);
 
 }

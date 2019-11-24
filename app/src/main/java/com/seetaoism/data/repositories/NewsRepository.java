@@ -50,15 +50,13 @@ public class NewsRepository extends BaseRepository implements RecommendContract.
         if(requestType == RecommendContract.INewsPageModel.REQUEST_TYPE_FIRST_LOAD){
             NewsData data = mMemoryCache.get(params.get(AppConstant.RequestParamsKey.COLUMN_ID));
             if(data != null){
-
                 callBack.onMemoryCacheBack(data);
                 return;
             }
 
-
-
-
         }
+
+
 
 
 

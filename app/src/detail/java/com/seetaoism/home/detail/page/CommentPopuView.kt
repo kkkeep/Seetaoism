@@ -1,5 +1,6 @@
 package com.seetaoism.home.detail.page
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -17,7 +18,8 @@ import org.w3c.dom.Text
 /*
  * created by Cherry on 2019-11-10
 **/
-class CommentPopView(var context: Context) : PopupWindow(context) {
+class CommentPopView(var context: Activity) : PopupWindow(context) {
+
     private lateinit var mEtContent: EditText
     private lateinit var mTvCancel: TextView
     private lateinit var mTvSend: TextView
@@ -41,12 +43,17 @@ class CommentPopView(var context: Context) : PopupWindow(context) {
         setContentView(contentView)
 
         softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
+
         isFocusable = true
 
-        isOutsideTouchable = true;
-        //setBackgroundDrawable(null)
+        // 如果不设置PopupWindow的背景，有些版本就会出现一个问题：无论是点击外部区域还是Back键都无法dismiss弹框
+        setBackgroundDrawable(ColorDrawable())
+        backgroundAlpha(context,0.5f)
+
+
         setOnDismissListener {
             softInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN;
+            backgroundAlpha(context,1.0f)
         }
 
 
@@ -108,6 +115,13 @@ class CommentPopView(var context: Context) : PopupWindow(context) {
         //imm.showSoftInput(mEtContent,SHOW_FORCED)
     }
 
+
+    fun backgroundAlpha(context: Activity, bgAlpha: Float) {
+        val lp = context.window.attributes
+        lp.alpha = bgAlpha
+        context.window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+        context.window.attributes = lp
+    }
 }
 
 interface OnActionListener {

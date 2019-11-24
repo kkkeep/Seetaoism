@@ -27,7 +27,7 @@ public class SetRepository extends BaseRepository implements SetContract.ISetMod
             @Override
             public ObservableSource<String> apply(HttpResult<String> newsColumnDataHttpResult) throws Exception {
                 if (newsColumnDataHttpResult.code == 1 ) {
-                    cleanUser();
+                    UserManager.loginOut();
                     return Observable.just(newsColumnDataHttpResult.data);
                 }
                 return Observable.error(new ResultException(ResultException.SERVER_ERROR));
@@ -49,11 +49,4 @@ public class SetRepository extends BaseRepository implements SetContract.ISetMod
     }
 
 
-    public static void cleanUser(){
-        Observable.create(emitter -> {
-            UserManager.loginOut();
-        }).subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe();
-
-
-    }
 }

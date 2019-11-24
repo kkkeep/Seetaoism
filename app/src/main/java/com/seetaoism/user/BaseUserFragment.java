@@ -118,14 +118,50 @@ public abstract class BaseUserFragment<T extends IBasePresenter> extends MvpBase
     @Override
     public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
 
+        String type = "";
+        String openId = "";
+        String nickname = "";
+        String head_url = " ";
+        String unionid = "";
 
-        Iterator<Map.Entry<String, String>> it = map.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<String, String> entry = it.next();
 
-            Log.d("Test", entry.getKey() + " = " + entry.getValue());
+        String openIdKey = "openid";
+
+
+        if (share_media == SHARE_MEDIA.SINA) {
+            type = "sina";
+            openIdKey = "uid";
+
+        } else if (share_media == SHARE_MEDIA.WEIXIN) {
+            type = "wechat";
+        } else if (share_media == SHARE_MEDIA.QQ) {
+            type = "qq";
+        }
+
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            //uid
+            if (entry.getKey().equals(openIdKey)) {
+                openId = entry.getValue();
+
+            }
+            //昵称
+            if (entry.getKey().equals("name")) {
+                nickname = entry.getValue();
+            }
+            //头像
+            if (entry.getKey().equals("profile_image_url")) {
+                head_url = entry.getValue();
+                ;
+            }
+
+            if (entry.getKey().equals("unionid")) {
+                unionid = entry.getValue();
+            }
 
         }
+
+        handBindSocial(type, openId, head_url, nickname, unionid);
+
 
     }
 
@@ -140,5 +176,8 @@ public abstract class BaseUserFragment<T extends IBasePresenter> extends MvpBase
     }
 
 
+    protected void handBindSocial(String type,String openId,String head_url,String nickname,String unionid){
+
+    }
 
 }

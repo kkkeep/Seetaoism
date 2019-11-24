@@ -18,6 +18,9 @@ import com.seetaoism.user.BaseUserFragment;
 import com.seetaoism.user.register.RegisterFragment;
 import com.seetaoism.widgets.CleanEditTextButton;
 import com.seetaoism.widgets.TogglePasswordButton;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+
+import java.util.Map;
 
 
 public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILoginPsPresenter> implements LoginContract.ILoginPsView, View.OnClickListener {
@@ -87,7 +90,8 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
 
     @Override
     public void onLoginFail(String msg) {
-        onError(msg, null);
+        closeLoading();
+        showToast(msg);
     }
 
     @Override
@@ -143,5 +147,19 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
     }
 
 
+    @Override
+    protected void handBindSocial(String type, String openId, String head_url, String nickname, String unionid) {
+        showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG, true);
+        mPresenter.socialLogin(type, openId, head_url, nickname, unionid);
+    }
 
+    @Override
+    public void onSocialLoginResult(User user, String msg) {
+        closeLoading();
+        if(user != null){
+            login(user);
+        }else{
+            showToast(msg);
+        }
+    }
 }

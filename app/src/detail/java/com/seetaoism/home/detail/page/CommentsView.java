@@ -126,7 +126,7 @@ public class CommentsView extends LinearLayout {
             @Override
             public void onClick(View widget) {
                 // TODO: 2017/9/3 评论内容点击事件
-                Toast.makeText(mContext, "position: " + position + " , content: " + item, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "position: " + position + " , content: " + item, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -154,7 +154,7 @@ public class CommentsView extends LinearLayout {
             @Override
             public void onClick(View widget) {
                 // TODO: 2017/9/3 评论用户名字点击事件
-                //Toast.makeText(mContext, bean.getTo_name(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, bean.getTo_name(), Toast.LENGTH_SHORT).show();
             }
 
             @Override

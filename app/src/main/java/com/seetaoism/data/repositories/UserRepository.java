@@ -136,7 +136,7 @@ public class UserRepository extends BaseRepository implements LoginContract.ILog
             }
 
             // 自动登录失败时需要 情况对用用户信息的保存，包括内存和 sdcard
-            cleanUser();
+            UserManager.loginOut();
             return Observable.error(new ResultException(ResultException.SERVER_ERROR));
         }, callBack);
     }
@@ -159,6 +159,21 @@ public class UserRepository extends BaseRepository implements LoginContract.ILog
             }
             return Observable.error(new ResultException(stringHttpResult.message));
         }, callBack);
+    }
+
+
+    @Override
+    public void socialLogin(LifecycleProvider provider, Map<String, String> params, IBaseCallBack<User> callBack) {
+        observer(provider, JDDataService.service().sociallogin(params), userHttpResult -> {
+
+            if (userHttpResult.code == 1 && userHttpResult.data != null) { // 表示请求成功
+                // 保存User 和 token
+                saveUser(userHttpResult.data);
+                return Observable.just(userHttpResult.data);
+            }
+            return Observable.error(new ResultException(ResultException.SERVER_ERROR));
+        }, callBack);
+
     }
 
     public Disposable getCacheUser(IBaseCallBack<User> callBack) {
@@ -188,14 +203,5 @@ public class UserRepository extends BaseRepository implements LoginContract.ILog
         UserManager.login(user);
 
     }
-
-
-    // 当调用退出登录接口成功时需要调用这个方法
-    private static void cleanUser() {
-        Disposable subscribe = Observable.create(emitter -> {
-            UserManager.loginOut();
-        }).subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe();
-    }
-
-
+    
 }

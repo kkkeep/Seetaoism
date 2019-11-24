@@ -135,6 +135,18 @@ public class CollectAllAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
+    public void delete(NewsData.NewsBean newsBean) {
+        for(int i = 0; i < recyclerview_item_collect.size(); i++){
+            if(recyclerview_item_collect.get(i).getId().equals(newsBean.getId())){
+                recyclerview_item_collect.remove(i);
+                /*notifyItemRemoved(i);
+                notifyItemRangeChanged(i, recyclerview_item_collect.size() -i);*/
+                notifyDataSetChanged();
+                break;
+            }
+        }
+    }
+
     private class CollectHolder extends RecyclerView.ViewHolder {
 
         private final TextView collect_all_titel;

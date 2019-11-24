@@ -36,7 +36,7 @@ import com.seetaoism.home.HomeActivity;
 import com.seetaoism.home.push.ExampleUtil;
 import com.seetaoism.home.push.LocalBroadcastManager;
 import com.seetaoism.user.login.LoginActivity;
-import com.seetaoism.utils.ShareUtilsKt;
+import com.seetaoism.utils.ShareUtils;
 import com.shehuan.niv.NiceImageView;
 import com.suke.widget.SwitchButton;
 import com.umeng.socialize.UMShareListener;
@@ -164,7 +164,7 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
                 break;
             case R.id.recommend:
                 //分享
-                ShareUtilsKt.shareApp(this, new UMShareListener() {
+                ShareUtils.shareApp(this, new UMShareListener() {
                     @Override
                     public void onStart(SHARE_MEDIA share_media) {
                     }
@@ -195,7 +195,6 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
 
     @Override
     public void onOutLoginSuccess(String user) {
-        SPUtils.saveValueToDefaultSpByCommit("pic", null);
         finish();
 
     }

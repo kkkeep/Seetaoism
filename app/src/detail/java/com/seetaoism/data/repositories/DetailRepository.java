@@ -115,4 +115,9 @@ public class DetailRepository extends BaseRepository implements DetailsContract.
     public void doArticleCollect(LifecycleProvider provider, Map<String, String> params, ICancelBaseCallBack<String> callBack) {
         observer(provider, service().doArticleCollect(params), stringHttpResult -> Observable.just(stringHttpResult.data),callBack);
     }
+
+    @Override
+    public void readArticleFroIntegral(LifecycleProvider provider, Map<String, String> params, IBaseCallBack<String> callBack) {
+        observer(provider, service().readarticleaddintegral(params), stringHttpResult -> Observable.just(stringHttpResult.data),callBack);
+    }
 }

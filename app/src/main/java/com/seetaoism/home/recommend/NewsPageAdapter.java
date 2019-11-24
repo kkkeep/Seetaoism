@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.Group;
@@ -25,6 +26,7 @@ import java.util.List;
 
 import jy.com.libbanner.IJBannerAdapter;
 import jy.com.libbanner.JBanner;
+import jy.com.libbanner.MarqueeTextView;
 
 
 public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHolder> {
@@ -45,9 +47,6 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
 
 
     private OnItemClickListener mOnItemClickListener;
-
-
-
 
 
     @NonNull
@@ -80,7 +79,7 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
                 rId = R.layout.layout_news_item_flash;
                 break;
             }
-            case TYPE_NEWS_RIGHT:{
+            case TYPE_NEWS_RIGHT: {
                 aClass = NewsHolderRight.class;
                 rId = R.layout.layout_news_item_news_right;
                 break;
@@ -156,8 +155,9 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
     }
 
     public void setData(List<NewsData.Banner> mBanners, List<NewsData.Flash> mFlashes, List<NewsData.News> mNews) {
-       refresh(mBanners, mFlashes, mNews);
+        refresh(mBanners, mFlashes, mNews);
     }
+
     public void refresh(List<NewsData.Banner> banners, List<NewsData.Flash> flashes, List<NewsData.News> news) {
         mNews = news;
         mBanners = banners;
@@ -165,10 +165,11 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
         notifyDataSetChanged();
     }
 
-    public List<NewsData.News> getNewsData(){
+    public List<NewsData.News> getNewsData() {
         return mNews;
     }
-    public List<NewsData.Banner> getBannerData(){
+
+    public List<NewsData.Banner> getBannerData() {
         return mBanners;
     }
 
@@ -179,6 +180,7 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
 
     public abstract class BaseHolder extends RecyclerView.ViewHolder {
         protected GlideRequests mGlide;
+
         public BaseHolder(@NonNull View itemView) {
             super(itemView);
             mGlide = GlideApp.with(itemView)/*.applyDefaultRequestOptions(RequestOptions.bitmapTransform(new RoundCorner(itemView.getContext(), 4)))*/;
@@ -190,7 +192,7 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
                         if (mOnItemClickListener != null) {
                             int position = getAdapterPosition();
                             int realPosition = getRealPosition(position);
-                            mOnItemClickListener.onClick(mNews.get(realPosition),realPosition);
+                            mOnItemClickListener.onClick(mNews.get(realPosition), realPosition);
                         }
                     }
                 });
@@ -209,7 +211,7 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
 
         private Group mFlashGroup;
 
-        private TextView mTvFlash;
+        private MarqueeTextView mTvFlash;
 
         private ProgressBar mProgressBar;
 
@@ -258,7 +260,7 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
 
             jBanner.setOnBannerItemClickListener((JBanner.OnBannerItemClickListener<NewsData.Banner>) (banner, position) -> {
                 if (mOnItemClickListener != null) {
-                    mOnItemClickListener.onClick(banner,position);
+                    mOnItemClickListener.onClick(banner, position);
                 }
             });
 
@@ -295,13 +297,29 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
             } else {
                 mFlashGroup.setVisibility(View.VISIBLE);
 
-                StringBuffer sb = new StringBuffer();
+                List<MarqueeTextView.MarqueeData> list = new ArrayList<>();
+                MarqueeTextView.MarqueeData margueeData = null;
+                for (NewsData.Flash flash : flashes) {
+                    margueeData = new MarqueeTextView.MarqueeData();
+                    margueeData.setId(flash.getId());
+                    margueeData.setDescription(flash.getDescription());
+                    margueeData.setImage_url(flash.getImageUrl());
+                    margueeData.setIs_collect(flash.getIs_collect());
+                    margueeData.setIs_good(flash.getIs_good());
+                    margueeData.setLink(flash.getLink());
+                    margueeData.setShare_link(flash.getShare_link());
+                    margueeData.setTheme(flash.getTheme());
+                    list.add(margueeData);
+                }
+
+                mTvFlash.setData(list);
+                /*StringBuffer sb = new StringBuffer();
 
                 for (NewsData.Flash flash : flashes) {
                     sb.append(flash.getTheme()).append("  ");
                 }
 
-                mTvFlash.setText(sb.toString());
+                mTvFlash.setText(sb.toString());*/
             }
 
 
@@ -333,6 +351,7 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
             tvLabel.setText(data.getColumn_name());
         }
     }
+
     private class NewsHolderRight extends NewsHolderLeft {
 
 
@@ -340,11 +359,13 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
             super(itemView);
         }
     }
+
     private class FlashNewsHolder extends BaseHolder {
 
         private TextView tvTitle;
         private TextView tvContent;
         private TextView tvTime;
+        private ImageView ivShare;
 
 
         public FlashNewsHolder(@NonNull View itemView) {
@@ -353,6 +374,7 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
             tvTitle = itemView.findViewById(R.id.news_item_flash_tv_title);
             tvContent = itemView.findViewById(R.id.news_item_flash_tv_content);
             tvTime = itemView.findViewById(R.id.news_item_flash_tv_time);
+            ivShare = itemView.findViewById(R.id.news_item_flash_iv_share);
         }
 
         public void setData(NewsData.News data) {
@@ -410,6 +432,8 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
 
 
     public interface OnItemClickListener {
-        void onClick(NewsData.NewsBean news,int position);
+        void onClick(NewsData.NewsBean news, int position);
+
+        void onShareAction(NewsData.NewsBean news, int position);
     }
 }

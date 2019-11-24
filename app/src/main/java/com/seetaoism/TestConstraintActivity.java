@@ -1,8 +1,17 @@
 package com.seetaoism;
 
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.mr.k.mvp.base.BaseActivity;
@@ -12,6 +21,8 @@ import com.seetaoism.libdownlaod.DownLoadManager;
 import com.seetaoism.libdownlaod.StateListener;
 import com.seetaoism.libdownlaod.Task;
 import com.seetaoism.widgets.ColumnItemView;
+
+import jy.com.libbanner.MarqueeTextView;
 
 
 public class TestConstraintActivity extends BaseActivity {
@@ -32,9 +43,30 @@ public class TestConstraintActivity extends BaseActivity {
         setContentView(R.layout.test);
 
 
+        TextView marqueeTextView  = findViewById(R.id.news_item_header_tv_flash);
 
+         SpannableString string = new SpannableString("实际开发极乐世界市解放路聚少离多积分际开发极乐世界市解放路聚少离多积分际开发极乐世界市解放路聚少离多积分");
 
-        DownLoadManager.getInstance(this).startLoad(this, DOWNLOAD_URL2, new StateListener(this) {
+         ClickableSpan clickableSpan = new ClickableSpan() {
+             @Override
+             public void onClick(@NonNull View widget) {
+                 Toast.makeText(TestConstraintActivity.this, "ddd",Toast.LENGTH_SHORT).show();
+             }
+
+             @Override
+             public void updateDrawState(TextPaint ds) {
+                 super.updateDrawState(ds);
+                 // 设置显示的内容文本颜色
+                 ds.setColor(0xff686868);
+                 ds.setUnderlineText(false);
+             }
+         };
+        marqueeTextView.setHighlightColor(getResources().getColor(android.R.color.transparent));
+        marqueeTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        string.setSpan(clickableSpan, 0, string.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+         marqueeTextView.setText(string);
+
+       /* DownLoadManager.getInstance(this).startLoad(this, DOWNLOAD_URL2, new StateListener(this) {
             @Override
             public void prepare(Task task) {
 
@@ -60,7 +92,7 @@ public class TestConstraintActivity extends BaseActivity {
             public void onEnd(Task task) {
                 Logger.d("%s,%s ", TAG,task.getFileName());
             }
-        });
+        });*/
 
 
     }

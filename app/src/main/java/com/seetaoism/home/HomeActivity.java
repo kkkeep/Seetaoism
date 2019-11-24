@@ -35,8 +35,9 @@ import com.seetaoism.home.recommend.RecommendFragment;
 import com.seetaoism.home.recommend.column.ColumnEditorFragment;
 import com.seetaoism.home.topic.TopicFragment;
 import com.seetaoism.home.video.VideoFragment;
-import com.seetaoism.utils.ShareUtilsKt;
+import com.seetaoism.utils.ShareUtils;
 import com.seetaoism.widgets.FeedbackPopwindow;
+import com.seetaoism.widgets.IntegralWidget;
 import com.seetaoism.widgets.bottomtablaout.BottomTabLayout;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
@@ -116,6 +117,8 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
                 break;
             }
             case 2: {
+
+                IntegralWidget.show(this, 20);
                 aClass = VideoFragment.class;
                 StatusBarUtils.setStatusBarLightMode(this,Color.WHITE);
                 break;
@@ -195,7 +198,7 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
                 addFragment(getSupportFragmentManager(), ColumnEditorFragment.class, android.R.id.content, null);
                 break;
             case R.id.home_drawer_share_app:
-                ShareUtilsKt.shareApp(this, new UMShareListener() {
+                ShareUtils.shareApp(this, new UMShareListener() {
                     @Override
                     public void onStart(SHARE_MEDIA share_media) {
                         Logger.d("%s onStart = %s",TAG,share_media.getName());
@@ -308,4 +311,9 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
     }
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
 }

@@ -2,6 +2,8 @@ package com.seetaoism.home.collect;
 
 
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -152,6 +154,19 @@ public class CollectAllFragment extends MvpBaseFragment<CollectContract.ICollect
             }
 
         });
+
+
+     CollectViewModel collectViewModel = ViewModelProviders.of(getActivity()).get(CollectViewModel.class);
+
+     collectViewModel.getNewsLiveData().observe(this, newsBean ->{
+         allAdapter.delete(newsBean);
+         if(allAdapter.getItemCount() == 0){
+             onICollectFail("");
+         }
+
+     } );
+
+
     }
 
     @Override
@@ -190,6 +205,10 @@ public class CollectAllFragment extends MvpBaseFragment<CollectContract.ICollect
         closeLoading();
 
         allAdapter.deleteSuccess();
+
+        if(allAdapter.getItemCount() == 0){
+            onICollectFail("");
+        }
     }
 
     @Override

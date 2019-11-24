@@ -18,15 +18,13 @@ import com.mr.k.mvp.utils.Logger
 import com.mr.k.mvp.utils.SystemFacade
 import com.seetaoism.AppConstant
 import com.seetaoism.R
+import com.seetaoism.base.JDShareNewsBaseMvpFragment
 import com.seetaoism.data.entity.*
 import com.seetaoism.home.detail.DetailsContract
 import com.seetaoism.home.detail.vp.DetailVPFragment
 import com.seetaoism.home.detail.vp.NewsDetailAdapter
 import com.seetaoism.libloadingview.LoadingView
-import com.seetaoism.utils.shareNewsToMore
-import com.seetaoism.utils.shareNewsToQQ
-import com.seetaoism.utils.shareNewsToSina
-import com.seetaoism.utils.shareNewsToWechat
+import com.seetaoism.widgets.IntegralWidget
 import com.umeng.socialize.UMShareListener
 import com.umeng.socialize.bean.SHARE_MEDIA
 import kotlinx.android.synthetic.main.fragment_detail_vp.*
@@ -36,7 +34,7 @@ import kotlinx.android.synthetic.main.fragment_details.*
 /*
  * created by Cherry on 2019-11-03
 **/
-class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>(), DetailsContract.IDetailPageView,UMShareListener {
+class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPagePresenter>(), DetailsContract.IDetailPageView,UMShareListener {
 
     companion object{
         private  const val TAG = "DetailPageFragment"
@@ -78,15 +76,19 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
     override fun createPresenter() = DetailPagePresenter()
 
     override fun onArticleListResult(data: MutableList<NewsData.News>?, msg: String?) {
-        closeLoading()
+
+
         data?.run {
             mListAdapter.run {
                 setNews(data)
                 detailRelativeList.addItemDecoration(CommentDecoration(data.size - 1))
                 notifyDataSetChanged()
             }
-
         }
+
+
+
+
     }
     override fun onCommentResult(comment: CommentData.Comment?, msg: String?) {
         if(comment != null && msg == null){
@@ -114,7 +116,7 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
     }
 
     override fun onArticleUserCommentResult(commentData: CommentData?, msg: String?) {
-
+        closeLoading()
        if(mCommentStart != 0 || mListAdapter.hasComments()){
             detailSrl.finishLoadMore()
         }
@@ -130,7 +132,7 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
             }
         }
 
-
+        mPresenter.readArticleFroIntegral(mArticleId)
 
     }
 
@@ -169,6 +171,13 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
     }
 
 
+    override fun onReadArticleFroIntegralResult(data: String?, msg: String?) {
+        if(msg == null){
+            activity?.let { IntegralWidget.show(it,10) };
+        }
+    }
+
+
     override fun getLayoutId() = R.layout.fragment_details
 
     override fun initView(root: View?) {
@@ -196,7 +205,8 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
             webChromeClient = object : WebChromeClient() {
 
                 override fun onProgressChanged(view: WebView?, newProgress: Int) {
-                    if (newProgress == 100 && !mIsFinish) {
+                    if (newProgress == 100 && !mIsFinish && detailWebView != null ) {
+
                         mPresenter.getRelatedArticleList(mArticleId)
                         getComments()
 
@@ -262,18 +272,18 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
 
 
         detailPageShareWechat.setOnClickListener {
-            shareNewsToWechat(activity!!,buildNews(),this);
+            shareNewsDirect(buildNews(),SHARE_MEDIA.WEIXIN)
         }
         detailPageShareQQ.setOnClickListener {
-            shareNewsToQQ(activity!!,buildNews(),this);
+            shareNewsDirect(buildNews(),SHARE_MEDIA.QQ)
         }
 
         detailPageShareSina.setOnClickListener {
-            shareNewsToSina(activity!!,buildNews(),this);
+            shareNewsDirect(buildNews(),SHARE_MEDIA.SINA)
         }
 
         detailPageShareMoments.setOnClickListener {
-            shareNewsToMore(activity!!,buildNews(),this);
+            openShareNewsPanel(buildNews(),SHARE_MEDIA.WEIXIN_CIRCLE,SHARE_MEDIA.QZONE)
         }
     }
 
@@ -281,6 +291,7 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
     private fun buildNews() : NewsData.News{
 
         val news =  NewsData.News()
+        news.id = mArticleId;
         news.share_link = mArticleLinkUrl
         news.description = mArticleDescription
         news.theme = mArticleTtile
@@ -319,6 +330,7 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
 
     override fun initData() {
         showLoadingForViewPager()
+        //detailWebView.loadUrl("https://mp.weixin.qq.com/s/MtFJ-E0jN8O8fTECFxUjBw")
         detailWebView.loadUrl(mArticleLinkUrl)
     }
 
@@ -333,7 +345,7 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
      * 显示评论新闻的Pop
      */
     private fun showCommentDialog(news : NewsData.NewsBean){
-        CommentPopView(context!!).show(detailWebView,CommentPopView.TYPE_COMMENT, mLastInputContent , getString(R.string.text_detail_write_comment), object : OnActionListener {
+        CommentPopView(activity!!).show(detailWebView,CommentPopView.TYPE_COMMENT, mLastInputContent , getString(R.string.text_detail_write_comment), object : OnActionListener {
             override fun onAction(type: Int, content: String) {
                 if(type == CommentPopView.TYPE_COMMENT){
                     mLastInputContent = content
@@ -349,7 +361,7 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
      */
     private fun showReplyDialog(comment: CommentData.Comment){
 
-        CommentPopView(context!!).show(detailWebView,CommentPopView.TYPE_REPLY,mLastInputContent, getString(R.string.text_detail_relay_someone,comment.username),object : OnActionListener {
+        CommentPopView(activity!!).show(detailWebView,CommentPopView.TYPE_REPLY,mLastInputContent, getString(R.string.text_detail_relay_someone,comment.username),object : OnActionListener {
             override fun onAction(type: Int, content: String) {
                 if(type == CommentPopView.TYPE_REPLY){
                     mLastInputContent = content
@@ -363,7 +375,7 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
      * 显示回复别人的回复的pop
      */
     private fun showReplyDialog(reply: CommentData.Reply){
-        CommentPopView(context!!).show(detailWebView,CommentPopView.TYPE_REPLY,mLastInputContent,getString(R.string.text_detail_relay_someone,reply.from_name), object : OnActionListener {
+        CommentPopView(activity!!).show(detailWebView,CommentPopView.TYPE_REPLY,mLastInputContent,getString(R.string.text_detail_relay_someone,reply.from_name), object : OnActionListener {
             override fun onAction(type: Int, content: String) {
                 if(type == CommentPopView.TYPE_REPLY){
                     mLastInputContent = content;
@@ -400,6 +412,13 @@ class DetailPageFragment : MvpBaseFragment<DetailsContract.IDetailPagePresenter>
         if(p0 != SHARE_MEDIA.WEIXIN && p0 != SHARE_MEDIA.WEIXIN_CIRCLE){
             closeLoading()
         }
+    }
+
+
+    override fun onDestroyView() {
+        detailWebView.stopLoading()
+        detailWebView.destroy()
+        super.onDestroyView()
     }
 }
 

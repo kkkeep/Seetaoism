@@ -32,6 +32,7 @@ public interface DetailsContract {
 
         void onDoLikeResult(String content,String msg);
 
+        void onReadArticleFroIntegralResult(String data, String msg);
 
     }
 
@@ -62,6 +63,7 @@ public interface DetailsContract {
         void commentArticle(String  articleId,String content);
         void replyComment(String  articleId,String commentId,String content,String toUserId,int type,String replyId );
         void doCommentLike(String commentId);
+        void readArticleFroIntegral(String articleId);
 
     }
 
@@ -79,6 +81,7 @@ public interface DetailsContract {
         void doArticleLike(LifecycleProvider provider, Map<String, String> params, ICancelBaseCallBack<String> callBack);
         void doArticleCollect(LifecycleProvider provider, Map<String, String> params, ICancelBaseCallBack<String> callBack);
 
+        void readArticleFroIntegral(LifecycleProvider provider, Map<String, String> params, IBaseCallBack<String> callBack);
 
 
     }

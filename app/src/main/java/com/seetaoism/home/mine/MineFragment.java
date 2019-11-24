@@ -26,7 +26,9 @@ import com.seetaoism.home.integral.IntegralActivity;
 import com.seetaoism.home.message.MessageActivity;
 import com.seetaoism.home.perfect.PerfectActivity;
 import com.seetaoism.home.set.SettingActivity;
+import com.seetaoism.libloadingview.LoadingView;
 import com.seetaoism.user.login.LoginActivity;
+import com.seetaoism.widgets.IntegralWidget;
 import com.shehuan.niv.NiceImageView;
 
 import kotlin.Unit;
@@ -36,6 +38,7 @@ import kotlin.jvm.functions.Function1;
 public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> implements MineContract.IMineView, View.OnClickListener {
     private RoundTextView mine_login;
     private RoundLinearLayout mine_collect;
+    private RoundLinearLayout mine_jifen;
     private RoundLinearLayout mine_message;
     private RoundLinearLayout mine_seeting;
     private NiceImageView mine_pic;
@@ -44,7 +47,6 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
     private TextView text_hint;
     private TextView text_title;
     private TextView yuan;
-    private ImageView fan;
 
     private BroadcastReceiver mReceiver;
 
@@ -58,20 +60,18 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        mReceiver = UserManager.registerUserBroadcastReceiver(iUser -> Unit.INSTANCE);
     }
 
     @Override
     protected void initView(View root) {
         mine_collect = root.findViewById(R.id.mine_collect);
-        fan = root.findViewById(R.id.fan);
         mine_login = root.findViewById(R.id.mine_login);
         mine_message = root.findViewById(R.id.mine_message);
         mine_seeting = root.findViewById(R.id.mine_seeting);
+        mine_jifen = root.findViewById(R.id.mine_jifen);
         text_hint = root.findViewById(R.id.text_hint);
         text_title = root.findViewById(R.id.text_title);
         mine_pic = root.findViewById(R.id.mine_pic);
-        jifen = root.findViewById(R.id.jifen);
         qiandao_bt = root.findViewById(R.id.qiandao_bt);
         yuan = root.findViewById(R.id.yuan);
         mine_collect.setOnClickListener(this);
@@ -79,24 +79,29 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
         mine_message.setOnClickListener(this);
         mine_seeting.setOnClickListener(this);
         mine_pic.setOnClickListener(this);
-        jifen.setOnClickListener(this);
+        mine_jifen.setOnClickListener(this);
         qiandao_bt.setOnClickListener(this);
-        fan.setOnClickListener(this);
 
-        mPresenter.getMineUser();
+        mReceiver = UserManager.registerUserBroadcastReceiver(iUser -> {
+            setData();
+            return Unit.INSTANCE;
+        });
+    }
 
+    @Override
+    protected void initData() {
+        User user = (User) UserManager.getUser();
+
+        if (user != null && !user.isRefresh()) {
+            showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
+            mPresenter.getMineUser();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        User user = (User) UserManager.getUser();
-        if (user == null) {
-            text_hint.setText("未登录");
-            qiandao_bt.setText("未签到");
-            text_title.setVisibility(View.VISIBLE);
-            Glide.with(this).load("").apply(RequestOptions.circleCropTransform().placeholder(R.drawable.mine_pic)).into(mine_pic);
-        }
+        setData();
     }
 
     @Override
@@ -114,43 +119,45 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
             case R.id.mine_pic:
                 //如果登录直接跳转，如果没有登录跳转登录
                 User user = (User) UserManager.getUser();
-                if (user != null && user.getToken() != null && !TextUtils.isEmpty(user.getToken().getValue())) {
+                if (user != null) {
                     startActivityForResult(new Intent(getContext(), PerfectActivity.class), 100);
                 } else {
                     startActivity(new Intent(getContext(), LoginActivity.class));
-                    //getActivity().finish();
                 }
                 break;
             //我的收藏
             case R.id.mine_collect:
                 User mine_collect = (User) UserManager.getUser();
-                if (mine_collect != null && mine_collect.getToken() != null && !TextUtils.isEmpty(mine_collect.getToken().getValue())) {
+                if (mine_collect != null ) {
                     startActivity(new Intent(getContext(), CollectActivity.class));
                 } else {
                     startActivity(new Intent(getContext(), LoginActivity.class));
-                    // getActivity().finish();
                 }
                 break;
             //我的积分
-            case R.id.jifen: {
+            case R.id.mine_jifen:
                 User jifen = (User) UserManager.getUser();
-                if (jifen != null && jifen.getToken() != null && !TextUtils.isEmpty(jifen.getToken().getValue())) {
+                if (jifen != null) {
                     startActivity(new Intent(getContext(), IntegralActivity.class));
                 } else {
                     startActivity(new Intent(getContext(), LoginActivity.class));
 
                 }
                 break;
-            }
 
             case R.id.qiandao_bt:
                 //签到
                 User qiandao_bt = (User) UserManager.getUser();
-                if (qiandao_bt != null) {
-                    mPresenter.getMine();
-                } else {
+                if(qiandao_bt == null){
                     startActivity(new Intent(getContext(), LoginActivity.class));
+                }else{
+                    if(qiandao_bt.getUserInfo().getCheck_in_status() != 1){
+                        mPresenter.getMine();
+                    }else{
+                        showToast(R.string.text_qiandao);
+                    }
                 }
+
                 break;
             case R.id.mine_message:
                 User mine_message = (User) UserManager.getUser();
@@ -160,66 +167,77 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
                     startActivity(new Intent(getContext(), LoginActivity.class));
                 }
                 break;
-            case R.id.fan: {
-                User jifen = (User) UserManager.getUser();
-                if (jifen != null && jifen.getToken() != null && !TextUtils.isEmpty(jifen.getToken().getValue())) {
-                    startActivity(new Intent(getContext(), IntegralActivity.class));
-                } else {
-                    startActivity(new Intent(getContext(), LoginActivity.class));
-                    break;
-                }
-            }
-
         }
     }
 
     @Override
     public void onMineSucceed(String msg) {
-        qiandao_bt.setText("已签到");
+        User user = (User) UserManager.getUser();
+        user.getUserInfo().setCheck_in_status(1);
+        IntegralWidget.show(getActivity(), 20);
+        qiandao_bt.setText(getString(R.string.text_qiandao));
+
     }
 
     @Override
     public void onMineFail(String msg) {
+        qiandao_bt.setText(getString(R.string.text_un_qiandao));
         showToast(msg);
     }
 
 
     @Override
     public void onMineUserSucceed(User user) {
-        if (user != null) {
-            if (!TextUtils.isEmpty(user.getUserInfo().getNickname())) {
-                text_title.setVisibility(View.GONE);
-                text_hint.setText(user.getUserInfo().getNickname());
-            }
+        closeLoading();
+        setData();
+    }
+
+
+    @Override
+    public void onMineUserFail(String msg) {
+        closeLoading();
+        setData();
+    }
+
+
+    private void setData() {
+        User user = (User) UserManager.getUser();
+        if (user == null || !user.isRefresh()) {
+            text_hint.setText(getString(R.string.text_unlogin));
+            qiandao_bt.setText(getString(R.string.text_un_qiandao));
+            text_title.setVisibility(View.VISIBLE);
+            yuan.setVisibility(View.GONE);
+            mine_pic.setImageResource(R.drawable.mine_pic);
+            mine_login.setVisibility(View.VISIBLE);
+        }else{
+            text_title.setVisibility(View.GONE);
+            text_hint.setText(user.getUserInfo().getNickname());
             if (user.getUserInfo().getHead_url() != null) {
                 Glide.with(this).load(user.getUserInfo().getHead_url()).apply(RequestOptions.circleCropTransform().placeholder(R.drawable.mine_pic)).into(mine_pic);
             }
 
-            //签到按钮
-            User user1 = (User) UserManager.getUser();
-            if (user1.getToken() != null && user1.getUserInfo().getCheck_in_status() == 1) {
+            if (user.getUserInfo().getCheck_in_status() == 1) {
                 //签到按钮调接口
-                qiandao_bt.setText("已签到");
+                qiandao_bt.setText(getString(R.string.text_qiandao));
+            }else{
+                qiandao_bt.setText(getResources().getString(R.string.text_un_qiandao));
             }
 
-            //登录按钮
-
-            if (user1.getToken() != null) {
+            if (user.getToken() != null) {
                 mine_login.setVisibility(View.GONE);
             } else {
                 mine_login.setVisibility(View.VISIBLE);
             }
 
-            if (user1.getUserInfo() != null) {
-                yuan.setText(user1.getUserInfo().getNotice_count() + "");
+            if (user.getUserInfo() != null) {
+                yuan.setVisibility(View.VISIBLE);
+                yuan.setText(user.getUserInfo().getNotice_count() + "");
             } else {
                 yuan.setVisibility(View.GONE);
             }
-        }
-    }
 
-    @Override
-    public void onMineUserFail(String msg) {
+        }
+
 
     }
 
@@ -251,5 +269,14 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
                 text_hint.setText(name);
             }
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if(mReceiver != null){
+            UserManager.unRegisterUserBroadcastReceiver(mReceiver);
+        }
+
     }
 }

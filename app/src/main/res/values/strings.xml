@@ -98,5 +98,8 @@
     <string name="text_share_qq_need_permission">QQ 分享需要文件读写权限</string>
     <string name="text_login_forget_pw">忘记密码?</string>
     <string name="text_share_app_desciption">为您提供最新的全球工程商业新闻内容</string>
+    <string name="text_unlogin">未登录</string>
+    <string name="text_un_qiandao">未签到</string>
+    <string name="text_qiandao">已签到</string>
 
 </resources>

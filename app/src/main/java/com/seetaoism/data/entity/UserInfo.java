@@ -7,17 +7,23 @@ public class UserInfo {
     private String nickname;
     private String mobile;
     private String email;
+
     private String qq_openid;
+
     private String sina_openid;
+    private int sina_bind;
 
     private String wechat_openid;
     private String wechat_unionid;
+    private int wechat_bind;
+
     private int check_in_status;
     private int qq_bind;
-    private int sina_bind;
-    private int wechat_bind;
+
+
     private int notice_count;
     private int my_integral;
+
 
 
 

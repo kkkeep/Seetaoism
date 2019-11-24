@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import androidx.annotation.IntDef;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.constraintlayout.widget.Group;
+import androidx.viewpager.widget.ViewPager;
 
 import com.cunoraz.gifview.library.GifView;
 
@@ -144,10 +146,11 @@ public class LoadingView extends ConstraintLayout {
         isCancelAble = cancelAble;
 
         if(this.getParent() == null) {
-            if (mParentViewGroup instanceof FrameLayout || mParentViewGroup instanceof RelativeLayout) {
+            String pName =  mParentViewGroup.getClass().getSimpleName();
+            if (pName.equals(FrameLayout.class.getSimpleName()) || pName.equals(RelativeLayout.class.getSimpleName()) ) {
                 mParentViewGroup.addView(this);
 
-            } else if (mParentViewGroup instanceof ConstraintLayout) {
+            } else if (pName.equals(ConstraintLayout.class.getSimpleName())) {
                 ConstraintSet constraintSet = new ConstraintSet();
                 this.setId(100000);
                 constraintSet.clone((ConstraintLayout) mParentViewGroup);
@@ -164,14 +167,18 @@ public class LoadingView extends ConstraintLayout {
                 constraintSet.applyTo((ConstraintLayout) mParentViewGroup);
             } else {
 
+
                 ViewGroup parent = (ViewGroup) mParentViewGroup.getParent();
                 FrameLayout root = new FrameLayout(parent.getContext());
                 root.setLayoutParams(mParentViewGroup.getLayoutParams());
+                parent.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
                 parent.removeView(mParentViewGroup);
-                root.addView(mParentViewGroup, new ViewGroup.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
-                root.addView(this);
                 parent.addView(root);
 
+                parent.invalidate();
+                root.addView(mParentViewGroup);
+                parent.requestLayout();
+                root.addView(this);
             }
         }
 
@@ -212,7 +219,7 @@ public class LoadingView extends ConstraintLayout {
                         if(isCancelAble && mCurMode == LOADING_MODE_TRANSPARENT_BG){
                             close();
                         }
-                        return false;
+                        return true;
                     }
                 }
                 return false;
