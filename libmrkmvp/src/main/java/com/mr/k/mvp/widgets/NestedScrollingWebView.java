@@ -79,7 +79,7 @@ public class NestedScrollingWebView extends WebView implements NestedScrollingCh
         }
 
         if (mWebViewContentHeight == 0) {
-            mWebViewContentHeight = (int) (getContentHeight() * DENSITY);
+            mWebViewContentHeight = (int) (getContentHeight() * getScale());
         }
 
         return mWebViewContentHeight;
