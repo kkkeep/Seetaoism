@@ -200,6 +200,8 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
                 showToast("清除");
                 his.clear();
                 flowSetData(his);
+                    mBox.setVisibility(View.VISIBLE);
+
                 SharedPrefrenceUtils.putStringList(this, AppConstant.SPKeys.SEARCH, his);
                 break;
         }
@@ -213,7 +215,7 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
                 adapter.mlist.clear();
             }
             SharedPrefrenceUtils.saveString(this, "isWords", s);
-            //判断集合中是否包含要搜索的内容，如果包含不添加
+             //判断集合中是否包含要搜索的内容，如果包含不添加
             if (!his.contains(s)) {
                 //保存搜索数据
                 his.add(s);

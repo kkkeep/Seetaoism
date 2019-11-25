@@ -262,6 +262,7 @@ public class CollectVideoFragment extends MvpBaseFragment<CollectContract.IColle
             return;
         }
         builder.getWindow().setContentView(R.layout.pop_user);//设置弹出框加载的布局
+        builder.getWindow().setBackgroundDrawableResource(R.drawable.dailog);
         TextView msg = (TextView) builder.findViewById(R.id.tv_msg);
         Button cancle = (Button) builder.findViewById(R.id.btn_cancle);
         Button sure = (Button) builder.findViewById(R.id.btn_sure);
