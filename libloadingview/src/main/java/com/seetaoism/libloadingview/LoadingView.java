@@ -171,13 +171,10 @@ public class LoadingView extends ConstraintLayout {
                 ViewGroup parent = (ViewGroup) mParentViewGroup.getParent();
                 FrameLayout root = new FrameLayout(parent.getContext());
                 root.setLayoutParams(mParentViewGroup.getLayoutParams());
-                parent.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+               // parent.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 parent.removeView(mParentViewGroup);
                 parent.addView(root);
-
-                parent.invalidate();
                 root.addView(mParentViewGroup);
-                parent.requestLayout();
                 root.addView(this);
             }
         }

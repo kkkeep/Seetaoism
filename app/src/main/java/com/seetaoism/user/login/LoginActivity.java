@@ -48,6 +48,8 @@ public class LoginActivity extends JDBaseActivity {
 
 
     public static void start(){
-        MvpManager.getContext().startActivity(new Intent(MvpManager.getContext(),LoginActivity.class));
+        Intent intent = new Intent(MvpManager.getContext(),LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        MvpManager.getContext().startActivity(intent);
     }
 }

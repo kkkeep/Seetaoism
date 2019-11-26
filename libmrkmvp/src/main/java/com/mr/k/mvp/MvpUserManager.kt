@@ -22,6 +22,7 @@ import java.io.File
 private const val CACHE_USER_DATA_FILE_NAME = "user_info.json"
 
 private const val BROADCAST_USER_LOGIN_OR_OUT = "user.login.or.out"
+private const val BROADCAST_USER_INFO_UPDATE = "user.login.update"
 
 private lateinit var mApplication: Context
 
@@ -58,19 +59,29 @@ fun onUserUpdate(){
 
 //private val mBroadcastReceiverList  = mutableListOf<BroadcastReceiver>()
 
-fun  registerUserBroadcastReceiver(callback : (T : IUser?) -> Unit) : BroadcastReceiver{
+fun  registerUserBroadcastReceiver(callback : (T : IUser?,UserState) -> Unit) : BroadcastReceiver{
 
     val filter = IntentFilter(BROADCAST_USER_LOGIN_OR_OUT)
+    filter.addAction(BROADCAST_USER_INFO_UPDATE)
     val broadcastManager = LocalBroadcastManager.getInstance(mApplication)
     val broadcastReceiver = object : BroadcastReceiver(){
         override fun onReceive(context: Context?, intent: Intent?) {
-            callback.invoke(mUser)
+            intent?.run {
+                if(action.equals(BROADCAST_USER_INFO_UPDATE)){
+                    callback.invoke(mUser,UserState.Update)
+                }else if(action.equals(BROADCAST_USER_LOGIN_OR_OUT)){
+                    callback.invoke(mUser,UserState.Login)
+                }
+            }
+
         }
     }
    // mBroadcastReceiverList.add(broadcastReceiver)
     broadcastManager.registerReceiver(broadcastReceiver,filter)
     return broadcastReceiver
 }
+
+
 
 fun unRegisterUserBroadcastReceiver(receiver: BroadcastReceiver){
     val broadcastManager = LocalBroadcastManager.getInstance(mApplication)
@@ -98,6 +109,12 @@ private fun broadcastUserGlobally() {
 
 private fun getCacheUserFile(): File? {
     return SystemFacade.getExternalCacheDir(mApplication, CACHE_USER_DATA_FILE_NAME)
+}
+
+
+fun updateUserInfo(){
+    val broadcastManager = LocalBroadcastManager.getInstance(mApplication)
+    broadcastManager.sendBroadcast(Intent(BROADCAST_USER_INFO_UPDATE))
 }
 
 
@@ -140,6 +157,10 @@ private fun clearUserFromSdcard() {
 }
 
 
+public enum class UserState{
+    Login,Update
+}
+
 interface IUser {
     @Override
     fun getTokenString(): String?
@@ -147,4 +168,5 @@ interface IUser {
     fun isRefresh() : Boolean
 
     fun setRefresh(refresh : Boolean)
+
 }

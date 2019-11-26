@@ -82,7 +82,7 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
         mine_jifen.setOnClickListener(this);
         qiandao_bt.setOnClickListener(this);
 
-        mReceiver = UserManager.registerUserBroadcastReceiver(iUser -> {
+        mReceiver = UserManager.registerUserBroadcastReceiver((iUser,userState) -> {
             setData();
             return Unit.INSTANCE;
         });
@@ -95,13 +95,15 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
         if (user != null && !user.isRefresh()) {
             showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
             mPresenter.getMineUser();
+        }else{
+            setData();
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        setData();
+
     }
 
     @Override
@@ -128,7 +130,7 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
             //我的收藏
             case R.id.mine_collect:
                 User mine_collect = (User) UserManager.getUser();
-                if (mine_collect != null ) {
+                if (mine_collect != null) {
                     startActivity(new Intent(getContext(), CollectActivity.class));
                 } else {
                     startActivity(new Intent(getContext(), LoginActivity.class));

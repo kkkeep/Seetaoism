@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mr.k.mvp.IUser;
 import com.mr.k.mvp.UserManager;
+import com.mr.k.mvp.UserState;
 import com.mr.k.mvp.base.BaseActivity;
 import com.mr.k.mvp.base.BaseFragment;
 import com.mr.k.mvp.statusbar.StatusBarUtils;
@@ -103,19 +104,22 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
         mBottomTabLayout.selectTab(1);
 
 
-       mBroadcastReceiver =  UserManager.registerUserBroadcastReceiver(iUser -> {
-            User user = (User) iUser;
-            if(user != null && user.isRefresh()){
-                updateTabTitle(4, getString(R.string.text_main_tab_mine));
+       mBroadcastReceiver =  UserManager.registerUserBroadcastReceiver((iUser,state) -> {
+           if(state == UserState.Login){
+               User user = (User) iUser;
+               if(user != null && user.isRefresh()){
+                   updateTabTitle(4, getString(R.string.text_main_tab_mine));
 
-                RecommendFragment recommendFragment = (RecommendFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(RecommendFragment.class));
-                if (recommendFragment != null) {
-                    recommendFragment.reloadColumn();
-                }
+                   RecommendFragment recommendFragment = (RecommendFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(RecommendFragment.class));
+                   if (recommendFragment != null) {
+                       recommendFragment.reloadColumn();
+                   }
 
-            }else{
-                updateTabTitle(4, getString(R.string.text_unlogin));
-            }
+               }else{
+                   updateTabTitle(4, getString(R.string.text_unlogin));
+               }
+           }
+
             return Unit.INSTANCE;
         });
     }

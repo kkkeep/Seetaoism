@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
+import com.mr.k.mvp.UserState
 import com.mr.k.mvp.getUser
 import com.mr.k.mvp.kotlin.base.BaseActivity
 import com.mr.k.mvp.registerUserBroadcastReceiver
@@ -42,13 +43,12 @@ import kotlinx.android.synthetic.main.fragment_detail_vp.*
 
 
 
-class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPresenter>(), DetailsContract.IDetailVpView, View.OnClickListener,UMShareListener {
+class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPresenter>(), DetailsContract.IDetailVpView, View.OnClickListener, UMShareListener {
 
 
+    private val TAG = "DetailVPFragment"
 
-    private val  TAG = "DetailVPFragment"
-
-    private  var mReceiver : BroadcastReceiver? = null
+    private var mReceiver: BroadcastReceiver? = null
 
     private var mColumnId: String? = null
 
@@ -71,17 +71,21 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
                 mNewsDetailAdapter.notifyDataSetChanged()
                 newsDetailVp.currentItem = it.index
                 mPresenter.getArticleAttribute(mNewsDetailAdapter.getCurrentNew().id)
-               // refreshArticleAttr(it.list[it.index])
+                // refreshArticleAttr(it.list[it.index])
 
             })
         }
 
-       mReceiver =  registerUserBroadcastReceiver {
-           if(it == null){
-               refreshArticleAttr(mNewsDetailAdapter.getCurrentNew())
-           }else{
-               mPresenter.getArticleAttribute(mNewsDetailAdapter.getCurrentNew().id)
-           }
+
+        mReceiver = registerUserBroadcastReceiver { user, userState ->
+            if(userState == UserState.Login){
+                if (user == null) {
+                    refreshArticleAttr(mNewsDetailAdapter.getCurrentNew())
+                } else {
+                    mPresenter.getArticleAttribute(mNewsDetailAdapter.getCurrentNew().id)
+                }
+            }
+
         }
     }
 
@@ -94,11 +98,11 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
     override fun setArguments(args: Bundle?) {
         super.setArguments(args)
 
-       /* args?.run {
-            mColumnId = getString(AppConstant.BundleParamsKeys.DETAIL_NEWS_COLUMN_ID)
-            mIndex = getInt(AppConstant.BundleParamsKeys.ARTICLE_POSITION)
+        /* args?.run {
+             mColumnId = getString(AppConstant.BundleParamsKeys.DETAIL_NEWS_COLUMN_ID)
+             mIndex = getInt(AppConstant.BundleParamsKeys.ARTICLE_POSITION)
 
-        }*/
+         }*/
 
 
     }
@@ -113,7 +117,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
                 //this.addData(it.articleList)
                 it.list[mIndex].run {
                     this@apply.addData(arrayListOf(this))
-                  //  refreshArticleAttr(this)
+                    //  refreshArticleAttr(this)
                     mPresenter.getArticleAttribute(this.id)
                 }
             }
@@ -123,7 +127,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
 
         }
 
-        newsDetailVp.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+        newsDetailVp.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
             }
 
@@ -152,14 +156,12 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
 
 
         newsDetailLike.isChecked = (news.is_good == 1 && getUser() != null)
-        newsDetailCollect.isChecked =( news.is_collect == 1 && getUser() != null)
+        newsDetailCollect.isChecked = (news.is_collect == 1 && getUser() != null)
     }
 
     override fun createPresenter() = DetailVpPresenter()
 
     override fun getLayoutId() = R.layout.fragment_detail_vp
-
-
 
 
     override fun isHidePreFragment() = false
@@ -211,10 +213,10 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
             }
 
             R.id.newsDetailShare -> {
-                openShareNewsPanel(mNewsDetailAdapter.getCurrentNew(),SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QQ, SHARE_MEDIA.SINA, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN_CIRCLE)
+                openShareNewsPanel(mNewsDetailAdapter.getCurrentNew(), SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QQ, SHARE_MEDIA.SINA, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN_CIRCLE)
 
             }
-            R.id.newsDetailSearch->{
+            R.id.newsDetailSearch -> {
                 //搜索页面
                 val intent = Intent(activity, SsearchActivity::class.java)
                 activity!!.startActivity(intent)
@@ -224,7 +226,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
     }
 
     override fun onArticleAttributeResult(newsAttribute: NewsAttribute?, errorMsg: String?) {
-        if(newsAttribute != null){
+        if (newsAttribute != null) {
             val news = mNewsDetailAdapter.getCurrentNew()
             news.is_good = newsAttribute.is_good ?: 0
             news.is_collect = newsAttribute.is_collect ?: 0
@@ -251,12 +253,12 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
         if (data != null && msg == null) {
             newsDetailCollect.isChecked = !newsDetailCollect.isChecked
 
-            if(newsDetailCollect.isChecked){
+            if (newsDetailCollect.isChecked) {
                 mNewsDetailAdapter.getCurrentNew().is_collect = 1
-            }else{
+            } else {
                 mNewsDetailAdapter.getCurrentNew().is_collect = 0
-                if(detailExclusiveData?.from == FROM.COLLECT){
-                  val viewModel =   ViewModelProviders.of(activity!!).get(CollectViewModel::class.java)
+                if (detailExclusiveData?.from == FROM.COLLECT) {
+                    val viewModel = ViewModelProviders.of(activity!!).get(CollectViewModel::class.java)
                     viewModel.unCollect(mNewsDetailAdapter.getCurrentNew())
                 }
             }
@@ -279,7 +281,6 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
         }
 
 
-
         @JvmStatic
         internal fun openInner(activity: BaseActivity, data: DetailExclusiveData): DetailVPFragment? {
 
@@ -293,45 +294,43 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
 
     }
 
-    fun NewsDetailAdapter.getCurrentNew() : NewsData.NewsBean {
+    fun NewsDetailAdapter.getCurrentNew(): NewsData.NewsBean {
         return getNews(newsDetailVp.currentItem)
     }
 
     override fun onError(p0: SHARE_MEDIA?, p1: Throwable?) {
-        Logger.d("%s onError = %s",TAG, p0?.getName() );
-        if(p0 != SHARE_MEDIA.WEIXIN){
+        Logger.d("%s onError = %s", TAG, p0?.getName());
+        if (p0 != SHARE_MEDIA.WEIXIN) {
             closeLoading()
         }
     }
 
     override fun onStart(p0: SHARE_MEDIA?) {
-        Logger.d("%s onStart = %s",TAG, p0?.getName())
-        if(p0 != SHARE_MEDIA.WEIXIN){
+        Logger.d("%s onStart = %s", TAG, p0?.getName())
+        if (p0 != SHARE_MEDIA.WEIXIN) {
             showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG)
         }
     }
 
     override fun onResult(p0: SHARE_MEDIA?) {
-        Logger.d("%s onResult = %s",TAG, p0?.getName())
-        if(p0 != SHARE_MEDIA.WEIXIN){
+        Logger.d("%s onResult = %s", TAG, p0?.getName())
+        if (p0 != SHARE_MEDIA.WEIXIN) {
             closeLoading()
         }
     }
 
     override fun onCancel(p0: SHARE_MEDIA?) {
-        Logger.d("%s onCancel = %s",TAG, p0?.getName())
-        if(p0 != SHARE_MEDIA.WEIXIN){
+        Logger.d("%s onCancel = %s", TAG, p0?.getName())
+        if (p0 != SHARE_MEDIA.WEIXIN) {
             closeLoading()
         }
     }
 
 
-
 }
 
 
-
-class NewsDetailAdapter(fm: FragmentManager, val news: MutableList< NewsData.NewsBean>) : FragmentStatePagerAdapter(fm) {
+class NewsDetailAdapter(fm: FragmentManager, val news: MutableList<NewsData.NewsBean>) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         val newsData = news[position]
@@ -372,7 +371,6 @@ class NewsDetailAdapter(fm: FragmentManager, val news: MutableList< NewsData.New
     fun getDataFromPosition(position: Int): NewsData.NewsBean {
         return news[position]
     }
-
 
 
 }
