@@ -121,7 +121,13 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
         name = "";
 
         mUser = (User) UserManager.getUser();
-        mPresenter.getUser();
+        if(mUser != null && mUser.isRefresh()){
+            onUserSuccess(mUser);
+        }else{
+            mPresenter.getUser();
+        }
+
+       //
     }
 
     @Override
