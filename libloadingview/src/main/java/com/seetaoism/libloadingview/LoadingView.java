@@ -218,8 +218,9 @@ public class LoadingView extends ConstraintLayout {
                     if(isShown()){
                         if(isCancelAble && mCurMode == LOADING_MODE_TRANSPARENT_BG){
                             close();
+                            return true;
                         }
-                        return true;
+                        return false;
                     }
                 }
                 return false;

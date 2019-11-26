@@ -51,15 +51,15 @@ public class NoticedetailsBean implements Serializable {
     private String comment_praise_time;
     private String comment_praise_count;
     private int delete_comment_id;
-    private String description;
+    private String article_description;
     private String share_link;
 
     public String getDescription() {
-        return description;
+        return article_description;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.article_description = description;
     }
 
     public String getShare_link() {
@@ -337,7 +337,7 @@ public class NoticedetailsBean implements Serializable {
                 delete_comment_id == that.delete_comment_id &&
                 Objects.equals(content, that.content) &&
                 Objects.equals(time, that.time) &&
-                Objects.equals(description, that.description) &&
+                Objects.equals(article_description, that.article_description) &&
                 Objects.equals(share_link, that.share_link) &&
                 Objects.equals(from_type, that.from_type) &&
                 Objects.equals(reply_user_head_url, that.reply_user_head_url) &&
@@ -370,7 +370,7 @@ public class NoticedetailsBean implements Serializable {
     @Override
     public int hashCode() {
 
-        return Objects.hash(description,share_link,article_praise_count,content, time, from_type, reply_user_head_url, reply_user_name, reply_time, by_reply_user_name, reply_content, by_reply_content, reply_type, link, article_image_url, article_theme, article_time, delete_comment_reply_id, article_id, article_is_good, article_is_collect, comment_content, comment_user_head_url, comment_user_name, comment_time, delete_article_id, praise_content, praise_user_head_url, praise_user_name, praise_time, article_praise_time, comment_praise_time, comment_praise_count, delete_comment_id);
+        return Objects.hash(article_description,share_link,article_praise_count,content, time, from_type, reply_user_head_url, reply_user_name, reply_time, by_reply_user_name, reply_content, by_reply_content, reply_type, link, article_image_url, article_theme, article_time, delete_comment_reply_id, article_id, article_is_good, article_is_collect, comment_content, comment_user_head_url, comment_user_name, comment_time, delete_article_id, praise_content, praise_user_head_url, praise_user_name, praise_time, article_praise_time, comment_praise_time, comment_praise_count, delete_comment_id);
     }
 
     @Override
@@ -378,7 +378,7 @@ public class NoticedetailsBean implements Serializable {
         return "NoticedetailsBean{" +
                 "content='" + content + '\'' +
                 ", time='" + time + '\'' +
-                ", description='" + description + '\'' +
+                ", description='" + article_description + '\'' +
                 ",share_link ='" + share_link + '\'' +
                 ", from_type='" + from_type + '\'' +
                 ", reply_user_head_url='" + reply_user_head_url + '\'' +

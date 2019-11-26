@@ -16,10 +16,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.mr.k.mvp.kotlin.base.BaseActivity;
 import com.seetaoism.R;
+import com.seetaoism.data.entity.DetailExclusiveData;
+import com.seetaoism.data.entity.FROM;
+import com.seetaoism.data.entity.NewsData;
 import com.seetaoism.data.entity.NoticedetailsBean;
+import com.seetaoism.home.detail.vp.DetailVPFragment;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class NoticedatilsRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -132,6 +139,7 @@ public class NoticedatilsRecAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 @Override
                 public void onClick(View v) {
                     //Toast.makeText(v.getContext(), "aa", Toast.LENGTH_SHORT).show();
+                    showArticleDetail(v.getContext(), getAdapterPosition());
                 }
             });
         }
@@ -186,6 +194,13 @@ public class NoticedatilsRecAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             comment_article_time=itemView.findViewById(R.id.comment_article_time);
             comment_count=itemView.findViewById(R.id.comment_count);
             content=itemView.findViewById(R.id.content);
+
+            comment_link.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showArticleDetail(v.getContext(), getAdapterPosition());
+                }
+            });
         }
 
         public void setData(CommentLikeHolder commentLikeHolder, int i) {
@@ -236,6 +251,13 @@ public class NoticedatilsRecAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             comment_count=itemView.findViewById(R.id.comment_count);
             content=itemView.findViewById(R.id.content);
 
+            comment_link.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showArticleDetail(v.getContext(), getAdapterPosition());
+                }
+            });
+
         }
 
         public void setData(ArticleLikeHolder articleLikeHolder, int i) {
@@ -282,6 +304,13 @@ public class NoticedatilsRecAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             comment_reply_time=itemView.findViewById(R.id.comment_reply_time);
             content=itemView.findViewById(R.id.content);
 
+            comment_link.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showArticleDetail(v.getContext(), getAdapterPosition());
+                }
+            });
+
         }
 
         public void setData(ArticleCommentHolder articleCommentHolder, int i) {
@@ -326,5 +355,32 @@ public class NoticedatilsRecAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     public void setOnItemCLick(setOnItemCLick setOnItemCLick) {
         this.mListener = setOnItemCLick;
+    }
+
+
+    private void showArticleDetail(Context context,int position){
+        DetailExclusiveData data = new DetailExclusiveData(FROM.RECOMMEND,buildData(position),position);
+        DetailVPFragment.Launcher.open((BaseActivity) Objects.requireNonNull(context), data, null);
+    }
+
+    private List<NewsData.NewsBean> buildData(int postion) {
+
+        ArrayList<NewsData.NewsBean> list = new ArrayList<>();
+
+        NewsData.NewsBean newsBean = new NewsData.NewsBean();
+
+        NoticedetailsBean noticedetailsBean = mData.get(postion);
+
+        newsBean.setId(noticedetailsBean.getArticle_id());
+        newsBean.setLink(noticedetailsBean.getLink());
+        newsBean.setShare_link(noticedetailsBean.getShare_link());
+        newsBean.setDescription(noticedetailsBean.getDescription());
+        newsBean.setTheme(noticedetailsBean.getArticle_theme());
+        newsBean.setImageUrl(noticedetailsBean.getArticle_image_url());
+        newsBean.setIs_good(noticedetailsBean.getArticle_is_good());
+        newsBean.setIs_collect(noticedetailsBean.getArticle_is_collect());
+
+        list.add(newsBean);
+        return list;
     }
 }

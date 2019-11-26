@@ -120,7 +120,7 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
 
         Logger.d("%s onArticleUserCommentResult  = %s ",TAG,Logger.isNull(commentData))
 
-
+        closeLoading()
 
        if(mCommentStart != 0 || mListAdapter.hasComments()){
             detailSrl.finishLoadMore()
@@ -428,9 +428,10 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
 
     override fun onDestroyView() {
         detailWebView.stopLoading()
-        detailWebView.destroy()
         super.onDestroyView()
     }
+
+
 }
 
 

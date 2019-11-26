@@ -2,6 +2,7 @@ package com.seetaoism.home.detail.vp
 
 import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,7 @@ import com.seetaoism.data.entity.FROM
 import com.seetaoism.data.entity.NewsAttribute
 import com.seetaoism.data.entity.NewsData
 import com.seetaoism.home.NewsViewModel
+import com.seetaoism.home.SsearchActivity
 import com.seetaoism.home.collect.CollectViewModel
 import com.seetaoism.home.detail.page.DetailPageFragment
 import com.seetaoism.home.detail.DetailsContract
@@ -213,7 +215,9 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
 
             }
             R.id.newsDetailSearch->{
-               showToast("搜索页面")
+
+                val intent = Intent(activity,SsearchActivity::class.java)
+                activity!!.startActivity(intent)
             }
         }
 
