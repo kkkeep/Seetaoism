@@ -26,6 +26,7 @@ import com.seetaoism.data.entity.FROM
 import com.seetaoism.data.entity.NewsAttribute
 import com.seetaoism.data.entity.NewsData
 import com.seetaoism.home.NewsViewModel
+import com.seetaoism.home.SsearchActivity
 import com.seetaoism.home.collect.CollectViewModel
 import com.seetaoism.home.detail.page.DetailPageFragment
 import com.seetaoism.home.detail.DetailsContract
