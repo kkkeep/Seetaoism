@@ -10,7 +10,7 @@
     android:layout_height="wrap_content">
 
 
-    <org.raphets.roundimageview.RoundImageView
+    <ImageView
         android:id="@+id/news_item_video_im_cover"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -19,11 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:leftBottom_corner_radius="4dp"
-        app:leftTop_corner_radius="4dp"
-        app:rightBottom_corner_radius="4dp"
-        app:rightTop_corner_radius="4dp"
-        app:type="round" />
+         />
 
     <TextView
         android:id="@+id/news_item_video_tv_title"

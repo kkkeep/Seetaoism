@@ -338,7 +338,7 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
 
     override fun initData() {
         showLoadingForViewPager()
-        //detailWebView.loadUrl("https://mp.weixin.qq.com/s/MtFJ-E0jN8O8fTECFxUjBw")
+//        detailWebView.loadUrl("http://baijiahao.baidu.com/s?id=1651138211159452840&wfr=spider&for=pc&isFailFlag=1")
         detailWebView.loadUrl(mArticleLinkUrl)
     }
 

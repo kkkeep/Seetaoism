@@ -271,7 +271,9 @@ public class CollectAllFragment extends MvpBaseFragment<CollectContract.ICollect
         if (builder.getWindow() == null) {
             return;
         }
+
         builder.getWindow().setContentView(R.layout.pop_user);//设置弹出框加载的布局
+        builder.getWindow().setBackgroundDrawableResource(R.drawable.dailog);
         TextView msg = (TextView) builder.findViewById(R.id.tv_msg);
         Button cancle = (Button) builder.findViewById(R.id.btn_cancle);
         Button sure = (Button) builder.findViewById(R.id.btn_sure);
@@ -281,9 +283,7 @@ public class CollectAllFragment extends MvpBaseFragment<CollectContract.ICollect
 
 
         if (index == 1) {
-            // msg.setText("删除后不可恢复，是否删除该条目？");
         } else {
-            //msg.setText("删除后不可恢复，是否删除这" + index + "个条目？");
         }
         cancle.setOnClickListener(new View.OnClickListener() {
             @Override
