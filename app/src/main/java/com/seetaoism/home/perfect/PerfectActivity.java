@@ -337,7 +337,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
         LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.window_popup, null);
         popupWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         //点击空白处时，隐藏掉pop窗口
-        //popupWindow.setFocusable(true);
+        popupWindow.setFocusable(true);
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
         //实例化一个ColorDrawable颜色为半透明
         ColorDrawable dw = new ColorDrawable(0x00000000);
@@ -348,6 +348,10 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
         int[] location = new int[2];
         mUsericon.getLocationOnScreen(location);
         popupWindow.showAtLocation(mUsericon, Gravity.LEFT | Gravity.BOTTOM, 0, -location[1]);
+
+        popupWindow.setOnDismissListener(() -> {
+            backgroundAlpha(PerfectActivity.this, 1f);
+        });
         //添加按键事件监听
         setButtonListeners(layout);
     }
@@ -376,7 +380,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
                         .setFileProviderAuthority("com.huantansheng.easyphotos.demo.fileprovider")
                         .start(101);
                 popupWindow.dismiss();
-                backgroundAlpha(PerfectActivity.this, 1f);
+
             }
         });
         //相册点击事件
@@ -387,7 +391,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
                         .setCount(1)
                         .start(101);
                 popupWindow.dismiss();
-                backgroundAlpha(PerfectActivity.this, 1f);
+
             }
         });
 
@@ -396,7 +400,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
             public void onClick(View view) {
                 if (popupWindow != null && popupWindow.isShowing()) {
                     popupWindow.dismiss();
-                    backgroundAlpha(PerfectActivity.this, 1f);
+
                 }
             }
         });
@@ -424,6 +428,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
 
 
     private void setHeadImg(String path) {
+        showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
         File file = new File(path);
         RequestBody body = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part formData = MultipartBody.Part.createFormData("file", file.getName(), body);
@@ -447,6 +452,8 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
         } else {
             showToast(msg);
         }
+        //showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
+        closeLoading();
     }
 
     @Override
