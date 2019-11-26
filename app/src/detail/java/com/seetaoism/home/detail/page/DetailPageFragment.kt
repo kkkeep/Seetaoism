@@ -78,7 +78,7 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
 
     override fun onArticleListResult(data: MutableList<NewsData.News>?, msg: String?) {
         Logger.d("%s onArticleListResult  = %s ",TAG,Logger.isNull(data))
-        closeLoading()
+
         data?.run {
             mListAdapter.run {
                 setNews(data)
@@ -216,7 +216,7 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
 
                         Logger.d("%s onProgressChanged = %s  ready to getRelatedArticleList and getComments ",TAG,newProgress)
                         mPresenter.getRelatedArticleList(mArticleId)
-                        //getComments()
+                        getComments()
 
                         mIsFinish = true;
                     }
