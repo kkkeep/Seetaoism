@@ -1,5 +1,6 @@
 package com.mr.k.mvp.kotlin.base
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,11 @@ open class BaseActivity : RxAppCompatActivity() {
 
     private var mLoadingView: LoadingView? = null
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    }
     @JvmOverloads
     fun <C : BaseFragment> addFragment(fragmentManager: FragmentManager, clazz: Class<C>, containerId: Int, args: Bundle? = null, tag : String = getFragmentTag(clazz), doOnCommit: Function1<C,Unit>? = null): C? {
         return doAddFragment(fragmentManager, clazz, containerId, args,tag,doOnCommit );
