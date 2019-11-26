@@ -163,7 +163,7 @@ class MarqueeView : HorizontalScrollView {
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
                 // 设置显示的用户名文本颜色
-                ds.color = Color.parseColor("#282B2E")
+                ds.color = Color.parseColor("#FF9B9C9E")
                 ds.isUnderlineText = false
             }
         }
