@@ -112,9 +112,15 @@ public class RecommendFragment extends MvpBaseFragment<RecommendContract.IRecomm
 
     }
 
+    public void reloadColumn(){
+        mPresenter.getNewsColumn();
+    }
+
     public void refreshColumn(List<NewsColumn> data) {
         mPageAdapter.refreshColumn(data);
         mTabLayout.notifyDataSetChanged();// 必须加这一行，不然tab 不刷新
+
+        mPresenter.uploadColumn(data);
     }
 
 
@@ -134,13 +140,41 @@ public class RecommendFragment extends MvpBaseFragment<RecommendContract.IRecomm
         Logger.d("%s News tab = %s", TAG, data);
 
         if (data.getList() != null && !SystemFacade.isListEmpty(data.getList().getMyColumnList())) {
-            mNewsColumnData = data;
-            mPageAdapter = new RecommendPageAdapter(getChildFragmentManager(), data.getList().getMyColumnList());
-            mViewPager.setAdapter(mPageAdapter);
-            mTabLayout.setViewPager(mViewPager);
-            changeTabColor(0, 0);
-            closeLoading();
-            mHomeActivity.setDrawerColumnList(data);
+            if(mPageAdapter == null) {
+
+                mNewsColumnData = data;
+                mPageAdapter = new RecommendPageAdapter(getChildFragmentManager(), data.getList().getMyColumnList());
+                mViewPager.setAdapter(mPageAdapter);
+                mTabLayout.setViewPager(mViewPager);
+                changeTabColor(0, 0);
+                closeLoading();
+                mHomeActivity.setDrawerColumnList(data);
+            }else{
+
+                List<NewsColumn> serverData = data.getList().getMyColumnList();
+                List<NewsColumn> localData = mPageAdapter.getColumns();
+                boolean isRefresh = false;
+
+                if(localData == null || localData.size() == 0){
+                  isRefresh = true;
+                }
+
+                if( !isRefresh && (serverData.size() != localData.size())){
+                    isRefresh = true;
+                }
+                if(!isRefresh){
+                    for(NewsColumn column : serverData){
+                        if(!localData.contains(column)){
+                            isRefresh = true;
+                            break;
+                        }
+                    }
+                }
+                if(isRefresh){
+                    ((HomeActivity)getActivity()).onColumnChanged(serverData);
+                }
+
+            }
         } else {
             handError(getString(R.string.text_error_server_exception));
         }

@@ -103,6 +103,11 @@ public interface JDApiService {
     @GET("api/column/columnmanagelist")
     Observable<HttpResult<NewsColumnData>> getNewsColumnList(@QueryMap Map<String, String> map);
 
+    // 请求 首页新闻 栏目， 如果登录需要传入token,
+    @POST("api/column/columnmanage")
+    @FormUrlEncoded
+    Observable<HttpResult<String>> uploadColumn(@FieldMap Map<String, String> map);
+
     // 请求首页新闻
     @GET("/app/v_1_1/article/recommendlist")
     Observable<HttpResult<NewsData>> getNewsData(@QueryMap Map<String, String> map);

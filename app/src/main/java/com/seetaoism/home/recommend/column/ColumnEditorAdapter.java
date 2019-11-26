@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -13,6 +14,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -21,9 +23,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mr.k.mvp.UserManager;
 import com.mr.k.mvp.utils.Logger;
 import com.mr.k.mvp.utils.SystemFacade;
 import com.seetaoism.R;
+import com.seetaoism.data.entity.User;
+import com.seetaoism.user.login.LoginActivity;
 import com.seetaoism.widgets.ColumnItemView;
 
 import java.util.ArrayList;
@@ -651,9 +656,11 @@ public class ColumnEditorAdapter<T extends IColumnData> extends RecyclerView.Ada
             tvAction.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    switchMode();
-                    if(!isEditMode && mOnColumnChangedListener != null){
-                        notifyChanged();
+                    if(!needLoginIfNeed(v.getContext())){
+                        switchMode();
+                        if(!isEditMode && mOnColumnChangedListener != null){
+                            notifyChanged();
+                        }
                     }
                 }
             });
@@ -789,8 +796,11 @@ public class ColumnEditorAdapter<T extends IColumnData> extends RecyclerView.Ada
             column.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int from = MoreColumnHolder.this.getAdapterPosition();
-                    moveToMy(from);
+                    if(!needLoginIfNeed(v.getContext())){
+                        int from = MoreColumnHolder.this.getAdapterPosition();
+                        moveToMy(from);
+                    }
+
                 }
             });
         }
@@ -818,6 +828,16 @@ public class ColumnEditorAdapter<T extends IColumnData> extends RecyclerView.Ada
         }
     }
 
+
+    private boolean needLoginIfNeed(Context context) {
+        User user = (User) UserManager.getUser();
+        if(user != null && user.isRefresh()){
+            return false;
+        }
+        Toast.makeText(context, context.getString(R.string.text_need_login), Toast.LENGTH_SHORT).show();
+        LoginActivity.start();
+        return true;
+    }
     public interface OnColumnChangedListener<T>{
        void onChanged(List<T> my, List<T> more);
     }

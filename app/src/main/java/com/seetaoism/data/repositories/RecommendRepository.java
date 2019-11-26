@@ -14,6 +14,7 @@ import com.seetaoism.home.recommend.RecommendContract;
 import com.trello.rxlifecycle2.LifecycleProvider;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -38,5 +39,19 @@ public class RecommendRepository extends BaseRepository implements RecommendCont
                 return Observable.error(new ResultException(ResultException.SERVER_ERROR));
             }
         }, callBack);
+    }
+
+    @Override
+    public void uploadColumn(LifecycleProvider provider, Map<String, String> params, IBaseCallBack<String> callBack) {
+
+        observer(provider, JDDataService.service().uploadColumn(params), new Function<HttpResult<String>, ObservableSource<String>>() {
+            @Override
+            public ObservableSource<String> apply(HttpResult<String> stringHttpResult) throws Exception {
+                if(stringHttpResult.code == 1){
+                   return  Observable.just(stringHttpResult.data);
+                }
+                return Observable.error(new ResultException(stringHttpResult.message));
+            }
+        },callBack);
     }
 }

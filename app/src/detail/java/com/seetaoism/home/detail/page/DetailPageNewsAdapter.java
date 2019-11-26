@@ -52,7 +52,8 @@ public class DetailPageNewsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
         int start = getItemCount();
         mComments.addAll(comments);
-        notifyItemRangeChanged(start-1, comments.size());
+       // notifyItemRangeChanged(start-1, comments.size());
+        notifyDataSetChanged();
 
 
     }

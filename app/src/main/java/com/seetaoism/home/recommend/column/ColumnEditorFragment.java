@@ -82,7 +82,6 @@ public class ColumnEditorFragment extends BaseFragment implements View.OnClickLi
                     mColumnEditorAdapter.setOnColumnChangedListener(new ColumnEditorAdapter.OnColumnChangedListener<NewsColumn>() {
                         @Override
                         public void onChanged(List<NewsColumn> my, List<NewsColumn> more) {
-                            showToast("改变了");
                             SPUtils.saveValueToDefaultSpByCommit(AppConstant.SPKeys.COLUMNS, DataCacheUtils.convertToJsonFromObject(mNewsColumnData));
                             if (mHomeActivity != null) {
                                 mHomeActivity.onColumnChanged(new ArrayList<NewsColumn>(my));

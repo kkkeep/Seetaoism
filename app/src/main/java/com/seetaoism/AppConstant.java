@@ -74,6 +74,9 @@ public interface AppConstant {
         String SEARCHKEY = "keywords";//搜索关键字（搜索）
 
         String EMAIL="email";//邮箱
+
+        String COLUMN_IDS = "column_id";
+        String COLUMN_SORT = "sort";
     }
 
 

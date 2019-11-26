@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mr.k.mvp.base.MvpBaseFragment
@@ -76,8 +77,8 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
     override fun createPresenter() = DetailPagePresenter()
 
     override fun onArticleListResult(data: MutableList<NewsData.News>?, msg: String?) {
-
-
+        Logger.d("%s onArticleListResult  = %s ",TAG,Logger.isNull(data))
+        closeLoading()
         data?.run {
             mListAdapter.run {
                 setNews(data)
@@ -116,7 +117,11 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
     }
 
     override fun onArticleUserCommentResult(commentData: CommentData?, msg: String?) {
-        closeLoading()
+
+        Logger.d("%s onArticleUserCommentResult  = %s ",TAG,Logger.isNull(commentData))
+
+
+
        if(mCommentStart != 0 || mListAdapter.hasComments()){
             detailSrl.finishLoadMore()
         }
@@ -205,10 +210,13 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
             webChromeClient = object : WebChromeClient() {
 
                 override fun onProgressChanged(view: WebView?, newProgress: Int) {
+
+                    Logger.d("%s onProgressChanged = %s ",TAG,newProgress)
                     if (newProgress == 100 && !mIsFinish && detailWebView != null ) {
 
+                        Logger.d("%s onProgressChanged = %s  ready to getRelatedArticleList and getComments ",TAG,newProgress)
                         mPresenter.getRelatedArticleList(mArticleId)
-                        getComments()
+                        //getComments()
 
                         mIsFinish = true;
                     }
@@ -220,7 +228,7 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
             adapter = mListAdapter.apply {
                 setItemOnClickListener(object : DetailPageNewsAdapter.DetailItemOnClickListener {
                     override fun onNewsClick( newsList : MutableList<out NewsData.NewsBean>,realPosition: Int) {
-
+                        closeLoading()
                         DetailVPFragment.Launcher.openInner(activity as BaseActivity, DetailExclusiveData(FROM.INNER,newsList,realPosition))
                     }
 
@@ -345,6 +353,9 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
      * 显示评论新闻的Pop
      */
     private fun showCommentDialog(news : NewsData.NewsBean){
+
+        Toast.makeText(context," " + detailWebView.height  + " - " + detailWebView.contentHeight * detailWebView.scale,Toast.LENGTH_SHORT ).show()
+
         CommentPopView(activity!!).show(detailWebView,CommentPopView.TYPE_COMMENT, mLastInputContent , getString(R.string.text_detail_write_comment), object : OnActionListener {
             override fun onAction(type: Int, content: String) {
                 if(type == CommentPopView.TYPE_COMMENT){

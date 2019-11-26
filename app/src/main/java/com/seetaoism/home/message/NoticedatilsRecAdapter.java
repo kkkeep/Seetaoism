@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -126,6 +127,13 @@ public class NoticedatilsRecAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             comment_article_image_url=itemView.findViewById(R.id.comment_article_image_url);
             comment_article_theme=itemView.findViewById(R.id.comment_article_theme);
             comment_article_time=itemView.findViewById(R.id.comment_article_time);
+
+            comment_link.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Toast.makeText(v.getContext(), "aa", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         public void setData(CommentBackHolder commentBackHolder, int i) {

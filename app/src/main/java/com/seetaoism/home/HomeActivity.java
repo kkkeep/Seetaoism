@@ -1,5 +1,6 @@
 package com.seetaoism.home;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -19,6 +20,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mr.k.mvp.IUser;
+import com.mr.k.mvp.UserManager;
 import com.mr.k.mvp.base.BaseActivity;
 import com.mr.k.mvp.base.BaseFragment;
 import com.mr.k.mvp.statusbar.StatusBarUtils;
@@ -29,6 +32,7 @@ import com.seetaoism.base.JDBaseActivity;
 import com.seetaoism.data.entity.NewsColumn;
 import com.seetaoism.data.entity.NewsColumnData;
 import com.seetaoism.data.entity.NewsData;
+import com.seetaoism.data.entity.User;
 import com.seetaoism.data.repositories.NewsRepository;
 import com.seetaoism.home.mine.MineFragment;
 import com.seetaoism.home.recommend.RecommendFragment;
@@ -46,6 +50,9 @@ import com.umeng.socialize.media.UMWeb;
 
 import java.util.List;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+
 
 public class HomeActivity extends JDBaseActivity implements View.OnClickListener {
 
@@ -59,6 +66,8 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
     private TextView home_drawer_share_app;
     private RecyclerView mDrawerColumnListView;
     private FeedbackPopwindow mFeedPopwindow;
+
+    private BroadcastReceiver mBroadcastReceiver;
 
     @Override
     protected void doOnCreate(@Nullable Bundle savedInstanceState) {
@@ -92,6 +101,23 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
         });
 
         mBottomTabLayout.selectTab(1);
+
+
+       mBroadcastReceiver =  UserManager.registerUserBroadcastReceiver(iUser -> {
+            User user = (User) iUser;
+            if(user != null && user.isRefresh()){
+                updateTabTitle(4, getString(R.string.text_main_tab_mine));
+
+                RecommendFragment recommendFragment = (RecommendFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(RecommendFragment.class));
+                if (recommendFragment != null) {
+                    recommendFragment.reloadColumn();
+                }
+
+            }else{
+                updateTabTitle(4, getString(R.string.text_unlogin));
+            }
+            return Unit.INSTANCE;
+        });
     }
 
 
@@ -136,6 +162,8 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
         }
 
         addFragment(getSupportFragmentManager(), aClass, R.id.home_fragment_container, null);
+
+
 
 
     }
@@ -183,6 +211,10 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
     protected void onDestroy() {
         super.onDestroy();
         NewsRepository.destroy();
+        if(mBroadcastReceiver != null){
+            UserManager.unRegisterUserBroadcastReceiver(mBroadcastReceiver);
+            mBroadcastReceiver = null;
+        }
     }
 
     @Override

@@ -37,6 +37,10 @@ public class RecommendPageAdapter extends FragmentStatePagerAdapter {
         notifyDataSetChanged();
     }
 
+    public List<NewsColumn> getColumns(){
+        return mDatas;
+    }
+
     private void setData(List<NewsColumn> datas){
         mDatas = datas;
         for(int i = 0; i< datas.size();i++){

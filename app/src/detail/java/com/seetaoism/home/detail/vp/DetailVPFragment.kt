@@ -169,6 +169,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
 
         mReceiver?.run {
             unRegisterUserBroadcastReceiver(this)
+            mReceiver = null;
         }
 
     }

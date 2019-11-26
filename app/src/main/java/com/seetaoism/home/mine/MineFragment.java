@@ -276,6 +276,7 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
         super.onDestroyView();
         if(mReceiver != null){
             UserManager.unRegisterUserBroadcastReceiver(mReceiver);
+            mReceiver = null;
         }
 
     }

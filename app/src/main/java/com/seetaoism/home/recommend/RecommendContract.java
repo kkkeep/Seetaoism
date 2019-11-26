@@ -6,12 +6,15 @@ import com.mr.k.mvp.base.IBaseCallBack;
 import com.mr.k.mvp.base.IBasePresenter;
 import com.mr.k.mvp.base.IBaseView;
 import com.mr.k.mvp.base.ICacheBaseCallBack;
+import com.seetaoism.data.entity.NewsColumn;
 import com.seetaoism.data.entity.NewsColumnData;
 import com.seetaoism.data.entity.NewsData;
 import com.trello.rxlifecycle2.LifecycleProvider;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 
@@ -23,15 +26,23 @@ public interface RecommendContract {
         void onNewsColumnSuccess(NewsColumnData data);
 
         void onNewsColumnFail(String msg);
+
+
+
     }
 
     public interface IRecommendPresenter extends IBasePresenter<IRecommendView> {
         void getNewsColumn();
+
+        void uploadColumn(List<NewsColumn> newsColumns);
+
     }
 
     public interface IRecommendModel {
 
         void getNewsColumn(LifecycleProvider provider, IBaseCallBack<NewsColumnData> callBack);
+
+        void uploadColumn(LifecycleProvider provider,Map<String,String> params,IBaseCallBack<String> callBack);
     }
 
 

@@ -4,6 +4,7 @@ import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Rect
 import android.text.Spannable
 import android.text.SpannableString
@@ -162,7 +163,7 @@ class MarqueeView : HorizontalScrollView {
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
                 // 设置显示的用户名文本颜色
-                ds.color = textColor
+                ds.color = Color.parseColor("#282B2E")
                 ds.isUnderlineText = false
             }
         }
