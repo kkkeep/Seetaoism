@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -276,22 +277,31 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
             return;
         }
 
-        LinearLayout view = (LinearLayout) getLayoutInflater().inflate(R.layout.update_name_layout, null);
-        popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        RelativeLayout view = (RelativeLayout) getLayoutInflater().inflate(R.layout.update_name_layout, null);
+        popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         //popupWindow.setFocusable(true);
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
         //实例化一个ColorDrawable颜色为半透明
         ColorDrawable dw = new ColorDrawable(0x00000000);
         //设置SelectPicPopupWindow弹出窗体的背景
         popupWindow.setBackgroundDrawable(dw);
+        popupWindow.setFocusable(true);
+        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         popupWindow.setOutsideTouchable(false);
         backgroundAlpha(PerfectActivity.this, 0.5f);//0.0-1.0
         popupWindow.showAtLocation(mNikename, Gravity.LEFT | Gravity.RIGHT, 0, 0);
+
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                backgroundAlpha(PerfectActivity.this,1f);
+            }
+        });
         setupdatename(view);
 
     }
 
-    private void setupdatename(LinearLayout view) {
+    private void setupdatename(RelativeLayout view) {
         final EditText up_name = view.findViewById(R.id.up_name);
         final TextView up_flase = view.findViewById(R.id.up_flase);
         TextView up_true = view.findViewById(R.id.up_true);
@@ -310,7 +320,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
                 String string = up_name.getText().toString();
                 mPresenter.getUpdateNameP(string);
                 popupWindow.dismiss();
-                backgroundAlpha(PerfectActivity.this,1f);
+
             }
         });
     }
