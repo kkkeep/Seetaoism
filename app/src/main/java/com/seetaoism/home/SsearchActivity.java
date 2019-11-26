@@ -1,6 +1,7 @@
 package com.seetaoism.home;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -190,6 +192,8 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
             //搜索
             case R.id.close:
                 Search();
+                hideKeyboard(mClose);
+
                 break;
             //关闭界面
             case R.id.search_text:
@@ -204,7 +208,20 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
 
                 SharedPrefrenceUtils.putStringList(this, AppConstant.SPKeys.SEARCH, his);
                 break;
+
         }
+
+    }
+    /**
+     * 隐藏软键盘
+     *
+     * @param :上下文
+     * @param view :一般为EditText
+     */
+    public void hideKeyboard(View view) {
+        InputMethodManager manager = (InputMethodManager) view.getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     private void Search() {
@@ -268,6 +285,7 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
         /*判断是否是“GO”键*/
         if (i == EditorInfo.IME_ACTION_SEARCH || i == EditorInfo.IME_ACTION_UNSPECIFIED) {
             Search();
+            hideKeyboard(mEditSearch);
             return true;
         }
         return false;

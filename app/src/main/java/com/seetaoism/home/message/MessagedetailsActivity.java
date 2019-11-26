@@ -2,6 +2,7 @@ package com.seetaoism.home.message;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -57,6 +58,12 @@ public class MessagedetailsActivity extends JDMvpBaseActivity<MessageContract.Me
         mPop = findViewById(R.id.pop);
         //我的消息详情列表
         mPresenter.getMessagedetails(id);
+        mClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
     }
 

@@ -62,19 +62,20 @@
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginStart="21dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="136dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_drawer_search" />
+        app:srcCompat="@drawable/sousuo_draw" />
 
     <TextView
         android:id="@+id/editText"
+        android:layout_marginBottom="2dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="11dp"
+        android:layout_marginStart="10.5dp"
         android:background="@null"
         android:ems="10"
         android:hint="@string/text_search_hint"

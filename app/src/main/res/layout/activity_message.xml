@@ -47,6 +47,11 @@
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#FFF4F4F4"/>
+
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/message_sm"
         android:layout_width="match_parent"

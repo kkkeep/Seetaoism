@@ -267,12 +267,11 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
     private View.OnClickListener getItemsOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //mFeedPopwindow.dismiss();
             mFeedPopwindow.backgroundAlpha(HomeActivity.this, 1f);
             switch (v.getId()) {
                 case R.id.call_opinion:
                     Intent myCallIntent = new Intent(Intent.ACTION_DIAL,
-                            Uri.parse("tel:010-58760804"));
+                            Uri.parse("tel:010-58760804-811"));
                     startActivity(myCallIntent);
                     break;
                 case R.id.close_opinion:

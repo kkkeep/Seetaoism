@@ -9,6 +9,7 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:textStyle="bold"
         android:id="@+id/detail_item_news_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -21,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/detail_comcomt_item_user_head_pic" />
 
-    <org.raphets.roundimageview.RoundImageView
+    <ImageView
         android:id="@+id/detail_comcomt_item_user_head_pic"
         android:layout_width="91dp"
         android:layout_height="68dp"
@@ -31,11 +32,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:leftBottom_corner_radius="4dp"
-        app:leftTop_corner_radius="4dp"
-        app:rightBottom_corner_radius="4dp"
-        app:rightTop_corner_radius="4dp"
-        app:type="round" />
+        />
 
     <TextView
         android:id="@+id/detail_item_news_label"

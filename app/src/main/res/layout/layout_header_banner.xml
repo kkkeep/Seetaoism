@@ -11,7 +11,7 @@
         android:id="@+id/news_item_header_j_banner"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:indicatorLeftMargin="10dp"
+        app:indicatorLeftMargin="11dp"
         app:indicatorRightMargin="16dp"
         app:layout_constraintDimensionRatio="1.84:1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,8 +22,9 @@
         app:indicatorShow="false"
         app:titleLeftMargin="16dp"
         app:titleRightMargin="10dp"
-        app:titleSize="15dp"
+        app:titleSize="16dp"
         app:titleTopMargin="12dp"
+        android:textStyle="bold"
         tools:background="@color/gray_4" />
 
 
@@ -61,7 +62,7 @@
         <jy.com.libbanner.MarqueeView
             android:id="@+id/news_item_header_tv_flash"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="22dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
@@ -69,7 +70,7 @@
             app:spacing="0dp"
             app:speed="1"
             app:textColor="#FF9B9C9E"
-            app:textSize="14dp"
+            app:textSize="13dp"
         />
 
     </LinearLayout>

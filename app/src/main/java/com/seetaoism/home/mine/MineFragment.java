@@ -147,14 +147,15 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
 
             case R.id.qiandao_bt:
                 //签到
-                User qiandao_bt = (User) UserManager.getUser();
-                if(qiandao_bt == null){
+                User qiandao_bt1 = (User) UserManager.getUser();
+                if(qiandao_bt1 == null){
                     startActivity(new Intent(getContext(), LoginActivity.class));
                 }else{
-                    if(qiandao_bt.getUserInfo().getCheck_in_status() != 1){
+                    if(qiandao_bt1.getUserInfo().getCheck_in_status() != 1){
                         mPresenter.getMine();
                     }else{
                         showToast(R.string.text_qiandao);
+                        qiandao_bt.setBackgroundResource(R.drawable.minewhite);
                     }
                 }
 
@@ -176,12 +177,14 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
         user.getUserInfo().setCheck_in_status(1);
         IntegralWidget.show(getActivity(), 20);
         qiandao_bt.setText(getString(R.string.text_qiandao));
+        qiandao_bt.setBackgroundResource(R.drawable.minewhite);
 
     }
 
     @Override
     public void onMineFail(String msg) {
         qiandao_bt.setText(getString(R.string.text_un_qiandao));
+        qiandao_bt.setBackgroundResource(R.drawable.mine_black);
         showToast(msg);
     }
 
@@ -219,8 +222,10 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
             if (user.getUserInfo().getCheck_in_status() == 1) {
                 //签到按钮调接口
                 qiandao_bt.setText(getString(R.string.text_qiandao));
+                qiandao_bt.setBackgroundResource(R.drawable.minewhite);
             }else{
                 qiandao_bt.setText(getResources().getString(R.string.text_un_qiandao));
+                qiandao_bt.setBackgroundResource(R.drawable.mine_black);
             }
 
             if (user.getToken() != null) {
@@ -229,7 +234,7 @@ public class MineFragment extends MvpBaseFragment<MineContract.IMinePresnter> im
                 mine_login.setVisibility(View.VISIBLE);
             }
 
-            if (user.getUserInfo() != null) {
+            if (user.getUserInfo() != null&&user.getUserInfo().getNotice_count()>0) {
                 yuan.setVisibility(View.VISIBLE);
                 yuan.setText(user.getUserInfo().getNotice_count() + "");
             } else {

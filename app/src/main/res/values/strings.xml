@@ -81,9 +81,9 @@
     <string name="text_add_column">添加栏目</string>
     <string name="text_click_to_add">点击添加</string>
     <string name="text_edit">编辑</string>
-    <string name="text_search_hint">搜索你感兴趣的类容</string>
+    <string name="text_search_hint">搜索感兴趣的内容</string>
     <string name="text_column_editor">管理栏目</string>
-    <string name="text_drawer_share_app">分享App</string>
+    <string name="text_drawer_share_app">分享APP</string>
     <string name="text_drawer_feedback">意见反馈</string>
     <string name="serach_qx">取消</string>
 

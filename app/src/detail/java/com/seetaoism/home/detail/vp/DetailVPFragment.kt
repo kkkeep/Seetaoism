@@ -216,7 +216,6 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
             }
             R.id.newsDetailSearch->{
                 //搜索页面
-
                 val intent = Intent(activity, SsearchActivity::class.java)
                 activity!!.startActivity(intent)
             }

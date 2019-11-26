@@ -43,7 +43,6 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(mContext).inflate(R.layout.recyclerview_notice_list, parent, false);
         return new NoticeHolder(inflate);
-        //少东西吧  你这现在还不是多布局这个就是列表不需要多布局 不需要？有人评论的那个  不是多布局？
     }
 
     @Override

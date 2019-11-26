@@ -191,7 +191,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:textSize="16sp"
-                    android:text="客服热线：010-58760804"
+                    android:text="客服热线：010-58760804-811"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#9B9C9E " />
 

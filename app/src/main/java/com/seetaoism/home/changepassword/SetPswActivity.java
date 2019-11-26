@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 
@@ -28,7 +29,7 @@ public class SetPswActivity extends JDMvpBaseActivity<LoginContract.IUpdatePrese
     private Button register_btn_next;
     private String phone;
     private String sms_code;
-
+    private ImageView iv_close;
 
 
     @Override
@@ -40,6 +41,7 @@ public class SetPswActivity extends JDMvpBaseActivity<LoginContract.IUpdatePrese
 
         update_close_eye = findViewById(R.id.update_close_eye);
         update_eye = findViewById(R.id.update_eye);
+        iv_close = findViewById(R.id.iv_close);
         iv_cleanPhone1 = findViewById(R.id.iv_cleanPhone1);
         iv_cleanPhone2 = findViewById(R.id.iv_cleanPhone2);
         et_phoneNumber = findViewById(R.id.et_phoneNumber);
@@ -48,6 +50,7 @@ public class SetPswActivity extends JDMvpBaseActivity<LoginContract.IUpdatePrese
 
 
         register_btn_next.setOnClickListener(this);
+        iv_close.setOnClickListener(this);
 
         iv_cleanPhone1.bindEditText(et_phoneNumber);
         iv_cleanPhone2.bindEditText(et_verify);
@@ -87,6 +90,9 @@ public class SetPswActivity extends JDMvpBaseActivity<LoginContract.IUpdatePrese
                 mPresenter.SetPsw(phone, sms_code,verify);
                 break;
             }
+            case R.id.iv_close:
+                finish();
+                break;
 
             default:
                 break;

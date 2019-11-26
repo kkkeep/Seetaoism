@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="11dp"
         tools:text="标题"
+        android:textStyle="bold"
         android:maxLines="2"
         android:ellipsize="end"
         android:textColor="@color/black"

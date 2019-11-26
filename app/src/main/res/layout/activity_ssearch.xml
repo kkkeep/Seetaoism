@@ -26,6 +26,7 @@
 
 
                 <EditText
+                    android:layout_marginBottom="2dp"
                     android:id="@+id/edit_search"
                     android:layout_width="119dp"
                     android:layout_height="wrap_content"

@@ -22,8 +22,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:textSize="20sp"
-                android:textStyle="bold"
                 android:text="修改密码"
+                android:textColor="#FF282B2E"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
@@ -88,6 +88,8 @@
             <EditText
                 android:inputType="numberDecimal"
                 android:textSize="16sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
                 android:hint="输入验证码"
                 android:background="@color/white"
                 android:id="@+id/et_verify"
@@ -95,7 +97,7 @@
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/tv_getVerify"
-                android:textColor="@color/red"
+                android:textColor="#FF9B9C9E"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:text="获取验证码"

@@ -10,11 +10,11 @@
 
     <ImageView
         android:layout_width="0dp"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/bottom_tab_layout_split_line"
+        android:background="#FFE1E1E1"
         />
 
 
@@ -44,7 +44,7 @@
             android:layout_marginTop="5dp"
             android:textColor="@color/black"
             android:text="@string/text_main_tab_home"
-            android:textSize="11dp"
+            android:textSize="10dp"
             tools:text="推荐" />
     </com.seetaoism.widgets.bottomtablaout.BottomTab>
 

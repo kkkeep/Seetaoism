@@ -15,9 +15,12 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.mr.k.mvp.IUser;
+import com.mr.k.mvp.UserManager;
 import com.mr.k.mvp.utils.SystemFacade;
 import com.seetaoism.R;
 import com.seetaoism.base.JDMvpBaseActivity;
+import com.seetaoism.data.entity.User;
 import com.seetaoism.data.repositories.UserRepository;
 import com.seetaoism.libloadingview.LoadingView;
 import com.seetaoism.user.login.ForgetPsdPresenter;
@@ -54,10 +57,19 @@ public class VerificationPswActivity extends JDMvpBaseActivity<LoginContract.IFo
         mTvGetVerify = findViewById(R.id.tv_getVerify);
         mLoginIvLine2 = findViewById(R.id.login_iv_line2);
         mRegisterBtnNext = findViewById(R.id.register_btn_next);
-
-        mIvCleanPhone.bindEditText(mEtPhoneNumber);
+        mIvCleanPhone.setVisibility(View.GONE);
         mTvGetVerify.setOnClickListener(this);
         mRegisterBtnNext.setOnClickListener(this);
+        mIvClose.setOnClickListener(this);
+
+        mEtPhoneNumber.setCursorVisible(false);
+        mEtPhoneNumber.setFocusable(false);
+        mEtPhoneNumber.setFocusableInTouchMode(false);
+
+        User user = (User) UserManager.getUser();
+        String mobile = user.getUserInfo().getMobile();
+        mEtPhoneNumber.setText(mobile);
+
 
         //验证码
         mEtVerify.addTextChangedListener(new TextWatcher() {

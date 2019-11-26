@@ -101,7 +101,7 @@
                 android:layout_marginTop="25dp"
                 android:text="@string/text_detail_you_may_be_want_to_look"
                 android:textColor="@color/gray_10"
-                android:textSize="16dp"
+                android:textSize="15dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detailPageShareMoments" />
 
