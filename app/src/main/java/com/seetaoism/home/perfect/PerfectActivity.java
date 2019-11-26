@@ -126,8 +126,6 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
         }else{
             mPresenter.getUser();
         }
-
-       //
     }
 
     @Override
