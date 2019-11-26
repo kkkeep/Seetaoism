@@ -103,6 +103,7 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
         mRecommend.setOnClickListener(this);
         mClose.setOnClickListener(this);
         mCall.setOnClickListener(this);
+        mCleanCach.setOnClickListener(this);
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -187,6 +188,10 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
                 Intent myCallIntent = new Intent(Intent.ACTION_DIAL,
                         Uri.parse("tel:010-58760804"));
                 startActivity(myCallIntent);
+                break;
+
+            case R.id.clean_cach:
+                showToast("清理完毕");
                 break;
 
         }

@@ -52,7 +52,7 @@
         android:layout_marginTop="15dp"
         android:background="@color/gray_5"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="0.5dp"/>
 
 
 </LinearLayout>
