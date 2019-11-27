@@ -279,6 +279,7 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
         @Override
         public void onClick(View v) {
             mFeedPopwindow.backgroundAlpha(HomeActivity.this, 1f);
+
             switch (v.getId()) {
                 case R.id.call_opinion:
                     Intent myCallIntent = new Intent(Intent.ACTION_DIAL,
