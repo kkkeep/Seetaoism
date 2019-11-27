@@ -89,10 +89,11 @@
                 app:rv_backgroundPressColor="#fff4f4f4">
 
                 <TextView
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:textColor="#FF282B2E"
                     android:text="头像" />
 
                 <com.shehuan.niv.NiceImageView
@@ -129,9 +130,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="昵称"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#282B2E " />
+                    android:textColor="#FF282B2E" />
 
                 <TextView
                     android:id="@+id/nikename"
@@ -139,7 +140,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="45dp"
-                    android:text="?android:attr/textAppearanceMedium"
+                    android:text="用户昵称"
+                    android:textSize="15dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#282B2E " />
 

@@ -28,6 +28,7 @@
                 app:is_circle="true" />
 
             <TextView
+                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -58,12 +59,15 @@
         <View
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:background="@color/gray_1"
+            android:background="#FFD6D8DA"
             android:layout_width="1dp"
             android:layout_height="30dp"/>
         <com.google.android.material.tabs.TabLayout
+            app:tabTextColor="#FF9B9C9E"
+            app:tabSelectedTextColor="#FF282B2E"
             android:id="@+id/tablayout_collect"
             android:layout_width="match_parent"
+            app:tabTextAppearance="@style/TabLayoutTextSize"
             android:layout_height="44dp"/>
     </RelativeLayout>
     <View

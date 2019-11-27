@@ -87,16 +87,6 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
         mClean.setOnClickListener(this);
         mEditSearch.setOnEditorActionListener(this);
 
-        if (his!=null&&his.size()>1){
-            mHistory.setVisibility(View.VISIBLE);
-        } else {
-            mHistory.setVisibility(View.GONE);
-            mClean.setVisibility(View.GONE);
-            mRecord.setVisibility(View.GONE);
-        }
-
-
-
         histroy();
 
         mRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
@@ -127,6 +117,14 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
                 return true;
             }
         });
+
+        if (his.size() > 0){
+            mHistory.setVisibility(View.VISIBLE);
+        } else {
+            mHistory.setVisibility(View.GONE);
+            mClean.setVisibility(View.GONE);
+            mRecord.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -137,7 +135,8 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
     private void histroy() {
         //历史记录
         final List<String> stringList = SharedPrefrenceUtils.getStringList(this, AppConstant.SPKeys.SEARCH);
-        if (stringList != null) {
+
+        if (stringList.size() > 0) {
             his.addAll(stringList);
             mHistory.setVisibility(View.VISIBLE);
             mRecord.setVisibility(View.VISIBLE);

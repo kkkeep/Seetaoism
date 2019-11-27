@@ -20,6 +20,7 @@ import com.seetaoism.AppConstant.RequestParamsKey;
 import com.seetaoism.R;
 import com.seetaoism.data.entity.User;
 import com.seetaoism.home.HomeActivity;
+import com.seetaoism.home.agreement.AgreementActivity;
 import com.seetaoism.libloadingview.LoadingView;
 import com.seetaoism.user.BaseUserFragment;
 import com.seetaoism.user.login.LoginContract;
@@ -68,7 +69,7 @@ public class SetPasswordFragment extends BaseUserFragment<LoginContract.IRegiste
         mIvShowConfirmPsd = bindViewAndSetListener(R.id.register_setting_psd_iv_show_confirm_psd, null);
         mIvCleanPsd = bindViewAndSetListener(R.id.register_setting_psd_iv_clean_psd, null);
         mIvCleanCPsd = bindViewAndSetListener(R.id.register_setting_psd_iv_clean_cpsd, null);
-        mTvLicense = bindViewAndSetListener(R.id.register_setting_psd_tv_license, null);
+        mTvLicense = bindViewAndSetListener(R.id.register_setting_psd_tv_license, this);
 
         mBtnRegister = bindViewAndSetListener(R.id.register_setting_psd_btn_register, this);
 
@@ -134,6 +135,7 @@ public class SetPasswordFragment extends BaseUserFragment<LoginContract.IRegiste
 
 
             case R.id.register_setting_psd_tv_license: {
+                startActivity(new Intent(getActivity(), AgreementActivity.class));
                 break;
             }
 

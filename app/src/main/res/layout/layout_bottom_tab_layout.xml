@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:textColor="@color/black"
-            android:textSize="11dp"
+            android:textSize="10dp"
             android:text="@string/text_main_tab_video"
             tools:text="视频" />
     </com.seetaoism.widgets.bottomtablaout.BottomTab>
@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:textColor="@color/black"
-            android:textSize="11dp"
+            android:textSize="10dp"
             android:text="@string/text_main_tab_topic"
             tools:text="专题" />
     </com.seetaoism.widgets.bottomtablaout.BottomTab>
@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:textColor="@color/black"
-            android:textSize="11dp"
+            android:textSize="10dp"
             android:text="@string/text_main_tab_mine"
             tools:text="我" />
     </com.seetaoism.widgets.bottomtablaout.BottomTab>

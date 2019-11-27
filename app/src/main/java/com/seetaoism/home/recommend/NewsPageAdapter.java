@@ -358,6 +358,8 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
             tvContent = itemView.findViewById(R.id.news_item_flash_tv_content);
             tvTime = itemView.findViewById(R.id.news_item_flash_tv_time);
             ivShare = itemView.findViewById(R.id.news_item_flash_iv_share);
+
+
         }
 
         public void setData(NewsData.News data) {
