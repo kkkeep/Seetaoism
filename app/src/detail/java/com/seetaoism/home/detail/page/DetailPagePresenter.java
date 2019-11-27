@@ -85,7 +85,7 @@ public class DetailPagePresenter extends BasePresenter<DetailsContract.IDetailPa
     public void getArticleUserCommentReplyList(String articleId, String commentId, int start, long pointTime) {
         Map<String, String> params = new HashMap<>();
             params.put(AppConstant.RequestParamsKey.DETAIL_COMMENT_ARTICLE_ID,articleId);
-        params.put(AppConstant.RequestParamsKey.DETAIL_COMMENT_ID,articleId);
+        params.put(AppConstant.RequestParamsKey.DETAIL_COMMENT_ID,commentId);
         params.put(AppConstant.RequestParamsKey.DETAIL_REPLY_START,String.valueOf(start));
         params.put(AppConstant.RequestParamsKey.DETAIL_REPLY_POINT_TIME,String.valueOf(pointTime));
 
