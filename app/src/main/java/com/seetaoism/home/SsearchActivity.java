@@ -87,11 +87,13 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
         mClean.setOnClickListener(this);
         mEditSearch.setOnEditorActionListener(this);
 
-//        if (his!=null&&his.size()>0){
-//            mBox.setVisibility(View.GONE);
-//        } else {
-//            mBox.setVisibility(View.VISIBLE);
-//        }
+        if (his!=null&&his.size()>1){
+            mHistory.setVisibility(View.VISIBLE);
+        } else {
+            mHistory.setVisibility(View.GONE);
+            mClean.setVisibility(View.GONE);
+            mRecord.setVisibility(View.GONE);
+        }
 
 
 
