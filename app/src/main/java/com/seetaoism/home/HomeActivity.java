@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -88,6 +89,8 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
         home_drawer_feedback.setOnClickListener(this);
         home_drawer_share_app.setOnClickListener(this);
 
+        findViewById(R.id.home_drawer_layout_root).setOnTouchListener((v, event) -> true);
+
 
         mBottomTabLayout.setTabSelectedChangeListener(new BottomTabLayout.OnTabSelectedChangeListener() {
             @Override
@@ -165,6 +168,7 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
                 mDrawerLayout.closeDrawers();
                 break;
             }
+
 
         }
 
