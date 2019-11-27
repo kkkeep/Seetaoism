@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -29,12 +30,18 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.flyco.roundview.RoundRelativeLayout;
 import com.huantansheng.easyphotos.EasyPhotos;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.mr.k.mvp.UserManager;
+import com.mr.k.mvp.utils.Logger;
 import com.mr.k.mvp.utils.SPUtils;
+import com.seetaoism.GlideApp;
 import com.seetaoism.R;
 import com.seetaoism.base.JDMvpBaseActivity;
 import com.seetaoism.data.entity.SocialBindData;
@@ -64,6 +71,8 @@ import okhttp3.RequestBody;
 import static com.mr.k.mvp.MvpManager.getContext;
 
 public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectPresenter> implements View.OnClickListener, PerfectContract.IPerfectView, UMAuthListener {
+
+    private static final String TAG = "PerfectActivity";
 
     private static final int BINT_TYPE_SINA = 0x100;
     private static final int BINT_TYPE_WECHAT = 0x101;
@@ -174,20 +183,12 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
                     Button cancle = (Button) builder.findViewById(R.id.btn_cancle);
                     Button sure = (Button) builder.findViewById(R.id.btn_sure);
 
-                    sure.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            mPresenter.getSocialunbind("sina", mUser.getUserInfo().getSina_openid(), "");
-                            showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
-                            builder.dismiss();
-                        }
+                    sure.setOnClickListener(view12 -> {
+                        mPresenter.getSocialunbind("sina", mUser.getUserInfo().getSina_openid(), "");
+                        showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
+                        builder.dismiss();
                     });
-                    cancle.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            builder.dismiss();
-                        }
-                    });
+                    cancle.setOnClickListener(view1 -> builder.dismiss());
 
                 } else {
                     mClickBindType = BINT_TYPE_SINA;
@@ -284,7 +285,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
         RelativeLayout view = (RelativeLayout) getLayoutInflater().inflate(R.layout.update_name_layout, null);
         popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         //popupWindow.setFocusable(true);
-        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+       // popupWindow.setBackgroundDrawable(new BitmapDrawable());
         //实例化一个ColorDrawable颜色为半透明
         ColorDrawable dw = new ColorDrawable(0x00000000);
         //设置SelectPicPopupWindow弹出窗体的背景
@@ -363,7 +364,11 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
     public void backgroundAlpha(Activity context, float bgAlpha) {
         WindowManager.LayoutParams lp = context.getWindow().getAttributes();
         lp.alpha = bgAlpha;
-        context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        if(bgAlpha < 1){
+            context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        }else{
+            context.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        }
         context.getWindow().setAttributes(lp);
     }
 
@@ -446,14 +451,28 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
         //图片5兆限制
         if (s != null) {
             if (!TextUtils.isEmpty(s.getUserInfo().getHead_url())) {
-                Glide.with(this).load(s.getUserInfo().getHead_url()).into(mUsericon);
+                GlideApp.with(this).load(s.getUserInfo().getHead_url()).apply(RequestOptions.circleCropTransform().placeholder(R.drawable.mine_pic)).addListener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        closeLoading();
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        closeLoading();
+                        return false;
+
+                    }
+                }).into(mUsericon);
                 photoPath = s.getUserInfo().getHead_url();
             }
         } else {
+            closeLoading();
             showToast(msg);
         }
         //showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
-        closeLoading();
+
     }
 
     @Override
@@ -467,7 +486,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
     public void onUserSuccess(User user) {
 
         if (user.getUserInfo().getHead_url() != null) {
-            Glide.with(this).load(user.getUserInfo().getHead_url()).apply(RequestOptions.circleCropTransform().placeholder(R.drawable.ic_launcher_background)).into(mUsericon);
+            Glide.with(this).load(user.getUserInfo().getHead_url()).apply(RequestOptions.circleCropTransform().placeholder(R.drawable.mine_pic)).into(mUsericon);
         }
         if (user.getUserInfo().getNickname() != null) {
             mNikename.setText(user.getUserInfo().getNickname());
@@ -578,12 +597,12 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
 
     @Override
     public void onStart(SHARE_MEDIA share_media) {
-
+        Logger.d("%s ....", TAG);
     }
 
     @Override
     public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
-
+        Logger.d("%s ....", TAG);
         String type = "";
         String openId = "";
         String nickname = "";
@@ -639,11 +658,11 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
 
     @Override
     public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
-
+        Logger.d("%s ....", TAG,throwable);
     }
 
     @Override
     public void onCancel(SHARE_MEDIA share_media, int i) {
-
+        Logger.d("%s ....", TAG);
     }
 }

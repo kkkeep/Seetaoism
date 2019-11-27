@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mr.k.mvp.UserManager;
 import com.mr.k.mvp.utils.SystemFacade;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -27,6 +28,7 @@ import com.seetaoism.R;
 import com.seetaoism.base.JDMvpBaseActivity;
 import com.seetaoism.data.entity.MessageData;
 import com.seetaoism.data.entity.NoticedetailsBean;
+import com.seetaoism.data.entity.User;
 import com.seetaoism.data.entity.VideoData;
 import com.seetaoism.libloadingview.LoadingView;
 import com.shehuan.niv.NiceImageView;
@@ -115,8 +117,15 @@ public class MessageActivity extends JDMvpBaseActivity<MessageContract.MessagePr
                     }
                 } else {
                     if (adapter.mList.get(position).getNotice_status() == 1) {
+
                         Intent intent = new Intent(MessageActivity.this, MessagedetailsActivity.class);
                         intent.putExtra("id", adapter.mList.get(position).getId());
+                        MessageData.MessageList messageList =   adapter.mList.get(position);
+                        if(messageList.getIs_read() == 0){
+                            User user = (User) UserManager.getUser();
+                            user.getUserInfo().setNotice_count(Math.max(0,user.getUserInfo().getNotice_count() -1));
+                            UserManager.updateUserInfo();
+                        }
                         adapter.mList.get(position).setIs_read(1);
                         ImageView tag = view.findViewById(R.id.tag);
                         tag.setVisibility(View.GONE);

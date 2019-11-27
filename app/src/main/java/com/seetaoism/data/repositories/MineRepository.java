@@ -37,6 +37,13 @@ public class MineRepository extends BaseRepository implements MineContract.MineM
             @Override
             public ObservableSource<User> apply(HttpResult<User> newsColumnDataHttpResult) throws Exception {
                 if (newsColumnDataHttpResult.code == 1 && newsColumnDataHttpResult.data != null) {
+                    User user = newsColumnDataHttpResult.data;
+
+                    User local = (User) UserManager.getUser();
+                    if(user.getToken() == null){
+                        user.setToken(local.getToken());
+                    }
+
                     UserManager.login(newsColumnDataHttpResult.data);
                     return Observable.just(newsColumnDataHttpResult.data);
                 }

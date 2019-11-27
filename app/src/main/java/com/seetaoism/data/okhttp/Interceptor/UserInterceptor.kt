@@ -3,6 +3,7 @@ package com.seetaoism.data.okhttp.Interceptor
 import android.text.TextUtils
 import com.mr.k.mvp.exceptions.ResultException
 import com.mr.k.mvp.getToken
+import com.mr.k.mvp.loginOut
 import com.seetaoism.AppConstant
 import com.seetaoism.JDApplication
 import com.seetaoism.R
@@ -53,6 +54,7 @@ class UserInterceptor : Interceptor{
                             val code = jsonObject.getInt("code")
                             if (code != 1) {
                                 if (code == 3 && !oldUrl.contains(AppConstant.RequestUrl.GET_USER_BY_TOKEN)) {
+                                    loginOut()
                                     LoginActivity.start()
                                 }
                                 throw ResultException(jsonObject.getString("message"))
