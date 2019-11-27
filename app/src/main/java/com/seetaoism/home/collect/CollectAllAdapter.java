@@ -51,7 +51,7 @@ public class CollectAllAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         CollectHolder holder1 = (CollectHolder) holder;
-        holder1.collect_all_head.setText(recyclerview_item_collect.get(position).getRead_count());
+        holder1.collect_all_head.setText("阅读"+recyclerview_item_collect.get(position).getRead_count());
         holder1.collect_all_time.setText(recyclerview_item_collect.get(position).getTime());
         holder1.collect_all_titel.setText(recyclerview_item_collect.get(position).getTheme());
         RequestOptions options = new RequestOptions()

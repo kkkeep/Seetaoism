@@ -86,6 +86,15 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
         mSearchText.setOnClickListener(this);
         mClean.setOnClickListener(this);
         mEditSearch.setOnEditorActionListener(this);
+
+//        if (his!=null&&his.size()>0){
+//            mBox.setVisibility(View.GONE);
+//        } else {
+//            mBox.setVisibility(View.VISIBLE);
+//        }
+
+
+
         histroy();
 
         mRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
@@ -204,8 +213,7 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
                 showToast("清除");
                 his.clear();
                 flowSetData(his);
-                    mBox.setVisibility(View.VISIBLE);
-
+                mBox.setVisibility(View.VISIBLE);
                 SharedPrefrenceUtils.putStringList(this, AppConstant.SPKeys.SEARCH, his);
                 break;
 
@@ -292,6 +300,12 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
 
 
     }
+//
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        mBox.setVisibility(View.VISIBLE);
+//    }
 }
 
 

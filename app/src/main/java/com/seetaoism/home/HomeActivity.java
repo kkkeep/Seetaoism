@@ -150,16 +150,19 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
 
                 aClass = VideoFragment.class;
                 StatusBarUtils.setStatusBarLightMode(this,Color.WHITE);
+                mDrawerLayout.closeDrawers();
                 break;
             }
             case 3: {
                 aClass = TopicFragment.class;
                 StatusBarUtils.setStatusBarLightMode(this,Color.WHITE);
+                mDrawerLayout.closeDrawers();
                 break;
             }
             case 4: {
                 aClass = MineFragment.class;
                 StatusBarUtils.setStatusBarDarkMode(this,Color.BLACK);
+                mDrawerLayout.closeDrawers();
                 break;
             }
 

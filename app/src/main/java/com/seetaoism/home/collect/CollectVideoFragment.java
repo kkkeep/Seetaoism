@@ -104,7 +104,7 @@ public class CollectVideoFragment extends MvpBaseFragment<CollectContract.IColle
                         }
                         index = allAdapter.recyclerview_item_collect.size();
 
-                        btnAllSelect.setText("取消全选");
+                        btnAllSelect.setText("全选");
                         isSelectAll = true;
                     }
 
@@ -323,7 +323,7 @@ public class CollectVideoFragment extends MvpBaseFragment<CollectContract.IColle
             }
             index = allAdapter.recyclerview_item_collect.size();
 
-            btnAllSelect.setText("取消全选");
+            btnAllSelect.setText("全选");
             isSelectAll = true;
         } else {
 
