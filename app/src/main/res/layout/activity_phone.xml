@@ -91,6 +91,7 @@
                 android:textSize="16sp"
                 android:hint="输入验证码"
                 android:background="@color/white"
+                android:textColor="#FFCCCCCC"
                 android:id="@+id/et_verify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
