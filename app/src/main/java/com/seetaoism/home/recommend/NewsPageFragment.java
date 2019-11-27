@@ -64,6 +64,8 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
     @Override
     protected void initView(View root) {
         mNewsRecyclerView = root.findViewById(R.id.home_recommend_news_list);
+
+
         mSmartRefreshLayout = root.findViewById(R.id.home_recommend_news_refresh_layout);
 
 

@@ -29,7 +29,8 @@ import com.seetaoism.widgets.IntegralWidget
 import com.umeng.socialize.UMShareListener
 import com.umeng.socialize.bean.SHARE_MEDIA
 import kotlinx.android.synthetic.main.fragment_detail_vp.*
-import kotlinx.android.synthetic.main.fragment_details.*
+//import kotlinx.android.synthetic.main.fragment_details.*
+import kotlinx.android.synthetic.main.fragment_details2.*
 
 
 /*
@@ -183,13 +184,13 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
     }
 
 
-    override fun getLayoutId() = R.layout.fragment_details
+    override fun getLayoutId() = R.layout.fragment_details2
 
     override fun initView(root: View?) {
 
         detailSrl.run {
             setEnableRefresh(false)
-            setEnableLoadMore(false)
+            setEnableLoadMore(true)
             setEnableAutoLoadMore(false)
 
             setOnLoadMoreListener {
@@ -202,8 +203,9 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
             }
         }
 
-
-        detailWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
+       //detailWebView.isNestedScrollingEnabled = false;
+        detailRelativeList.isNestedScrollingEnabled = false;
+        //detailWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
         detailWebView.run {
             initSetting()
 
