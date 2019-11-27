@@ -18,6 +18,7 @@
             android:layout_height="44dp">
 
             <RelativeLayout
+                android:id="@+id/p"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -63,8 +64,8 @@
                 android:layout_height="17dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:background="@drawable/sousuo"
-                app:is_circle="true" />
+                android:background="@drawable/se"
+              />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
     <View

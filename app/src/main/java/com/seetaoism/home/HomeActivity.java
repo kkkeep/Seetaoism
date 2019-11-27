@@ -36,6 +36,7 @@ import com.seetaoism.data.entity.NewsData;
 import com.seetaoism.data.entity.User;
 import com.seetaoism.data.repositories.NewsRepository;
 import com.seetaoism.home.mine.MineFragment;
+import com.seetaoism.home.push.SettingActivity;
 import com.seetaoism.home.recommend.RecommendFragment;
 import com.seetaoism.home.recommend.column.ColumnEditorFragment;
 import com.seetaoism.home.topic.TopicFragment;
@@ -69,6 +70,7 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
     private FeedbackPopwindow mFeedPopwindow;
 
     private BroadcastReceiver mBroadcastReceiver;
+    private ImageView home_drawer_seach_layout;
 
     @Override
     protected void doOnCreate(@Nullable Bundle savedInstanceState) {
@@ -79,10 +81,16 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
         home_drawer_share_app = findViewById(R.id.home_drawer_share_app);
         mDrawerColumnListView = mDrawerLayout.findViewById(R.id.home_drawer_colum_list);
         mBottomTabLayout = findViewById(R.id.home_bottom_layout);
+        home_drawer_seach_layout = findViewById( R.id.home_drawer_seach_layout);
         //DrawerLayout的侧边滑动可以通过设置锁定模式来禁用
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
-
+        home_drawer_seach_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this,SsearchActivity.class));
+            }
+        });
         editText.setOnClickListener(this);
         home_drawer_goto_colum_editor.setOnClickListener(this);
         home_drawer_feedback.setOnClickListener(this);

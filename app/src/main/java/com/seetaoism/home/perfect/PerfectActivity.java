@@ -161,6 +161,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
                 break;
             case R.id.onbindemail:
                 Intent intent1 = new Intent(PerfectActivity.this, EmailActivity.class);
+                //我加了一个这个
                 intent1.putExtra("mm",mOnbindemail.getText().toString());
                 startActivityForResult(intent1, 2);
                 break;

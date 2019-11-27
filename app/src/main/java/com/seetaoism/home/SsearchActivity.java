@@ -136,7 +136,7 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
         //历史记录
         final List<String> stringList = SharedPrefrenceUtils.getStringList(this, AppConstant.SPKeys.SEARCH);
 
-        if (stringList.size() > 0) {
+        if (stringList!=null&&stringList.size() > 0) {
             his.addAll(stringList);
             mHistory.setVisibility(View.VISIBLE);
             mRecord.setVisibility(View.VISIBLE);
