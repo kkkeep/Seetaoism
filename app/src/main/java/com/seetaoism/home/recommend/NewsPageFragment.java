@@ -27,6 +27,7 @@ import com.seetaoism.utils.ShareUtils;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -110,6 +111,7 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
 
             @Override
             public void onShareAction(NewsData.NewsBean news, int position) {
+
                 ShareUtils.openShareNewsPanel(getActivity(), news, new UMShareListener() {
                     @Override
                     public void onStart(SHARE_MEDIA share_media) {
@@ -130,7 +132,7 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
                     public void onCancel(SHARE_MEDIA share_media) {
 
                     }
-                });
+                },SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QQ, SHARE_MEDIA.SINA, SHARE_MEDIA.WEIXIN_CIRCLE);
             }
         });
 

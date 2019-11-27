@@ -52,8 +52,15 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         holder1.mNoticeTime.setText(mList.get(position).getTime());
             int is_read = mList.get(position).getIs_read();
             if (is_read == 0) { // 未读
-                holder1.tag.setVisibility(View.VISIBLE);
+
+                if(mEditMode == MYLIVE_MODE_CHECK){
+                    holder1.tag.setVisibility(View.VISIBLE);
+                }else{
+                    holder1.tag.setVisibility(View.GONE);
+                }
+
                 holder1.tag.setColorFilter(Color.RED);
+
             } else if (is_read == 1) { // 已读
                 holder1.tag.setVisibility(View.GONE);
             }
