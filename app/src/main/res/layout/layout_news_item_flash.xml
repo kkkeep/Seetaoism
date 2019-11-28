@@ -16,7 +16,7 @@
         android:maxLines="1"
         tools:text="测试标题"
         android:textColor="#333333"
-        android:textSize="16dp"
+        android:textSize="14dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

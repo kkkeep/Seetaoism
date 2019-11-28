@@ -36,7 +36,7 @@
         android:maxLines="2"
         android:ellipsize="end"
         android:textColor="@color/black"
-        android:textSize="16dp"
+        android:textSize="14dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/detail_item_news_pic"
         app:layout_constraintTop_toTopOf="parent" />

@@ -22,7 +22,7 @@
         app:indicatorShow="false"
         app:titleLeftMargin="15dp"
         app:titleRightMargin="9dp"
-        app:titleSize="16dp"
+        app:titleSize="14dp"
         app:titleTopMargin="12dp"
         android:textStyle="bold"
         tools:background="@color/gray_4" />
@@ -68,7 +68,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:spacing="0dp"
-            app:speed="1"
+            app:speed="2"
             app:textColor="#FF9B9C9E"
             app:textSize="13dp"
         />
