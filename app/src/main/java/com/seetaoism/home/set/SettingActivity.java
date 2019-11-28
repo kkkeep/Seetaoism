@@ -161,6 +161,8 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
                 }
             }
         });
+
+        mVersion.setText("见道" + BuildConfig.VERSION_NAME);
     }
 
     @Override
