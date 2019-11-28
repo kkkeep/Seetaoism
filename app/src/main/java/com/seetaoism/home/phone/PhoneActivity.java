@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -53,6 +54,30 @@ public class PhoneActivity extends JDMvpBaseActivity<PhoneContract.IPhonePresnte
         mRegisterBtnNext.setOnClickListener(this);
         mIvClose.setOnClickListener(this);
 
+        mEtPhoneNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (mEtPhoneNumber.getText().length() > 10) {
+                    mTvGetVerify.setTextColor(getResources().getColor(R.color.black_1));
+
+                }else {
+                    mTvGetVerify.setTextColor(getResources().getColor(R.color.gray_1));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+
+
+        });
+
         mEtVerify.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -72,6 +97,7 @@ public class PhoneActivity extends JDMvpBaseActivity<PhoneContract.IPhonePresnte
             public void afterTextChanged(Editable editable) {
 
             }
+
         });
 
 
@@ -85,8 +111,8 @@ public class PhoneActivity extends JDMvpBaseActivity<PhoneContract.IPhonePresnte
     @Override
     public void IPhoneonSuccess(User user) {
         Intent intent = new Intent();
-        intent.putExtra("phone",user.getUserInfo().getMobile());
-        setResult(200,intent);
+        intent.putExtra("phone", user.getUserInfo().getMobile());
+        setResult(200, intent);
         finish();
     }
 
@@ -103,6 +129,8 @@ public class PhoneActivity extends JDMvpBaseActivity<PhoneContract.IPhonePresnte
     @Override
     public void IPhonecodeFail(String s) {
         showToast(s);
+        resetGetCodeTextView();
+        mCountDownTimer.cancel();
     }
 
     @Override
@@ -159,6 +187,7 @@ public class PhoneActivity extends JDMvpBaseActivity<PhoneContract.IPhonePresnte
         };
 
         mCountDownTimer.start();
+        mTvGetVerify.setTextColor(getResources().getColor(R.color.black_1));
         mTvGetVerify.setEnabled(false);
 
         // 请求验证码
@@ -167,6 +196,7 @@ public class PhoneActivity extends JDMvpBaseActivity<PhoneContract.IPhonePresnte
 
     private void resetGetCodeTextView() {
         mTvGetVerify.setText(R.string.text_register_get_code);
+
         mTvGetVerify.setEnabled(true);
     }
 }

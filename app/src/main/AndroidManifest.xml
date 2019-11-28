@@ -3,9 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.seetaoism">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-
     <application
         android:name=".JDApplication"
         android:allowBackup="true"
@@ -16,22 +13,12 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-
-        <!--屏幕适配-->
-        <meta-data
-            android:name="android.notch_support"
-            android:value="true" />
-        <meta-data
-            android:name="design_width_in_dp"
-            android:value="360" />
-        <meta-data
-            android:name="design_height_in_dp"
-            android:value="640" />
-
-
-        <activity android:name=".home.message.MessagedetailsActivity"></activity>
+        <activity android:name=".home.agreement.AgreementActivity"></activity>
+        <!-- 屏幕适配 -->
+        <activity android:name=".home.message.MessagedetailsActivity" />
         <activity android:name=".home.message.MessageActivity" />
         <activity android:name=".home.integral.Main2Activity" />
+
         <activity android:name=".home.integral.IntegralActivity" />
         <activity android:name=".home.collect.CollectActivity" />
         <activity android:name=".home.email.EmailActivity" />
@@ -47,7 +34,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".home.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar"
@@ -55,7 +41,6 @@
         <activity
             android:name=".user.login.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".TestConstraintActivity" />
         <activity
             android:name=".home.changepassword.SetPswActivity"
@@ -73,13 +58,12 @@
             android:name=".home.SsearchActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".home.push.PushSetActivity"
-            android:label="@string/app_name" /> <!-- For test only 测试高级功能 -->
+            android:label="@string/app_name" />
         <activity
             android:name=".home.push.SettingActivity"
-            android:label="@string/app_name" /> <!-- For test only 测试设置 -->
+            android:label="@string/app_name" />
         <activity
             android:name=".home.push.TestActivity"
             android:exported="false">
@@ -88,11 +72,11 @@
 
                 <category android:name="jpush.testCategory" />
             </intent-filter>
-        </activity> <!-- For test only 测试状态通知栏，需要打开的Activity -->
+        </activity>
         <activity
             android:name="cn.jpush.android.ui.PopWinActivity"
             android:exported="false"
-            android:theme="@style/MyDialogStyle" /> <!-- Rich push 核心功能 since 2.0.6 -->
+            android:theme="@style/MyDialogStyle" /> <!-- For test only 测试高级功能 -->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -104,7 +88,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="${applicationId}" />
             </intent-filter>
-        </activity> <!-- Required SDK核心功能 -->
+        </activity> <!-- For test only 测试设置 -->
         <activity
             android:name="cn.jpush.android.service.JNotifyActivity"
             android:exported="false"
@@ -115,7 +99,16 @@
 
                 <category android:name="${applicationId}" />
             </intent-filter>
-        </activity> <!-- Required SDK 核心功能 -->
+        </activity> <!-- For test only 测试状态通知栏，需要打开的Activity -->
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true" /> <!-- Rich push 核心功能 since 2.0.6 -->
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="360" /> <!-- Required SDK核心功能 -->
+        <meta-data
+            android:name="design_height_in_dp"
+            android:value="640" /> <!-- Required SDK 核心功能 -->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <meta-data
             android:name="JPUSH_CHANNEL"
@@ -124,9 +117,8 @@
             android:name="JPUSH_APPKEY"
             android:value="ea04929c517b2e6efd69abd2" /> <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
         <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
-
         <provider
-            android:name="com.seetaoism.libdownlaod.ApkLoadProvider"
+            android:name=".libdownlaod.ApkLoadProvider"
             android:authorities="${applicationId}.download.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -134,8 +126,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/downlaod_sdk_paths" />
         </provider>
-
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.huantansheng.easyphotos.demo.fileprovider"
@@ -145,7 +135,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths_public" />
         </provider> <!-- since 3.1.0 Required SDK 核心功能 -->
-
         <provider
             android:name="cn.jpush.android.service.DataProvider"
             android:authorities="${applicationId}.DataProvider"
@@ -155,7 +144,6 @@
             android:name="cn.jpush.android.service.DownloadProvider"
             android:authorities="${applicationId}.DownloadProvider"
             android:exported="true" /> <!-- Required SDK核心功能 -->
-
         <receiver
             android:name="cn.jpush.android.service.PushReceiver"
             android:enabled="true"
@@ -232,21 +220,22 @@
             </intent-filter>
         </service>
     </application>
-
     <permission
         android:name="com.seetaoism.permission.JPUSH_MESSAGE"
-        android:protectionLevel="signature" /> <!-- Required -->
-    <uses-permission android:name="android.permission.CAMERA" /> <!-- Required -->
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- Required -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- Required -->
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.seetaoism.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- Optional. Required for location feature -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-   <!-- Optional. Required for location feature -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 用于开启 debug 版本的应用在 6.0 系统上的层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 用于开启 debug 版本的应用在 6.0 系统上的层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />

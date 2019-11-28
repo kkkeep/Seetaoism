@@ -31,8 +31,10 @@
                 <com.shehuan.niv.NiceImageView
                     android:id="@+id/mine_pic"
                     android:layout_width="60dp"
+                    android:padding="1dp"
                     android:layout_height="60dp"
                     android:src="@drawable/mine_pic"
+                    android:background="@drawable/white"
                     app:is_circle="true" />
 
                 <TextView
@@ -241,7 +243,8 @@
                             android:layout_centerVertical="true"
                             android:paddingLeft="2dp"
                             android:paddingRight="2dp"
-                            android:text="11" />
+                            android:textSize="11sp"
+                            android:text="12" />
 
                     <TextView
                         android:layout_width="wrap_content"

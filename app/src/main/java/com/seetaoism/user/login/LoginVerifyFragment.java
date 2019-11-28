@@ -34,6 +34,7 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
     private EditText mEtVerify;
     private int mCountDown;
     private CountDownTimer mCountDownTimer;
+    private ImageView user_iv_left_close;
 
 
     @Override
@@ -50,6 +51,7 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
         mTvGoToPsdLogin = bindViewAndSetListener(R.id.login_goto_ps_login, this);
         mTvGoToPsdRegister = bindViewAndSetListener(R.id.login_tv_goto_register, this);
         mBtnLogin = bindViewAndSetListener(R.id.login_btn_login, this);
+        user_iv_left_close = bindViewAndSetListener(R.id.user_iv_left_close, this);
 
         mEdtPhoneNumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -62,6 +64,13 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
                     mIvClearPhoneNumber.setVisibility(View.INVISIBLE);
                 } else {
                     mIvClearPhoneNumber.setVisibility(View.VISIBLE);
+                }
+
+                if (mEdtPhoneNumber.getText().length()>10){
+                    mTvGetVerify.setTextColor(getResources().getColor(R.color.black_1));
+                }else if(mEdtPhoneNumber.getText().length()<2){
+                    mTvGetVerify.setTextColor(getResources().getColor(R.color.gray_1));
+
                 }
             }
 
@@ -96,7 +105,6 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
 
             }
         });
-
 
 
     }
@@ -137,7 +145,6 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
                 break;
             }
             case R.id.user_iv_left_close: {
-                back();
                 break;
             }
 
@@ -158,6 +165,7 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
                 handGetSmsCode();
                 break;
             }
+
             default:
                 break;
         }
@@ -166,7 +174,7 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
     private void login() {
         String phoneNumber = mEdtPhoneNumber.getText().toString().trim();
 
-        if(!SystemFacade.isValidPhoneNumber(phoneNumber)){
+        if (!SystemFacade.isValidPhoneNumber(phoneNumber)) {
             showToast(R.string.text_error_input_phone_number);
             return;
         }
@@ -205,7 +213,7 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
                 resetGetCodeTextView();
             }
         };
-
+        mTvGetVerify.setTextColor(getResources().getColor(R.color.black_1));
         mCountDownTimer.start();
         mTvGetVerify.setEnabled(false);
 
@@ -219,8 +227,6 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
         mTvGetVerify.setText(R.string.text_register_get_code);
         mTvGetVerify.setEnabled(true);
     }
-
-
 
 
     @Override
@@ -266,9 +272,9 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
     @Override
     public void onSocialLoginResult(User user, String msg) {
         closeLoading();
-        if(user != null){
+        if (user != null) {
             login(user);
-        }else{
+        } else {
             showToast(msg);
         }
     }

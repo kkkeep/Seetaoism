@@ -63,7 +63,7 @@ public class JBanner extends ConstraintLayout {
     private int nDuration = 3000;
 
     // 自动轮播间隔时间，默认为一秒
-    private int mInterval = 5000;
+    private int mInterval = 3000;
 
 
     // title 字体大小，单位px

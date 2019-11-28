@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.flyco.roundview.RoundTextView;
 import com.seetaoism.R;
@@ -20,15 +21,21 @@ public class EmailActivity extends JDMvpBaseActivity<EmailContract.IEmailPresent
     private NiceImageView close;
     private RoundTextView ok;
     private EditText email;
+    private TextView emailtv;
 
     @Override
     protected void doOnCreate(@Nullable Bundle savedInstanceState) {
         close = findViewById(R.id.close);
         ok = findViewById(R.id.ok);
         email = findViewById(R.id.email);
+        emailtv = findViewById(R.id.emailtv);
 
         close.setOnClickListener(this);
         ok.setOnClickListener(this);
+        String mm = getIntent().getStringExtra("mm");
+        emailtv.setText(mm);
+
+
 
 
     }

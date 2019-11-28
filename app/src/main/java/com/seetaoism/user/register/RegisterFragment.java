@@ -80,7 +80,7 @@ public class RegisterFragment extends BaseUserFragment<LoginContract.IRegisterPr
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (mEdtPhoneNumber.getText() != null && mEdtPhoneNumber.getText().toString().length() > 0) {
                     if (mEdtPhoneNumber.getText().toString().trim().length() == 11) {
-                        mTvGetCode.setTextColor(getResources().getColor(R.color.red_2));
+                        mTvGetCode.setTextColor(getResources().getColor(R.color.black_1));
                     } else {
                         if (mTvGetCode.getText().length() > 4) {
                             mTvGetCode.setTextColor(getResources().getColor(R.color.gray_6));
@@ -253,7 +253,7 @@ public class RegisterFragment extends BaseUserFragment<LoginContract.IRegisterPr
         };
 
         mCountDownTimer.start();
-        mTvGetCode.setTextColor(getResources().getColor(R.color.red_2));
+        mTvGetCode.setTextColor(getResources().getColor(R.color.black_1));
         mTvGetCode.setEnabled(false);
 
 

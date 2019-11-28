@@ -40,8 +40,8 @@
 
             <com.shehuan.niv.NiceImageView
                 android:id="@+id/close"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/ic_back"
                 app:is_circle="true" />
         </RelativeLayout>
@@ -76,8 +76,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="16dp"
             android:button="@null"
+            android:textSize="15dp"
             android:drawableLeft="@drawable/select_news_selector"
             android:text="全选" />
 
@@ -87,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="15dp"
             android:text="删除"
             android:textColor="#FF9B9C9E"
             android:textSize="15sp" />

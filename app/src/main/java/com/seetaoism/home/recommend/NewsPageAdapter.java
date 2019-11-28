@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.Group;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -19,9 +18,6 @@ import com.seetaoism.GlideApp;
 import com.seetaoism.GlideRequests;
 import com.seetaoism.R;
 import com.seetaoism.data.entity.NewsData;
-import com.seetaoism.utils.ShareUtils;
-import com.umeng.socialize.UMShareListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -371,6 +367,8 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
                    }
                 }
             });
+
+
         }
 
         public void setData(NewsData.News data) {

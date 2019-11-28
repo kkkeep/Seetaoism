@@ -16,6 +16,7 @@
             android:background="@drawable/select_news_selector"
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:layout_marginLeft="15dp"
             android:layout_centerVertical="true" />
 
 

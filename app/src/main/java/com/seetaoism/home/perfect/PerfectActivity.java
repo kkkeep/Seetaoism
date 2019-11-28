@@ -125,6 +125,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
         mWeibo.setOnClickListener(this);
         mQq.setOnClickListener(this);
         mWeixin.setOnClickListener(this);
+        mModifypassword.setOnClickListener(this);
 
         photoPath = "";
         name = "";
@@ -160,6 +161,8 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
                 break;
             case R.id.onbindemail:
                 Intent intent1 = new Intent(PerfectActivity.this, EmailActivity.class);
+                //我加了一个这个
+                intent1.putExtra("mm",mOnbindemail.getText().toString());
                 startActivityForResult(intent1, 2);
                 break;
             case R.id.close:
@@ -272,6 +275,9 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
                 }
                 break;
             }
+            case R.id.modifypassword:
+                startActivity(new Intent(PerfectActivity.this, VerificationPswActivity.class));
+                break;
 
 
         }
