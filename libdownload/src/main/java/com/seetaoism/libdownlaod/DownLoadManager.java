@@ -88,8 +88,8 @@ public class DownLoadManager {
     }
 
 
-    public void startLoad(Context context, String url) {
-        startLoad(context, url, null);
+    public void startLoad(Context context, String url,String fileName) {
+        startLoad(context, url, null,fileName,null);
 
     }
 
@@ -114,7 +114,10 @@ public class DownLoadManager {
             return;
         }
 
-        mDownloadListeners.put(url, listener);
+        if(listener != null){
+            mDownloadListeners.put(url, listener);
+
+        }
 
         if (isInLoading(url)) {
             Toast.makeText(context, "正在下载", Toast.LENGTH_SHORT).show();

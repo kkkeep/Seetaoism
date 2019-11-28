@@ -356,6 +356,9 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
     }
+
+
+
+    
 }

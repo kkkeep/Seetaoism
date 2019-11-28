@@ -59,7 +59,7 @@ public class CommonParamsInterceptor implements Interceptor {
 
         mParams.put(RequestParamsKey.TIMES_STAMP, timestamp);
         mParams.put(RequestParamsKey.NONCE, nonce);
-        mParams.put(RequestParamsKey.SIGNATURE, getSHA1(SHA1_KEY, timestamp, nonce));
+        mParams.put(RequestParamsKey.SIGNATURE, getSHA1(timestamp, nonce));
 
         String token = UserManager.getToken();
 
@@ -159,9 +159,9 @@ public class CommonParamsInterceptor implements Interceptor {
     }
 
 
-    public String getSHA1(String key, String timestamp, String nonce) {
+    public static  String getSHA1(String timestamp, String nonce) {
         try {
-            String[] array = new String[]{key, timestamp, nonce};
+            String[] array = new String[]{SHA1_KEY, timestamp, nonce};
             StringBuffer sb = new StringBuffer();
             // 字符串排序
             Arrays.sort(array);

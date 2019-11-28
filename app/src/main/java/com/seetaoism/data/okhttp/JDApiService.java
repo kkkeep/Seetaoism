@@ -5,6 +5,7 @@ import android.service.autofill.UserData;
 
 import com.seetaoism.AppConstant;
 import com.seetaoism.data.entity.AccessArticleData;
+import com.seetaoism.data.entity.CheckUpdateData;
 import com.seetaoism.data.entity.CommentData;
 import com.seetaoism.data.entity.CommentReplyData;
 import com.seetaoism.data.entity.HttpResult;
@@ -364,4 +365,16 @@ public interface JDApiService {
     @POST(SHARE_ADD_INTEGRAL)
     Observable<HttpResult<String>> shareAddIntegral(@FieldMap Map<String, String> map);
 
+    /**
+     * 检查更新
+     */
+    @GET("/api/user/checkupdate")
+    Observable<HttpResult<CheckUpdateData>> checkUpdate(@QueryMap Map<String, String> map);
+
+
+    /**
+     * 检查更新
+     */
+    @GET("/api/file/appupgrade")
+    Observable<HttpResult<String>> appUpgrade(@QueryMap Map<String, String> map);
 }

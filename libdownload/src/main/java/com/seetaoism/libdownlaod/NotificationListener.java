@@ -129,7 +129,7 @@ import java.io.File;
     public void onEnd(Task task) {
         Log.d("Test", "onEnd");
         // setProgress(0,0,false) 都设置为 0 表示关闭进度条
-        File file = new File(task.getUrl());
+        File file = new File(task.getFileStorePath());
         Uri uri = getUriByFile(file);
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
