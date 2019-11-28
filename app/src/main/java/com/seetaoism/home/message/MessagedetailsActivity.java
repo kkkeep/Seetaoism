@@ -38,15 +38,17 @@ public class MessagedetailsActivity extends JDMvpBaseActivity<MessageContract.Me
     private List<NoticedetailsBean> mList = new ArrayList<>();
     private NoticedatilsRecAdapter noticedatilsRecAdapter;
 
+    private TextView mTvErrorMsg;
+
+    private int id = -1;
+
 
     @Override
     protected void doOnCreate(@Nullable Bundle savedInstanceState) {
 
 
         Intent intent = getIntent();
-        int id = intent.getIntExtra("id", 0);
-
-
+         id = intent.getIntExtra("id", 0);
         mClose = findViewById(R.id.close);
         mToolbar = findViewById(R.id.toolbar);
         mCollectAllRc = findViewById(R.id.collect_all_rc);
@@ -56,6 +58,7 @@ public class MessagedetailsActivity extends JDMvpBaseActivity<MessageContract.Me
         mBtnAllSelect = findViewById(R.id.btn_allSelect);
         mBtnDelete = findViewById(R.id.btn_delete);
         mPop = findViewById(R.id.pop);
+        mTvErrorMsg = findViewById(R.id.message_detail_tv_error);
         //我的消息详情列表
         mPresenter.getMessagedetails(id);
         mClose.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +68,8 @@ public class MessagedetailsActivity extends JDMvpBaseActivity<MessageContract.Me
             }
         });
 
+        mKong.setVisibility(View.GONE);
+        mCollectAllSm.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -97,7 +102,10 @@ public class MessagedetailsActivity extends JDMvpBaseActivity<MessageContract.Me
 
     @Override
     public void MessagedetailsFail(String s) {
-        showToast(s);
+        mKong.setVisibility(View.VISIBLE);
+        mCollectAllSm.setVisibility(View.GONE);
+        mTvErrorMsg.setText(s);
+        //showToast(s);
     }
 
     @Override
@@ -113,6 +121,9 @@ public class MessagedetailsActivity extends JDMvpBaseActivity<MessageContract.Me
     //删除一级评论回复
     @Override
     public void MessagedetailsDeleteSucceed(String s) {
+        Intent intent = new Intent();
+        intent.putExtra("msgid", id);
+        setResult(MessageActivity.START_DETAIL_RESULT_CODE, intent);
         finish();
     }
 
@@ -125,6 +136,9 @@ public class MessagedetailsActivity extends JDMvpBaseActivity<MessageContract.Me
     //删除二级评论回复
     @Override
     public void MessagedetailsreplyDeleteSucceed(String s) {
+        Intent intent = new Intent();
+        intent.putExtra("msgid", id);
+        setResult(MessageActivity.START_DETAIL_RESULT_CODE, intent);
         finish();
     }
 

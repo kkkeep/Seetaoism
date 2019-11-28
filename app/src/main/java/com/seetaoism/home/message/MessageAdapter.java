@@ -121,6 +121,16 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         notifyDataSetChanged();
     }
 
+    public void setNoticeStatus(int id,int status){
+        if(mList != null){
+            for(MessageData.MessageList messageList : mList){
+                if(messageList.getId() == id){
+                    messageList.setNotice_status(status);
+                }
+            }
+        }
+    }
+
     @Override
     public int getItemCount() {
         return mList != null ? mList.size() : 0;
