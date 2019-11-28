@@ -27,20 +27,28 @@ import com.mr.k.mvp.utils.Logger;
 import com.mr.k.mvp.utils.SPUtils;
 import com.mr.k.mvp.utils.SystemFacade;
 import com.seetaoism.AppConstant;
+import com.seetaoism.BuildConfig;
 import com.seetaoism.JDApplication;
 import com.seetaoism.MainActivity;
 import com.seetaoism.R;
 import com.seetaoism.base.JDMvpBaseActivity;
+import com.seetaoism.data.entity.CheckUpdateData;
 import com.seetaoism.data.entity.User;
+import com.seetaoism.data.okhttp.Interceptor.CommonParamsInterceptor;
 import com.seetaoism.home.HomeActivity;
 import com.seetaoism.home.push.ExampleUtil;
 import com.seetaoism.home.push.LocalBroadcastManager;
+import com.seetaoism.libdownlaod.DownLoadManager;
+import com.seetaoism.libloadingview.LoadingView;
 import com.seetaoism.user.login.LoginActivity;
 import com.seetaoism.utils.ShareUtils;
+import com.seetaoism.widgets.CheckUpdatePopWindow;
 import com.shehuan.niv.NiceImageView;
 import com.suke.widget.SwitchButton;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
@@ -104,6 +112,7 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
         mClose.setOnClickListener(this);
         mCall.setOnClickListener(this);
         mCleanCach.setOnClickListener(this);
+        mCheckUpdata.setOnClickListener(this);
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -195,7 +204,9 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
                 break;
 
             case R.id.check_updata:{
-
+                showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
+                mPresenter.checkUpdate(BuildConfig.VERSION_NAME);
+                break;
             }
 
         }
@@ -221,6 +232,46 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
     @Override
     public void onPushidFail(String msg) {
         showToast(msg);
+    }
+
+    @Override
+    public void onCheckUpdateResult(CheckUpdateData data, String msg) {
+
+        closeLoading();
+
+        if(data != null && msg == null){
+            if(data.is_upgrade() == 1){
+                CheckUpdatePopWindow checkUpdatePopWindow = new CheckUpdatePopWindow(this);
+                checkUpdatePopWindow.show(mCheckUpdata, data, new CheckUpdatePopWindow.OnUpdateButtonClickListener() {
+                    @Override
+                    public void onUpdate(@NotNull CheckUpdateData data) {
+                        //showToast("升级");
+                        String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
+                        String nonce = String.valueOf((int) ((Math.random() * 9 + 1) * 100000));
+                        String url = AppConstant.BASE_URL + "/api/file/appupgrade?from=android&lang=zh" +  "&version_id=" + data.getVersion_id() + "&nonce=" + nonce + "&timestamp=" + timestamp + "&signature=" + CommonParamsInterceptor.getSHA1(timestamp, nonce);
+                        DownLoadManager.getInstance(getApplicationContext()).startLoad(getApplicationContext(),url,"jiandao_"+ data.getVersion() + ".apk");
+                    }
+                });
+
+            }else{
+                showToast(data.getUpgrade_point());
+                closeLoading();
+            }
+
+        }else{
+            showToast(msg);
+        }
+    }
+
+    @Override
+    public void onAppUpdateResult(String data, String msg) {
+
+        /*if(data != null && msg == null){
+            CheckUpdatePopWindow checkUpdatePopWindow = new CheckUpdatePopWindow(this);
+            checkUpdatePopWindow.show(mCheckUpdata);
+        }else{
+            showToast(msg);
+        }*/
     }
 
     @Override

@@ -119,7 +119,12 @@ class CommentPopView(var context: Activity) : PopupWindow(context) {
     fun backgroundAlpha(context: Activity, bgAlpha: Float) {
         val lp = context.window.attributes
         lp.alpha = bgAlpha
-        context.window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+        if(bgAlpha < 1){
+            context.window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+        }else{
+            context.window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+        }
+
         context.window.attributes = lp
     }
 }

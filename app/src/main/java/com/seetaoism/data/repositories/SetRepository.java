@@ -6,6 +6,7 @@ import com.mr.k.mvp.UserManager;
 import com.mr.k.mvp.base.BaseRepository;
 import com.mr.k.mvp.base.IBaseCallBack;
 import com.mr.k.mvp.exceptions.ResultException;
+import com.seetaoism.data.entity.CheckUpdateData;
 import com.seetaoism.data.entity.HttpResult;
 import com.seetaoism.data.entity.User;
 import com.seetaoism.data.okhttp.JDDataService;
@@ -30,7 +31,7 @@ public class SetRepository extends BaseRepository implements SetContract.ISetMod
                     UserManager.loginOut();
                     return Observable.just(newsColumnDataHttpResult.data);
                 }
-                return Observable.error(new ResultException(ResultException.SERVER_ERROR));
+                return Observable.error(new ResultException(newsColumnDataHttpResult.message));
             }
         }, callBack);
     }
@@ -43,10 +44,37 @@ public class SetRepository extends BaseRepository implements SetContract.ISetMod
                 if (newsColumnDataHttpResult.code == 1 ) {
                     return Observable.just(newsColumnDataHttpResult.data);
                 }
-                return Observable.error(new ResultException(ResultException.SERVER_ERROR));
+                return Observable.error(new ResultException(newsColumnDataHttpResult.message));
             }
         }, callBack);
     }
+
+    @Override
+    public void checkUpdate(LifecycleProvider provider, HashMap<String, String> map, IBaseCallBack<CheckUpdateData> callBack) {
+        observer(provider, JDDataService.service().checkUpdate(map), new Function<HttpResult<CheckUpdateData>, ObservableSource<CheckUpdateData>>() {
+            @Override
+            public ObservableSource<CheckUpdateData> apply(HttpResult<CheckUpdateData> newsColumnDataHttpResult) throws Exception {
+                if (newsColumnDataHttpResult.code == 1 ) {
+                    return Observable.just(newsColumnDataHttpResult.data);
+                }
+                return Observable.error(new ResultException(newsColumnDataHttpResult.message));
+            }
+        }, callBack);
+    }
+
+    @Override
+    public void appUpdate(LifecycleProvider provider, HashMap<String, String> map, IBaseCallBack<String> callBack) {
+        observer(provider, JDDataService.service().appUpgrade(map), new Function<HttpResult<String>, ObservableSource<String>>() {
+            @Override
+            public ObservableSource<String> apply(HttpResult<String> newsColumnDataHttpResult) throws Exception {
+                if (newsColumnDataHttpResult.code == 1 ) {
+                    return Observable.just(newsColumnDataHttpResult.data);
+                }
+                return Observable.error(new ResultException(newsColumnDataHttpResult.message));
+            }
+        }, callBack);
+    }
+
 
 
 }
