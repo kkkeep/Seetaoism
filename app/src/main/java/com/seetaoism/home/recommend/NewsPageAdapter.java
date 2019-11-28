@@ -359,6 +359,15 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
             tvTime = itemView.findViewById(R.id.news_item_flash_tv_time);
             ivShare = itemView.findViewById(R.id.news_item_flash_iv_share);
 
+            ivShare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   if(mOnItemClickListener != null){
+                       mOnItemClickListener.onShareAction(mNews.get(getAdapterPosition()), getAdapterPosition());
+                   }
+                }
+            });
+
 
         }
 

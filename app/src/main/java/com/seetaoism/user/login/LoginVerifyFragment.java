@@ -34,6 +34,7 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
     private EditText mEtVerify;
     private int mCountDown;
     private CountDownTimer mCountDownTimer;
+    private ImageView user_iv_left_close;
 
 
     @Override
@@ -50,6 +51,7 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
         mTvGoToPsdLogin = bindViewAndSetListener(R.id.login_goto_ps_login, this);
         mTvGoToPsdRegister = bindViewAndSetListener(R.id.login_tv_goto_register, this);
         mBtnLogin = bindViewAndSetListener(R.id.login_btn_login, this);
+        user_iv_left_close = bindViewAndSetListener(R.id.user_iv_left_close, this);
 
         mEdtPhoneNumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -137,7 +139,6 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
                 break;
             }
             case R.id.user_iv_left_close: {
-                back();
                 break;
             }
 
@@ -158,6 +159,7 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
                 handGetSmsCode();
                 break;
             }
+
             default:
                 break;
         }

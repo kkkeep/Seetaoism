@@ -1,6 +1,7 @@
 package com.seetaoism.utils
 
 import android.app.Activity
+import android.text.TextUtils
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import com.mr.k.mvp.utils.PermissionUtils
@@ -27,10 +28,14 @@ object ShareUtils {
         val permissionUtils = PermissionUtils(activity)
         permissionUtils.checkPermission(activity, object : PermissionUtils.OnPermissionCallBack {
             override fun onAllMustAccept() {
-                val thumb = UMImage(activity, news.imageUrl)
+
                 val web = UMWeb(news.share_link)
                 web.title = news.theme
-                web.setThumb(thumb)  //缩略图
+                if(!TextUtils.isEmpty(news.imageUrl)){
+                    val thumb = UMImage(activity, news.imageUrl)
+                    web.setThumb(thumb)  //缩略图
+                }
+
                 web.description = news.description
                 ShareAction(activity).withMedia(web).setDisplayList(*shareMedias)
                         .setCallback(listener).open();

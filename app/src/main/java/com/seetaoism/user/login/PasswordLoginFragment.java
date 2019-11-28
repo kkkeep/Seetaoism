@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.mr.k.mvp.kotlin.widget.EditTextButton;
+import com.mr.k.mvp.utils.SPUtils;
 import com.mr.k.mvp.utils.SystemFacade;
 import com.seetaoism.AppConstant;
 import com.seetaoism.R;
@@ -72,6 +73,11 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
         mBtnLogin = bindViewAndSetListener(R.id.login_btn_login, this);
 
         mBtnLogin.bindEditText(mEdtPassword);
+
+        String value = SPUtils.getValue("loginnumber");
+        if (value!=null){
+            mEdtPhoneNumber.setText(value);
+        }
     }
 
 
@@ -85,6 +91,8 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
     public void onLoginSuccess(User user) {
         closeLoading();
         login(user);
+        //保存上次的登录账号
+        SPUtils.saveValueToDefaultSpByCommit("loginnumber",mEdtPhoneNumber.getText().toString());
 
     }
 
@@ -158,6 +166,7 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
         closeLoading();
         if(user != null){
             login(user);
+
         }else{
             showToast(msg);
         }
