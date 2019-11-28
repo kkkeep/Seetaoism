@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mr.k.mvp.base.MvpBaseFragment
+import com.mr.k.mvp.getUser
 import com.mr.k.mvp.kotlin.widget.CommentDecoration
 import com.mr.k.mvp.kotlin.base.BaseActivity
 import com.mr.k.mvp.utils.Logger
@@ -25,6 +26,7 @@ import com.seetaoism.home.detail.DetailsContract
 import com.seetaoism.home.detail.vp.DetailVPFragment
 import com.seetaoism.home.detail.vp.NewsDetailAdapter
 import com.seetaoism.libloadingview.LoadingView
+import com.seetaoism.user.login.LoginActivity
 import com.seetaoism.widgets.IntegralWidget
 import com.umeng.socialize.UMShareListener
 import com.umeng.socialize.bean.SHARE_MEDIA
@@ -347,7 +349,16 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
 
 
     internal fun commitArticle(news : NewsData.NewsBean){
-        showCommentDialog(news)
+
+        getUser()?.run {
+            if(isRefresh()){
+                showCommentDialog(news)
+                return
+            }
+        }
+
+        showToast(R.string.text_need_login)
+        LoginActivity.start()
     }
 
 

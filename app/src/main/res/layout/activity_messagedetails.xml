@@ -50,12 +50,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
     <RelativeLayout
         android:id="@+id/kong"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="61.5dp"
-        android:visibility="gone">
+        >
 
         <ImageView
             android:layout_width="wrap_content"
@@ -66,6 +67,7 @@
             android:src="@drawable/collect_all" />
 
         <TextView
+            android:id="@+id/message_detail_tv_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"

@@ -40,7 +40,8 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class MessageActivity extends JDMvpBaseActivity<MessageContract.MessagePresenter> implements MessageContract.MessageView, View.OnClickListener {
 
-
+    private static final int START_DETAIL_REQUEST_CODE = 0X100;
+    public static final int START_DETAIL_RESULT_CODE = 0X101;
     private NiceImageView mClose;
     private TextView mBianji;
     private Toolbar mToolbar;
@@ -129,9 +130,9 @@ public class MessageActivity extends JDMvpBaseActivity<MessageContract.MessagePr
                         adapter.mList.get(position).setIs_read(1);
                         ImageView tag = view.findViewById(R.id.tag);
                         tag.setVisibility(View.GONE);
-                        startActivity(intent);
+                        startActivityForResult(intent,START_DETAIL_REQUEST_CODE);
                     } else {
-                        showToast("页面异常");
+                        showToast("找不到相关数据/相关数据已删除");
                     }
                 }
             }
@@ -189,6 +190,20 @@ public class MessageActivity extends JDMvpBaseActivity<MessageContract.MessagePr
     @Override
     protected int getLayoutId() {
         return R.layout.activity_message;
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == START_DETAIL_REQUEST_CODE && resultCode == START_DETAIL_RESULT_CODE){
+            int id = data.getIntExtra("msgid", -1);
+            if(id != -1 && adapter != null){
+                adapter.setNoticeStatus(id, 0);
+            }
+        }
+
     }
 
     @Override

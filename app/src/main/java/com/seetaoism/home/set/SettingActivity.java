@@ -194,6 +194,10 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
                 showToast("清理完毕");
                 break;
 
+            case R.id.check_updata:{
+
+            }
+
         }
 
     }
