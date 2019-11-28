@@ -19,9 +19,9 @@
 
             <ImageView
                 android:id="@+id/close_opinion"
-                android:layout_width="14dp"
+                android:layout_width="26dp"
                 android:layout_marginRight="19dp"
-                android:layout_height="14dp"
+                android:layout_height="26dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/ic_close" />

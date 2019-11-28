@@ -1,5 +1,6 @@
 package com.seetaoism.user.register
 
+import android.annotation.SuppressLint
 import android.text.method.ScrollingMovementMethod
 import android.view.View
 import com.mr.k.mvp.base.BaseFragment
@@ -18,14 +19,17 @@ class UserProtocolFragment : BaseFragment(){
         return R.layout.fragment_user_protocol
     }
 
+    @SuppressLint("SetTextI18n")
     override fun initView(root: View?) {
 
         protocol_iv_left_close.setOnClickListener {
             back()
         }
-        protocol_tv_content.text = "见道在此特别提醒您，欢迎您与北京十方见道文化传媒有限公司(Beijing shifang jiandao culture media co. LTD.)共同签署《见道网络服务使用协议》（下称“本协议”），并使用北京十方见道文化传媒有限公司(Beijing shifang jiandao culture media co. LTD.)及相关关联企业（下称“见道”）基于本协议及其不时发布的操作规则为您提供的基于互联网以及移动网的相关服务（下称“网络服务”）。\n" +
-                "见注册使用见道提供的网络服务（包括任何免费或者收费服务）前，请务必审慎阅读本协议的全部条款、充分理解各条款内容后再点击同意，特别是免除或者限制见道责任的条款、对您权利限制条款、法律适用和争议解决条款，这些条款将尽可能以加粗及下划线方式标识。如您对本协议有任何疑问，可向见道电话客服咨询。如您按照注册页面提示填写信息、阅读并点击同意本协议且完成全部注册流程后，即表示您已充分阅读、理解并接受本协议的全部内容，成为见道注册用户并成为具有法律约束力的本协议的一方。如果您不同意本协议任何条款及/或随时对其的修改，您应立即停止注册程序或停止使用见道提供的网络服务。\n" +
+        protocol_tv_content.text = "    见道在此特别提醒您，欢迎您与北京十方见道文化传媒有限公司(Beijing shifang jiandao culture media co. LTD.)共同签署《见道网络服务使用协议》（下称“本协议”），并使用北京十方见道文化传媒有限公司(Beijing shifang jiandao culture media co. LTD.)及相关关联企业（下称“见道”）基于本协议及其不时发布的操作规则为您提供的基于互联网以及移动网的相关服务（下称“网络服务”）。\n" +
+                "    见注册使用见道提供的网络服务（包括任何免费或者收费服务）前，请务必审慎阅读本协议的全部条款、充分理解各条款内容后再点击同意，特别是免除或者限制见道责任的条款、对您权利限制条款、法律适用和争议解决条款，这些条款将尽可能以加粗及下划线方式标识。如您对本协议有任何疑问，可向见道电话客服咨询。如您按照注册页面提示填写信息、阅读并点击同意本协议且完成全部注册流程后，即表示您已充分阅读、理解并接受本协议的全部内容，成为见道注册用户并成为具有法律约束力的本协议的一方。如果您不同意本协议任何条款及/或随时对其的修改，您应立即停止注册程序或停止使用见道提供的网络服务。\n" +
+                "\n" +
                 "目录\n" +
+                "\n" +
                 "1.协议的范围\n" +
                 "2.账号的注册和使用\n" +
                 "3.服务内容\n" +
@@ -40,6 +44,7 @@ class UserProtocolFragment : BaseFragment(){
                 "12.通知送达\n" +
                 "13.法律管辖\n" +
                 "14.其他规定\n" +
+                "\n" +
                 "1.协议的范围\n" +
                 "1.1\n" +
                 "本协议是由您与见道之间关于使用见道网（网址：http://www.seetaoism.com）相关网络服务所订立的协议。\n" +

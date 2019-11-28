@@ -129,6 +129,8 @@ public class PhoneActivity extends JDMvpBaseActivity<PhoneContract.IPhonePresnte
     @Override
     public void IPhonecodeFail(String s) {
         showToast(s);
+        resetGetCodeTextView();
+        mCountDownTimer.cancel();
     }
 
     @Override

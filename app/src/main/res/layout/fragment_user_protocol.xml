@@ -43,6 +43,8 @@
 
 
         <TextView
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:id="@+id/protocol_tv_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

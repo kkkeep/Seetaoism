@@ -65,6 +65,13 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
                 } else {
                     mIvClearPhoneNumber.setVisibility(View.VISIBLE);
                 }
+
+                if (mEdtPhoneNumber.getText().length()>10){
+                    mTvGetVerify.setTextColor(getResources().getColor(R.color.black_1));
+                }else if(mEdtPhoneNumber.getText().length()<2){
+                    mTvGetVerify.setTextColor(getResources().getColor(R.color.gray_1));
+
+                }
             }
 
             @Override
@@ -98,7 +105,6 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
 
             }
         });
-
 
 
     }
@@ -168,7 +174,7 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
     private void login() {
         String phoneNumber = mEdtPhoneNumber.getText().toString().trim();
 
-        if(!SystemFacade.isValidPhoneNumber(phoneNumber)){
+        if (!SystemFacade.isValidPhoneNumber(phoneNumber)) {
             showToast(R.string.text_error_input_phone_number);
             return;
         }
@@ -207,7 +213,7 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
                 resetGetCodeTextView();
             }
         };
-
+        mTvGetVerify.setTextColor(getResources().getColor(R.color.black_1));
         mCountDownTimer.start();
         mTvGetVerify.setEnabled(false);
 
@@ -221,8 +227,6 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
         mTvGetVerify.setText(R.string.text_register_get_code);
         mTvGetVerify.setEnabled(true);
     }
-
-
 
 
     @Override
@@ -268,9 +272,9 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
     @Override
     public void onSocialLoginResult(User user, String msg) {
         closeLoading();
-        if(user != null){
+        if (user != null) {
             login(user);
-        }else{
+        } else {
             showToast(msg);
         }
     }

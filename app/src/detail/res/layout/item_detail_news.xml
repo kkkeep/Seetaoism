@@ -38,7 +38,7 @@
         android:id="@+id/detail_item_news_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="18dp"
+        android:layout_marginBottom="15dp"
         android:textSize="12dp"
         android:textColor="@color/gray_10"
         app:layout_constraintBottom_toBottomOf="parent"
