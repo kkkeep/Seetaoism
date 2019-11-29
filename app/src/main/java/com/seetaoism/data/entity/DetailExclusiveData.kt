@@ -19,5 +19,5 @@ class DetailExclusiveData constructor(val from: FROM,var list: MutableList<out N
 }
 
 enum class FROM{
-    RECOMMEND,VIDEO,TOPIC,INNER,COLLECT
+    RECOMMEND,VIDEO,TOPIC,INNER,COLLECT,NOTIFICATION
 }

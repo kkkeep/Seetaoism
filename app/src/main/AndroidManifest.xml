@@ -37,7 +37,9 @@
         <activity
             android:name=".home.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|adjustPan|stateHidden" />
+            android:windowSoftInputMode="adjustResize|adjustPan|stateHidden"  android:launchMode="singleTask"/>
+
+
         <activity
             android:name=".user.login.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
