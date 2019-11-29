@@ -43,7 +43,7 @@
                 android:maxLines="2"
                 android:text="您好等待的荔枝,欢迎您登录见道网!让我们一起见道未来!"
                 android:textColor="@color/black"
-                android:textSize="15dp" />
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/notice_time"

@@ -192,7 +192,7 @@ public class LoadingView extends ConstraintLayout {
 
 
         }else{
-            mLoadingLayout.setBackgroundColor(Color.WHITE);
+           // mLoadingLayout.setBackgroundColor(Color.WHITE);
             int width = dip2px(getContext(), 100);
             ConstraintSet constraintSet = new ConstraintSet();
             constraintSet.clone(this);
