@@ -70,7 +70,7 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
                 public void run() {
                     User user = UserManager.loginLocal(User.class);
                     if (user != null && user.getToken() != null && !TextUtils.isEmpty(user.getToken().getValue())) {
-                       // mPresenter.getUserInfoByToken(user.getToken().getValue());
+                        mPresenter.getUserInfoByToken(user.getToken().getValue());
                     }
 
                 }
