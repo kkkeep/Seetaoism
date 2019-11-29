@@ -21,6 +21,7 @@ import com.seetaoism.R;
 import com.seetaoism.data.entity.User;
 import com.seetaoism.home.HomeActivity;
 import com.seetaoism.user.login.LoginActivity;
+import com.seetaoism.user.login.LoginVerifyFragment;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -82,6 +83,10 @@ public abstract class BaseUserFragment<T extends IBasePresenter> extends MvpBase
 
         switch (v.getId()) {
             case R.id.user_iv_left_close: {
+                if(BaseUserFragment.this instanceof LoginVerifyFragment){
+                    getActivity().finish();
+                    return;
+                }
                 back();
                 break;
 

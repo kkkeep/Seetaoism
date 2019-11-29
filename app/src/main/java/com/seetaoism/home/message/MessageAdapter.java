@@ -56,21 +56,23 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 if(mEditMode == MYLIVE_MODE_CHECK){
                     holder1.tag.setVisibility(View.VISIBLE);
                 }else{
-                    holder1.tag.setVisibility(View.GONE);
+                    holder1.tag.setVisibility(View.INVISIBLE);
                 }
 
                 holder1.tag.setColorFilter(Color.RED);
 
             } else if (is_read == 1) { // 已读
-                holder1.tag.setVisibility(View.GONE);
+                holder1.tag.setVisibility(View.INVISIBLE);
             }
 
         holder1.setIsRecyclable(false); // 为了条目不复用
             MessageData.MessageList bean = mList.get(position);
             if (mEditMode == MYLIVE_MODE_CHECK) {
                 holder1.cb_select.setVisibility(View.GONE);
+                holder1.tag.setVisibility(View.VISIBLE);
             } else {
                 holder1.cb_select.setVisibility(View.VISIBLE);
+                holder1.tag.setVisibility(View.GONE);
                 if (bean.isSelect()) {
                     holder1.cb_select.setChecked(true);
                 } else {

@@ -71,6 +71,7 @@ public class MessageActivity extends JDMvpBaseActivity<MessageContract.MessagePr
         pop = findViewById(R.id.pop);
         btnAllSelect = findViewById(R.id.btn_allSelect);
         btnDelete = findViewById(R.id.btn_delete);
+        btnDelete.setEnabled(false);
         kong = findViewById(R.id.kong);
 
         mBianji.setOnClickListener(this);
@@ -129,7 +130,7 @@ public class MessageActivity extends JDMvpBaseActivity<MessageContract.MessagePr
                         }
                         adapter.mList.get(position).setIs_read(1);
                         ImageView tag = view.findViewById(R.id.tag);
-                        tag.setVisibility(View.GONE);
+                        tag.setVisibility(View.INVISIBLE);
                         startActivityForResult(intent,START_DETAIL_REQUEST_CODE);
                     } else {
                         showToast("找不到相关数据/相关数据已删除");

@@ -238,13 +238,32 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
 
                     override fun onCommentClick(comment: CommentData.Comment,itemPostion : Int) {
                         mItemPosition = itemPostion
-                        showReplyDialog(comment)
+
+                        getUser()?.run {
+                            if(isRefresh()){
+                                showReplyDialog(comment)
+                                return
+                            }
+                        }
+
+                        showToast(R.string.text_need_login)
+                        LoginActivity.start()
+
                     }
 
                     override fun onCommentReplayClick(reply: CommentData.Reply,itemPostion : Int,replyItemPostion : Int) {
                         mItemPosition = itemPostion
                         mReplyItemPosition = replyItemPostion
-                        showReplyDialog(reply)
+                        getUser()?.run {
+                            if(isRefresh()){
+                                showReplyDialog(reply)
+                                return
+                            }
+                        }
+
+                        showToast(R.string.text_need_login)
+                        LoginActivity.start()
+
                     }
 
                     override fun onLoadMoreReplyClick(comment: CommentData.Comment, itemPosition: Int) {
@@ -367,7 +386,6 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
      */
     private fun showCommentDialog(news : NewsData.NewsBean){
 
-        Toast.makeText(context," " + detailWebView.height  + " - " + detailWebView.contentHeight * detailWebView.scale,Toast.LENGTH_SHORT ).show()
 
         CommentPopView(activity!!).show(detailWebView,CommentPopView.TYPE_COMMENT, mLastInputContent , getString(R.string.text_detail_write_comment), object : OnActionListener {
             override fun onAction(type: Int, content: String) {
