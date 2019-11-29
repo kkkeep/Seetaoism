@@ -20,7 +20,7 @@
         app:titleColor="#fff"
         app:indicatorShow="false"
         app:titleLeftMargin="15dp"
-        app:titleRightMargin="9dp"
+        app:titleRightMargin="7dp"
         app:titleSize="14dp"
         app:titleTopMargin="12dp"
         android:textStyle="bold"

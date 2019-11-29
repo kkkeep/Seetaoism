@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         tools:text="标题"
-        android:maxLines="1"
+        android:maxLines="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/news_item_video_im_cover"
