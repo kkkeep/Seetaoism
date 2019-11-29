@@ -102,7 +102,7 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
                 start = 0;
                 time = 0;
                 adapter.mlist.clear();
-                mPresenter.getSearchs(start, time, mEditSearch.getText().toString());
+//                mPresenter.getSearchs(start, time, mEditSearch.getText().toString());
 
             }
         });
