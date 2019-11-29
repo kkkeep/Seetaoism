@@ -50,7 +50,7 @@
                     android:textStyle="bold"
                     android:text="55555555555555555555555555555asdasdasdasdasdasdasdasdasdasdas5555555"
                     android:textColor="#282B2E "
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
 
 
                 <TextView

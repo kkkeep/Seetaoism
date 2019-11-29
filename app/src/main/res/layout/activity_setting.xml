@@ -94,8 +94,9 @@
                     android:textColor="#282B2E " />
 
                 <Switch
+
                     android:textColor="#fff4f4f4"
-                    android:id="@+id/push1_Button"
+                    android:id="@+id/push1_pic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

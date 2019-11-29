@@ -70,6 +70,7 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
     private LinearLayout mActivityLogin;
     private File mCacheUserFile;
     private Switch switchButton;
+    private Switch push1_pic;
     private MessageReceiver mMessageReceiver;
     public static final String MESSAGE_RECEIVED_ACTION = "com.example.jpushdemo.MESSAGE_RECEIVED_ACTION";
     public static final String KEY_TITLE = "title";
@@ -107,12 +108,15 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
         mOutlogin = findViewById(R.id.outlogin);
         mVersion = findViewById(R.id.version);
         mActivityLogin = findViewById(R.id.activity_login);
+        push1_pic = findViewById(R.id.push1_pic);
         mOutlogin.setOnClickListener(this);
         mRecommend.setOnClickListener(this);
         mClose.setOnClickListener(this);
         mCall.setOnClickListener(this);
         mCleanCach.setOnClickListener(this);
         mCheckUpdata.setOnClickListener(this);
+        push1_pic.setChecked(true);
+
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
