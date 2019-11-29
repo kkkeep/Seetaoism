@@ -127,8 +127,8 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
 
-            if (position != mGuideImages.length - 1) {
-                ImageView imageView = new ImageView(container.getContext());
+            /*if (position != mGuideImages.length - 1) {*/
+                /*ImageView imageView = new ImageView(container.getContext());
 
                 ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 imageView.setLayoutParams(layoutParams);
@@ -136,9 +136,9 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 imageView.setBackgroundResource(mGuideImages[position]);
                 container.addView(imageView);
-                return imageView;
+                return imageView;*/
 
-            } else {
+
 
                 ConstraintLayout constraintLayout = new ConstraintLayout(container.getContext());
 
@@ -149,6 +149,7 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
                 ConstraintSet constraintSet = new ConstraintSet();
 
                 constraintSet.clone(constraintLayout);
+
 
 
                 TextView tvJump = new TextView(container.getContext());
@@ -171,33 +172,36 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
                 constraintLayout.addView(tvJump);
 
 
-                Button btnStart = new Button(container.getContext());
+                if(position == mGuideImages.length -1){
+                    Button btnStart = new Button(container.getContext());
 
-                btnStart.setId(101);
-                btnStart.setBackgroundResource(R.drawable.login_button_rounder_bg_selector);
-                btnStart.setText(R.string.text_immediate_experience);
-                btnStart.setTextColor(Color.parseColor("#ffffff"));
+                    btnStart.setId(101);
+                    btnStart.setBackgroundResource(R.drawable.login_button_rounder_bg_selector);
+                    btnStart.setText(R.string.text_immediate_experience);
+                    btnStart.setTextColor(Color.parseColor("#ffffff"));
 
-                constraintSet.constrainWidth(btnStart.getId(), SystemFacade.dp2px(container.getContext(), 128));
-                constraintSet.constrainHeight(btnStart.getId(), SystemFacade.dp2px(container.getContext(), 44));
+                    constraintSet.constrainWidth(btnStart.getId(), SystemFacade.dp2px(container.getContext(), 128));
+                    constraintSet.constrainHeight(btnStart.getId(), SystemFacade.dp2px(container.getContext(), 44));
 
-                constraintSet.connect(btnStart.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT);
-                constraintSet.connect(btnStart.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT);
-                constraintSet.connect(btnStart.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, SystemFacade.dip2px(container.getContext(), 65));
+                    constraintSet.connect(btnStart.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT);
+                    constraintSet.connect(btnStart.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT);
+                    constraintSet.connect(btnStart.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, SystemFacade.dip2px(container.getContext(), 65));
+                    btnStart.setOnClickListener(new SplashOnClickListener());
 
+                    constraintLayout.addView(btnStart);
+                }
 
-                constraintLayout.addView(btnStart);
 
 
                 constraintSet.applyTo(constraintLayout);
 
                 container.addView(constraintLayout);
 
-                btnStart.setOnClickListener(new SplashOnClickListener());
+
 
                 return constraintLayout;
 
-            }
+            //}
 
         }
 
