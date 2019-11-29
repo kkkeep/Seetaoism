@@ -147,12 +147,12 @@ object ShareUtils {
         val permissionUtils = PermissionUtils(activity)
         permissionUtils.checkPermission(activity, object : PermissionUtils.OnPermissionCallBack {
             override fun onAllMustAccept() {
-                val thumb = UMImage(activity, R.drawable.ic_drawer_logo)
-                val web = UMWeb("http://www.seetaoism.com/m_greet")
+                val thumb = UMImage(activity,"https://www.seetao.com/Public/static/share_logo.png")
+                val web = UMWeb("https://www.seetao.com/m_greet")
                 web.title = activity.getString(R.string.app_name)
                 web.setThumb(thumb)  //缩略图
                 web.description = activity.getString(R.string.text_share_app_desciption)
-                ShareAction(activity).withMedia(web).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QQ, SHARE_MEDIA.SINA, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN_CIRCLE).setCallback(listener).open()
+                ShareAction(activity).withMedia(web).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QQ, SHARE_MEDIA.SINA, SHARE_MEDIA.WEIXIN_CIRCLE).setCallback(listener).open()
             }
 
             override fun shouldShowRationale(call: PermissionUtils.PermissionCall?) {

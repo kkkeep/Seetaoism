@@ -19,7 +19,7 @@
         app:titleBottomMargin="10dp"
         app:titleColor="#fff"
         app:indicatorShow="false"
-        app:titleLeftMargin="15dp"
+        app:titleLeftMargin="13dp"
         app:titleRightMargin="7dp"
         app:titleSize="14dp"
         app:titleTopMargin="12dp"

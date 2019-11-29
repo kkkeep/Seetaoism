@@ -213,7 +213,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
             }
 
             R.id.newsDetailShare -> {
-                openShareNewsPanel(mNewsDetailAdapter.getCurrentNew(), SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QQ, SHARE_MEDIA.SINA, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN_CIRCLE)
+                openShareNewsPanel(mNewsDetailAdapter.getCurrentNew(), SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QQ, SHARE_MEDIA.SINA, SHARE_MEDIA.WEIXIN_CIRCLE)
 
             }
             R.id.newsDetailSearch -> {
