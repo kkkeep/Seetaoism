@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Scroller;
@@ -60,7 +61,7 @@ public class JBanner extends ConstraintLayout {
 
 
     // 自动切换时，一页动画执行时间
-    private int nDuration = 3000;
+    private int nDuration = 400;
 
     // 自动轮播间隔时间，默认为一秒
     private int mInterval = 3000;
@@ -498,7 +499,7 @@ public class JBanner extends ConstraintLayout {
 
             interpolator.setAccessible(true);
 
-            Scroller scroller = new Scroller(getContext(), (Interpolator) interpolator.get(null)) {
+            Scroller scroller = new Scroller(getContext(), new LinearInterpolator()) {
                 @Override
                 public void startScroll(int startX, int startY, int dx, int dy, int duration) {
                     int newDuration;
