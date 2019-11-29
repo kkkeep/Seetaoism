@@ -5,12 +5,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,21 +18,14 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.gson.Gson;
 import com.mr.k.mvp.UserManager;
 import com.mr.k.mvp.base.MvpBaseActivity;
-import com.mr.k.mvp.utils.DataCacheUtils;
-import com.mr.k.mvp.utils.Logger;
 import com.mr.k.mvp.utils.SPUtils;
 import com.mr.k.mvp.utils.SystemFacade;
-import com.seetaoism.data.entity.HttpResult;
 import com.seetaoism.data.entity.User;
 import com.seetaoism.home.HomeActivity;
-import com.seetaoism.user.login.LoginActivity;
 import com.seetaoism.user.login.LoginContract;
 import com.seetaoism.user.login.LoginGetUserPresenter;
-
-import java.util.ArrayList;
 
 
 /*
@@ -59,7 +50,7 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
             setContentView(R.layout.activity_splash);
             mViewPager = findViewById(R.id.splash_guild_page);
 
-            mGuideImages = new int[]{R.drawable.splash_guild1, R.drawable.splash_guide2, R.drawable.splash_guide3};
+            mGuideImages = new int[]{R.drawable.splash_guild1, R.drawable.splash_guild2, R.drawable.splash_guild3};
 
             mViewPager.setAdapter(new SplashGuidePageAdapter());
 
