@@ -31,8 +31,13 @@ public class TestActivity extends Activity {
                 content = bundle.getString(JPushInterface.EXTRA_ALERT);
                 extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
                 Log.d("content", "onCreate: "+content);
+
+
+
                 Gson gson = new Gson();
                 PushBean pushBean = gson.fromJson(extras, PushBean.class);
+
+
 //                PushBean pushBean = gson.fromJson(content, PushBean.class);
                 //文章id
                /* String id = pushBean.getId();

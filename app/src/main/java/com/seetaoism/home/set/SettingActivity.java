@@ -260,7 +260,7 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
                 });
 
             }else{
-                showToast(data.getUpgrade_point());
+                showToast("当前为最新版本");
                 closeLoading();
             }
 

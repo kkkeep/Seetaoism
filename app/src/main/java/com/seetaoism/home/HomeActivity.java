@@ -18,9 +18,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.mr.k.mvp.IUser;
 import com.mr.k.mvp.UserManager;
 import com.mr.k.mvp.UserState;
@@ -31,11 +33,14 @@ import com.mr.k.mvp.utils.Logger;
 import com.seetaoism.R;
 import com.seetaoism.TestConstraintActivity;
 import com.seetaoism.base.JDBaseActivity;
+import com.seetaoism.data.entity.DetailExclusiveData;
+import com.seetaoism.data.entity.FROM;
 import com.seetaoism.data.entity.NewsColumn;
 import com.seetaoism.data.entity.NewsColumnData;
 import com.seetaoism.data.entity.NewsData;
 import com.seetaoism.data.entity.User;
 import com.seetaoism.data.repositories.NewsRepository;
+import com.seetaoism.home.detail.vp.DetailVPFragment;
 import com.seetaoism.home.mine.MineFragment;
 import com.seetaoism.home.push.SettingActivity;
 import com.seetaoism.home.recommend.RecommendFragment;
@@ -51,8 +56,10 @@ import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMWeb;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import cn.jpush.android.api.JPushInterface;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
@@ -82,14 +89,14 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
         home_drawer_share_app = findViewById(R.id.home_drawer_share_app);
         mDrawerColumnListView = mDrawerLayout.findViewById(R.id.home_drawer_colum_list);
         mBottomTabLayout = findViewById(R.id.home_bottom_layout);
-        home_drawer_seach_layout = findViewById( R.id.home_drawer_seach_layout);
+        home_drawer_seach_layout = findViewById(R.id.home_drawer_seach_layout);
         //DrawerLayout的侧边滑动可以通过设置锁定模式来禁用
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
         home_drawer_seach_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this,SsearchActivity.class));
+                startActivity(new Intent(HomeActivity.this, SsearchActivity.class));
             }
         });
         editText.setOnClickListener(this);
@@ -114,22 +121,23 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
 
         mBottomTabLayout.selectTab(1);
 
+        notificationToDetail();
 
-       mBroadcastReceiver =  UserManager.registerUserBroadcastReceiver((iUser,state) -> {
-           if(state == UserState.Login){
-               User user = (User) iUser;
-               if(user != null && user.isRefresh()){
-                   updateTabTitle(4, getString(R.string.text_main_tab_mine));
+        mBroadcastReceiver = UserManager.registerUserBroadcastReceiver((iUser, state) -> {
+            if (state == UserState.Login) {
+                User user = (User) iUser;
+                if (user != null && user.isRefresh()) {
+                    updateTabTitle(4, getString(R.string.text_main_tab_mine));
 
-                   RecommendFragment recommendFragment = (RecommendFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(RecommendFragment.class));
-                   if (recommendFragment != null) {
-                       recommendFragment.reloadColumn();
-                   }
+                    RecommendFragment recommendFragment = (RecommendFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(RecommendFragment.class));
+                    if (recommendFragment != null) {
+                        recommendFragment.reloadColumn();
+                    }
 
-               }else{
-                   updateTabTitle(4, getString(R.string.text_unlogin));
-               }
-           }
+                } else {
+                    updateTabTitle(4, getString(R.string.text_unlogin));
+                }
+            }
 
             return Unit.INSTANCE;
         });
@@ -145,7 +153,30 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        setIntent(intent);
+    notificationToDetail();
+    }
 
+    private void notificationToDetail() {
+
+        int from = getIntent().getIntExtra("from", -1);
+        if (from != -1) {
+            String json = getIntent().getStringExtra(JPushInterface.EXTRA_EXTRA);
+            Gson gson = new Gson();
+            NewsData.NewsBean newsBean = gson.fromJson(json, NewsData.NewsBean.class);
+            ArrayList<NewsData.NewsBean> arrayList = new ArrayList<>();
+            arrayList.add(newsBean);
+            newsBean.setTheme(getIntent().getStringExtra(JPushInterface.EXTRA_NOTIFICATION_TITLE));
+            Fragment detailVPFragment = getSupportFragmentManager().findFragmentByTag(getFragmentTag(DetailVPFragment.class));
+            if (detailVPFragment != null && detailVPFragment.isAdded()) {
+                DetailExclusiveData detailExclusiveData = new DetailExclusiveData(FROM.NOTIFICATION, arrayList, 0);
+                DetailVPFragment.Launcher.openInner(this, detailExclusiveData);
+            } else {
+                DetailExclusiveData detailExclusiveData = new DetailExclusiveData(FROM.NOTIFICATION, arrayList, 0);
+                DetailVPFragment.Launcher.open(this, detailExclusiveData, null);
+            }
+
+        }
     }
 
     private void switchFragment(int position) {
@@ -154,25 +185,25 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
         switch (position) {
             case 1: {
                 aClass = RecommendFragment.class;
-                StatusBarUtils.setStatusBarLightMode(this,Color.WHITE);
+                StatusBarUtils.setStatusBarLightMode(this, Color.WHITE);
                 break;
             }
             case 2: {
 
                 aClass = VideoFragment.class;
-                StatusBarUtils.setStatusBarLightMode(this,Color.WHITE);
+                StatusBarUtils.setStatusBarLightMode(this, Color.WHITE);
                 mDrawerLayout.closeDrawers();
                 break;
             }
             case 3: {
                 aClass = TopicFragment.class;
-                StatusBarUtils.setStatusBarLightMode(this,Color.WHITE);
+                StatusBarUtils.setStatusBarLightMode(this, Color.WHITE);
                 mDrawerLayout.closeDrawers();
                 break;
             }
             case 4: {
                 aClass = MineFragment.class;
-                StatusBarUtils.setStatusBarDarkMode(this,Color.BLACK);
+                StatusBarUtils.setStatusBarDarkMode(this, Color.BLACK);
                 mDrawerLayout.closeDrawers();
                 break;
             }
@@ -181,8 +212,6 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
         }
 
         addFragment(getSupportFragmentManager(), aClass, R.id.home_fragment_container, null);
-
-
 
 
     }
@@ -230,7 +259,7 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
     protected void onDestroy() {
         super.onDestroy();
         NewsRepository.destroy();
-        if(mBroadcastReceiver != null){
+        if (mBroadcastReceiver != null) {
             UserManager.unRegisterUserBroadcastReceiver(mBroadcastReceiver);
             mBroadcastReceiver = null;
         }
@@ -251,22 +280,22 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
                 ShareUtils.shareApp(this, new UMShareListener() {
                     @Override
                     public void onStart(SHARE_MEDIA share_media) {
-                        Logger.d("%s onStart = %s",TAG,share_media.getName());
+                        Logger.d("%s onStart = %s", TAG, share_media.getName());
                     }
 
                     @Override
                     public void onResult(SHARE_MEDIA share_media) {
-                        Logger.d("%s onResult = %s",TAG,share_media.getName());
+                        Logger.d("%s onResult = %s", TAG, share_media.getName());
                     }
 
                     @Override
                     public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                        Logger.d("%s onError = %s",TAG,share_media.getName());
+                        Logger.d("%s onError = %s", TAG, share_media.getName());
                     }
 
                     @Override
                     public void onCancel(SHARE_MEDIA share_media) {
-                        Logger.d("%s onCancel = %s",TAG,share_media.getName());
+                        Logger.d("%s onCancel = %s", TAG, share_media.getName());
                     }
                 });
 
@@ -279,7 +308,6 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
         }
 
     }
-
 
 
     //意见反馈
@@ -367,6 +395,4 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
     }
 
 
-
-    
 }

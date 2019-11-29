@@ -282,7 +282,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
 
 
         @JvmStatic
-        internal fun openInner(activity: BaseActivity, data: DetailExclusiveData): DetailVPFragment? {
+         fun openInner(activity: BaseActivity, data: DetailExclusiveData): DetailVPFragment? {
 
             val tag = activity.getFragmentTag(DetailVPFragment::class.java) + "_" + data.hashCode()
 

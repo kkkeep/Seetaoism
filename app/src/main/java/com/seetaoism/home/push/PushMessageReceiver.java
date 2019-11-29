@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.seetaoism.MainActivity;
+import com.seetaoism.home.HomeActivity;
 import com.seetaoism.home.set.SettingActivity;
 
 import org.json.JSONException;
@@ -31,13 +32,13 @@ public class PushMessageReceiver extends JPushMessageReceiver{
         Log.e(TAG,"[onNotifyMessageOpened] "+message);
         try{
             //打开自定义的Activity
-            Intent i = new Intent(context, TestActivity.class);
+            Intent i = new Intent(context, HomeActivity.class);
             Bundle bundle = new Bundle();
+            bundle.putInt("from", 1);
             bundle.putString(JPushInterface.EXTRA_NOTIFICATION_TITLE,message.notificationTitle);
             bundle.putString(JPushInterface.EXTRA_ALERT,message.notificationContent);
             bundle.putString(JPushInterface.EXTRA_EXTRA,message.notificationExtras);
             i.putExtras(bundle);
-            //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
             context.startActivity(i);
         }catch (Throwable throwable){
