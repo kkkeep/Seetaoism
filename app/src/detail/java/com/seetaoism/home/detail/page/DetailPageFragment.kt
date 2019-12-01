@@ -9,10 +9,8 @@ import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mr.k.mvp.base.MvpBaseFragment
 import com.mr.k.mvp.getUser
 import com.mr.k.mvp.kotlin.widget.CommentDecoration
 import com.mr.k.mvp.kotlin.base.BaseActivity
@@ -48,8 +46,10 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
     private val mListAdapter = DetailPageNewsAdapter()
     private var mArticleId: String? = null
     private var mArticleLinkUrl: String? = null
+    private var mArticleShareLinkUrl: String? = null
     private var mArticleDescription: String? = null
-    private var mArticleTtile: String? = null
+    private var mArticleTitle: String? = null
+    private var mArticleImgUrl: String? = null
 
     private var mIndex: Int? = null
     private var mLastInputContent : String? = null
@@ -71,8 +71,10 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
         args?.run {
             mArticleId = getString(AppConstant.BundleParamsKeys.ARTICLE_ID)
             mArticleLinkUrl = getString(AppConstant.BundleParamsKeys.ARTICLE_LINK_URL)
+            mArticleShareLinkUrl = getString(AppConstant.BundleParamsKeys.ARTICLE_SHARE_LINK_URL)
             mArticleDescription = getString(AppConstant.BundleParamsKeys.ARTICLE_DESCRIPTION)
-            mArticleTtile = getString(AppConstant.BundleParamsKeys.ARTICLE_TITLE)
+            mArticleTitle = getString(AppConstant.BundleParamsKeys.ARTICLE_TITLE)
+            mArticleImgUrl = getString(AppConstant.BundleParamsKeys.ARTICLE_IMAGE_URL)
 
         }
     }
@@ -323,9 +325,10 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
 
         val news =  NewsData.News()
         news.id = mArticleId;
-        news.share_link = mArticleLinkUrl
+        news.share_link = mArticleShareLinkUrl
         news.description = mArticleDescription
-        news.theme = mArticleTtile
+        news.theme = mArticleTitle
+        news.imageUrl = mArticleImgUrl
         return news
     }
 

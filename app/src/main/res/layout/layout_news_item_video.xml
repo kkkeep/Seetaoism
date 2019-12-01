@@ -23,18 +23,15 @@
          />
 
     <TextView
-        android:textStyle="bold"
         android:id="@+id/news_item_video_tv_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         tools:text="标题"
-        android:maxLines="2"
+        style="@style/SeeWay.NewsTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/news_item_video_im_cover"
-        android:textSize="16dp"
-        android:textColor="#282B2E"
         />
 
     <TextView

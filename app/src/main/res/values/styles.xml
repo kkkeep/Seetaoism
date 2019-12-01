@@ -77,4 +77,14 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
+
+    <style name="SeeWay.NewsTitle">
+        <item name="android:textSize">15dp</item>
+        <item name="android:lineSpacingExtra">5dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
 </resources>

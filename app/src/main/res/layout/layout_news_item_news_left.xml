@@ -29,16 +29,12 @@
          />
 
     <TextView
-        android:textStyle="bold"
         android:id="@+id/news_item_tv_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="11dp"
         tools:text="标题"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:textColor="@color/black"
-        android:textSize="16dp"
+        style="@style/SeeWay.NewsTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/detail_item_news_pic"
         app:layout_constraintTop_toTopOf="parent" />

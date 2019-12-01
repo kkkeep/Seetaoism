@@ -339,8 +339,10 @@ class NewsDetailAdapter(fm: FragmentManager, val news: MutableList<NewsData.News
 
         bundle.putString(AppConstant.BundleParamsKeys.ARTICLE_ID, newsData.id)
         bundle.putString(AppConstant.BundleParamsKeys.ARTICLE_LINK_URL, newsData.link)
+        bundle.putString(AppConstant.BundleParamsKeys.ARTICLE_SHARE_LINK_URL, newsData.share_link)
         bundle.putString(AppConstant.BundleParamsKeys.ARTICLE_DESCRIPTION, newsData.description)
         bundle.putString(AppConstant.BundleParamsKeys.ARTICLE_TITLE, newsData.theme)
+        bundle.putString(AppConstant.BundleParamsKeys.ARTICLE_IMAGE_URL, newsData.imageUrl)
 
         fragment.arguments = bundle;
 

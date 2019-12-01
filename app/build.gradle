@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
-def RELEASE_BASE_URL = "http://www.seetao.com"
+def RELEASE_BASE_URL = "https://www.seetao.com"
 def TEST_BASE_URL = "http://test.seetaoism.com"
 
 
@@ -52,7 +52,7 @@ android {
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             //https://developer.android.google.cn/studio/build/gradle-tips#share-custom-fields-and-resource-values-with-your-app-code
-            buildConfigField("String", "BASE_URL", '"' + TEST_BASE_URL + '"')
+            buildConfigField("String", "BASE_URL", '"' + RELEASE_BASE_URL + '"')
 
 
         }

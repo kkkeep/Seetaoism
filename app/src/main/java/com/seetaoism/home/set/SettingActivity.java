@@ -232,7 +232,6 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
 
     @Override
     public void onPushidSuccess(String success) {
-        showToast("成功");
     }
 
     @Override
