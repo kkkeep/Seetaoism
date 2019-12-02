@@ -69,7 +69,7 @@
             app:spacing="0dp"
             app:speed="2"
             app:textColor="#FF9B9C9E"
-            app:textSize="13dp"
+            app:textSize="12dp"
         />
 
     </LinearLayout>

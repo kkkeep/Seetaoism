@@ -13,6 +13,7 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
@@ -51,7 +52,7 @@ class MarqueeView : HorizontalScrollView {
     private var speed = 1
 
     private var valueAnimator: ValueAnimator? = null
-    private var textSize = 14
+    private var textSize = 13
 
 
     @JvmSuppressWildcards
@@ -192,6 +193,8 @@ class MarqueeView : HorizontalScrollView {
         textView.setPadding(0, 0, 0, 0)
         textView.setSingleLine()
         textView.setTextColor(textColor)
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP,12f);
+
 
         val layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
         textView.layoutParams = layoutParams
