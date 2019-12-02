@@ -133,7 +133,7 @@ public class MessageActivity extends JDMvpBaseActivity<MessageContract.MessagePr
                         tag.setVisibility(View.INVISIBLE);
                         startActivityForResult(intent,START_DETAIL_REQUEST_CODE);
                     } else {
-                        showToast("找不到相关数据/相关数据已删除");
+                        showToast("相关数据已删除");
                     }
                 }
             }
