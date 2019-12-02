@@ -42,12 +42,14 @@ public class JDApplication extends Application {
 
         mApplicationContext = this;
 
-        initMvp();
 
-        UMUtils.initUmeng(this);
 		initRefreshLayout();
         JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
-        JPushInterface.init(this);     		// 初始化 JPush
+        JPushInterface.init(this);// 初始化 JPush
+
+
+        initMvp();
+        UMUtils.initUmeng(this);
     }
 
 
@@ -58,28 +60,6 @@ public class JDApplication extends Application {
         interceptors.add(new UserInterceptor());
         interceptors.add(new CommonParamsInterceptor());
         MvpManager.initOkHttp(AppConstant.BASE_URL, JDApiService.class, JDGsonConverterFactory.create(),interceptors);
-
-
-       /* MvpManager.initExceptionMessage(new ExceptionMessageGetter() {
-            @NotNull
-            @Override
-            public String getNetError() {
-                return null;
-            }
-
-            @NotNull
-            @Override
-            public String getServerError() {
-                return null;
-            }
-
-            @NotNull
-            @Override
-            public String getUnKnowError() {
-                return null;
-            }
-        });*/
-
     }
 
 

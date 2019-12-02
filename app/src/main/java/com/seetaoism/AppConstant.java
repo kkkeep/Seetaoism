@@ -6,7 +6,6 @@ import static com.seetaoism.AppConstant.RequestUrl.*;
  * created by Cherry on 2019-08-25
  **/
 public interface AppConstant {
-    //String BASE_URL = "https://www.seetao.com";
    String BASE_URL = BuildConfig.BASE_URL;
 
 
@@ -20,8 +19,10 @@ public interface AppConstant {
         String ARTICLE_POSITION = "articlePosition";
         String DETAIL_NEWS_COLUMN_ID = "columnId";
         String ARTICLE_LINK_URL = "article_link_url";
+        String ARTICLE_SHARE_LINK_URL = "article_Share_link_url";
         String ARTICLE_DESCRIPTION = "article_description";
         String ARTICLE_TITLE = "article_title";
+        String ARTICLE_IMAGE_URL = "article_img_url";
 
         String ACCOUNT = "account";
     }

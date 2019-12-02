@@ -41,6 +41,8 @@ import com.seetaoism.home.push.LocalBroadcastManager;
 import com.seetaoism.libdownlaod.DownLoadManager;
 import com.seetaoism.libloadingview.LoadingView;
 import com.seetaoism.user.login.LoginActivity;
+import com.seetaoism.user.register.PrivacyPolicyFragment;
+import com.seetaoism.user.register.UserProtocolFragment;
 import com.seetaoism.utils.ShareUtils;
 import com.seetaoism.widgets.CheckUpdatePopWindow;
 import com.shehuan.niv.NiceImageView;
@@ -67,6 +69,7 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
     private RoundTextView mRecommend;
     private RoundTextView mOutlogin;
     private RoundTextView mVersion;
+    private RoundTextView xieyi;
     private LinearLayout mActivityLogin;
     private File mCacheUserFile;
     private Switch switchButton;
@@ -101,6 +104,7 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
         mClose = findViewById(R.id.close);
         mToolbar = findViewById(R.id.toolbar);
         mCleanCach = findViewById(R.id.clean_cach);
+        xieyi = findViewById(R.id.xieyi);
         mCheckUpdata = findViewById(R.id.check_updata);
         mCall = findViewById(R.id.call);
         switchButton = findViewById(R.id.push_Button);
@@ -109,6 +113,7 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
         mVersion = findViewById(R.id.version);
         mActivityLogin = findViewById(R.id.activity_login);
         push1_pic = findViewById(R.id.push1_pic);
+        xieyi.setOnClickListener(this);
         mOutlogin.setOnClickListener(this);
         mRecommend.setOnClickListener(this);
         mClose.setOnClickListener(this);
@@ -214,6 +219,9 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
                 mPresenter.checkUpdate(BuildConfig.VERSION_NAME);
                 break;
             }
+            case R.id.xieyi:
+                
+                break;
 
         }
 
@@ -232,7 +240,6 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
 
     @Override
     public void onPushidSuccess(String success) {
-        showToast("成功");
     }
 
     @Override

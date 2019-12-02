@@ -101,7 +101,7 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
                 mRefreshLayout.finishRefresh(2000);    //2s刷新结束
                 start = 0;
                 time = 0;
-                adapter.mlist.clear();
+//                adapter.mlist.clear();
 //                mPresenter.getSearchs(start, time, mEditSearch.getText().toString());
 
             }

@@ -29,15 +29,13 @@
     </FrameLayout>
 
     <TextView
-        android:textStyle="bold"
         android:id="@+id/them"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="主题"
-        android:maxLines="2"
-        android:textColor="#282B2E"
-        android:textSize="16sp" />
+        style="@style/SeeWay.NewsTitle"
+         />
 
     <TextView
         android:id="@+id/descrip"

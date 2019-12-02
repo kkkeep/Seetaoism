@@ -9,15 +9,13 @@
     android:layout_height="wrap_content">
 
     <TextView
+        style="@style/SeeWay.NewsTitle"
         android:id="@+id/news_item_flash_tv_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:maxLines="1"
         tools:text="测试标题"
-        android:textColor="#333333"
-        android:textSize="16dp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

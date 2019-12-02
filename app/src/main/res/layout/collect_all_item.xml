@@ -39,18 +39,16 @@
                     android:layout_centerVertical="true" />
 
                 <TextView
+                    style="@style/SeeWay.NewsTitle"
                     android:paddingLeft="4dp"
                     android:layout_toRightOf="@+id/cb_select"
                     android:id="@+id/collect_all_titel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:textStyle="bold"
+
                     android:text="55555555555555555555555555555asdasdasdasdasdasdasdasdasdasdas5555555"
-                    android:textColor="#282B2E "
-                    android:textSize="16sp" />
+                    />
 
 
                 <TextView
