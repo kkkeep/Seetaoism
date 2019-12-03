@@ -32,7 +32,7 @@
                 android:id="@+id/close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_back"
+                android:src="@drawable/fan_logo"
                 app:is_circle="true" />
 
             <TextView

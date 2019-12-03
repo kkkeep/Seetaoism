@@ -373,7 +373,7 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
 
         public void setData(NewsData.News data) {
 
-            tvTitle.setText(data.getTheme());
+            tvTitle.setText("[ "+data.getTheme()+" ]");
             tvContent.setText(data.getContent());
             tvTime.setText(data.getEditTime());
         }

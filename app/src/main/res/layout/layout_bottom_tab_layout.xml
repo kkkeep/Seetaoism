@@ -34,6 +34,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.seetaoism.widgets.bottomtablaout.TabIcon
+            android:layout_marginTop="1dp"
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:background="@drawable/tab_recommend_selector" />
@@ -41,8 +42,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/black"
+            android:layout_marginTop="3dp"
             android:text="@string/text_main_tab_home"
             android:textSize="10dp"
             tools:text="推荐" />
@@ -70,8 +70,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/black"
+            android:layout_marginTop="3dp"
             android:textSize="10dp"
             android:text="@string/text_main_tab_video"
             tools:text="视频" />
@@ -99,8 +98,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/black"
+            android:layout_marginTop="3dp"
             android:textSize="10dp"
             android:text="@string/text_main_tab_topic"
             tools:text="专题" />
@@ -130,8 +128,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/black"
+            android:layout_marginTop="3dp"
             android:textSize="10dp"
             android:text="@string/text_main_tab_mine"
             tools:text="我" />
