@@ -1,6 +1,7 @@
 package com.seetaoism.widgets.bottomtablaout;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -32,20 +33,27 @@ public class BottomTab extends LinearLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    public void setSelect(boolean select){
+    public void setSelect(boolean select) {
 
         mTabIcon.setChecked(select);
+
+        if (select) {
+            mTabValue.setTextColor(Color.BLACK);
+        } else {
+            mTabValue.setTextColor(Color.parseColor("#FF9B9C9E"));
+
+        }
     }
 
-    public boolean isSelect(){
-       return mTabIcon.isChecked();
+    public boolean isSelect() {
+        return mTabIcon.isChecked();
     }
 
-    public void playAnimation(){
+    public void playAnimation() {
         mTabIcon.playAnimation();
     }
 
-    public void setTitle(String value){
+    public void setTitle(String value) {
         mTabValue.setText(value);
     }
 
@@ -64,17 +72,17 @@ public class BottomTab extends LinearLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
         View view;
-        for(int i = 0; i < getChildCount(); i++){
+        for (int i = 0; i < getChildCount(); i++) {
 
             view = getChildAt(i);
 
-            if(mTabIcon == null && view instanceof TabIcon){
+            if (mTabIcon == null && view instanceof TabIcon) {
 
                 mTabIcon = (TabIcon) view;
 
             }
 
-            if(mTabValue == null && view instanceof TextView){
+            if (mTabValue == null && view instanceof TextView) {
                 mTabValue = (TextView) view;
             }
 

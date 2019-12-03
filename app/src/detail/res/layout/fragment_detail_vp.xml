@@ -13,7 +13,7 @@
         android:layout_height="25dp"
         android:layout_marginStart="9dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/ic_back"
+        android:background="@drawable/fan_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

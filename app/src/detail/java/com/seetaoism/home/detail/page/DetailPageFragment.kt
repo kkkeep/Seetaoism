@@ -476,10 +476,10 @@ fun WebView.initSetting() {
     webSetting.javaScriptCanOpenWindowsAutomatically = true
     webSetting.allowFileAccess = true
     webSetting.layoutAlgorithm = WebSettings.LayoutAlgorithm.NARROW_COLUMNS
-    webSetting.setSupportZoom(true)
+    webSetting.setSupportZoom(false)
     webSetting.useWideViewPort = true
     webSetting.displayZoomControls = false
-    webSetting.builtInZoomControls = true
+    webSetting.builtInZoomControls = false
     webSetting.setSupportMultipleWindows(true)
     webSetting.setAppCacheEnabled(true)
     webSetting.domStorageEnabled = true
