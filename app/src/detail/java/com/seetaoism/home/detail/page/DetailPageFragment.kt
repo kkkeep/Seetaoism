@@ -304,15 +304,15 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
         })
 
 
-        detailPageShareWechat.setOnClickListener {
+        detailPageShareSinaWeibo.setOnClickListener {
+            shareNewsDirect(buildNews(),SHARE_MEDIA.SINA)
+        }
+        detailPageShareWeixin.setOnClickListener {
             shareNewsDirect(buildNews(),SHARE_MEDIA.WEIXIN)
         }
-        detailPageShareQQ.setOnClickListener {
-            shareNewsDirect(buildNews(),SHARE_MEDIA.QQ)
-        }
 
-        detailPageShareSina.setOnClickListener {
-            shareNewsDirect(buildNews(),SHARE_MEDIA.SINA)
+        detailPageShareWeixinCircle.setOnClickListener {
+            shareNewsDirect(buildNews(),SHARE_MEDIA.WEIXIN_CIRCLE)
         }
 
         detailPageShareMoments.setOnClickListener {

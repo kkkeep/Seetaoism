@@ -56,35 +56,35 @@
                     tools:ignore="SpUsage" />
 
                 <Button
-                    android:id="@+id/detailPageShareWechat"
+                    android:id="@+id/detailPageShareSinaWeibo"
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:layout_marginStart="32dp"
-                    android:background="@drawable/weixinx"
-                    app:layout_constraintEnd_toStartOf="@+id/detailPageShareSina"
+                    android:background="@drawable/xinlangx"
+                    app:layout_constraintEnd_toStartOf="@+id/detailPageShareWeixinCircle"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/detailPageShareSina" />
+                    app:layout_constraintTop_toTopOf="@+id/detailPageShareWeixinCircle" />
 
                 <Button
-                    android:id="@+id/detailPageShareSina"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:background="@drawable/xinlangx"
-                    app:layout_constraintEnd_toStartOf="@+id/detailPageShareQQ"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/detailPageShareWechat"
-                    app:layout_constraintTop_toTopOf="@+id/detailPageShareQQ" />
-
-                <Button
-                    android:id="@+id/detailPageShareQQ"
+                    android:id="@+id/detailPageShareWeixinCircle"
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:background="@drawable/qqx"
+                    app:layout_constraintEnd_toStartOf="@+id/detailPageShareWeixin"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/detailPageShareSinaWeibo"
+                    app:layout_constraintTop_toTopOf="@+id/detailPageShareWeixin" />
+
+                <Button
+                    android:id="@+id/detailPageShareWeixin"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/weixinx"
                     app:layout_constraintEnd_toStartOf="@+id/detailPageShareMoments"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/detailPageShareSina"
+                    app:layout_constraintStart_toEndOf="@+id/detailPageShareWeixinCircle"
                     app:layout_constraintTop_toTopOf="@+id/detailPageShareMoments" />
 
                 <Button
@@ -96,7 +96,7 @@
                     android:background="@drawable/pengyouquan"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/detailPageShareQQ"
+                    app:layout_constraintStart_toEndOf="@+id/detailPageShareWeixin"
                     app:layout_constraintTop_toBottomOf="@id/textView2" />
 
 
