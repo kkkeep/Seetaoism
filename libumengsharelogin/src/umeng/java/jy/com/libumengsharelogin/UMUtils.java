@@ -4,6 +4,7 @@ import android.content.Context;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.bean.PlatformName;
 
 /*
  * created by Cherry on 2019/5/7
@@ -14,6 +15,9 @@ public class UMUtils {
     public  static void initUmeng(Context context){
 
         UMConfigure.setLogEnabled(true);
+        //平台表单名称
+        PlatformName.SINA="新浪微博";
+
 
         UMConfigure.init(context,"5da416070cafb26975000f3f","umeng",UMConfigure.DEVICE_TYPE_PHONE,"");//58edcfeb310c93091c000be2 5965ee00734be40b580001a0
         // 下面所有ID 都得替换成你自己公司在相应创建应用时获得的id

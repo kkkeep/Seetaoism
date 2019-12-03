@@ -132,7 +132,7 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
                     public void onCancel(SHARE_MEDIA share_media) {
 
                     }
-                },SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QQ, SHARE_MEDIA.SINA, SHARE_MEDIA.WEIXIN_CIRCLE);
+                },SHARE_MEDIA.QQ, SHARE_MEDIA.SINA, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE);
             }
         });
 
