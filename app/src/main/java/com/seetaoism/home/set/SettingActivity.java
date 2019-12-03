@@ -220,7 +220,7 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
                 break;
             }
             case R.id.xieyi:
-                
+                addFragment(getSupportFragmentManager(), PrivacyPolicyFragment.class, android.R.id.content, null);
                 break;
 
         }

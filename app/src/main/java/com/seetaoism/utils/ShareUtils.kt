@@ -65,7 +65,7 @@ object ShareUtils {
                 web.title = activity.getString(R.string.app_name)
                 web.setThumb(thumb)  //缩略图
                 web.description = activity.getString(R.string.text_share_app_desciption)
-                ShareAction(activity).withMedia(web).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QQ, SHARE_MEDIA.SINA, SHARE_MEDIA.WEIXIN_CIRCLE).setCallback(listener).open()
+                ShareAction(activity).withMedia(web).setDisplayList( SHARE_MEDIA.QQ,SHARE_MEDIA.SINA, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE).setCallback(listener).open()
             }
 
             override fun shouldShowRationale(call: PermissionUtils.PermissionCall?) {
