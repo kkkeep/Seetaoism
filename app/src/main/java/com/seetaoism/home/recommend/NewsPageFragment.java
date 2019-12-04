@@ -27,7 +27,6 @@ import com.seetaoism.utils.ShareUtils;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,7 +45,7 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
     private String mColumnId = "";
 
     private int mNewsStart;
-    private int mVideoStart;
+    private long  mNewsPointTime;
 
 
     @Override
@@ -101,7 +100,7 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
 
                 DetailExclusiveData data = new DetailExclusiveData(FROM.RECOMMEND,list,position);
                 data.setStart(mNewsStart);
-                data.setVideoStartForRecommend(mVideoStart);
+                data.setStartPointTime(mNewsPointTime);
                 data.setMColumnId(mColumnId);
 
 
@@ -145,7 +144,7 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
     @Override
     protected void initData() {
         showLoadingForViewPager();
-        mPresenter.getNewsData(mColumnId, mVideoStart, mNewsStart, INewsPageModel.REQUEST_TYPE_FIRST_LOAD);
+        mPresenter.getNewsData(mColumnId, mNewsPointTime, mNewsStart, INewsPageModel.REQUEST_TYPE_FIRST_LOAD);
     }
 
 
@@ -154,7 +153,7 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
     }
 
     private void loadMore() {
-        mPresenter.getNewsData(mColumnId, mVideoStart, mNewsStart, INewsPageModel.REQUEST_TYPE_MORE_LOAD);
+        mPresenter.getNewsData(mColumnId, mNewsPointTime, mNewsStart, INewsPageModel.REQUEST_TYPE_MORE_LOAD);
     }
 
 
@@ -170,7 +169,7 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
             if (data != null) {
                 closeLoading();
                 mNewsPageAdapter.setData(data.getBannerList(), data.getFlashList(), data.getArticleList());
-                mVideoStart = data.getVideoStart();
+                mNewsPointTime = data.getPoint_time();
                 mNewsStart = data.getStart();
             } else {
                 onError(msg, new LoadingView.RetryCallBack() {
@@ -185,7 +184,7 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
             mSmartRefreshLayout.finishRefresh();
             if (data != null) {
                 mNewsPageAdapter.refresh(data.getBannerList(), data.getFlashList(), data.getArticleList());
-                mVideoStart = data.getVideoStart();
+                mNewsPointTime = data.getPoint_time();
                 mNewsStart = data.getStart();
             } else {
                 showToast(R.string.text_news_refresh_fail);
@@ -195,7 +194,7 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
             mSmartRefreshLayout.finishLoadMore();
             if (data != null) {
                 mNewsPageAdapter.loadMore(data.getArticleList());
-                mVideoStart = data.getVideoStart();
+                mNewsPointTime = data.getPoint_time();
                 mNewsStart = data.getStart();
             } else {
                 showToast(R.string.text_news_refresh_fail);
@@ -207,7 +206,7 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
     public void onMemoryCacheResult(NewsData data) {
         closeLoading();
         mNewsPageAdapter.setData(data.getBannerList(), data.getFlashList(), data.getArticleList());
-        mVideoStart = data.getVideoStart();
+        mNewsPointTime = data.getPoint_time();
         mNewsStart = data.getStart();
     }
 

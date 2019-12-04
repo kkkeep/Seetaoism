@@ -11,7 +11,7 @@ class DetailExclusiveData constructor(val from: FROM,var list: MutableList<out N
     var mColumnId : String? = null
 
     var start : Int = 0
-    var videoStartForRecommend = 0
+    var startPointTime = 0L
     var time : Long = 0L
 
 

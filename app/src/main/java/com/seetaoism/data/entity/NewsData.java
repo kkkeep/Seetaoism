@@ -11,7 +11,7 @@ import jy.com.libbanner.MarqueeView;
 public class NewsData {
 
     private int start; // 普通新闻开始的index ,
-    private int video_start;  // 视频类新闻 开始index
+    private long point_time;  // 视频类新闻 开始index
     private int more; // 是否还有更多的的新闻，
     private int flash_id;
 
@@ -63,12 +63,12 @@ public class NewsData {
         this.start = start;
     }
 
-    public int getVideoStart() {
-        return video_start;
+    public long getPoint_time() {
+        return point_time;
     }
 
-    public void setVideoStart(int video_start) {
-        this.video_start = video_start;
+    public void setPoint_time(long point_time) {
+        this.point_time = point_time;
     }
 
     public int getMore() {
@@ -92,7 +92,7 @@ public class NewsData {
     public String toString() {
         return "NewsData{" +
                 "start=" + start +
-                ", video_start=" + video_start +
+                ", point_time=" + point_time +
                 ", more=" + more +
                 ", flash_id=" + flash_id +
                 ", banner_list=" + Arrays.toString(banner_list.toArray()) +

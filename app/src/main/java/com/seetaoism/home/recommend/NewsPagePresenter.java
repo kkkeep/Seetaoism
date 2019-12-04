@@ -20,12 +20,12 @@ public class NewsPagePresenter extends BasePresenter<RecommendContract.INewsPage
     }
 
     @Override
-    public void getNewsData(String id, int videoStart, int newsStart, @RequestType final int requestType) {
+    public void getNewsData(String id, long pointTime, int newsStart, @RequestType final int requestType) {
 
         HashMap<String,String> params = new HashMap<>();
         params.put(AppConstant.RequestParamsKey.COLUMN_ID,id);
         params.put(AppConstant.RequestParamsKey.NEWS_START,String.valueOf(newsStart));
-        params.put(AppConstant.RequestParamsKey.VIDEO_START,String.valueOf(videoStart));
+        params.put(AppConstant.RequestParamsKey.NEWS_POINT_TIME,String.valueOf(pointTime));
 
         mNewsMode.getNewsData(getLifecycleProvider(), params, requestType, new ICacheBaseCallBack<NewsData>() {
             @Override
