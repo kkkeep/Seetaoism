@@ -10,6 +10,7 @@ import com.seetaoism.data.okhttp.JDDataService;
 import com.seetaoism.home.recommend.RecommendContract;
 import com.trello.rxlifecycle2.LifecycleProvider;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,18 +85,20 @@ public class NewsRepository extends BaseRepository implements RecommendContract.
             NewsData newsData = new NewsData();
 
             newsData.setStart(data.getStart());
-            newsData.setVideoStart(data.getVideoStart());
+            newsData.setPoint_time(data.getPoint_time());
             newsData.setMore(data.getMore());
 
-            newsData.setBannerList(data.getBannerList());
-            newsData.setFlashList(data.getFlashList());
-            newsData.setArticleList(data.getArticleList());
+
+            newsData.setBannerList(new ArrayList<>(data.getBannerList()));
+            newsData.setFlashList(new ArrayList<>(data.getFlashList()));
+            newsData.setArticleList(new ArrayList<>(data.getArticleList()));
+
             mMemoryCache.put(key,newsData);
         }else{
             NewsData newsData = mMemoryCache.get(key);
 
             newsData.setStart(data.getStart());
-            newsData.setVideoStart(data.getVideoStart());
+            newsData.setPoint_time(data.getPoint_time());
             newsData.setMore(data.getMore());
 
             List<NewsData.News> arrayList = newsData.getArticleList();
@@ -103,6 +106,10 @@ public class NewsRepository extends BaseRepository implements RecommendContract.
             arrayList.addAll(data.getArticleList());
         }
 
+    }
+
+    private <T> ArrayList<T> copyList(List<T> from){
+        return new ArrayList<>(from);
     }
 
 

@@ -153,8 +153,10 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+
         setIntent(intent);
-    notificationToDetail();
+
+        notificationToDetail();
     }
 
     private void notificationToDetail() {
@@ -163,7 +165,9 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
         if (from != -1) {
             String json = getIntent().getStringExtra(JPushInterface.EXTRA_EXTRA);
             Gson gson = new Gson();
+
             NewsData.NewsBean newsBean = gson.fromJson(json, NewsData.NewsBean.class);
+
             ArrayList<NewsData.NewsBean> arrayList = new ArrayList<>();
             arrayList.add(newsBean);
             newsBean.setTheme(getIntent().getStringExtra(JPushInterface.EXTRA_NOTIFICATION_TITLE));
