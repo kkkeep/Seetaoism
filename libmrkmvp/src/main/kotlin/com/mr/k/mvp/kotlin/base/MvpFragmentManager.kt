@@ -5,6 +5,7 @@ package com.mr.k.mvp.kotlin.base
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Lifecycle
 import com.mr.k.mvp.base.BaseFragment
 import com.mr.k.mvp.utils.Logger
 
@@ -33,6 +34,10 @@ internal fun <C : BaseFragment> addFragment(fragmentManager: FragmentManager, cl
 
     } else {
         baseFragment = fragment as C
+        if (baseFragment.getLifecycle().getCurrentState() != Lifecycle.State.INITIALIZED) {
+            return null;
+        }
+
         fragmentTransition.run {
             fragment.let {
                 if (it.isAdded) {
@@ -59,7 +64,7 @@ internal fun <C : BaseFragment> addFragment(fragmentManager: FragmentManager, cl
             }
         }
     }
-    fragmentTransition.commit();
+    fragmentTransition.commitAllowingStateLoss()
 
     return baseFragment
 }
@@ -67,9 +72,9 @@ internal fun <C : BaseFragment> addFragment(fragmentManager: FragmentManager, cl
 private fun <C : BaseFragment> FragmentTransaction.toAdd(fragment: C?, id: Int, tag: String) {
 
     fragment?.let {
+        if (it.isNeedAddToBackStack) addToBackStack(tag)
         setCustomAnimations(it.enter(), it.exit(), it.popEnter(), it.popExit())
         add(id, it, tag)
-        if (it.isNeedAddToBackStack) addToBackStack(tag)
     }
 
 }
