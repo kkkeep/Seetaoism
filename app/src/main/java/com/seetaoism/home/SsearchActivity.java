@@ -301,12 +301,6 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
 
 
     }
-//
-//    @Override
-//    protected void onRestart() {
-//        super.onRestart();
-//        mBox.setVisibility(View.VISIBLE);
-//    }
 }
 
 
