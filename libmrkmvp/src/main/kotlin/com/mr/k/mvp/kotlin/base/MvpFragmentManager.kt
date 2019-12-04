@@ -34,9 +34,7 @@ internal fun <C : BaseFragment> addFragment(fragmentManager: FragmentManager, cl
 
     } else {
         baseFragment = fragment as C
-        if (baseFragment.getLifecycle().getCurrentState() != Lifecycle.State.INITIALIZED) {
-            return null;
-        }
+
 
         fragmentTransition.run {
             fragment.let {
@@ -44,6 +42,9 @@ internal fun <C : BaseFragment> addFragment(fragmentManager: FragmentManager, cl
                     if (it.isHidden)
                         show(it)
                 } else {
+                    if (baseFragment.getLifecycle().getCurrentState() != Lifecycle.State.INITIALIZED) {
+                        return null;
+                    }
                     toAdd(baseFragment, containerId, tag);
                 }
             }
