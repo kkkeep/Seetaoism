@@ -28,7 +28,7 @@ public class UMUtils {
         PlatformConfig.setQQZone("1109759123", "a3x6lGx32PYMrmK3");
 
        // 第一个参数表示 APP ID ，第二：App Secret，第三： 回调 地址
-        PlatformConfig.setSinaWeibo("110298133","afb59986db07d0b9b0886e9980d28d1c","http://www.seetao.com");
+        PlatformConfig.setSinaWeibo("110298133","afb59986db07d0b9b0886e9980d28d1c","https://www.seetao.com");
 
     }
 }
