@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.graphics.Color;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +20,8 @@ import com.mr.k.mvp.base.MvpBaseFragment;
 import com.mr.k.mvp.kotlin.base.BaseActivity;
 import com.mr.k.mvp.utils.SystemFacade;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.seetaoism.R;
 import com.seetaoism.data.entity.DetailExclusiveData;
 import com.seetaoism.data.entity.FROM;
@@ -47,6 +50,9 @@ public class CollectVideoFragment extends MvpBaseFragment<CollectContract.IColle
 
     private CollectActivity CollectVideoFragment;
     private RelativeLayout pop;
+    int start=0;
+    int time=0;
+    int more=0;
 
     @Override
     public void onAttach(Activity activity) {
@@ -59,7 +65,7 @@ public class CollectVideoFragment extends MvpBaseFragment<CollectContract.IColle
     @Override
     protected void initData() {
         super.initData();
-        mPresenter.getCollectVideo(0,0);
+        mPresenter.getCollectVideo(start,time);
     }
 
     @Override
@@ -84,6 +90,22 @@ public class CollectVideoFragment extends MvpBaseFragment<CollectContract.IColle
         allAdapter = new CollectAllAdapter(newLists, getContext());
         collect_all_rc.setLayoutManager(new LinearLayoutManager(getContext()));
         collect_all_rc.setAdapter(allAdapter);
+
+
+        collect_all_sm.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                collect_all_sm.finishLoadMore(2000);       //2s加载结束
+                if (more==1) {
+                    mPresenter.getCollect(start, time);
+                }
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+
+            }
+        });
 
         //全选多选框监听事件
         btnAllSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -181,6 +203,10 @@ public class CollectVideoFragment extends MvpBaseFragment<CollectContract.IColle
     @Override
     public void onICollectVideoSucceed(VideoData data) {
         if (data.getList().size()>0){
+
+            start=data.getStart();
+            time=data.getPoint_time();
+            more=data.getMore();
             newLists.addAll(data.getList());
             allAdapter.setData(newLists);
             kong.setVisibility(View.GONE);

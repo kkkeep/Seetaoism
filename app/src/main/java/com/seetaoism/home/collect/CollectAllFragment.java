@@ -1,6 +1,7 @@
 package com.seetaoism.home.collect;
 
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -24,6 +25,8 @@ import com.mr.k.mvp.base.MvpBaseFragment;
 import com.mr.k.mvp.kotlin.base.BaseActivity;
 import com.mr.k.mvp.utils.SystemFacade;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.seetaoism.R;
 import com.seetaoism.data.entity.DetailExclusiveData;
 import com.seetaoism.data.entity.FROM;
@@ -53,6 +56,9 @@ public class CollectAllFragment extends MvpBaseFragment<CollectContract.ICollect
     private boolean isSelectAll = false;
     private int mEditMode;
     private RelativeLayout pop;
+    int start = 0;
+    int time = 0;
+    int more = 0;
 
     @Override
     public void onAttach(Activity activity) {
@@ -69,7 +75,7 @@ public class CollectAllFragment extends MvpBaseFragment<CollectContract.ICollect
 
     @Override
     protected void initData() {
-        mPresenter.getCollect(0, 0);
+        mPresenter.getCollect(start, time);
     }
 
     @Override
@@ -85,6 +91,22 @@ public class CollectAllFragment extends MvpBaseFragment<CollectContract.ICollect
         allAdapter = new CollectAllAdapter(newLists, getContext());
         collect_all_rc.setLayoutManager(new LinearLayoutManager(getContext()));
         collect_all_rc.setAdapter(allAdapter);
+
+
+        collect_all_sm.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                collect_all_sm.finishLoadMore(2000);       //2s加载结束
+                if (more==1) {
+                    mPresenter.getCollect(start, time);
+                }
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+
+            }
+        });
 
 
         //全选多选框监听事件
@@ -139,14 +161,14 @@ public class CollectAllFragment extends MvpBaseFragment<CollectContract.ICollect
                 if (mEditMode == CollectActivity.MODE_EDIT) {
                     List<VideoData.NewList> selectedList = allAdapter.getSelectedNews();
                     if (SystemFacade.isListEmpty(selectedList)) {
-                       // btnAllSelect.setText("全选");
+                        // btnAllSelect.setText("全选");
                         setBtnBackground(0);
                     } else {
-                       // btnAllSelect.setText("取消全选");
+                        // btnAllSelect.setText("取消全选");
                         setBtnBackground(selectedList.size());
                     }
-                }else{
-                    DetailExclusiveData data  = new DetailExclusiveData(FROM.COLLECT,list,position);
+                } else {
+                    DetailExclusiveData data = new DetailExclusiveData(FROM.COLLECT, list, position);
                     DetailVPFragment.Launcher.open((BaseActivity) getActivity(), data, null);
 
 
@@ -156,15 +178,15 @@ public class CollectAllFragment extends MvpBaseFragment<CollectContract.ICollect
         });
 
 
-     CollectViewModel collectViewModel = ViewModelProviders.of(getActivity()).get(CollectViewModel.class);
+        CollectViewModel collectViewModel = ViewModelProviders.of(getActivity()).get(CollectViewModel.class);
 
-     collectViewModel.getNewsLiveData().observe(this, newsBean ->{
-         allAdapter.delete(newsBean);
-         if(allAdapter.getItemCount() == 0){
-             onICollectFail("");
-         }
+        collectViewModel.getNewsLiveData().observe(this, newsBean -> {
+            allAdapter.delete(newsBean);
+            if (allAdapter.getItemCount() == 0) {
+                onICollectFail("");
+            }
 
-     } );
+        });
 
 
     }
@@ -172,6 +194,10 @@ public class CollectAllFragment extends MvpBaseFragment<CollectContract.ICollect
     @Override
     public void onICollectSucceed(VideoData data) {
         if (data.getList().size() > 0) {
+            more = data.getMore();
+            time = data.getPoint_time();
+            start = data.getStart();
+
             newLists.addAll(data.getList());
             allAdapter.setData(newLists);
             kong.setVisibility(View.GONE);
@@ -206,7 +232,7 @@ public class CollectAllFragment extends MvpBaseFragment<CollectContract.ICollect
 
         allAdapter.deleteSuccess();
 
-        if(allAdapter.getItemCount() == 0){
+        if (allAdapter.getItemCount() == 0) {
             onICollectFail("");
         }
     }

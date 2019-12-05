@@ -113,7 +113,6 @@ public interface JDApiService {
     @GET("/app/v_1_1/article/recommendlist")
     Observable<HttpResult<NewsData>> getNewsData(@QueryMap Map<String, String> map);
 
-
     //请求评论点赞
     @FormUrlEncoded
     @POST("/api/comment_reply/commentpraise")

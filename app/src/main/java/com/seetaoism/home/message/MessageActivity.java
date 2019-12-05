@@ -89,7 +89,9 @@ public class MessageActivity extends JDMvpBaseActivity<MessageContract.MessagePr
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 mMessageSm.finishLoadMore(2000);       //2s加载结束
-                mPresenter.getMessageList(start, time);
+                if (more==1) {
+                    mPresenter.getMessageList(start, time);
+                }
             }
 
             @Override

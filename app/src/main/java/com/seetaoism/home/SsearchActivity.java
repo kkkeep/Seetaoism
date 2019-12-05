@@ -55,6 +55,7 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
     private FrameLayout mHistory;
     private int start = 0;
     private int time = 0;
+    private int more=0;
     private SearchAdapter adapter;
     public ArrayList<SearchData.Searchlist> mlist = new ArrayList<>();
     public ArrayList<String> his = new ArrayList<>();
@@ -93,7 +94,9 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 mRefreshLayout.finishLoadMore(2000);       //2s加载结束
-                mPresenter.getSearchs(start, time, mEditSearch.getText().toString());
+                if (more==1) {
+                    mPresenter.getSearchs(start, time, mEditSearch.getText().toString());
+                }
             }
 
             @Override
@@ -101,8 +104,6 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
                 mRefreshLayout.finishRefresh(2000);    //2s刷新结束
                 start = 0;
                 time = 0;
-//                adapter.mlist.clear();
-//                mPresenter.getSearchs(start, time, mEditSearch.getText().toString());
 
             }
         });
@@ -274,6 +275,7 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
     @Override
     public void onSearchSuccess(SearchData data, String msg) {
         if (data != null && data.getList().size() > 0) {
+            more=data.getMore();
             start=data.getStart();
             time=data.getPoint_time();
             mlist.addAll(data.getList());
@@ -298,7 +300,6 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
             return true;
         }
         return false;
-
 
     }
 }
