@@ -1,8 +1,10 @@
-package com.seetaoism.widgets.bottomtablaout;
+package com.kkk.libbottomtablayout;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -12,6 +14,12 @@ import androidx.annotation.Nullable;
 public class BottomTab extends LinearLayout {
 
 
+    private TabIcon mTabIcon;
+    private TextView mTabValue;
+    private int index;
+
+
+    private OnClickListener mOnClickListener;
 
     public BottomTab(Context context) {
         super(context);
@@ -25,5 +33,60 @@ public class BottomTab extends LinearLayout {
         super(context, attrs, defStyleAttr);
     }
 
+    public void setSelect(boolean select){
 
+        mTabIcon.setChecked(select);
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public boolean isSelect(){
+       return mTabIcon.isChecked();
+    }
+
+    public void playAnimation(){
+        mTabIcon.playAnimation();
+    }
+
+    public void setTitle(String value){
+        mTabValue.setText(value);
+    }
+
+    @Override
+    public void setOnClickListener(@Nullable OnClickListener l) {
+        super.setOnClickListener(l);
+        mOnClickListener = l;
+    }
+
+
+    public OnClickListener getOnClickListener() {
+        return mOnClickListener;
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        View view;
+        for(int i = 0; i < getChildCount(); i++){
+
+            view = getChildAt(i);
+
+            if(mTabIcon == null && view instanceof TabIcon){
+
+                mTabIcon = (TabIcon) view;
+
+            }
+
+            if(mTabValue == null && view instanceof TextView){
+                mTabValue = (TextView) view;
+            }
+
+        }
+    }
 }

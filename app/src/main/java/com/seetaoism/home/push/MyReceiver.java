@@ -42,6 +42,7 @@ public class MyReceiver extends BroadcastReceiver {
 				processCustomMessage(context, bundle);
 
 			} else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
+
 				Logger.d(TAG, "[MyReceiver] 接收到推送下来的通知");
 				int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
 				Logger.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
@@ -107,11 +108,16 @@ public class MyReceiver extends BroadcastReceiver {
 		if (SettingActivity.isForeground) {
 			String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
 			String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
+
 			Intent msgIntent = new Intent(SettingActivity.MESSAGE_RECEIVED_ACTION);
+
 			msgIntent.putExtra(SettingActivity.KEY_MESSAGE, message);
+
 			if (!ExampleUtil.isEmpty(extras)) {
+
 				try {
 					JSONObject extraJson = new JSONObject(extras);
+
 					if (extraJson.length() > 0) {
 						msgIntent.putExtra(SettingActivity.KEY_EXTRAS, extras);
 					}

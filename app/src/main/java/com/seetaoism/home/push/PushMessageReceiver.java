@@ -25,6 +25,7 @@ public class PushMessageReceiver extends JPushMessageReceiver{
     public void onMessage(Context context, CustomMessage customMessage) {
         Log.e(TAG,"[onMessage] "+customMessage);
         processCustomMessage(context,customMessage);
+       // super.onMessage();
     }
 
     @Override
