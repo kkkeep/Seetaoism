@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mr.k.mvp.kotlin.base.BaseActivity;
 import com.mr.k.mvp.utils.Logger;
 import com.mr.k.mvp.utils.SystemFacade;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -28,7 +29,11 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.seetaoism.AppConstant;
 import com.seetaoism.R;
 import com.seetaoism.base.JDMvpBaseActivity;
+import com.seetaoism.data.entity.DetailExclusiveData;
+import com.seetaoism.data.entity.FROM;
+import com.seetaoism.data.entity.NewsData;
 import com.seetaoism.data.entity.SearchData;
+import com.seetaoism.home.detail.vp.DetailVPFragment;
 import com.seetaoism.utils.SharedPrefrenceUtils;
 import com.shehuan.niv.NiceImageView;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -37,6 +42,7 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -81,6 +87,23 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
         flow = findViewById(R.id.flow_layout);
         mRvNews.setLayoutManager(new LinearLayoutManager(this));
         adapter = new SearchAdapter(mlist, this);
+
+        adapter.setmOnItemClickListener(new SearchAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(NewsData.NewsBean news, int position) {
+
+                ArrayList<NewsData.NewsBean> beans = new ArrayList<>();
+                beans.add(news);
+
+
+                DetailExclusiveData data = new DetailExclusiveData(FROM.SEARCH,beans,0);
+                data.setStart(start);
+                data.setStartPointTime(time);
+
+
+                DetailVPFragment.Launcher.open(SsearchActivity.this, data, null);
+            }
+        });
         mRvNews.setAdapter(adapter);
 
         mClose.setOnClickListener(this);

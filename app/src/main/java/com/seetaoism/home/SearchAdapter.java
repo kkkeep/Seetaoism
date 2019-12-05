@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.seetaoism.GlideApp;
 import com.seetaoism.GlideRequests;
 import com.seetaoism.R;
+import com.seetaoism.data.entity.NewsData;
 import com.seetaoism.data.entity.SearchData;
 import com.seetaoism.utils.SharedPrefrenceUtils;
 
@@ -26,9 +27,15 @@ public class SearchAdapter extends RecyclerView.Adapter {
     public ArrayList<SearchData.Searchlist> mlist;
     private Context mContext;
 
+    private OnItemClickListener mOnItemClickListener;
+
     public SearchAdapter(ArrayList<SearchData.Searchlist> mlist, Context mContext) {
         this.mlist = mlist;
         this.mContext = mContext;
+    }
+
+    public void setmOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+        this.mOnItemClickListener = mOnItemClickListener;
     }
 
     @NonNull
@@ -102,9 +109,24 @@ public class SearchAdapter extends RecyclerView.Adapter {
             super(itemView);
             mGlide = GlideApp.with(itemView)/*.applyDefaultRequestOptions(RequestOptions.bitmapTransform(new RoundCorner(itemView.getContext(), 4)))*/;
 
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mOnItemClickListener != null){
+                        mOnItemClickListener.onClick(mlist.get(getAdapterPosition()), getAdapterPosition());
+                    }
+                }
+            });
         }
 
         protected abstract void setData(SearchData.Searchlist t);
+
+    }
+
+
+    public interface OnItemClickListener {
+        void onClick(NewsData.NewsBean news, int position);
 
     }
 

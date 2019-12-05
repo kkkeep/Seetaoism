@@ -61,19 +61,14 @@ public class SearchData {
                 '}';
     }
 
-    public static  class  Searchlist{
+    public static  class  Searchlist extends NewsData.NewsBean {
 
-        private String id;
-        private String theme;
-        private String description;
+
+
+
         private int view_type;
         private int type;
         private String column_name;
-        private String image_url;
-        private int is_good;
-        private int is_collect;
-        private String link;
-        private String share_link;
         private String video_url;
         private String content;
         private String edit_time;
