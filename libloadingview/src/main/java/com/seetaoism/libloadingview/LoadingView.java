@@ -196,8 +196,8 @@ public class LoadingView extends ConstraintLayout {
             int width = dip2px(getContext(), 100);
             ConstraintSet constraintSet = new ConstraintSet();
             constraintSet.clone(this);
-            constraintSet.constrainWidth(mLoadingLayout.getId(), width);
-            constraintSet.constrainHeight(mLoadingLayout.getId(), width);
+            constraintSet.constrainWidth(mLoadingLayout.getId(), ConstraintSet.WRAP_CONTENT);
+            constraintSet.constrainHeight(mLoadingLayout.getId(), ConstraintSet.WRAP_CONTENT);
             constraintSet.applyTo(this);
             setBackgroundColor(Color.TRANSPARENT);
         }
