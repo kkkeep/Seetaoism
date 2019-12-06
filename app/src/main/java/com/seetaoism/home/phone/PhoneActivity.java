@@ -65,7 +65,7 @@ public class PhoneActivity extends JDMvpBaseActivity<PhoneContract.IPhonePresnte
                 if (mEtPhoneNumber.getText().length() > 10) {
                     mTvGetVerify.setTextColor(getResources().getColor(R.color.black_1));
 
-                }else {
+                } else {
                     mTvGetVerify.setTextColor(getResources().getColor(R.color.gray_1));
                 }
             }
@@ -123,7 +123,7 @@ public class PhoneActivity extends JDMvpBaseActivity<PhoneContract.IPhonePresnte
 
     @Override
     public void IPhonecodeSuccess(String user) {
-
+        showToast("操作成功");
     }
 
     @Override

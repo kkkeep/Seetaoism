@@ -472,6 +472,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
                     }
                 }).into(mUsericon);
                 photoPath = s.getUserInfo().getHead_url();
+                showToast("操作成功");
             }
         } else {
             closeLoading();
@@ -485,6 +486,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
     public void getUpdateNameSuccess(User user, String msg) {
         mNikename.setText(user.getUserInfo().getNickname());
         name = user.getUserInfo().getNickname();
+        showToast("操作成功");
     }
 
 
@@ -538,7 +540,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
             mWeixin.setImageResource(R.drawable.weatch_per);
             mUser.getUserInfo().setWechat_bind(1);
         }
-        showToast(data.getType());
+        showToast("操作成功");
     }
 
     @Override

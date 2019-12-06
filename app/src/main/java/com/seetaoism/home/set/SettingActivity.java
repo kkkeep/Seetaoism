@@ -229,6 +229,7 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
 
     @Override
     public void onOutLoginSuccess(String user) {
+        showToast("操作成功");
         finish();
 
     }

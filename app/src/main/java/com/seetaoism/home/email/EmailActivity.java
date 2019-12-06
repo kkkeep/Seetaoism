@@ -48,7 +48,7 @@ public class EmailActivity extends JDMvpBaseActivity<EmailContract.IEmailPresent
     @Override
     public void IEmailonSucceed(User user) {
 
-        //showToast("成功");
+        showToast("操作成功");
         Intent intent = new Intent();
         intent.putExtra("email",user.getUserInfo().getEmail());
         setResult(300,intent);

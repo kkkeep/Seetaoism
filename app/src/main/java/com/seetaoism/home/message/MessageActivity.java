@@ -254,7 +254,7 @@ public class MessageActivity extends JDMvpBaseActivity<MessageContract.MessagePr
 
     @Override
     public void MeaasgeDeleteFail(String msg) {
-
+        showToast("删除失败");
     }
 
     @Override
