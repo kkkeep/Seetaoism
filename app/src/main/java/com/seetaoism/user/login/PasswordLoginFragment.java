@@ -62,7 +62,7 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
         mBtnShowPassword = bindViewAndSetListener(R.id.login_iv_show_password, null);
         login_goto_sms_login = bindViewAndSetListener(R.id.login_goto_sms_login, this);
 
-
+        mEdtPhoneNumber.requestFocus();
         mBtnCleanPhoneNumber.bindEditText(mEdtPhoneNumber);
 
 

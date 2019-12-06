@@ -53,6 +53,8 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
         mBtnLogin = bindViewAndSetListener(R.id.login_btn_login, this);
         user_iv_left_close = bindViewAndSetListener(R.id.user_iv_left_close, this);
 
+        mEdtPhoneNumber.requestFocusFromTouch();
+
         mEdtPhoneNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -66,9 +68,9 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
                     mIvClearPhoneNumber.setVisibility(View.VISIBLE);
                 }
 
-                if (mEdtPhoneNumber.getText().length()>10){
+                if (mEdtPhoneNumber.getText().length() > 10) {
                     mTvGetVerify.setTextColor(getResources().getColor(R.color.black_1));
-                }else if(mEdtPhoneNumber.getText().length()<2){
+                } else if (mEdtPhoneNumber.getText().length() < 2) {
                     mTvGetVerify.setTextColor(getResources().getColor(R.color.gray_1));
 
                 }

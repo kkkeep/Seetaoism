@@ -71,6 +71,7 @@ public class RegisterFragment extends BaseUserFragment<LoginContract.IRegisterPr
         mEdtSmsCode = bindViewAndSetListener(R.id.register_edt_sms_code, this);
         mIvClearPhoneNumber.setVisibility(View.INVISIBLE);
         mBtnNext.setEnabled(false);
+        mEdtPhoneNumber.requestFocusFromTouch();
         mEdtPhoneNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
