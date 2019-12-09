@@ -562,7 +562,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
             mUser.getUserInfo().setWechat_bind(0);
         }
         closeLoading();
-        showToast("解除绑定成功");
+        showToast("操作成功");
     }
 
     @Override

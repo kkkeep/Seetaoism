@@ -227,7 +227,7 @@ public class CollectAllFragment extends MvpBaseFragment<CollectContract.ICollect
 
     @Override
     public void onICollectDelete(String data) {
-        showToast("删除成功");
+        showToast("操作成功");
         closeLoading();
 
         allAdapter.deleteSuccess();
@@ -239,7 +239,7 @@ public class CollectAllFragment extends MvpBaseFragment<CollectContract.ICollect
 
     @Override
     public void onICollectDeleteFail(String data) {
-        showToast("删除失败");
+        showToast("操作失败");
         closeLoading();
     }
 

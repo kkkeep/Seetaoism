@@ -8,6 +8,7 @@
     <string name="text_detail_write_comment">写评论</string>
     <string name="text_detail_relay_someone">回复：%1$s</string>
     <string name="text_detail_comment_error">评论失败</string>
+    <string name="text_detail_comment">评论成功</string>
     <string name="text_detail_do_lick_toast">已赞过</string>
-    <string name="text_need_login">需要登录才能操作</string>
+    <string name="text_need_login">需要登录</string>
 </resources>

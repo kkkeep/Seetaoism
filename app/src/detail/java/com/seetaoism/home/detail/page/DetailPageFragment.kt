@@ -100,6 +100,8 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
         if(comment != null && msg == null){
             mLastInputContent = null
             mListAdapter.addComment(comment);
+            showToast(msg ?: getString(R.string.text_detail_comment))
+
 
         }else{
             showToast(msg ?: getString(R.string.text_detail_comment_error))
@@ -115,6 +117,8 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
         if(reply != null && msg == null){
             mLastInputContent = null
             mListAdapter.addReply(arrayListOf(reply),mItemPosition)
+            showToast("评论成功")
+
         }else{
             showToast("评论失败 "+ msg)
         }

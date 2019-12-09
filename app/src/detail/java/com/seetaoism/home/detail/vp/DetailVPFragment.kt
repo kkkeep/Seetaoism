@@ -239,6 +239,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
         if (data != null && msg == null) {
             newsDetailLike.isChecked = true
             mNewsDetailAdapter.getCurrentNew().is_good = 1
+            showToast("操作成功")
         } else {
             msg?.run {
                 showToast(this)
@@ -255,6 +256,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
 
             if (newsDetailCollect.isChecked) {
                 mNewsDetailAdapter.getCurrentNew().is_collect = 1
+                showToast("操作成功")
             } else {
                 mNewsDetailAdapter.getCurrentNew().is_collect = 0
                 if (detailExclusiveData?.from == FROM.COLLECT) {

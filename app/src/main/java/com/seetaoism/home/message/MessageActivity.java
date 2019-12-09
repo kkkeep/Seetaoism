@@ -247,14 +247,14 @@ public class MessageActivity extends JDMvpBaseActivity<MessageContract.MessagePr
 
     @Override
     public void MeaasgeDeleteSucceed(String msg) {
-        showToast("删除成功");
+        showToast("操作成功");
         closeLoading();
         adapter.deleteSuccess();
     }
 
     @Override
     public void MeaasgeDeleteFail(String msg) {
-        showToast("删除失败");
+        showToast("操作失敗");
     }
 
     @Override
