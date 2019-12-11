@@ -65,9 +65,9 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
             mViewModel = ViewModelProviders.of(activity as FragmentActivity).get(NewsViewModel::class.java)
 
             mViewModel.getNewsDataLiveData().observe(this, Observer {
-                //mNewsDetailAdapter.addData(it.articleList)
+                mNewsDetailAdapter.addData(it.list)
                 detailExclusiveData = it
-                mNewsDetailAdapter.addData(arrayListOf(it.list[it.index]))
+                //mNewsDetailAdapter.addData(arrayListOf(it.list[it.index]))
                 mNewsDetailAdapter.notifyDataSetChanged()
                 newsDetailVp.currentItem = it.index
                 mPresenter.getArticleAttribute(mNewsDetailAdapter.getCurrentNew().id)
@@ -114,12 +114,13 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
         newsDetailVp.offscreenPageLimit = 1;
         mNewsDetailAdapter = NewsDetailAdapter(childFragmentManager, mutableListOf()).apply {
             detailExclusiveData?.let {
-                //this.addData(it.articleList)
-                it.list[mIndex].run {
+                this.addData(it.list)
+               /* it.list[mIndex].run {
                     this@apply.addData(arrayListOf(this))
                     //  refreshArticleAttr(this)
                     mPresenter.getArticleAttribute(this.id)
-                }
+                }*/
+                mPresenter.getArticleAttribute(it.list[it.index].id)
             }
 
             newsDetailVp.adapter = this;
@@ -235,7 +236,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
     }
 
     override fun onDoArticleLikeResult(data: String?, msg: String?) {
-        closeLoading()
+       // closeLoading()
         if (data != null && msg == null) {
             newsDetailLike.isChecked = true
             mNewsDetailAdapter.getCurrentNew().is_good = 1

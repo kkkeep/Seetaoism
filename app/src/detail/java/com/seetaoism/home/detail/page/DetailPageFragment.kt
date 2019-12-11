@@ -213,7 +213,7 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
 
        //detailWebView.isNestedScrollingEnabled = false;
         detailRelativeList.isNestedScrollingEnabled = false;
-        //detailWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
+        detailWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
         detailWebView.run {
             initSetting()
 
@@ -366,11 +366,37 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
 
     }
 
+    var isLoadingData = false;
     override fun initData() {
-        showLoadingForViewPager()
-        detailWebView.loadUrl(mArticleLinkUrl)
+        if(!isLoadingData){
+            isLoadingData = true;
+            showLoadingForViewPager()
+            detailWebView.loadUrl(mArticleLinkUrl)
+        }
+
     }
 
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+
+        if(isVisibleToUser){
+            if(detailWebView != null && isLoadingData){
+
+                detailWebView.onResume()
+                detailWebView.resumeTimers()
+               // detailWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
+
+            }
+        }else{
+            if(detailWebView != null && isLoadingData){
+                detailWebView.onPause()
+                detailWebView.pauseTimers()
+                //detailWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+            }
+
+        }
+    }
 
 
     internal fun commitArticle(news : NewsData.NewsBean){
