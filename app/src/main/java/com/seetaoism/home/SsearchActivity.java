@@ -92,11 +92,10 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
             @Override
             public void onClick(NewsData.NewsBean news, int position) {
 
-                ArrayList<NewsData.NewsBean> beans = new ArrayList<>();
-                beans.add(news);
+                ArrayList<NewsData.NewsBean> beans = new ArrayList<>(adapter.getList());
 
 
-                DetailExclusiveData data = new DetailExclusiveData(FROM.SEARCH,beans,0);
+                DetailExclusiveData data = new DetailExclusiveData(FROM.SEARCH,beans,position);
                 data.setStart(start);
                 data.setStartPointTime(time);
 

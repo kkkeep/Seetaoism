@@ -67,18 +67,18 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
             mViewModel.getNewsDataLiveData().observe(this, Observer {
                 mNewsDetailAdapter.addData(it.list)
                 detailExclusiveData = it
-                //mNewsDetailAdapter.addData(arrayListOf(it.list[it.index]))
+
+                val index = getRealPostion(it.index, it.list)
+                newsDetailVp.currentItem = index
                 mNewsDetailAdapter.notifyDataSetChanged()
-                newsDetailVp.currentItem = it.index
                 mPresenter.getArticleAttribute(mNewsDetailAdapter.getCurrentNew().id)
-                // refreshArticleAttr(it.list[it.index])
 
             })
         }
 
 
         mReceiver = registerUserBroadcastReceiver { user, userState ->
-            if(userState == UserState.Login){
+            if (userState == UserState.Login) {
                 if (user == null) {
                     refreshArticleAttr(mNewsDetailAdapter.getCurrentNew())
                 } else {
@@ -112,21 +112,20 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
         root!!.run { setOnTouchListener { _, _ -> return@setOnTouchListener true } }
 
         newsDetailVp.offscreenPageLimit = 1;
-        mNewsDetailAdapter = NewsDetailAdapter(childFragmentManager, mutableListOf()).apply {
-            detailExclusiveData?.let {
-                this.addData(it.list)
-               /* it.list[mIndex].run {
-                    this@apply.addData(arrayListOf(this))
-                    //  refreshArticleAttr(this)
-                    mPresenter.getArticleAttribute(this.id)
-                }*/
-                mPresenter.getArticleAttribute(it.list[it.index].id)
-            }
+        mNewsDetailAdapter = NewsDetailAdapter(childFragmentManager, mutableListOf());
 
-            newsDetailVp.adapter = this;
-            newsDetailVp.currentItem = mIndex
+        if (detailExclusiveData != null) {
+            mNewsDetailAdapter.addData(detailExclusiveData!!.list);
+            var index = getRealPostion(detailExclusiveData!!.index, detailExclusiveData!!.list)
+            newsDetailVp.adapter = mNewsDetailAdapter;
+            newsDetailVp.currentItem = index
+            mPresenter.getArticleAttribute(mNewsDetailAdapter.getNews(index).id)
+        } else {
 
+            newsDetailVp.adapter = mNewsDetailAdapter;
         }
+
+
 
         newsDetailVp.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
@@ -151,6 +150,25 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
         newsDetailShare.setOnClickListener(this)
 
 
+    }
+
+    private fun getRealPostion(index: Int, datas: List<NewsData.NewsBean>): Int {
+        if (datas.size > 1) {
+            var i = Integer.MAX_VALUE / 2 // 取最大值的中间值
+
+            val j = i % datas.size// 用中间值取余数
+            if (j != index) { // 如果余数不等于0
+
+                if (j > index) {
+                    i -= (j - index)
+                } else {
+                    i = i + index - j;
+                }
+
+            }
+            return i;
+        }
+        return index;
     }
 
     private fun refreshArticleAttr(news: NewsData.NewsBean) {
@@ -186,7 +204,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
 
 
                 val page = newsDetailVp.adapter!!.instantiateItem(newsDetailVp, newsDetailVp.currentItem) as DetailPageFragment
-                page.commitArticle(mNewsDetailAdapter.getDataFromPosition(newsDetailVp.currentItem))
+                page.commitArticle(mNewsDetailAdapter.getNews(newsDetailVp.currentItem))
 
             }
 
@@ -214,7 +232,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
             }
 
             R.id.newsDetailShare -> {
-                openShareNewsPanel(mNewsDetailAdapter.getCurrentNew(),SHARE_MEDIA.QQ, SHARE_MEDIA.SINA, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+                openShareNewsPanel(mNewsDetailAdapter.getCurrentNew(), SHARE_MEDIA.QQ, SHARE_MEDIA.SINA, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
 
             }
             R.id.newsDetailSearch -> {
@@ -236,7 +254,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
     }
 
     override fun onDoArticleLikeResult(data: String?, msg: String?) {
-       // closeLoading()
+        // closeLoading()
         if (data != null && msg == null) {
             newsDetailLike.isChecked = true
             mNewsDetailAdapter.getCurrentNew().is_good = 1
@@ -285,7 +303,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
 
 
         @JvmStatic
-         fun openInner(activity: BaseActivity, data: DetailExclusiveData): DetailVPFragment? {
+        fun openInner(activity: BaseActivity, data: DetailExclusiveData): DetailVPFragment? {
 
             val tag = activity.getFragmentTag(DetailVPFragment::class.java) + "_" + data.hashCode()
 
@@ -336,7 +354,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
 class NewsDetailAdapter(fm: FragmentManager, val news: MutableList<NewsData.NewsBean>) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
-        val newsData = news[position]
+        val newsData = news[position % news.size]
         val fragment = DetailPageFragment();
         val bundle = Bundle()
 
@@ -353,11 +371,15 @@ class NewsDetailAdapter(fm: FragmentManager, val news: MutableList<NewsData.News
     }
 
     fun getNews(position: Int): NewsData.NewsBean {
-        return news[position]
+        return news[position % news.size]
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        return super.instantiateItem(container, position)
+        return super.instantiateItem(container, position % news.size)
+    }
+
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+        super.destroyItem(container, position % news.size, `object`)
     }
 
     override fun getItemPosition(`object`: Any): Int {
@@ -365,16 +387,16 @@ class NewsDetailAdapter(fm: FragmentManager, val news: MutableList<NewsData.News
     }
 
     override fun getCount(): Int {
-        return news.size
+
+        return if (news.size > 1) {
+            Int.MAX_VALUE
+        } else {
+            news.size
+        }
     }
 
     fun addData(newDataList: List<NewsData.NewsBean>) {
         news.addAll(newDataList)
-    }
-
-
-    fun getDataFromPosition(position: Int): NewsData.NewsBean {
-        return news[position]
     }
 
 
