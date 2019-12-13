@@ -59,6 +59,9 @@ public class SearchAdapter extends RecyclerView.Adapter {
     }
 
 
+    public  ArrayList<SearchData.Searchlist> getList(){
+        return mlist;
+    }
     class ShowViewHolder extends BaseHolder {
         private ImageView pic;
         private TextView tvTitle;

@@ -213,7 +213,7 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
 
        //detailWebView.isNestedScrollingEnabled = false;
         detailRelativeList.isNestedScrollingEnabled = false;
-        detailWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
+       // detailWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
         detailWebView.run {
             initSetting()
 
@@ -224,11 +224,16 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
                     Logger.d("%s onProgressChanged = %s ",TAG,newProgress)
                     if (newProgress == 100 && !mIsFinish && detailWebView != null ) {
 
+
+
                         Logger.d("%s onProgressChanged = %s  ready to getRelatedArticleList and getComments ",TAG,newProgress)
                         mPresenter.getRelatedArticleList(mArticleId)
                         getComments()
 
+
+
                         mIsFinish = true;
+                        pauseVideo()
                     }
                 }
             }
@@ -367,8 +372,8 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
     }
 
     var isLoadingData = false;
-    override fun initData() {
-        if(!isLoadingData){
+     override fun initData() {
+        if( !isLoadingData){
             isLoadingData = true;
             showLoadingForViewPager()
             detailWebView.loadUrl(mArticleLinkUrl)
@@ -377,27 +382,45 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
     }
 
 
+    private var isCurrentShow = false;
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
 
-        if(isVisibleToUser){
-            if(detailWebView != null && isLoadingData){
+        Logger.d("%s %s isVisibleToUser = %s",TAG,hashCode(),isVisibleToUser)
 
+        isCurrentShow = isVisibleToUser;
+        if(isVisibleToUser){
+            if(detailWebView != null ){
+               // initData()
+/*
                 detailWebView.onResume()
-                detailWebView.resumeTimers()
+                detailWebView.resumeTimers()*/
                // detailWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
 
             }
         }else{
-            if(detailWebView != null && isLoadingData){
+            pauseVideo()
+          /*  if(detailWebView != null && isLoadingData){
+
                 detailWebView.onPause()
                 detailWebView.pauseTimers()
                 //detailWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-            }
+            }*/
 
         }
     }
 
+    fun  pauseVideo(){
+
+        if(detailWebView != null && mIsFinish){
+            Logger.d("%s PAUSE VIDEO ",TAG)
+            detailWebView.loadUrl("javascript:pause_video()");
+            //detailWebView.postDelayed({pauseVideo()},2000)
+        }
+
+
+
+    }
 
     internal fun commitArticle(news : NewsData.NewsBean){
 
