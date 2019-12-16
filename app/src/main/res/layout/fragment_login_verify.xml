@@ -53,9 +53,9 @@
 
         <Button
             android:enabled="false"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
             android:id="@+id/login_btn_login"
+            android:layout_marginLeft="42.5dp"
+            android:layout_marginRight="42.5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
@@ -89,6 +89,16 @@
             app:layout_constraintStart_toStartOf="@+id/login_iv_line1"
             app:layout_constraintTop_toBottomOf="@id/login_iv_line1"
             tools:layout_editor_absoluteY="300dp" />
+        <TextView
+            android:id="@+id/register_setting_psd_tv_license"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/text_user_license"
+            android:textColor="@color/gray_6"
+            android:textSize="12dp"
+            app:layout_constraintStart_toStartOf="@+id/login_iv_line2"
+            app:layout_constraintTop_toBottomOf="@+id/login_edt_verify" />
 
         <TextView
             android:id="@+id/login_goto_ps_login"

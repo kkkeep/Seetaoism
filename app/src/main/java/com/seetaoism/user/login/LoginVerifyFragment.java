@@ -1,14 +1,23 @@
 package com.seetaoism.user.login;
 
+import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.text.Editable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import com.mr.k.mvp.utils.Logger;
 import com.mr.k.mvp.utils.SystemFacade;
@@ -17,8 +26,10 @@ import com.seetaoism.data.entity.User;
 import com.seetaoism.data.repositories.UserRepository;
 import com.seetaoism.libloadingview.LoadingView;
 import com.seetaoism.user.BaseUserFragment;
+import com.seetaoism.user.register.PrivacyPolicyFragment;
 import com.seetaoism.user.register.RegisterFragment;
 import com.seetaoism.user.register.SetPasswordFragment;
+import com.seetaoism.user.register.UserProtocolFragment;
 
 import java.util.Locale;
 
@@ -35,6 +46,7 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
     private int mCountDown;
     private CountDownTimer mCountDownTimer;
     private ImageView user_iv_left_close;
+    private TextView register_setting_psd_tv_license;
 
 
     @Override
@@ -52,6 +64,40 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
         mTvGoToPsdRegister = bindViewAndSetListener(R.id.login_tv_goto_register, this);
         mBtnLogin = bindViewAndSetListener(R.id.login_btn_login, this);
         user_iv_left_close = bindViewAndSetListener(R.id.user_iv_left_close, this);
+        register_setting_psd_tv_license = bindViewAndSetListener(R.id.register_setting_psd_tv_license, this);
+
+        final String str = getString(R.string.text_user_license);
+        SpannableStringBuilder spannableString = new SpannableStringBuilder(str);
+        spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.red_2 )),9,13, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        spannableString.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+                addFragment(getFragmentManager(), UserProtocolFragment.class, R.id.login_fragment_container, null);
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setColor(Color.RED);
+            }
+        }, 9, 13, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.red_2 )),14,str.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+
+        spannableString.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+                addFragment(getFragmentManager(), PrivacyPolicyFragment.class, R.id.login_fragment_container, null);
+            }
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setColor(Color.RED);
+            }
+
+        }, 14, str.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+
+        register_setting_psd_tv_license.setText(spannableString);
+        register_setting_psd_tv_license.setMovementMethod(LinkMovementMethod.getInstance());
+
 
         mEdtPhoneNumber.requestFocusFromTouch();
 
