@@ -85,5 +85,4 @@ open class BaseActivity : RxAppCompatActivity() {
     }
 
 
-
 }

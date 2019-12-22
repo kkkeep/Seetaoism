@@ -8,7 +8,6 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_app_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_foreground"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
@@ -24,7 +23,7 @@
         <activity android:name=".home.email.EmailActivity" />
         <activity android:name=".home.phone.PhoneActivity" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".splash.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.SplashTheme">
@@ -37,6 +36,7 @@
         <activity
             android:name=".home.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustResize|adjustPan|stateHidden"  android:launchMode="singleTask"/>
 
 
@@ -101,7 +101,9 @@
 
                 <category android:name="${applicationId}" />
             </intent-filter>
-        </activity> <!-- For test only 测试状态通知栏，需要打开的Activity -->
+        </activity>
+        <activity android:name=".splash.SplashProtocolPolicyActivity"  android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.SplashTheme" /> <!-- For test only 测试状态通知栏，需要打开的Activity -->
         <meta-data
             android:name="android.notch_support"
             android:value="true" /> <!-- Rich push 核心功能 since 2.0.6 -->

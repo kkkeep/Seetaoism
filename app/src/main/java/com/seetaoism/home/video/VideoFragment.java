@@ -20,6 +20,8 @@ import com.seetaoism.data.entity.FROM;
 import com.seetaoism.data.entity.NewsData;
 import com.seetaoism.data.entity.VideoData;
 import com.seetaoism.home.detail.vp.DetailVPFragment;
+import com.seetaoism.libloadingview.LoadingView;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,7 @@ public class VideoFragment extends MvpBaseFragment<VideoContract.VideoPresenter>
     private int more = 1;//默认可加载更多
     private int start = 0;
     private int time = 0;
+    LinearLayoutManager mLinearLayoutManager;
     public ArrayList<VideoData.NewList> mlist = new ArrayList<>();
     private VideoAdapter adapter;
 
@@ -45,6 +48,7 @@ public class VideoFragment extends MvpBaseFragment<VideoContract.VideoPresenter>
 
     @Override
     protected void initData() {
+        showLoading(LoadingView.LOADING_MODE_WHITE_BG);
         mPresenter.video(start,time);
     }
 
@@ -52,9 +56,41 @@ public class VideoFragment extends MvpBaseFragment<VideoContract.VideoPresenter>
     protected void initView(View root) {
         video_rec = root.findViewById(R.id.video_rec);
         video_smart = root.findViewById(R.id.video_smart);
-        video_rec.setLayoutManager(new LinearLayoutManager(getContext()));
+        mLinearLayoutManager = new LinearLayoutManager(getContext());
+        video_rec.setLayoutManager(mLinearLayoutManager);
         adapter = new VideoAdapter(mlist, getContext());
         video_rec.setAdapter(adapter);
+
+        video_rec .addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            int firstVisibleItem, lastVisibleItem;
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
+                lastVisibleItem = mLinearLayoutManager.findLastVisibleItemPosition();
+                //大于0说明有播放
+                if (GSYVideoManager.instance().getPlayPosition() >= 0) {
+                    //当前播放的位置
+                    int position = GSYVideoManager.instance().getPlayPosition();
+                    //对应的播放列表TAG
+                    if (GSYVideoManager.instance().getPlayTag().equals(VideoAdapter.VIDEO_TAG)
+                            && (position < firstVisibleItem || position > lastVisibleItem)) {
+                        //如果滑出去了上面和下面就是否，和今日头条一样
+                        if(!GSYVideoManager.isFullState(getActivity())) {
+                            GSYVideoManager.releaseAllVideos();
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+            }
+        });
 
         video_smart.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
@@ -95,6 +131,7 @@ public class VideoFragment extends MvpBaseFragment<VideoContract.VideoPresenter>
 
     @Override
     public void onVideoSuccess(VideoData data, String msg) {
+        closeLoading();
         if (data!=null&&data.getList().size()>0){
             start = data.getStart();
             more=data.getMore();

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/layout_bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+
+        android:background="@drawable/check_update_layout_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/textView13"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView12"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/splash_pop_tv_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:lineSpacingExtra="3dp"
+        android:text="@string/text_service_agreement_content"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/splash_pop_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:text="@string/text_service_agreement_title"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/splash_pop_tv_content"
+        app:layout_constraintEnd_toEndOf="@+id/splash_pop_tv_content"
+        app:layout_constraintStart_toStartOf="@+id/splash_pop_tv_content" />
+
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/gray_7"
+
+        app:layout_constraintEnd_toEndOf="@+id/layout_bg"
+        app:layout_constraintStart_toStartOf="@+id/layout_bg"
+        app:layout_constraintTop_toBottomOf="@+id/splash_pop_tv_content" />
+
+    <TextView
+        android:id="@+id/splash_pop_btn_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:textSize="16dp"
+        android:text="@string/text_stop_to_use"
+        android:background="#00000000"
+        android:textColor="#ABCFDD"
+        app:layout_constraintStart_toStartOf="@+id/imageView12"
+        app:layout_constraintTop_toTopOf="@+id/splash_pop_btn_agree" />
+
+    <TextView
+        android:id="@+id/splash_pop_btn_agree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="32dp"
+        android:textSize="16dp"
+        android:text="@string/text_agree"
+        android:background="#00000000"
+        android:textColor="#ABCFDD"
+        app:layout_constraintEnd_toEndOf="@+id/imageView12"
+        app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/splash_pop_tv_title"
+        app:layout_constraintEnd_toEndOf="@+id/splash_pop_tv_title"
+        app:layout_constraintStart_toStartOf="@+id/splash_pop_tv_title" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/splash_pop_btn_stop"
+        app:layout_constraintStart_toStartOf="@+id/splash_pop_btn_stop"
+        app:layout_constraintTop_toBottomOf="@+id/splash_pop_btn_stop" />
+</androidx.constraintlayout.widget.ConstraintLayout>

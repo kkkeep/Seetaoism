@@ -51,6 +51,7 @@ import com.seetaoism.utils.ShareUtils;
 import com.seetaoism.widgets.FeedbackPopwindow;
 import com.seetaoism.widgets.IntegralWidget;
 import com.seetaoism.widgets.bottomtablaout.BottomTabLayout;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -184,7 +185,7 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
     }
 
     private void switchFragment(int position) {
-
+        GSYVideoManager.onPause();
         Class<? extends BaseFragment> aClass = null;
         switch (position) {
             case 1: {
@@ -259,15 +260,7 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        NewsRepository.destroy();
-        if (mBroadcastReceiver != null) {
-            UserManager.unRegisterUserBroadcastReceiver(mBroadcastReceiver);
-            mBroadcastReceiver = null;
-        }
-    }
+
 
     @Override
     public void onClick(View view) {
@@ -392,9 +385,33 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        GSYVideoManager.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+       // GSYVideoManager.onResume();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        GSYVideoManager.releaseAllVideos();
+        NewsRepository.destroy();
+        if (mBroadcastReceiver != null) {
+            UserManager.unRegisterUserBroadcastReceiver(mBroadcastReceiver);
+            mBroadcastReceiver = null;
+        }
+    }
 
     @Override
     public void onBackPressed() {
+        if (GSYVideoManager.backFromWindowFull(this)) {
+            return ;
+        }
         super.onBackPressed();
     }
 

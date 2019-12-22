@@ -9,10 +9,20 @@
     android:paddingTop="15dp"
     android:layout_height="wrap_content">
 
+    <com.seetaoism.home.video.SampleCoverVideo
+        android:id="@+id/news_item_video_gsypalyer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="w,1:1.77"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
         android:id="@+id/news_item_video_im_cover"
         android:layout_width="0dp"
+        android:visibility="gone"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="w,1:1.77"
@@ -31,7 +41,7 @@
         style="@style/SeeWay.NewsTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/news_item_video_im_cover"
+        app:layout_constraintTop_toBottomOf="@+id/news_item_video_gsypalyer"
         />
 
     <TextView
@@ -57,12 +67,13 @@
 
     <ImageView
         android:id="@+id/imageView8"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/news_item_video_im_cover"
-        app:layout_constraintEnd_toEndOf="@+id/news_item_video_im_cover"
-        app:layout_constraintStart_toStartOf="@+id/news_item_video_im_cover"
-        app:layout_constraintTop_toTopOf="@+id/news_item_video_im_cover"
+        app:layout_constraintBottom_toBottomOf="@+id/news_item_video_gsypalyer"
+        app:layout_constraintEnd_toEndOf="@+id/news_item_video_gsypalyer"
+        app:layout_constraintStart_toStartOf="@+id/news_item_video_gsypalyer"
+        app:layout_constraintTop_toTopOf="@+id/news_item_video_gsypalyer"
         app:srcCompat="@drawable/ic_play" />
 
 
