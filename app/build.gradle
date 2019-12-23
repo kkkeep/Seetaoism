@@ -13,8 +13,8 @@ android {
         applicationId "com.seetaoism"   //以这个为标准包名
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 2 // 每次发布新版时版本号要增加
-        versionName "01.00.0000" // 每次发布新版时需要修改
+        versionCode 1 // 每次发布新版时版本号要增加
+        versionName "1.0.1" // 每次发布新版时需要修改
 
 
         //

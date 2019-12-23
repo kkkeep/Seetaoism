@@ -69,7 +69,7 @@
         android:textSize="16dp"
         android:text="@string/text_stop_to_use"
         android:background="#00000000"
-        android:textColor="#ABCFDD"
+        android:textColor="#4A90E2"
         app:layout_constraintStart_toStartOf="@+id/imageView12"
         app:layout_constraintTop_toTopOf="@+id/splash_pop_btn_agree" />
 
@@ -82,7 +82,7 @@
         android:textSize="16dp"
         android:text="@string/text_agree"
         android:background="#00000000"
-        android:textColor="#ABCFDD"
+        android:textColor="#4A90E2"
         app:layout_constraintEnd_toEndOf="@+id/imageView12"
         app:layout_constraintTop_toBottomOf="@+id/imageView12" />
 

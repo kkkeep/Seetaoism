@@ -105,7 +105,7 @@ class SplashPopWindow(var context: Activity) : PopupWindow(){
 
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
-                ds.color = Color.parseColor("#ABCFDD")
+                ds.color = Color.parseColor("#4A90E2")
                 ds.isUnderlineText = false
             }
         }, start, start + s1.length, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
@@ -122,7 +122,7 @@ class SplashPopWindow(var context: Activity) : PopupWindow(){
 
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
-                ds.color = Color.parseColor("#ABCFDD")
+                ds.color = Color.parseColor("#4A90E2")
                 ds.isUnderlineText = false
             }
 
