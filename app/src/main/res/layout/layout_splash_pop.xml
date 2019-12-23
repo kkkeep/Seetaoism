@@ -17,10 +17,9 @@
         android:background="@drawable/check_update_layout_bg"
         app:layout_constraintBottom_toBottomOf="@+id/textView13"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView12"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.50" />
 
     <TextView
         android:id="@+id/splash_pop_tv_content"
@@ -69,7 +68,7 @@
         android:textSize="16dp"
         android:text="@string/text_stop_to_use"
         android:background="#00000000"
-        android:textColor="#4A90E2"
+        android:textColor="#ABCFDD"
         app:layout_constraintStart_toStartOf="@+id/imageView12"
         app:layout_constraintTop_toTopOf="@+id/splash_pop_btn_agree" />
 
@@ -82,7 +81,7 @@
         android:textSize="16dp"
         android:text="@string/text_agree"
         android:background="#00000000"
-        android:textColor="#4A90E2"
+        android:textColor="#ABCFDD"
         app:layout_constraintEnd_toEndOf="@+id/imageView12"
         app:layout_constraintTop_toBottomOf="@+id/imageView12" />
 

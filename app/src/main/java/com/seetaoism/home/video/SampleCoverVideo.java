@@ -19,6 +19,8 @@ import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.base.GSYBaseVideoPlayer;
 
+import moe.codeest.enviews.ENPlayView;
+
 
 /**
  * 带封面
@@ -53,6 +55,31 @@ public class SampleCoverVideo extends StandardGSYVideoPlayer {
         if (mThumbImageViewLayout != null &&
                 (mCurrentState == -1 || mCurrentState == CURRENT_STATE_NORMAL || mCurrentState == CURRENT_STATE_ERROR)) {
             mThumbImageViewLayout.setVisibility(VISIBLE);
+        }
+    }
+
+    @Override
+    protected void updateStartImage() {
+
+        if (mStartButton instanceof ENPlayView) {
+            ENPlayView enPlayView = (ENPlayView) mStartButton;
+            enPlayView.setDuration(500);
+            if (mCurrentState == CURRENT_STATE_PLAYING) {
+                enPlayView.play();
+            } else if (mCurrentState == CURRENT_STATE_ERROR) {
+                enPlayView.pause();
+            } else {
+                enPlayView.pause();
+            }
+        } else if (mStartButton instanceof ImageView) {
+            ImageView imageView = (ImageView) mStartButton;
+            if (mCurrentState == CURRENT_STATE_PLAYING) {
+                imageView.setImageResource(R.drawable.news_video_click_pause_selector);
+            } else if (mCurrentState == CURRENT_STATE_ERROR) {
+                imageView.setImageResource(R.drawable.news_video_click_pause_selector);
+            } else {
+                imageView.setImageResource(R.drawable.news_video_click_play_selector);
+            }
         }
     }
 
