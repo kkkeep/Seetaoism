@@ -5,24 +5,55 @@ import com.seetaoism.data.entity.HttpResult;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class Test2 {
 
 
-    public static void test2(List<? extends TestMian.Food> foods){
+    public static Map<String, Map<String,String>> mDepsMap = new HashMap();
 
-        //foods.add(new TestMian.Beef());
+    public static void main(String args []){
 
-        HttpResult httpResult = new HttpResult();
 
-        httpResult.code = 2;
-        httpResult.message = "失败";
+        Map<String, Map<String,String>> depsMap = new HashMap();
 
-        httpResult.data =  null;
+        Map<String,String > retrofitMap = new HashMap<>();
+        retrofitMap.put("retrofit2", "com.squareup.retrofit2:retrofit:$versions.retrofit");
+        retrofitMap.put("retrofit_converter_gson", "com.squareup.retrofit2:converter-gson:$versions.retrofit");
+        retrofitMap.put("retrofit2_adapter_rxjava", "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit");
 
-        Gson gson = new Gson();
-       System.out.println(gson.toJson(httpResult));
+
+        Map<String,String> rxJavaMap = new HashMap<>();
+
+        rxJavaMap.put("rxjava", "io.reactivex.rxjava2:rxjava:$versions.rxjava");
+        rxJavaMap.put("rxAndroid", "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid");
+        rxJavaMap.put("rxPermissions", "com.github.tbruyelle:rxpermissions:$versions.rxpermissions");
+
+
+
+        depsMap.put("retrofitX", retrofitMap);
+        depsMap.put("rxjavaX", rxJavaMap);
+
+
+
+        mDepsMap = depsMap;
+
+
+
+        imp();
+
+
+
+    }
+
+
+    public static void imp(){
+
+        System.out.println(mDepsMap.get("retrofitX").get("retrofit2"));
+        System.out.println(mDepsMap.get("retrofitX").get("retrofit_converter_gson"));
+        System.out.println(mDepsMap.get("retrofitX").get("retrofit2_adapter_rxjava"));
     }
 }

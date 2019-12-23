@@ -64,6 +64,8 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
 
     private var mHasMoreComment = false
 
+    private var isAddIntegral = false
+
 
 
     override fun setArguments(args: Bundle?) {
@@ -146,7 +148,12 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
             }
         }
 
-        mPresenter.readArticleFroIntegral(mArticleId)
+        if(isCurrentShow){
+            mPresenter.readArticleFroIntegral(mArticleId)
+            isAddIntegral = true;
+        }
+
+
 
     }
 
@@ -243,7 +250,8 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
             adapter = mListAdapter.apply {
                 setItemOnClickListener(object : DetailPageNewsAdapter.DetailItemOnClickListener {
                     override fun onNewsClick( newsList : MutableList<out NewsData.NewsBean>,realPosition: Int) {
-                        closeLoading()
+                        //closeLoading()
+                        pauseVideo()
                         DetailVPFragment.Launcher.openInner(activity as BaseActivity, DetailExclusiveData(FROM.INNER,newsList,realPosition))
                     }
 
@@ -391,6 +399,11 @@ class DetailPageFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailPag
         isCurrentShow = isVisibleToUser;
         if(isVisibleToUser){
             if(detailWebView != null ){
+
+                if(!isAddIntegral && mIsFinish){
+                    mPresenter.readArticleFroIntegral(mArticleId)
+                    isAddIntegral = true;
+                }
                // initData()
 /*
                 detailWebView.onResume()

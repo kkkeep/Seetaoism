@@ -69,6 +69,8 @@ public abstract class BaseFragment extends RxFragment {
 
         // todo  如果不包装，如果rootview 是 非 framelayou 会报错
         View v =  inflater.inflate(getLayoutId(),container,false);
+
+
         if(v.getClass().getSimpleName().equals(FrameLayout.class.getSimpleName())){
             return v;
         }

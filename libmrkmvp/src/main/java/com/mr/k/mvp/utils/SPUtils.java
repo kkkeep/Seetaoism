@@ -31,6 +31,12 @@ public class SPUtils {
     public static void saveValueToDefaultSpByApply(String key,String value) {
             applayValue(GLOBAL_SP_FILE_NAME, key, value);
     }
+    public static void saveIntValueToDefaultSpByApply(String key,int value) {
+        SharedPreferences sharedPreferences = MvpManager.getContext().getSharedPreferences(GLOBAL_SP_FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(key, value);
+        editor.apply();
+    }
     public static void saveValueToDefaultSpByCommit(String key,String value) {
         commitValue(GLOBAL_SP_FILE_NAME, key, value);
     }
@@ -43,4 +49,12 @@ public class SPUtils {
         return getValue(GLOBAL_SP_FILE_NAME, key);
 
     }
+
+    public static int getIntValue(String key){
+
+        SharedPreferences sharedPreferences = MvpManager.getContext().getSharedPreferences(GLOBAL_SP_FILE_NAME, Context.MODE_PRIVATE);
+        return  sharedPreferences.getInt(key, 0);
+    }
+
+
 }

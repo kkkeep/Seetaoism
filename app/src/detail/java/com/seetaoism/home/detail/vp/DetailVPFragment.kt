@@ -32,6 +32,7 @@ import com.seetaoism.home.collect.CollectViewModel
 import com.seetaoism.home.detail.page.DetailPageFragment
 import com.seetaoism.home.detail.DetailsContract
 import com.seetaoism.libloadingview.LoadingView
+import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.umeng.socialize.UMShareListener
 import com.umeng.socialize.bean.SHARE_MEDIA
 import kotlinx.android.synthetic.main.fragment_detail_vp.*
@@ -296,6 +297,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
 
         @JvmStatic
         fun open(activity: BaseActivity, data: DetailExclusiveData, args: Bundle?): DetailVPFragment? {
+            GSYVideoManager.onPause()
             val newsViewModel = ViewModelProviders.of(activity).get(NewsViewModel::class.java)
             newsViewModel.setData(data)
             return activity.addFragment(activity.supportFragmentManager, DetailVPFragment::class.java, android.R.id.content, args)

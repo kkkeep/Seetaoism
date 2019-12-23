@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.fragment_privacy_policy.*
 /*
  * created by Cherry on 2019-11-27
 **/
-class PrivacyPolicyFragment : BaseFragment(){
+open class PrivacyPolicyFragment : BaseFragment(){
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_privacy_policy

@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.fragment_user_protocol.*
 /*
  * created by Cherry on 2019-11-27
 **/
-class UserProtocolFragment : BaseFragment(){
+open class UserProtocolFragment : BaseFragment(){
 
     override fun getLayoutId(): Int {
 

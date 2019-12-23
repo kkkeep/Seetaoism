@@ -1,4 +1,4 @@
-package com.seetaoism;
+package com.seetaoism.splash;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,10 +23,13 @@ import com.mr.k.mvp.UserManager;
 import com.mr.k.mvp.base.MvpBaseActivity;
 import com.mr.k.mvp.utils.SPUtils;
 import com.mr.k.mvp.utils.SystemFacade;
+import com.seetaoism.BuildConfig;
+import com.seetaoism.R;
 import com.seetaoism.data.entity.User;
 import com.seetaoism.home.HomeActivity;
 import com.seetaoism.user.login.LoginContract;
 import com.seetaoism.user.login.LoginGetUserPresenter;
+import com.seetaoism.widgets.SplashPopWindow;
 
 
 /*
@@ -34,53 +38,113 @@ import com.seetaoism.user.login.LoginGetUserPresenter;
 public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserInfoPresenter> implements LoginContract.ILoginGetUserInfoView {
 
     private static final String TAG = "SplashActivity";
-
     private ViewPager mViewPager;
 
     private int[] mGuideImages;
+    ImageView imageView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+/*
+         imageView   = new ImageView(this);
+
+         imageView.setBackgroundResource(R.drawable.splash_bg);
+
+         setContentView(imageView);*/
 
         String isFirstLaunch = SPUtils.getValue("isFirst");
+        int version = SPUtils.getIntValue("version");
+
+
+
+
+
+
+
         // todo 第一步判断是否为第一次启动
-        if (TextUtils.isEmpty(isFirstLaunch)) {
-            SPUtils.saveValueToDefaultSpByApply("isFirst", "true");
-            setContentView(R.layout.activity_splash);
-            mViewPager = findViewById(R.id.splash_guild_page);
+        if (TextUtils.isEmpty(isFirstLaunch) || BuildConfig.VERSION_CODE  > version) {
 
-            mGuideImages = new int[]{R.drawable.splash_guild1, R.drawable.splash_guild2, R.drawable.splash_guild3};
-
-            mViewPager.setAdapter(new SplashGuidePageAdapter());
+            getWindow().getDecorView().post(new Runnable() {
+                @Override
+                public void run() {
+                   showPopWindow();
+                }
+            });
 
         } else {
 
-            new Thread() {
-                @Override
-                public void run() {
-                    User user = UserManager.loginLocal(User.class);
-                    if (user != null && user.getToken() != null && !TextUtils.isEmpty(user.getToken().getValue())) {
-                        mPresenter.getUserInfoByToken(user.getToken().getValue());
-                    }
-
-                }
-            }.start();
-
-            // 倒计时5秒，然后去获取用户信息
-            getWindow().getDecorView().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (!isFinishing()) {
-                        startMainActivity();
-                    }
-                }
-            }, 3000);
-
+           showSplashPage();
 
         }
 
 
+    }
+
+
+
+    private void showPopWindow(){
+        SplashPopWindow splashPopWindow = new SplashPopWindow(this);
+
+        splashPopWindow.show( getWindow().getDecorView(), new SplashPopWindow.OnPopButtonClickListener() {
+            @Override
+            public void onClick(int position) {
+
+                Intent intent = new Intent(SplashActivity.this, SplashProtocolPolicyActivity.class);
+                intent.putExtra("from", position);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onStop() {
+                finish();
+            }
+
+            @Override
+            public void onAgree() {
+                showGuidePage();
+            }
+        });
+    }
+
+    private void showSplashPage(){
+
+
+
+      //  setContentView(imageView);
+        new Thread() {
+            @Override
+            public void run() {
+                User user = UserManager.loginLocal(User.class);
+                if (user != null && user.getToken() != null && !TextUtils.isEmpty(user.getToken().getValue())) {
+                    mPresenter.getUserInfoByToken(user.getToken().getValue());
+                }
+
+            }
+        }.start();
+
+        // 倒计时5秒，然后去获取用户信息
+        getWindow().getDecorView().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (!isFinishing()) {
+                    startMainActivity();
+                }
+            }
+        }, 3000);
+
+    }
+
+
+    private void showGuidePage(){
+        setContentView(R.layout.activity_splash);
+        mViewPager = findViewById(R.id.splash_guild_page);
+
+        mGuideImages = new int[]{R.drawable.splash_guild1, R.drawable.splash_guild2, R.drawable.splash_guild3};
+
+        mViewPager.setAdapter(new SplashGuidePageAdapter());
+        SPUtils.saveValueToDefaultSpByApply("isFirst", "true");
+        SPUtils.saveIntValueToDefaultSpByApply("version", BuildConfig.VERSION_CODE);
     }
 
     @Override

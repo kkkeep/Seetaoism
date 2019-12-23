@@ -1,5 +1,6 @@
 package com.seetaoism.home.recommend;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,12 @@ import com.seetaoism.GlideApp;
 import com.seetaoism.GlideRequests;
 import com.seetaoism.R;
 import com.seetaoism.data.entity.NewsData;
+import com.seetaoism.data.entity.VideoData;
+import com.seetaoism.home.video.SampleCoverVideo;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
+import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
+import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -31,6 +38,9 @@ import jy.com.libbanner.MarqueeView;
 
 
 public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHolder> {
+
+    public String VIDEO_TAG = "NewsPageAdapter " + hashCode();
+
     private static final String TAG = "NewsPageAdapter";
 
     private static final int TYPE_HEADER = 0x100; // banner
@@ -384,14 +394,26 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
         private ImageView ivCover;
         private TextView tvTitle;
         private TextView tvLabel;
-
+        private  SampleCoverVideo sampleCoverVideo;
+        GSYVideoOptionBuilder gsyVideoOptionBuilder;
 
         public VideoNewsHolder(@NonNull View itemView) {
             super(itemView);
-
+            gsyVideoOptionBuilder = new GSYVideoOptionBuilder();
             ivCover = itemView.findViewById(R.id.news_item_video_im_cover);
             tvTitle = itemView.findViewById(R.id.news_item_video_tv_title);
             tvLabel = itemView.findViewById(R.id.news_item_video_tv_label);
+            sampleCoverVideo = itemView.findViewById(R.id.news_item_video_gsypalyer);
+
+            sampleCoverVideo.getBackButton().setVisibility(View.GONE);
+
+            //设置全屏按键功能
+            sampleCoverVideo.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    resolveFullBtn(sampleCoverVideo);
+                }
+            });
         }
 
         public void setData(NewsData.News data) {
@@ -399,8 +421,60 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
             mGlide.load(data.getImageUrl()).into(ivCover);
             tvLabel.setText(data.getColumn_name());
 
+            if(!TextUtils.isEmpty(data.getVideoUrl())){
+                bindVideo(data);
+            }
+
         }
 
+        private void bindVideo(NewsData.News data){
+
+
+            //  GlideApp.with(itemView).load(data.getImage_url()).into(ivCover);
+            sampleCoverVideo.loadCoverImage(data.getImageUrl(),0);
+            gsyVideoOptionBuilder
+                    .setIsTouchWiget(false)
+                    // .setThumbImageView(ivCover)
+                    .setUrl(data.getVideoUrl())
+                    .setCacheWithPlay(false)
+                    .setRotateViewAuto(true)
+                    .setLockLand(true)
+                    .setPlayTag(VIDEO_TAG)
+                    .setShowFullAnimation(false)
+                    .setNeedLockFull(true)
+                    .setPlayPosition(getAdapterPosition())
+                    .setVideoAllCallBack(new GSYSampleCallBack() {
+                        @Override
+                        public void onPrepared(String url, Object... objects) {
+                            super.onPrepared(url, objects);
+                            /*if (!sampleCoverVideo.isIfCurrentIsFullscreen()) {
+                                //静音
+                                GSYVideoManager.instance().setNeedMute(true);
+                            }*/
+
+                        }
+
+                        @Override
+                        public void onQuitFullscreen(String url, Object... objects) {
+                            super.onQuitFullscreen(url, objects);
+                            //全屏不静音
+                            // GSYVideoManager.instance().setNeedMute(true);
+                        }
+
+                        @Override
+                        public void onEnterFullscreen(String url, Object... objects) {
+                            super.onEnterFullscreen(url, objects);
+                            GSYVideoManager.instance().setNeedMute(false);
+                            sampleCoverVideo.getCurrentPlayer().getTitleTextView().setText((String)objects[0]);
+                        }
+                    }).build(sampleCoverVideo);
+        }
+        /**
+         * 全屏幕按键处理
+         */
+        private void resolveFullBtn(final StandardGSYVideoPlayer standardGSYVideoPlayer) {
+            standardGSYVideoPlayer.startWindowFullscreen(itemView.getContext(), true, true);
+        }
 
     }
 

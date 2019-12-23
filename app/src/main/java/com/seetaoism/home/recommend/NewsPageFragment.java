@@ -22,8 +22,10 @@ import com.seetaoism.data.repositories.NewsRepository;
 import com.seetaoism.home.NewsViewModel;
 import com.seetaoism.home.detail.vp.DetailVPFragment;
 import com.seetaoism.home.recommend.RecommendContract.INewsPageModel;
+import com.seetaoism.home.video.VideoAdapter;
 import com.seetaoism.libloadingview.LoadingView;
 import com.seetaoism.utils.ShareUtils;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
@@ -40,7 +42,7 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
     private NewsPageAdapter mNewsPageAdapter;
     private SmartRefreshLayout mSmartRefreshLayout;
     private NewsViewModel mNewViewModel;
-
+    LinearLayoutManager mLinearLayoutManager;
 
     private String mColumnId = "";
 
@@ -135,11 +137,53 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
             }
         });
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        mNewsRecyclerView.setLayoutManager(layoutManager);
+         mLinearLayoutManager = new LinearLayoutManager(getContext());
+        mNewsRecyclerView.setLayoutManager(mLinearLayoutManager);
         mNewsRecyclerView.setAdapter(mNewsPageAdapter);
+
+
+
+        mNewsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            int firstVisibleItem, lastVisibleItem;
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
+                lastVisibleItem = mLinearLayoutManager.findLastVisibleItemPosition();
+                //大于0说明有播放
+                if (GSYVideoManager.instance().getPlayPosition() >= 0) {
+                    //当前播放的位置
+                    int position = GSYVideoManager.instance().getPlayPosition();
+                    //对应的播放列表TAG
+                    if (GSYVideoManager.instance().getPlayTag().equals(mNewsPageAdapter.VIDEO_TAG)
+                            && (position < firstVisibleItem || position > lastVisibleItem)) {
+                        //如果滑出去了上面和下面就是否，和今日头条一样
+                        if(!GSYVideoManager.isFullState(getActivity())) {
+                            GSYVideoManager.releaseAllVideos();
+                            mNewsPageAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+            }
+        });
     }
 
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if(!isVisibleToUser){
+            GSYVideoManager.onPause();
+        }
+    }
 
     @Override
     protected void initData() {

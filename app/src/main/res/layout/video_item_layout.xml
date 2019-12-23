@@ -10,7 +10,11 @@
     android:layout_marginLeft="10dp">
     <FrameLayout
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="184dp">
+
+
+
         <ImageView
             android:layout_marginTop="5dp"
             android:id="@+id/videoplayer"
@@ -18,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="194dp"
             android:visibility="visible" />
+
         <ImageView
             android:id="@+id/video_play"
             android:layout_width="45dp"
@@ -26,7 +31,16 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/video_play"
             android:visibility="visible" />
+
+
     </FrameLayout>
+
+    <com.seetaoism.home.video.SampleCoverVideo
+        android:id="@+id/video_gsypalyer"
+        android:layout_width="match_parent"
+        android:layout_height="184dp"/>
+
+
 
     <TextView
         android:id="@+id/them"
