@@ -64,12 +64,13 @@
         android:id="@+id/splash_pop_btn_stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:textSize="16dp"
-        android:text="@string/text_stop_to_use"
+        android:layout_marginStart="16dp"
         android:background="#00000000"
-        android:textColor="#ABCFDD"
-        app:layout_constraintStart_toStartOf="@+id/imageView12"
+        android:text="@string/text_stop_to_use"
+        android:textColor="#4A90E2"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/imageView13"
+        app:layout_constraintStart_toStartOf="@+id/layout_bg"
         app:layout_constraintTop_toTopOf="@+id/splash_pop_btn_agree" />
 
     <TextView
@@ -77,12 +78,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="32dp"
-        android:textSize="16dp"
-        android:text="@string/text_agree"
+        android:layout_marginEnd="16dp"
         android:background="#00000000"
-        android:textColor="#ABCFDD"
-        app:layout_constraintEnd_toEndOf="@+id/imageView12"
+        android:text="@string/text_agree"
+        android:textColor="#4A90E2"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/layout_bg"
+        app:layout_constraintStart_toEndOf="@+id/imageView13"
         app:layout_constraintTop_toBottomOf="@+id/imageView12" />
 
     <TextView
@@ -102,4 +104,17 @@
         app:layout_constraintEnd_toEndOf="@+id/splash_pop_btn_stop"
         app:layout_constraintStart_toStartOf="@+id/splash_pop_btn_stop"
         app:layout_constraintTop_toBottomOf="@+id/splash_pop_btn_stop" />
+
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="14dp"
+        android:background="#FFD6D8DA"
+        app:layout_constraintBottom_toBottomOf="@id/layout_bg"
+        app:layout_constraintEnd_toEndOf="@+id/layout_bg"
+        app:layout_constraintStart_toStartOf="@+id/layout_bg"
+        app:layout_constraintTop_toBottomOf="@id/imageView12"
+        app:srcCompat="@drawable/activity_shape" />
 </androidx.constraintlayout.widget.ConstraintLayout>
