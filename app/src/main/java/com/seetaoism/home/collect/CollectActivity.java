@@ -61,6 +61,23 @@ public class CollectActivity extends JDMvpBaseActivity<CollectContract.ICollectP
         mViewpagerCollect.setAdapter(new CollectAdapter(getSupportFragmentManager(), CollectActivity.this, fragmentList, list_Title));
         mTablayoutCollect.setupWithViewPager(mViewpagerCollect);
 
+        mTablayoutCollect.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
     }
 
     @Override
@@ -130,7 +147,8 @@ public class CollectActivity extends JDMvpBaseActivity<CollectContract.ICollectP
             if (collectAllFragment != null) {
                 if (mEditMode == MODE_EDIT) {
                     //这个判断是true，所以把编辑二字改成了取消
-                    bianji.setText("取消");
+                    bianji.setText("完成");
+
                     isSelect = true;
                     //这个isSelect是为了传给下一个页面判断是否要显示隐藏全选和删除的按钮
                     collectAllFragment.chooseNews(isSelect, mEditMode);
@@ -142,12 +160,11 @@ public class CollectActivity extends JDMvpBaseActivity<CollectContract.ICollectP
             }
         } else {
             //第二个页面
-
             CollectVideoFragment collectVideoFragment = (CollectVideoFragment) fragmentList.get(1);
             if (collectVideoFragment != null) {
                 if (mEditMode == MODE_EDIT) {
                     //这个判断是true，所以把编辑二字改成了取消
-                    bianji.setText("取消");
+                    bianji.setText("完成");
                     isSelect = true;
                     //这个isSelect是为了传给下一个页面判断是否要显示隐藏全选和删除的按钮
                     collectVideoFragment.chooseNews(isSelect, mEditMode);

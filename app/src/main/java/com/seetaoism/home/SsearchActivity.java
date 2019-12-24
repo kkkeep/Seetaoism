@@ -85,6 +85,8 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
         mClean = findViewById(R.id.clean_list);
         mHistory = findViewById(R.id.history);
         flow = findViewById(R.id.flow_layout);
+        mEditSearch.requestFocus();
+
         mRvNews.setLayoutManager(new LinearLayoutManager(this));
         adapter = new SearchAdapter(mlist, this);
 
@@ -230,6 +232,7 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
                 break;
             //关闭界面
             case R.id.search_text:
+                hideKeyboard(mEditSearch);
                 finish();
                 break;
             case R.id.clean_list:

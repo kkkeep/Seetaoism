@@ -1,5 +1,6 @@
 package com.seetaoism.user.register;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -224,6 +226,7 @@ public class SetPasswordFragment extends BaseUserFragment<LoginContract.IRegiste
     public void onRegisterResultSuccess(User user) {
         closeLoading();
         login(user);
+        hideKeyboard(mEdtConfirmPsd);
 
     }
 
@@ -246,5 +249,16 @@ public class SetPasswordFragment extends BaseUserFragment<LoginContract.IRegiste
         }else{
             showToast(msg);
         }
+    }
+    /**
+     * 隐藏软键盘
+     *
+     * @param :上下文
+     * @param view :一般为EditText
+     */
+    public void hideKeyboard(View view) {
+        InputMethodManager manager = (InputMethodManager) view.getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

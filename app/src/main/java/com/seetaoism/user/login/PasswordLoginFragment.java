@@ -1,8 +1,10 @@
 package com.seetaoism.user.login;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -91,6 +93,7 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
     public void onLoginSuccess(User user) {
         closeLoading();
         login(user);
+        hideKeyboard(mEdtPhoneNumber);
         //保存上次的登录账号
         SPUtils.saveValueToDefaultSpByCommit("loginnumber",mEdtPhoneNumber.getText().toString());
 
@@ -170,5 +173,16 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
         }else{
             showToast(msg);
         }
+    }
+    /**
+     * 隐藏软键盘
+     *
+     * @param :上下文
+     * @param view :一般为EditText
+     */
+    public void hideKeyboard(View view) {
+        InputMethodManager manager = (InputMethodManager) view.getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

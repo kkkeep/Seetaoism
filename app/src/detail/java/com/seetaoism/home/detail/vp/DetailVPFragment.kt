@@ -207,6 +207,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
                 val page = newsDetailVp.adapter!!.instantiateItem(newsDetailVp, newsDetailVp.currentItem) as DetailPageFragment
                 page.commitArticle(mNewsDetailAdapter.getNews(newsDetailVp.currentItem))
 
+
             }
 
             R.id.newsDetailBack -> {

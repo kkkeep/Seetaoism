@@ -1,5 +1,6 @@
 package com.seetaoism.user.login;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -12,6 +13,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -296,6 +298,7 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
     public void onLoginSuccess(User user) {
         closeLoading();
         login(user);
+        hideKeyboard(mEdtPhoneNumber);
 
     }
 
@@ -320,10 +323,23 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
     @Override
     public void onSocialLoginResult(User user, String msg) {
         closeLoading();
+
         if (user != null) {
             login(user);
         } else {
             showToast(msg);
         }
+    }
+
+    /**
+     * 隐藏软键盘
+     *
+     * @param :上下文
+     * @param view :一般为EditText
+     */
+    public void hideKeyboard(View view) {
+        InputMethodManager manager = (InputMethodManager) view.getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

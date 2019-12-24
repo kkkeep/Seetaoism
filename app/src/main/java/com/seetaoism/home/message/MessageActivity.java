@@ -351,6 +351,8 @@ public class MessageActivity extends JDMvpBaseActivity<MessageContract.MessagePr
             return;
         }
         builder.getWindow().setContentView(R.layout.pop_user);//设置弹出框加载的布局
+        builder.getWindow().setBackgroundDrawableResource(R.color.transparent);
+
         TextView msg = (TextView) builder.findViewById(R.id.tv_msg);
         Button cancle = (Button) builder.findViewById(R.id.btn_cancle);
         Button sure = (Button) builder.findViewById(R.id.btn_sure);
