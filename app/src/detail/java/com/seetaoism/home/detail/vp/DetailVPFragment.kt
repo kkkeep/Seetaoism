@@ -377,11 +377,11 @@ class NewsDetailAdapter(fm: FragmentManager, val news: MutableList<NewsData.News
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        return super.instantiateItem(container, position % news.size)
+        return super.instantiateItem(container, position % (news.size * 2))
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        super.destroyItem(container, position % news.size, `object`)
+        super.destroyItem(container, position % (news.size * 2), `object`)
     }
 
     override fun getItemPosition(`object`: Any): Int {

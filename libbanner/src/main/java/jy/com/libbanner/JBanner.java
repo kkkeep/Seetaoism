@@ -185,6 +185,7 @@ public class JBanner extends ConstraintLayout {
         if (visibility == VISIBLE  ) {
             // 如果自动轮播
             if (mIsLoop) {
+                getHandler().removeCallbacks(mLooper);
                 postDelayed(mLooper, mInterval);
             }
         } else {
