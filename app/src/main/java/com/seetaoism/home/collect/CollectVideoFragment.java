@@ -46,7 +46,7 @@ public class CollectVideoFragment extends MvpBaseFragment<CollectContract.IColle
     private CheckBox btnAllSelect;
     private TextView btnDelete;
     private boolean isSelectAll = false;
-    private int mEditMode;
+    public int mEditMode;
 
     private CollectActivity CollectVideoFragment;
     private RelativeLayout pop;

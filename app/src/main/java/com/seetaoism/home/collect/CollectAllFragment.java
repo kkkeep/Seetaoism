@@ -54,7 +54,7 @@ public class CollectAllFragment extends MvpBaseFragment<CollectContract.ICollect
     private CheckBox btnAllSelect;
     private TextView btnDelete;
     private boolean isSelectAll = false;
-    private int mEditMode;
+    public int mEditMode;
     private RelativeLayout pop;
     int start = 0;
     int time = 0;

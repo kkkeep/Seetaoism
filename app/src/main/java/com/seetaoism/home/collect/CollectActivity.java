@@ -64,6 +64,18 @@ public class CollectActivity extends JDMvpBaseActivity<CollectContract.ICollectP
         mTablayoutCollect.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                if(mViewpagerCollect.getCurrentItem() != 0){
+                    CollectAllFragment collectAllFragment = (CollectAllFragment) fragmentList.get(0);
+                    if(collectAllFragment.mEditMode != mEditMode){
+                        collectAllFragment.chooseNews(mEditMode == MODE_EDIT, mEditMode);
+                    }
+
+                }else{
+                    CollectVideoFragment collectVideoFragment = (CollectVideoFragment) fragmentList.get(1);
+                    if(collectVideoFragment.mEditMode != mEditMode){
+                        collectVideoFragment.chooseNews(mEditMode == MODE_EDIT, mEditMode);
+                    }
+                }
 
             }
 
