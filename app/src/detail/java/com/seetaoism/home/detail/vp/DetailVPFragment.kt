@@ -255,7 +255,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
     }
 
     override fun onDoArticleLikeResult(data: String?, msg: String?) {
-        // closeLoading()
+         closeLoading()
         if (data != null && msg == null) {
             newsDetailLike.isChecked = true
             mNewsDetailAdapter.getCurrentNew().is_good = 1
