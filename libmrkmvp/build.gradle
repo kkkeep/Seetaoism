@@ -49,4 +49,5 @@ dependencies {
     implementation deps.rxJavaX.rxPermissions
 
     api project(path: ':libloadingview')
+
 }
