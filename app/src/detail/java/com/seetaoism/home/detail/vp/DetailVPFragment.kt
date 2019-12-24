@@ -207,6 +207,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
                 val page = newsDetailVp.adapter!!.instantiateItem(newsDetailVp, newsDetailVp.currentItem) as DetailPageFragment
                 page.commitArticle(mNewsDetailAdapter.getNews(newsDetailVp.currentItem))
 
+
             }
 
             R.id.newsDetailBack -> {
@@ -255,7 +256,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
     }
 
     override fun onDoArticleLikeResult(data: String?, msg: String?) {
-        // closeLoading()
+         closeLoading()
         if (data != null && msg == null) {
             newsDetailLike.isChecked = true
             mNewsDetailAdapter.getCurrentNew().is_good = 1

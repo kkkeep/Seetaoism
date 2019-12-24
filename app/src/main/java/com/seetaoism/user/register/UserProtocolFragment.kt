@@ -187,6 +187,7 @@ open class UserProtocolFragment : BaseFragment(){
                 "如本协议中的任何条款无论因何种原因完全或部分无效或不具有执行力，本协议的其余条款仍应有效并且有约束力。\n" +
                 "14.3\n" +
                 "本协议中的标题仅为方便而设，在解释本协议时应被忽略。"
+
     }
 
     override fun cancelRequest() {

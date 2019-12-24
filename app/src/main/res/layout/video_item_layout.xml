@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="15dp"
+
+
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp">
     <FrameLayout
@@ -36,6 +37,7 @@
     </FrameLayout>
 
     <com.seetaoism.home.video.SampleCoverVideo
+android:layout_marginTop="17dp"
         android:id="@+id/video_gsypalyer"
         android:layout_width="match_parent"
         android:layout_height="184dp"/>
@@ -46,7 +48,7 @@
         android:id="@+id/them"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="15dp"
         android:text="主题"
         style="@style/SeeWay.NewsTitle"
          />
@@ -62,7 +64,7 @@
         android:textColor="#9B9C9E  "
         android:textSize="12sp" />
     <View
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="8dp"
         android:background="@color/gray_5"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"/>
