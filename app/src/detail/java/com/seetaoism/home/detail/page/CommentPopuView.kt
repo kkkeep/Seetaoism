@@ -58,7 +58,7 @@ class CommentPopView(var context: Activity) : PopupWindow(context) {
 
 
         mEtContent = contentView.findViewById<EditText>(R.id.commentEtContent).apply {
-
+            requestFocus()
         }
 
         mTvCancel = contentView.findViewById<TextView>(R.id.commentTvCancel).apply {
