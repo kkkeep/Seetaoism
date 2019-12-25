@@ -22,6 +22,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.mr.k.mvp.utils.Logger;
+import com.mr.k.mvp.utils.SPUtils;
 import com.mr.k.mvp.utils.SystemFacade;
 import com.seetaoism.R;
 import com.seetaoism.data.entity.User;
@@ -67,6 +68,13 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
         mBtnLogin = bindViewAndSetListener(R.id.login_btn_login, this);
         user_iv_left_close = bindViewAndSetListener(R.id.user_iv_left_close, this);
         register_setting_psd_tv_license = bindViewAndSetListener(R.id.register_setting_psd_tv_license, this);
+        mEdtPhoneNumber.requestFocus();
+
+        String value = SPUtils.getValue("loginnumber");
+        if (value!=null){
+            mEdtPhoneNumber.setText(value);
+            mEdtPhoneNumber.setSelection(value.length());
+        }
 
         final String str = getString(R.string.text_user_license);
         SpannableStringBuilder spannableString = new SpannableStringBuilder(str);
@@ -100,8 +108,6 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
         register_setting_psd_tv_license.setText(spannableString);
         register_setting_psd_tv_license.setMovementMethod(LinkMovementMethod.getInstance());
 
-
-        mEdtPhoneNumber.requestFocusFromTouch();
 
         mEdtPhoneNumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -298,6 +304,8 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
     public void onLoginSuccess(User user) {
         closeLoading();
         login(user);
+        //保存上次的登录账号
+        SPUtils.saveValueToDefaultSpByCommit("loginnumber",mEdtPhoneNumber.getText().toString());
         hideKeyboard(mEdtPhoneNumber);
 
     }
@@ -326,6 +334,7 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
 
         if (user != null) {
             login(user);
+
         } else {
             showToast(msg);
         }

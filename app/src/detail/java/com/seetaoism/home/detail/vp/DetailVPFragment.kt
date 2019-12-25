@@ -260,7 +260,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
         if (data != null && msg == null) {
             newsDetailLike.isChecked = true
             mNewsDetailAdapter.getCurrentNew().is_good = 1
-            showToast("操作成功")
+            //showToast("操作成功")
         } else {
             msg?.run {
                 showToast(this)
@@ -277,9 +277,10 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
 
             if (newsDetailCollect.isChecked) {
                 mNewsDetailAdapter.getCurrentNew().is_collect = 1
-                showToast("操作成功")
+                showToast("收藏成功")
             } else {
                 mNewsDetailAdapter.getCurrentNew().is_collect = 0
+                showToast("取消收藏")
                 if (detailExclusiveData?.from == FROM.COLLECT) {
                     val viewModel = ViewModelProviders.of(activity!!).get(CollectViewModel::class.java)
                     viewModel.unCollect(mNewsDetailAdapter.getCurrentNew())
