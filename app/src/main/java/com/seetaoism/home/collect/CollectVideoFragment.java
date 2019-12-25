@@ -378,7 +378,7 @@ public class CollectVideoFragment extends MvpBaseFragment<CollectContract.IColle
             btnDelete.setTextColor(Color.BLACK);
         } else {
             btnDelete.setEnabled(false);
-            btnDelete.setTextColor(Color.BLACK);
+            btnDelete.setTextColor(Color.GRAY);
         }
     }
 }

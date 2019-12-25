@@ -65,6 +65,7 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
         login_goto_sms_login = bindViewAndSetListener(R.id.login_goto_sms_login, this);
 
         mEdtPhoneNumber.requestFocus();
+
         mBtnCleanPhoneNumber.bindEditText(mEdtPhoneNumber);
 
 
@@ -76,9 +77,11 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
 
         mBtnLogin.bindEditText(mEdtPassword);
 
+
         String value = SPUtils.getValue("loginnumber");
         if (value!=null){
             mEdtPhoneNumber.setText(value);
+            mEdtPhoneNumber.setSelection(value.length());
         }
     }
 
@@ -103,6 +106,7 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
     public void onLoginFail(String msg) {
         closeLoading();
         showToast(msg);
+        mEdtPassword.requestFocus();
     }
 
     @Override

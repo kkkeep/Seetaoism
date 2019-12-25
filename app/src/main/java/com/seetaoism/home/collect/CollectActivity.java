@@ -1,5 +1,6 @@
 package com.seetaoism.home.collect;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -160,12 +161,14 @@ public class CollectActivity extends JDMvpBaseActivity<CollectContract.ICollectP
                 if (mEditMode == MODE_EDIT) {
                     //这个判断是true，所以把编辑二字改成了取消
                     bianji.setText("完成");
-
+                    bianji.setTextColor(Color.parseColor("#4A90E2"));
                     isSelect = true;
                     //这个isSelect是为了传给下一个页面判断是否要显示隐藏全选和删除的按钮
                     collectAllFragment.chooseNews(isSelect, mEditMode);
                 } else {
                     bianji.setText("编辑");
+                    bianji.setTextColor(Color.parseColor("#9B9C9E"));
+
                     isSelect = false;
                     collectAllFragment.chooseNews(isSelect, mEditMode);
                 }
@@ -177,11 +180,13 @@ public class CollectActivity extends JDMvpBaseActivity<CollectContract.ICollectP
                 if (mEditMode == MODE_EDIT) {
                     //这个判断是true，所以把编辑二字改成了取消
                     bianji.setText("完成");
+                    bianji.setTextColor(Color.parseColor("#4A90E2"));
                     isSelect = true;
                     //这个isSelect是为了传给下一个页面判断是否要显示隐藏全选和删除的按钮
                     collectVideoFragment.chooseNews(isSelect, mEditMode);
                 } else {
                     bianji.setText("编辑");
+                    bianji.setTextColor(Color.parseColor("#9B9C9E"));
                     isSelect = false;
                     collectVideoFragment.chooseNews(isSelect, mEditMode);
                 }
