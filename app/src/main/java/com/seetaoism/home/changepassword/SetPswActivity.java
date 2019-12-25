@@ -105,7 +105,7 @@ public class SetPswActivity extends JDMvpBaseActivity<LoginContract.IUpdatePrese
         closeLoading();
         startActivity(new Intent(this, HomeActivity.class));
 
-        showToast(user);
+        showToast("操作成功");
     }
 
     @Override
