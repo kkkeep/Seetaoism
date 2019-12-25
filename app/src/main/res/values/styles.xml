@@ -24,7 +24,9 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:windowBackground">@drawable/splash_bg</item>
+        <item name="android:windowBackground">@mipmap/splash_bg</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+      <!-- <item name="android:windowTranslucentNavigation">true</item>-->
     </style>
 
     <style name="Reader.ToolbarStyle" parent="Widget.AppCompat.Toolbar"><!--设置整个tool bar 的 padding-->

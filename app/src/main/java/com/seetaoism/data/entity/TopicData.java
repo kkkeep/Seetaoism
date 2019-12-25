@@ -184,8 +184,10 @@ public class TopicData {
 
         private int view_type;
         private int type;
+        private int video_is_sans_href;
         private String column_name;
         private String lead;
+        private String video_url;
 
         @Override
         public String toString() {
@@ -203,6 +205,22 @@ public class TopicData {
                     ", link='" + link + '\'' +
                     ", share_link='" + share_link + '\'' +
                     '}';
+        }
+
+        public int getVideo_is_sans_href() {
+            return video_is_sans_href;
+        }
+
+        public void setVideo_is_sans_href(int video_is_sans_href) {
+            this.video_is_sans_href = video_is_sans_href;
+        }
+
+        public String getVideo_url() {
+            return video_url;
+        }
+
+        public void setVideo_url(String video_url) {
+            this.video_url = video_url;
         }
 
         public String getId() {

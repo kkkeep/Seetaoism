@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,15 +48,20 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-/*
+
          imageView   = new ImageView(this);
 
          imageView.setBackgroundResource(R.drawable.splash_bg);
 
-         setContentView(imageView);*/
+        // setContentView(imageView);
 
+       /* if(true){
+            return;
+        }
+*/
         String isFirstLaunch = SPUtils.getValue("isFirst");
         int version = SPUtils.getIntValue("version");
+
 
 
 
@@ -140,11 +147,13 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
         setContentView(R.layout.activity_splash);
         mViewPager = findViewById(R.id.splash_guild_page);
 
-        mGuideImages = new int[]{R.drawable.splash_guild1, R.drawable.splash_guild2, R.drawable.splash_guild3};
+        mGuideImages = new int[]{R.mipmap.splash_guild1, R.mipmap.splash_guild2, R.mipmap.splash_guild3};
 
         mViewPager.setAdapter(new SplashGuidePageAdapter());
         SPUtils.saveValueToDefaultSpByApply("isFirst", "true");
         SPUtils.saveIntValueToDefaultSpByApply("version", BuildConfig.VERSION_CODE);
+
+
     }
 
     @Override
@@ -240,7 +249,32 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
 
                     constraintSet.connect(btnStart.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT);
                     constraintSet.connect(btnStart.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT);
-                    constraintSet.connect(btnStart.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, SystemFacade.dip2px(container.getContext(), 70));
+
+                    float height  =  SystemFacade.getScreenHeight(SplashActivity.this);
+                    float width  =  SystemFacade.getScreenWidth(SplashActivity.this);
+
+                    float dp = SystemFacade.getDensity(SplashActivity.this);
+
+
+
+                    float r;
+                    int bottom = 0;
+                    if(dp == 4){
+                        r= 1;
+                        bottom = 74;
+                    }
+                    else if(height >= 1700 && dp == 3){
+                        r = height / 1920;
+                        bottom = 74;
+                    }else if(height >= 1280 && dp == 2){
+                        r = height /1280;
+                        bottom = 65;
+                    }else{
+                        bottom = 65;
+                        r = 1;
+                    }
+
+                    constraintSet.connect(btnStart.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, SystemFacade.dip2px(container.getContext(), bottom * r));
                     btnStart.setOnClickListener(new SplashOnClickListener());
 
                     constraintLayout.addView(btnStart);

@@ -16,6 +16,8 @@ import com.seetaoism.data.entity.DetailExclusiveData;
 import com.seetaoism.data.entity.FROM;
 import com.seetaoism.data.entity.TopicData;
 import com.seetaoism.home.detail.vp.DetailVPFragment;
+import com.seetaoism.home.video.VideoAdapter;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -33,6 +35,8 @@ public class TopicFragment extends MvpBaseFragment<TopicContract.ITopicPresnter>
     private ArrayList<TopicData.Topiclist> mlist = new ArrayList<>();
     private TopicAdapter adapter;
 
+    private LinearLayoutManager mLinearLayoutManager;
+
 
     @Override
     protected void initData() {
@@ -49,8 +53,8 @@ public class TopicFragment extends MvpBaseFragment<TopicContract.ITopicPresnter>
 
         topic_smart = root.findViewById(R.id.topic_smart);
         topic_rec = root.findViewById(R.id.topic_rec);
-
-        topic_rec.setLayoutManager(new LinearLayoutManager(getContext()));
+        mLinearLayoutManager = new LinearLayoutManager(getContext());
+        topic_rec.setLayoutManager(mLinearLayoutManager);
         adapter = new TopicAdapter(getContext(), mBannerlist, mlist);
 
         adapter.setOnItemClickListener((list,index)->{
@@ -61,6 +65,36 @@ public class TopicFragment extends MvpBaseFragment<TopicContract.ITopicPresnter>
         });
         topic_rec.setAdapter(adapter);
 
+        topic_rec.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            int firstVisibleItem, lastVisibleItem;
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
+                lastVisibleItem = mLinearLayoutManager.findLastVisibleItemPosition();
+                //大于0说明有播放
+                if (GSYVideoManager.instance().getPlayPosition() >= 0) {
+                    //当前播放的位置
+                    int position = GSYVideoManager.instance().getPlayPosition();
+                    //对应的播放列表TAG
+                    if (GSYVideoManager.instance().getPlayTag().equals(adapter.VIDEO_TAG)
+                            && (position < firstVisibleItem || position > lastVisibleItem)) {
+                        //如果滑出去了上面和下面就是否，和今日头条一样
+                        if(!GSYVideoManager.isFullState(getActivity())) {
+                            GSYVideoManager.releaseAllVideos();
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+            }
+        });
 
         topic_smart.setOnRefreshLoadMoreListener(this);
 
