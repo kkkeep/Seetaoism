@@ -272,7 +272,7 @@ public abstract class BaseFragment extends RxFragment {
     }
 
     protected void showToast(@NonNull String msg){
-        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
     }
 
 

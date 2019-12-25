@@ -308,6 +308,7 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
         SPUtils.saveValueToDefaultSpByCommit("loginnumber",mEdtPhoneNumber.getText().toString());
         hideKeyboard(mEdtPhoneNumber);
 
+
     }
 
     @Override

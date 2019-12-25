@@ -58,7 +58,7 @@ android {
         }
         debug {
             signingConfig signingConfigs.release
-            buildConfigField("String", "BASE_URL", '"' + RELEASE_BASE_URL + '"')
+            buildConfigField("String", "BASE_URL", '"' + TEST_BASE_URL + '"')
             resValue("string", "build_time", "0")
         }
 

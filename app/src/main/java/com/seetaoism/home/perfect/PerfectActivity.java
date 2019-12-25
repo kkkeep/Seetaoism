@@ -203,7 +203,6 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
             }
 
             case R.id.weixin: {
-                //showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
                 if (mUser.getUserInfo().getWechat_bind() == 1) {
                     builder = new AlertDialog.Builder(PerfectActivity.this)
                             .create();
