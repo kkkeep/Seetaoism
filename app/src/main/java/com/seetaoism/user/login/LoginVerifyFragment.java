@@ -45,7 +45,7 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
     private Button mBtnNext;
     private ImageView mIvClearPhoneNumber;
     private EditText mEdtPhoneNumber;
-    private EditText mEtVerify;
+    public EditText mEtVerify;
     private int mCountDown;
     private CountDownTimer mCountDownTimer;
     private ImageView user_iv_left_close;
@@ -307,6 +307,7 @@ public class LoginVerifyFragment extends BaseUserFragment<LoginContract.ILoginCo
         //保存上次的登录账号
         SPUtils.saveValueToDefaultSpByCommit("loginnumber",mEdtPhoneNumber.getText().toString());
         hideKeyboard(mEdtPhoneNumber);
+
 
     }
 

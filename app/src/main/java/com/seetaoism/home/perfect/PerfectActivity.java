@@ -203,7 +203,6 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
             }
 
             case R.id.weixin: {
-                //showLoading(LoadingView.LOADING_MODE_TRANSPARENT_BG);
                 if (mUser.getUserInfo().getWechat_bind() == 1) {
                     builder = new AlertDialog.Builder(PerfectActivity.this)
                             .create();
@@ -329,8 +328,13 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
             @Override
             public void onClick(View view) {
                 String string = up_name.getText().toString();
-                mPresenter.getUpdateNameP(string);
-                popupWindow.dismiss();
+
+                if (!string.equals("")) {
+                    mPresenter.getUpdateNameP(string);
+                    popupWindow.dismiss();
+                }else {
+                    showToast("输入框不能为空");
+                }
 
             }
         });

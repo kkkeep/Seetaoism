@@ -1,10 +1,12 @@
 package com.seetaoism.user;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -29,6 +31,8 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 
 public abstract class BaseUserFragment<T extends IBasePresenter> extends MvpBaseFragment<T> implements UMAuthListener {
@@ -77,17 +81,18 @@ public abstract class BaseUserFragment<T extends IBasePresenter> extends MvpBase
     }
 
 
-
-
     private View.OnClickListener mSocialOnClickListener = v -> {
 
         switch (v.getId()) {
             case R.id.user_iv_left_close: {
-                if(BaseUserFragment.this instanceof LoginVerifyFragment){
+                if (BaseUserFragment.this instanceof LoginVerifyFragment) {
                     getActivity().finish();
+                    //关闭软键盘
+                    HideKeyboard(mIvClose);
                     return;
                 }
                 back();
+
                 break;
 
             }
@@ -114,6 +119,16 @@ public abstract class BaseUserFragment<T extends IBasePresenter> extends MvpBase
 
         }
     };
+
+    public static void HideKeyboard(View v)
+    {
+        InputMethodManager imm = ( InputMethodManager ) v.getContext( ).getSystemService( Context.INPUT_METHOD_SERVICE );
+        if ( imm.isActive( ) ) {
+            imm.hideSoftInputFromWindow( v.getApplicationWindowToken( ) , 0 );
+
+        }
+    }
+
 
     @Override
     public void onStart(SHARE_MEDIA share_media) {
@@ -181,8 +196,9 @@ public abstract class BaseUserFragment<T extends IBasePresenter> extends MvpBase
     }
 
 
-    protected void handBindSocial(String type,String openId,String head_url,String nickname,String unionid){
+    protected void handBindSocial(String type, String openId, String head_url, String nickname, String unionid) {
 
     }
+
 
 }

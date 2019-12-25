@@ -1,10 +1,12 @@
 package com.seetaoism.home.changepassword;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -87,7 +89,14 @@ public class SetPswActivity extends JDMvpBaseActivity<LoginContract.IUpdatePrese
         switch (view.getId()) {
             case R.id.register_btn_next: {
                 String verify = et_verify.getText().toString();
-                mPresenter.SetPsw(phone, sms_code,verify);
+                String s = et_phoneNumber.getText().toString();
+                if (verify.equals(s)){
+                    mPresenter.SetPsw(phone, sms_code,verify);
+                }else {
+                    hideKeyboard(et_phoneNumber);
+                    showToast("两次输入不一致");
+
+                }
                 break;
             }
             case R.id.iv_close:
@@ -99,13 +108,24 @@ public class SetPswActivity extends JDMvpBaseActivity<LoginContract.IUpdatePrese
         }
 
     }
+    /**
+     * 隐藏软键盘
+     *
+     * @param :上下文
+     * @param view :一般为EditText
+     */
+    public void hideKeyboard(View view) {
+        InputMethodManager manager = (InputMethodManager) view.getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
     @Override
     public void IUpdateSuccess(String user) {
         closeLoading();
         startActivity(new Intent(this, HomeActivity.class));
 
-        showToast(user);
+        showToast("操作成功");
     }
 
     @Override

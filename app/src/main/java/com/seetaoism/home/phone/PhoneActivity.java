@@ -53,6 +53,7 @@ public class PhoneActivity extends JDMvpBaseActivity<PhoneContract.IPhonePresnte
         mTvGetVerify.setOnClickListener(this);
         mRegisterBtnNext.setOnClickListener(this);
         mIvClose.setOnClickListener(this);
+        mEtPhoneNumber.requestFocus();
 
         mEtPhoneNumber.addTextChangedListener(new TextWatcher() {
             @Override
