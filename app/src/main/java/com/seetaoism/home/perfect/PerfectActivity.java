@@ -181,7 +181,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
                     if (builder.getWindow() == null) {
                         return;
                     }
-                    builder.getWindow().setContentView(R.layout.pop_user);//设置弹出框加载的布局
+                    builder.getWindow().setContentView(R.layout.pop_delete);//设置弹出框加载的布局
                     TextView msg = (TextView) builder.findViewById(R.id.tv_msg);
                     Button cancle = (Button) builder.findViewById(R.id.btn_cancle);
                     Button sure = (Button) builder.findViewById(R.id.btn_sure);
@@ -210,7 +210,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
                     if (builder.getWindow() == null) {
                         return;
                     }
-                    builder.getWindow().setContentView(R.layout.pop_user);//设置弹出框加载的布局
+                    builder.getWindow().setContentView(R.layout.pop_delete);//设置弹出框加载的布局
                     TextView msg = (TextView) builder.findViewById(R.id.tv_msg);
                     Button cancle = (Button) builder.findViewById(R.id.btn_cancle);
                     Button sure = (Button) builder.findViewById(R.id.btn_sure);
@@ -247,7 +247,7 @@ public class PerfectActivity extends JDMvpBaseActivity<PerfectContract.IPerfectP
                     if (builder.getWindow() == null) {
                         return;
                     }
-                    builder.getWindow().setContentView(R.layout.pop_user);//设置弹出框加载的布局
+                    builder.getWindow().setContentView(R.layout.pop_delete);//设置弹出框加载的布局
                     TextView msg = (TextView) builder.findViewById(R.id.tv_msg);
                     Button cancle = (Button) builder.findViewById(R.id.btn_cancle);
                     Button sure = (Button) builder.findViewById(R.id.btn_sure);

@@ -38,6 +38,7 @@ import com.seetaoism.data.okhttp.Interceptor.CommonParamsInterceptor;
 import com.seetaoism.home.HomeActivity;
 import com.seetaoism.home.push.ExampleUtil;
 import com.seetaoism.home.push.LocalBroadcastManager;
+import com.seetaoism.home.recommend.NewsPageFragment;
 import com.seetaoism.libdownlaod.DownLoadManager;
 import com.seetaoism.libloadingview.LoadingView;
 import com.seetaoism.user.login.LoginActivity;
@@ -238,6 +239,7 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
     public void onOutLoginSuccess(String user) {
         showToast("操作成功");
         finish();
+        //addFragment(getSupportFragmentManager(), NewsPageFragment.class, android.R.id.content, null);
 
 
     }

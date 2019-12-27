@@ -237,7 +237,6 @@ public class SsearchActivity extends JDMvpBaseActivity<SearchContract.ISearchPre
                 break;
             case R.id.clean_list:
                 //清除历史
-                showToast("清除");
                 his.clear();
                 flowSetData(his);
                 mBox.setVisibility(View.VISIBLE);
