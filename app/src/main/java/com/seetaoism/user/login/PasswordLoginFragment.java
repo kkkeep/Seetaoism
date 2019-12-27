@@ -98,7 +98,7 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
         login(user);
         //保存上次的登录账号
         SPUtils.saveValueToDefaultSpByCommit("loginnumber",mEdtPhoneNumber.getText().toString());
-        //hideKeyboard(mEdtPhoneNumber);
+        hideKeyboard(mEdtPhoneNumber);
 
 
     }
@@ -107,8 +107,6 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
     public void onLoginFail(String msg) {
         closeLoading();
         showToast(msg);
-        hideKeyboard(mEdtPhoneNumber);
-
         mEdtPassword.requestFocus();
     }
 
@@ -179,6 +177,8 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
 
 
         }else{
+            //hideKeyboard(mEdtPhoneNumber);
+
             showToast(msg);
         }
     }
