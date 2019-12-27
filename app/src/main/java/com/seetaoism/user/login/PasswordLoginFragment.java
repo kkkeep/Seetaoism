@@ -2,7 +2,10 @@ package com.seetaoism.user.login;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -55,6 +58,9 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
         mTvGotoRegister = bindViewAndSetListener(R.id.login_tv_goto_register, this);
         mEdtPhoneNumber = bindViewAndSetListener(R.id.login_edt_phone_number, this);
         mEdtPassword = bindViewAndSetListener(R.id.login_edt_password, this);
+
+        mEdtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
+        mEdtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
 
         mBtnCleanPhoneNumber = bindViewAndSetListener(R.id.login_iv_clean_account, null);
         mBtnCleanPassword = bindViewAndSetListener(R.id.login_pwd_iv_clean_psw, null);
