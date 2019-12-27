@@ -239,6 +239,7 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
         showToast("操作成功");
         finish();
 
+
     }
 
     @Override

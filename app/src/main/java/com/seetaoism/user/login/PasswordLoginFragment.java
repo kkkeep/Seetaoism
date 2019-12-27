@@ -174,11 +174,7 @@ public class PasswordLoginFragment extends BaseUserFragment<LoginContract.ILogin
         closeLoading();
         if(user != null){
             login(user);
-
-
         }else{
-            //hideKeyboard(mEdtPhoneNumber);
-
             showToast(msg);
         }
     }
