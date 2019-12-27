@@ -14,13 +14,12 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.seetaoism.R;
 import com.seetaoism.data.entity.DetailExclusiveData;
 import com.seetaoism.data.entity.FROM;
-import com.seetaoism.data.entity.TopicData;
 import com.seetaoism.home.detail.vp.DetailVPFragment;
-import com.seetaoism.home.video.VideoAdapter;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import com.seetaoism.data.entity.TopicData;
 
 
 public class TopicFragment extends MvpBaseFragment<TopicContract.ITopicPresnter> implements TopicContract.ITopicView, OnRefreshLoadMoreListener {
@@ -30,7 +29,6 @@ public class TopicFragment extends MvpBaseFragment<TopicContract.ITopicPresnter>
     private RecyclerView topic_rec;
     private int start = 0;
     private int time = 0;
-
     private ArrayList<TopicData.Bannerlist> mBannerlist = new ArrayList<>();
     private ArrayList<TopicData.Topiclist> mlist = new ArrayList<>();
     private TopicAdapter adapter;
@@ -107,6 +105,7 @@ public class TopicFragment extends MvpBaseFragment<TopicContract.ITopicPresnter>
             //记录上一次的位置
             start=data.getStart();
             time=data.getPoint_time();
+            topic_smart.setNoMoreData(data.getMore() == 0);
             if (data.getList() != null) {
                 adapter.addAriticleData(data.getList());
             }
