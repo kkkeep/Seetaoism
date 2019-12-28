@@ -38,6 +38,7 @@ import com.seetaoism.data.okhttp.Interceptor.CommonParamsInterceptor;
 import com.seetaoism.home.HomeActivity;
 import com.seetaoism.home.push.ExampleUtil;
 import com.seetaoism.home.push.LocalBroadcastManager;
+import com.seetaoism.home.recommend.NewsPageFragment;
 import com.seetaoism.libdownlaod.DownLoadManager;
 import com.seetaoism.libloadingview.LoadingView;
 import com.seetaoism.user.login.LoginActivity;
@@ -81,6 +82,7 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
     public static final String KEY_EXTRAS = "extras";
     public static boolean isForeground = false;
     private User user;
+    private RoundTextView sheng;
 
     @Override
     protected void doOnCreate(@Nullable Bundle savedInstanceState) {
@@ -113,6 +115,7 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
         mVersion = findViewById(R.id.version);
         mActivityLogin = findViewById(R.id.activity_login);
         push1_pic = findViewById(R.id.push1_pic);
+        sheng = findViewById(R.id.sheng);
         xieyi.setOnClickListener(this);
         mOutlogin.setOnClickListener(this);
         mRecommend.setOnClickListener(this);
@@ -121,6 +124,7 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
         mCleanCach.setOnClickListener(this);
         mCheckUpdata.setOnClickListener(this);
         push1_pic.setChecked(true);
+        sheng.setOnClickListener(this);
 
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -222,6 +226,10 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
             case R.id.xieyi:
                 addFragment(getSupportFragmentManager(), PrivacyPolicyFragment.class, android.R.id.content, null);
                 break;
+            case R.id.sheng:
+                addFragment(getSupportFragmentManager(), UserProtocolFragment.class, android.R.id.content, null);
+
+                break;
 
         }
 
@@ -234,6 +242,8 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
         intent.putExtra("from", 2);
         startActivity(intent);
         finish();
+        //addFragment(getSupportFragmentManager(), NewsPageFragment.class, android.R.id.content, null);
+
 
     }
 
