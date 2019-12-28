@@ -157,6 +157,15 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
 
         setIntent(intent);
 
+        int from = getIntent().getIntExtra("from", -1);
+
+        if(from == 2){
+
+            switchFragment(1);
+
+            return;
+        }
+
         notificationToDetail();
     }
 

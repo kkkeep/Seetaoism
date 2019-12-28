@@ -230,6 +230,9 @@ public class SettingActivity extends JDMvpBaseActivity<SetContract.ISetPresenter
     @Override
     public void onOutLoginSuccess(String user) {
         showToast("操作成功");
+        Intent intent = new Intent(this,HomeActivity.class);
+        intent.putExtra("from", 2);
+        startActivity(intent);
         finish();
 
     }
