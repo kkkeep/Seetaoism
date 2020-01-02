@@ -184,7 +184,7 @@ class DetailVPFragment : JDShareNewsBaseMvpFragment<DetailsContract.IDetailVpPre
     override fun getLayoutId() = R.layout.fragment_detail_vp
 
 
-    override fun isHidePreFragment() = false
+    override fun isHidePreFragment() = true
     override fun exit() = 0;
     override fun popEnter() = 0;
 
@@ -402,6 +402,7 @@ class NewsDetailAdapter(fm: FragmentManager, val news: MutableList<NewsData.News
     fun addData(newDataList: List<NewsData.NewsBean>) {
         news.addAll(newDataList)
     }
+
 
 
 }
