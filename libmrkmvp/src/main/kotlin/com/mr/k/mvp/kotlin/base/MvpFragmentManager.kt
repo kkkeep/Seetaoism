@@ -17,7 +17,7 @@ import com.mr.k.mvp.utils.Logger
 private const val TAG = "MvpFragmentManager"
 
 @JvmOverloads
-internal fun <C : BaseFragment> addFragment(fragmentManager: FragmentManager, clazz: Class<C>, containerId: Int, args: Bundle? = null, tag : String = getFragmentTag(clazz), doOnCommit: Function1<C,Unit>? = null): C? {
+  fun <C : BaseFragment> addFragment(fragmentManager: FragmentManager, clazz: Class<C>, containerId: Int, args: Bundle? = null, tag : String = getFragmentTag(clazz), doOnCommit: Function1<C,Unit>? = null): C? {
 
     Logger.d("%s add %s", TAG, clazz.simpleName)
 
