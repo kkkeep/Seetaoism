@@ -87,7 +87,7 @@ public class NewsRepository extends BaseRepository implements RecommendContract.
             newsData.setStart(data.getStart());
             newsData.setPoint_time(data.getPoint_time());
             newsData.setMore(data.getMore());
-
+            newsData.setNumber(data.getNumber());
 
             newsData.setBannerList(new ArrayList<>(data.getBannerList()));
             newsData.setFlashList(new ArrayList<>(data.getFlashList()));
@@ -100,6 +100,7 @@ public class NewsRepository extends BaseRepository implements RecommendContract.
             newsData.setStart(data.getStart());
             newsData.setPoint_time(data.getPoint_time());
             newsData.setMore(data.getMore());
+            newsData.setNumber(data.getNumber());
 
             List<NewsData.News> arrayList = newsData.getArticleList();
 

@@ -9,6 +9,8 @@ public class VideoData {
     public int start;
     public int point_time;
     public int more;
+    private int number;
+
     public ArrayList<NewList>  list;
 
     public VideoData() {
@@ -51,6 +53,14 @@ public class VideoData {
 
     public void setList(ArrayList<NewList> list) {
         this.list = list;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public static class NewList extends NewsData.NewsBean {

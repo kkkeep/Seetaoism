@@ -48,6 +48,7 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
 
     private int mNewsStart;
     private long  mNewsPointTime;
+    private int mNumber;
 
 
     @Override
@@ -188,16 +189,16 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
     @Override
     protected void initData() {
         showLoadingForViewPager();
-        mPresenter.getNewsData(mColumnId, mNewsPointTime, mNewsStart, INewsPageModel.REQUEST_TYPE_FIRST_LOAD);
+        mPresenter.getNewsData(mColumnId, mNewsPointTime, mNewsStart,mNumber, INewsPageModel.REQUEST_TYPE_FIRST_LOAD);
     }
 
 
     private void refresh() {
-        mPresenter.getNewsData(mColumnId, 0, 0, INewsPageModel.REQUEST_TYPE_REFRESH_LOAD);
+        mPresenter.getNewsData(mColumnId, 0, 0,0, INewsPageModel.REQUEST_TYPE_REFRESH_LOAD);
     }
 
     private void loadMore() {
-        mPresenter.getNewsData(mColumnId, mNewsPointTime, mNewsStart, INewsPageModel.REQUEST_TYPE_MORE_LOAD);
+        mPresenter.getNewsData(mColumnId, mNewsPointTime, mNewsStart,mNumber, INewsPageModel.REQUEST_TYPE_MORE_LOAD);
     }
 
 
@@ -215,11 +216,12 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
                 mNewsPageAdapter.setData(data.getBannerList(), data.getFlashList(), data.getArticleList());
                 mNewsPointTime = data.getPoint_time();
                 mNewsStart = data.getStart();
+                mNumber = data.getNumber();
             } else {
                 onError(msg, new LoadingView.RetryCallBack() {
                     @Override
                     public void onRetry() {
-                        mPresenter.getNewsData(mColumnId, 0, 0, INewsPageModel.REQUEST_TYPE_FIRST_LOAD);
+                        mPresenter.getNewsData(mColumnId, 0, 0,0, INewsPageModel.REQUEST_TYPE_FIRST_LOAD);
                     }
                 });
                 Logger.d("%s first load data error = %s", TAG, msg);
@@ -230,6 +232,7 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
                 mNewsPageAdapter.refresh(data.getBannerList(), data.getFlashList(), data.getArticleList());
                 mNewsPointTime = data.getPoint_time();
                 mNewsStart = data.getStart();
+                mNumber = data.getNumber();
             } else {
                 showToast(R.string.text_news_refresh_fail);
 
@@ -240,6 +243,7 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
                 mNewsPageAdapter.loadMore(data.getArticleList());
                 mNewsPointTime = data.getPoint_time();
                 mNewsStart = data.getStart();
+                mNumber = data.getNumber();
             } else {
                 showToast(R.string.text_news_refresh_fail);
             }
@@ -252,6 +256,7 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
         mNewsPageAdapter.setData(data.getBannerList(), data.getFlashList(), data.getArticleList());
         mNewsPointTime = data.getPoint_time();
         mNewsStart = data.getStart();
+        mNumber = data.getNumber();
     }
 
 

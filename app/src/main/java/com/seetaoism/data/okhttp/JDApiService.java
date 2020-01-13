@@ -110,7 +110,7 @@ public interface JDApiService {
     Observable<HttpResult<String>> uploadColumn(@FieldMap Map<String, String> map);
 
     // 请求首页新闻
-    @GET("/app/v_1_1/article/recommendlist")
+    @GET("/app/v_1_3/article/recommendlist")
     Observable<HttpResult<NewsData>> getNewsData(@QueryMap Map<String, String> map);
 
     //请求评论点赞
@@ -149,7 +149,7 @@ public interface JDApiService {
     Observable<HttpResult<SearchData>> getSeachData(@QueryMap Map<String, String> map);
 
     //请求专题列表
-    @GET("/app/v_1_1/article/speciallist")
+    @GET("/app/v_1_3/article/speciallist")
     Observable<HttpResult<TopicData>> getTopicData(@QueryMap Map<String, String> map);
 
     //请求上传头像
@@ -163,7 +163,7 @@ public interface JDApiService {
     Observable<HttpResult<String>> updatepaw(@FieldMap Map<String, String> map);
 
     //请求视频列表
-    @GET("/app/v_1_1/article/videolist")
+    @GET("/app/v_1_3/article/videolist")
     Observable<HttpResult<VideoData>> getVideoData(@QueryMap Map<String, String> map);
 
     //请求修改手机号

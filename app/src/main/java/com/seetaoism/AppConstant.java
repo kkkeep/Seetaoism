@@ -50,6 +50,7 @@ public interface AppConstant {
 
         String NEWS_START = "start";// 新闻下次加载开始位置
         String NEWS_POINT_TIME = "point_time";// 新闻下次加载开始时间点
+        String NEWS_NUMBER = "number";// 新闻下次加载开始时间点
         String COLUMN_ID = "id";// 请求新闻的栏目id
 
         String DETAIL_ARTICLE_ID = "id"; // 详情页请求相关新闻的新闻id

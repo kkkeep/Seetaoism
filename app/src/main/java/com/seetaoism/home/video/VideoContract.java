@@ -19,7 +19,7 @@ public interface VideoContract {
     }
 
     public interface VideoPresenter extends IBasePresenter<VideoView> {
-        void video(int start,int point_time);
+        void video(int start,int point_time,int number);
     }
 
     public interface VideoModel {

@@ -14,6 +14,7 @@ public class NewsData {
     private long point_time;  // 视频类新闻 开始index
     private int more; // 是否还有更多的的新闻，
     private int flash_id;
+    private int number; //
 
 
     private List<Banner> banner_list;
@@ -87,6 +88,13 @@ public class NewsData {
         this.flash_id = flash_id;
     }
 
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
 
     @Override
     public String toString() {

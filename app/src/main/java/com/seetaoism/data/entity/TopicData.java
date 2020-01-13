@@ -8,6 +8,7 @@ public class TopicData {
     private int start;
     private int point_time;
     private int more;
+    private int number;
     private ArrayList<Bannerlist> banner_list;
     private ArrayList<Topiclist> list;
 
@@ -55,6 +56,14 @@ public class TopicData {
 
     public void setMore(int more) {
         this.more = more;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public ArrayList<Bannerlist> getBanner_list() {
