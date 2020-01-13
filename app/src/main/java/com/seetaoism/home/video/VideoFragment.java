@@ -36,6 +36,8 @@ public class VideoFragment extends MvpBaseFragment<VideoContract.VideoPresenter>
     private int more = 1;//默认可加载更多
     private int start = 0;
     private int time = 0;
+    private int number;
+
     LinearLayoutManager mLinearLayoutManager;
     public ArrayList<VideoData.NewList> mlist = new ArrayList<>();
     private VideoAdapter adapter;
@@ -49,7 +51,7 @@ public class VideoFragment extends MvpBaseFragment<VideoContract.VideoPresenter>
     @Override
     protected void initData() {
         showLoading(LoadingView.LOADING_MODE_WHITE_BG);
-        mPresenter.video(start,time);
+        mPresenter.video(start,time,number);
     }
 
     @Override
@@ -97,7 +99,7 @@ public class VideoFragment extends MvpBaseFragment<VideoContract.VideoPresenter>
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 video_smart.finishLoadMore(2000);       //2s加载结束
                 Log.d(TAG, "onLoadMore: "+start+"----"+time);
-                mPresenter.video(start,time);
+                mPresenter.video(start,time,number);
             }
 
             @Override
@@ -105,8 +107,10 @@ public class VideoFragment extends MvpBaseFragment<VideoContract.VideoPresenter>
                 video_smart.finishRefresh(2000);    //2s刷新结束
                 start = 0;
                 time = 0;
+                number = 0;
+
                 adapter.mlist.clear();
-                mPresenter.video(start,time);
+                mPresenter.video(start,time,number);
             }
         });
 
@@ -136,6 +140,7 @@ public class VideoFragment extends MvpBaseFragment<VideoContract.VideoPresenter>
             start = data.getStart();
             more=data.getMore();
             time = data.getPoint_time();
+            number = data.getNumber();
             adapter.addData(data.getList());
             //如果返回0就是没有更多数据
             if (more == 0) {

@@ -20,7 +20,7 @@ public interface TopicContract {
     }
 
     public interface ITopicPresnter extends IBasePresenter<ITopicView> {
-        void getTopic(int start, int point_time);
+        void getTopic(int start, int point_time,int number);
     }
 
     public interface ITopModel {

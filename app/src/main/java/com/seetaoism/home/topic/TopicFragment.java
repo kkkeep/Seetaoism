@@ -29,6 +29,7 @@ public class TopicFragment extends MvpBaseFragment<TopicContract.ITopicPresnter>
     private RecyclerView topic_rec;
     private int start = 0;
     private int time = 0;
+    private int number;
     private ArrayList<TopicData.Bannerlist> mBannerlist = new ArrayList<>();
     private ArrayList<TopicData.Topiclist> mlist = new ArrayList<>();
     private TopicAdapter adapter;
@@ -38,7 +39,7 @@ public class TopicFragment extends MvpBaseFragment<TopicContract.ITopicPresnter>
 
     @Override
     protected void initData() {
-        mPresenter.getTopic(start, time);
+        mPresenter.getTopic(start, time,number);
     }
 
     @Override
@@ -105,6 +106,7 @@ public class TopicFragment extends MvpBaseFragment<TopicContract.ITopicPresnter>
             //记录上一次的位置
             start=data.getStart();
             time=data.getPoint_time();
+            number = data.getNumber();
             topic_smart.setNoMoreData(data.getMore() == 0);
             if (data.getList() != null) {
                 adapter.addAriticleData(data.getList());
@@ -142,7 +144,7 @@ public class TopicFragment extends MvpBaseFragment<TopicContract.ITopicPresnter>
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
         topic_smart.finishLoadMore(2000);       //2s加载结束
-        mPresenter.getTopic(start,time);
+        mPresenter.getTopic(start,time,number);
     }
 
     @Override
@@ -150,8 +152,9 @@ public class TopicFragment extends MvpBaseFragment<TopicContract.ITopicPresnter>
         topic_smart.finishRefresh(2000);    //2s刷新结束
         start = 0;
         time = 0;
+        number = 0;
         adapter.mBannerlist.clear();
         adapter.mlist.clear();
-        mPresenter.getTopic(start,time);
+        mPresenter.getTopic(start,time,number);
     }
 }

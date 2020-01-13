@@ -58,7 +58,7 @@ public interface RecommendContract {
     public interface INewsPagePresenter extends IBasePresenter<INewsPageView> {
 
 
-        void getNewsData(String id, long pointTime, int newsStart, int requestType);
+        void getNewsData(String id, long pointTime, int newsStart, int number,int requestType);
 
     }
 

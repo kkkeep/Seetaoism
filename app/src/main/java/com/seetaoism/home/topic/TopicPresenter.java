@@ -20,11 +20,12 @@ public class TopicPresenter extends BasePresenter<TopicContract.ITopicView> impl
     }
 
     @Override
-    public void getTopic(int start, int point_time) {
+    public void getTopic(int start, int point_time,int number) {
         HashMap<String, String> params = new HashMap<>();
 
         params.put(AppConstant.RequestParamsKey.VIDEOTIME, String.valueOf(point_time));
         params.put(AppConstant.RequestParamsKey.VIDEOSTART, String.valueOf(start));
+        params.put(AppConstant.RequestParamsKey.NEWS_NUMBER, String.valueOf(number));
 
 
         mMode.getTopData(getLifecycleProvider(), params, new ICacheBaseCallBack<TopicData>() {
