@@ -36,7 +36,6 @@ public class BottomTab extends LinearLayout {
     public void setSelect(boolean select) {
 
         mTabIcon.setChecked(select);
-
         if (select) {
             mTabValue.setTextColor(Color.BLACK);
         } else {

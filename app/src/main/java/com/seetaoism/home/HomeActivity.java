@@ -160,7 +160,7 @@ public class HomeActivity extends JDBaseActivity implements View.OnClickListener
         int from = getIntent().getIntExtra("from", -1);
 
         if(from == 2){
-
+            mBottomTabLayout.selectTab(1);
             switchFragment(1);
 
             return;

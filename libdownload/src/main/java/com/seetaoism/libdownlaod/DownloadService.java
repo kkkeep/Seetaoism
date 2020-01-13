@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 /*
  * created by Cherry on 2019-10-23
  **/
-public class DownloadService extends IntentService {
+public class  DownloadService extends IntentService {
 
 
     /**

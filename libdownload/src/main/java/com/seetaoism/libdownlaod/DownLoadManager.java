@@ -17,7 +17,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
@@ -335,9 +337,32 @@ public class DownLoadManager {
         String name = URLUtil.guessFileName(task.getUrl(), cd, ct);
 
         if (!TextUtils.isEmpty(name) && name.contains("downloadfile")) {
-            name = "downloadfile_" + System.currentTimeMillis() + ".apk";
+            name =  System.currentTimeMillis() + name;
         }
         return name;
+    }
+
+    public static String getSHA1(Task task) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            md.update(task.getUrl().getBytes());
+            byte[] digest = md.digest();
+
+            StringBuffer hexstr = new StringBuffer();
+            String shaHex = "";
+            for (int i = 0; i < digest.length; i++) {
+                shaHex = Integer.toHexString(digest[i] & 0xFF);
+                if (shaHex.length() < 2) {
+                    hexstr.append(0);
+                }
+                hexstr.append(shaHex);
+            }
+            return hexstr.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return System.currentTimeMillis() +"" ;
     }
 
 
