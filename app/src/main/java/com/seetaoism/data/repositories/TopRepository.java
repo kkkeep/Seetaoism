@@ -5,10 +5,13 @@ import com.mr.k.mvp.base.ICacheBaseCallBack;
 import com.mr.k.mvp.exceptions.ResultException;
 import com.seetaoism.data.entity.HttpResult;
 import com.seetaoism.data.entity.TopicData;
+import com.seetaoism.data.entity.VideoData;
 import com.seetaoism.data.okhttp.JDDataService;
 import com.seetaoism.home.topic.TopicContract;
 import com.trello.rxlifecycle2.LifecycleProvider;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -25,7 +28,18 @@ public class TopRepository extends BaseRepository implements TopicContract.ITopM
             @Override
             public ObservableSource<TopicData> apply(HttpResult<TopicData> newsColumnDataHttpResult) throws Exception {
                 if (newsColumnDataHttpResult.code == 1 && newsColumnDataHttpResult.data != null) {
+                    List<TopicData.Topiclist> newsBeans = newsColumnDataHttpResult.data.getList();
 
+                    if(newsBeans != null){
+                        Iterator<TopicData.Topiclist> iterator = newsBeans.iterator();
+                        TopicData.Topiclist news;
+                        while (iterator.hasNext()){
+                            news = iterator.next();
+                            if(news.getType() == 7){
+                                iterator.remove();
+                            }
+                        }
+                    }
                     return Observable.just(newsColumnDataHttpResult.data);
                 }
                 return Observable.error(new ResultException(ResultException.SERVER_ERROR));

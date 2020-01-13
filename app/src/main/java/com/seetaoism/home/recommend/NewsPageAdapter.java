@@ -95,7 +95,7 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
                 rId = R.layout.layout_news_item_news_right;
                 break;
             }
-            case  TYPE_NEWS_LEFT: {
+            default: {
                 aClass = NewsHolderLeft.class;
                 rId = R.layout.layout_news_item_news_left;
             }
