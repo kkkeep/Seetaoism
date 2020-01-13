@@ -12,6 +12,7 @@ import com.trello.rxlifecycle2.LifecycleProvider;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -66,6 +67,19 @@ public class NewsRepository extends BaseRepository implements RecommendContract.
             @Override
             public ObservableSource<NewsData> apply(HttpResult<NewsData> newsDataHttpResult) throws Exception {
                 if(newsDataHttpResult.code == 1 && newsDataHttpResult.data != null){
+                    List<NewsData.News> newsBeans = newsDataHttpResult.data.getArticleList();
+
+                    if(newsBeans != null){
+                        Iterator<NewsData.News> iterator = newsBeans.iterator();
+                        NewsData.News news;
+                        while (iterator.hasNext()){
+                            news = iterator.next();
+                            if(news.getType() == 7){
+                                iterator.remove();
+                            }
+                        }
+                    }
+
                     cacheToMemory(requestType, newsDataHttpResult.data,params.get(AppConstant.RequestParamsKey.COLUMN_ID));
                     return Observable.just(newsDataHttpResult.data);
                 }
