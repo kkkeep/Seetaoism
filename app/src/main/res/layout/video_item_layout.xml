@@ -4,32 +4,32 @@
     android:id="@+id/line"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:layout_marginLeft="10dp"
 
 
     android:layout_marginRight="10dp"
-    android:layout_marginLeft="10dp">
+    android:orientation="vertical">
+
     <FrameLayout
         android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="184dp">
-
+        android:layout_height="184dp"
+        android:visibility="gone">
 
 
         <ImageView
-            android:layout_marginTop="5dp"
             android:id="@+id/videoplayer"
-            android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:layout_height="194dp"
+            android:layout_marginTop="5dp"
+            android:scaleType="fitXY"
             android:visibility="visible" />
 
         <ImageView
             android:id="@+id/video_play"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginTop="80dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="80dp"
             android:background="@drawable/video_play"
             android:visibility="visible" />
 
@@ -37,37 +37,36 @@
     </FrameLayout>
 
     <com.seetaoism.home.video.SampleCoverVideo
-android:layout_marginTop="17dp"
         android:id="@+id/video_gsypalyer"
         android:layout_width="match_parent"
-        android:layout_height="184dp"/>
-
+        android:layout_height="184dp"
+        android:layout_marginTop="17dp" />
 
 
     <TextView
         android:id="@+id/them"
+        style="@style/SeeWay.NewsTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="主题"
-        style="@style/SeeWay.NewsTitle"
-         />
+        android:text="主题" />
 
     <TextView
         android:id="@+id/descrip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
         android:singleLine="true"
         android:text="主题"
-        android:layout_marginBottom="5dp"
         android:textColor="#9B9C9E  "
         android:textSize="12sp" />
+
     <View
-        android:layout_marginTop="8dp"
-        android:background="@color/gray_5"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        android:layout_height="0.5dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/gray_5" />
 
 
 </LinearLayout>

@@ -3,6 +3,7 @@ package com.seetaoism.splash;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -23,15 +24,24 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.mr.k.mvp.UserManager;
 import com.mr.k.mvp.base.MvpBaseActivity;
+import com.mr.k.mvp.utils.Logger;
 import com.mr.k.mvp.utils.SPUtils;
 import com.mr.k.mvp.utils.SystemFacade;
 import com.seetaoism.BuildConfig;
+import com.seetaoism.GlideApp;
 import com.seetaoism.R;
+import com.seetaoism.data.entity.Ad;
 import com.seetaoism.data.entity.User;
 import com.seetaoism.home.HomeActivity;
 import com.seetaoism.user.login.LoginContract;
 import com.seetaoism.user.login.LoginGetUserPresenter;
+import com.seetaoism.widgets.CountDownView;
 import com.seetaoism.widgets.SplashPopWindow;
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
+
+import java.io.File;
+
+import retrofit2.http.Url;
 
 
 /*
@@ -130,18 +140,74 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
             }
         }.start();
 
+        showAdView();
+
         // 倒计时5秒，然后去获取用户信息
-        getWindow().getDecorView().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (!isFinishing()) {
-                    startMainActivity();
-                }
-            }
-        }, 3000);
+        getWindow().getDecorView().postDelayed(mJumpTask, 3000);
 
     }
 
+    private Runnable mJumpTask = new Runnable() {
+        @Override
+        public void run() {
+            if (!isFinishing()) {
+                startMainActivity();
+            }
+        }
+    };
+
+    private void showAdView(){
+        Ad ad = SplashAdManager.INSTANCE.getLocalAd();
+        if(ad == null){
+            Logger.d("%s ad is null", TAG);
+            return;
+        }
+
+        if(ad.getLayout() == 1){ // 图片广告
+            setContentView(R.layout.layout_splash_pic_ad);
+            ImageView imageView = findViewById(R.id.splash_pic_ad_iv_pic);
+            GlideApp.with(this).load(ad.getFilePath()).into(imageView);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+
+            CountDownView countDownView = findViewById(R.id.splash_pic_ad_tv_jump);
+
+            countDownView.setFinishListener(new CountDownView.OnCountDownFinishListener() {
+                @Override
+                public void onFinish() {
+                    if (!isFinishing()) {
+                        startMainActivity();
+                    }
+                }
+            });
+
+            countDownView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!isFinishing()) {
+                        startMainActivity();
+                    }
+                }
+            });
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+            countDownView.start();
+            getWindow().getDecorView().removeCallbacks(mJumpTask);
+        }else{
+
+            StandardGSYVideoPlayer videoPlayer = new StandardGSYVideoPlayer(this);
+
+            videoPlayer.setUp( Uri.fromFile(new File(ad.getFilePath())).toString(), false, "");
+            setContentView(videoPlayer);
+            videoPlayer.startPlayLogic();
+        }
+
+    }
 
     private void showGuidePage(){
         setContentView(R.layout.activity_splash);

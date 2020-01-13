@@ -13,8 +13,8 @@ android {
         applicationId "com.seetaoism"   //以这个为标准包名
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 3// 每次发布新版时版本号要增加
-        versionName "1.2.0" // 每次发布新版时需要修改
+        versionCode 1// 每次发布新版时版本号要增加
+        versionName "1.0.0" // 每次发布新版时需要修改
 
 
         //
@@ -58,7 +58,7 @@ android {
         }
         debug {
             signingConfig signingConfigs.release
-            buildConfigField("String", "BASE_URL", '"' + RELEASE_BASE_URL + '"')
+            buildConfigField("String", "BASE_URL", '"' + TEST_BASE_URL + '"')
             resValue("string", "build_time", "0")
         }
 

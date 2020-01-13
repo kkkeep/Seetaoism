@@ -7,6 +7,7 @@ import com.mr.k.mvp.base.IBaseCallBack;
 import com.mr.k.mvp.exceptions.ResultException;
 import com.mr.k.mvp.utils.MapBuilder;
 import com.seetaoism.AppConstant;
+import com.seetaoism.data.entity.Ad;
 import com.seetaoism.data.entity.NewsColumn;
 import com.seetaoism.data.entity.NewsColumnData;
 import com.seetaoism.data.repositories.RecommendRepository;
@@ -65,6 +66,23 @@ public class RecommendPresenter extends BasePresenter<RecommendContract.IRecomme
             @Override
             public void onSuccess(@NonNull String data) {
 
+            }
+
+            @Override
+            public void onFail(@NonNull ResultException e) {
+
+            }
+        });
+    }
+
+    @Override
+    public void getSplashAd() {
+        mMode.getSplashAd(getLifecycleProvider(), new IBaseCallBack<List<Ad>>() {
+            @Override
+            public void onSuccess(@NonNull List<Ad> data) {
+                if(mView != null){
+                  mView.onAdResult(data);
+                }
             }
 
             @Override

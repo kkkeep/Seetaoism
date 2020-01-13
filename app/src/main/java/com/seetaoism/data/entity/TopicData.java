@@ -189,6 +189,8 @@ public class TopicData {
         private String lead;
         private String video_url;
 
+        private Ad ad;
+
         @Override
         public String toString() {
             return "Topiclist{" +
@@ -205,6 +207,15 @@ public class TopicData {
                     ", link='" + link + '\'' +
                     ", share_link='" + share_link + '\'' +
                     '}';
+        }
+
+
+        public Ad getAd() {
+            return ad;
+        }
+
+        public void setAd(Ad ad) {
+            this.ad = ad;
         }
 
         public int getVideo_is_sans_href() {

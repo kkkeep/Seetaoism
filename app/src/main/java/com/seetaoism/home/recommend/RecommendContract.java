@@ -6,6 +6,7 @@ import com.mr.k.mvp.base.IBaseCallBack;
 import com.mr.k.mvp.base.IBasePresenter;
 import com.mr.k.mvp.base.IBaseView;
 import com.mr.k.mvp.base.ICacheBaseCallBack;
+import com.seetaoism.data.entity.Ad;
 import com.seetaoism.data.entity.NewsColumn;
 import com.seetaoism.data.entity.NewsColumnData;
 import com.seetaoism.data.entity.NewsData;
@@ -27,7 +28,7 @@ public interface RecommendContract {
 
         void onNewsColumnFail(String msg);
 
-
+        void onAdResult(List<Ad> ads);
 
     }
 
@@ -36,6 +37,8 @@ public interface RecommendContract {
 
         void uploadColumn(List<NewsColumn> newsColumns);
 
+        void getSplashAd();
+
     }
 
     public interface IRecommendModel {
@@ -43,6 +46,7 @@ public interface RecommendContract {
         void getNewsColumn(LifecycleProvider provider, IBaseCallBack<NewsColumnData> callBack);
 
         void uploadColumn(LifecycleProvider provider,Map<String,String> params,IBaseCallBack<String> callBack);
+        void getSplashAd(LifecycleProvider provider,IBaseCallBack<List<Ad>> callBack);
     }
 
 

@@ -240,7 +240,7 @@ public class NewsData {
         private String video_is_sans_href;
         private String video_url;
         private int view_type; //'视图类型：1左图，2中间大图，3右图，4视频，5即时',
-
+        private Ad ad;
 
         public int getView_type() {
             return view_type;
@@ -306,6 +306,14 @@ public class NewsData {
 
         public void setVideoUrl(String video_url) {
             this.video_url = video_url;
+        }
+
+        public Ad getAd() {
+            return ad;
+        }
+
+        public void setAd(Ad ad) {
+            this.ad = ad;
         }
 
         @Override

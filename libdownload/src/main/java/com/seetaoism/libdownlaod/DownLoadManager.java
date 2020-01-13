@@ -32,10 +32,12 @@ import okhttp3.Response;
  **/
 public class DownLoadManager {
 
+    private static final int TYPE_APK = 0x100;
 
     final static String URL = "download_url";
     final static String PACKAGE_NAME = "download_package_name";
     final static String FILE_NAME = "download_file_name";
+    final static String NOTIFICATION = "download_notification";
 
     private static volatile DownLoadManager mInstance;
 
@@ -65,6 +67,8 @@ public class DownLoadManager {
 
         mDownloadFileDirectory = new File(cacheDir, "apk_load");
 
+
+
         if (!mDownloadFileDirectory.exists()) {
             boolean success = mDownloadFileDirectory.mkdirs();
             if (!success) {
@@ -89,22 +93,38 @@ public class DownLoadManager {
         return mInstance;
     }
 
+    public  boolean isFileExist(String fileName){
+        File file = new File(mDownloadFileDirectory,fileName);
+        return file.exists();
+    }
 
+
+    public void deleteFile(String fileName){
+        File file = new File(mDownloadFileDirectory,fileName);
+        if(file.exists()){
+            file.delete();
+        }
+    }
+
+    public File getDownloadFileDirectory(){
+        return mDownloadFileDirectory;
+    }
+    public void startLoadAdRes(Context context, String url,String fileName) {
+        startLoad(context, url, null,fileName,null,false);
+
+    }
     public void startLoad(Context context, String url,String fileName) {
-        startLoad(context, url, null,fileName,null);
+        startLoad(context, url, null,fileName,null,true);
 
     }
 
-    public void startLoad(Context context, String url, StateListener listener) {
-        startLoad(context, url, null, listener);
 
-    }
 
     public void startLoad(Context context, String url, String packageName, StateListener listener) {
-        startLoad(context, url, packageName, null, listener);
+        startLoad(context, url, packageName, null, listener,true);
     }
 
-    public void startLoad(Context context, String url, String packageName, String fileMame, StateListener listener) {
+    public void startLoad(Context context, String url, String packageName, String fileMame, StateListener listener,boolean isShowNotification) {
 
         if (mDownloadFileDirectory == null) {
             Toast.makeText(context, "下载路径不合法", Toast.LENGTH_LONG).show();
@@ -140,6 +160,7 @@ public class DownLoadManager {
             intent.putExtra(FILE_NAME, fileMame);
         }
 
+        intent.putExtra(NOTIFICATION, isShowNotification);
 
         context.startService(intent);
     }
@@ -194,12 +215,18 @@ public class DownLoadManager {
             } else {
                 file.delete();
             }
+        }else{
+            // 检查该文件的临时文件是否存在
+            File tempFile = new File(mDownloadFileDirectory,fileName +".temp");
+            if(tempFile.exists()){
+                tempFile.delete();
+            }
         }
 
         // 删除所有之前下载过的apk
         File[] files = file.getParentFile().listFiles();
         for (File child : files) {
-            if (child.isFile() && child.exists()) {
+            if (child.isFile() && child.exists() && child.getName().endsWith(".apk")) {
                 child.delete();
             }
         }
@@ -212,11 +239,11 @@ public class DownLoadManager {
 
         task.setFileName(task.getFileName());
 
-
+        File tempFile = new File(mDownloadFileDirectory,task.getFileName() + ".temp");
         FileOutputStream outputStream = null;
         try {
 
-            outputStream = new FileOutputStream(new File(task.getFileStorePath()));
+            outputStream = new FileOutputStream(tempFile);
 
 
             byte[] buffer = new byte[1024 * 4];
@@ -238,7 +265,18 @@ public class DownLoadManager {
             }
 
 
+            if(tempFile.exists() && tempFile.length() == task.getContentLength()){
+                File file = new File(mDownloadFileDirectory,task.getFileName());
+                boolean isTrue =  tempFile.renameTo(file);
+               if(!isTrue){
+                   throw new  IOException();
+               }
+            }
+
             Thread.sleep(1000);
+
+
+
 
             handLoadEnd(task);
 
@@ -246,7 +284,7 @@ public class DownLoadManager {
             if (e.getClass().getName().contains("net")) {
                 handLoadFail(task, "网络异常!");
             } else {
-                handLoadFail(task, "文件一次，请检查手机存储空间是否可用!");
+                handLoadFail(task, "文件存储异常，请检查手机存储空间是否可用!");
             }
             e.printStackTrace();
         } finally {
@@ -264,12 +302,17 @@ public class DownLoadManager {
 
     // 准备开始下载，
     private void handPrepareLoadStart(Task task) {
-        task.getListener().prepare(task);
+        if(task.getListener() != null){
+            task.getListener().prepare(task);
+        }
+
         postHandLoad(task, UIHandler.ACTION_PREPARE);
     }
 
     private void handLoadStart(Task task) {
-        task.getListener().onStart(task);
+        if(task.getListener() != null){
+            task.getListener().onStart(task);
+        }
         postHandLoad(task, UIHandler.ACTION_START);
     }
 
@@ -285,12 +328,16 @@ public class DownLoadManager {
     }
 
     private void handLoadProgress(Task task) {
-        task.getListener().onProgress(task);
+        if(task.getListener() != null){
+            task.getListener().onProgress(task);
+        }
         postHandLoad(task, UIHandler.ACTION_PROGRESS);
     }
 
     private void handLoadEnd(Task task) {
-        task.getListener().onEnd(task);
+        if(task.getListener() != null){
+            task.getListener().onEnd(task);
+        }
         removeUrlFromList(task.getUrl());
         postHandLoad(task, UIHandler.ACTION_END);
 

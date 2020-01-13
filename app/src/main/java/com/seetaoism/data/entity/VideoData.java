@@ -75,6 +75,7 @@ public class VideoData {
         private String read_count;
         private boolean select;
         private String collect_id;
+        private Ad ad;
 
 
         @Override
@@ -155,8 +156,13 @@ public class VideoData {
             this.time = time;
         }
 
+        public Ad getAd() {
+            return ad;
+        }
 
-
+        public void setAd(Ad ad) {
+            this.ad = ad;
+        }
 
         @Override
         public String toString() {

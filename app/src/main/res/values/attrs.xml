@@ -5,7 +5,12 @@
         <attr name="state_column_my_column" format="boolean"/>
     </declare-styleable>
 
-
+    <declare-styleable name="CountDownView">
+        <attr name="countDownCount" format="integer"/>
+        <attr name="countDownText" format="string|reference"/>
+        <attr name="countDownTextColor" format="color|reference"/>
+        <attr name="countDownInterval" format="integer|reference"/>
+    </declare-styleable>
 
 
 </resources>
