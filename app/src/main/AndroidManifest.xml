@@ -12,12 +12,11 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".home.agreement.AgreementActivity"></activity>
-        <!-- 屏幕适配 -->
+        <activity android:name=".home.Main3Activity"></activity>
+        <activity android:name=".home.agreement.AgreementActivity" /> <!-- 屏幕适配 -->
         <activity android:name=".home.message.MessagedetailsActivity" />
         <activity android:name=".home.message.MessageActivity" />
         <activity android:name=".home.integral.Main2Activity" />
-
         <activity android:name=".home.integral.IntegralActivity" />
         <activity android:name=".home.collect.CollectActivity" />
         <activity android:name=".home.email.EmailActivity" />
@@ -35,11 +34,10 @@
         </activity>
         <activity
             android:name=".home.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustResize|adjustPan|stateHidden"  android:launchMode="singleTask"/>
-
-
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|adjustPan|stateHidden" />
         <activity
             android:name=".user.login.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -102,7 +100,9 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
-        <activity android:name=".splash.SplashProtocolPolicyActivity"  android:screenOrientation="portrait"
+        <activity
+            android:name=".splash.SplashProtocolPolicyActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.SplashTheme" /> <!-- For test only 测试状态通知栏，需要打开的Activity -->
         <meta-data
             android:name="android.notch_support"
@@ -224,21 +224,21 @@
             </intent-filter>
         </service>
     </application>
+
     <permission
         android:name="com.seetaoism.permission.JPUSH_MESSAGE"
-        android:protectionLevel="signature" />
-
+        android:protectionLevel="signature" /> <!-- Required -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Required -->
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- Required -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.seetaoism.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- Optional. Required for location feature -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 用于开启 debug 版本的应用在 6.0 系统上的层叠窗口权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- Optional. Required for location feature -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 用于开启 debug 版本的应用在 6.0 系统上的层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
