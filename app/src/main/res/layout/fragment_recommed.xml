@@ -35,7 +35,6 @@
         app:layout_constraintEnd_toStartOf="@+id/home_recommend_top_column_edit"
         app:layout_constraintStart_toEndOf="@+id/home_recommend_top_logo"
 
-
         tl_indicator_color="#ff0066"
         tl:tl_tab_padding="10dp"
         tl:tl_indicator_corner_radius="5dp"

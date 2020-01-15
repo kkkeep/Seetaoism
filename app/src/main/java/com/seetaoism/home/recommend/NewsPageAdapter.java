@@ -299,6 +299,7 @@ public class NewsPageAdapter extends RecyclerView.Adapter<NewsPageAdapter.BaseHo
 
 
             jBanner.setData(banners, titles);
+
             jBanner.setLoop(banners.size() > 1);
             jBanner.setAdapter(new IJBannerAdapter<NewsData.Banner>() {
                 @Override

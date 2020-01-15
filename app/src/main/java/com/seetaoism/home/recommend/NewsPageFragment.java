@@ -39,8 +39,8 @@ public class NewsPageFragment extends MvpBaseFragment<RecommendContract.INewsPag
     public static final String COLUMN_ID = "column_id";
 
     private RecyclerView mNewsRecyclerView;
-    private NewsPageAdapter mNewsPageAdapter;
     private SmartRefreshLayout mSmartRefreshLayout;
+    private NewsPageAdapter mNewsPageAdapter;
     private NewsViewModel mNewViewModel;
     LinearLayoutManager mLinearLayoutManager;
 
