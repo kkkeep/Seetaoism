@@ -7,7 +7,7 @@ package com.seetaoism.libdownlaod;
 
     void prepare(Task task);
     void onStart(Task task);
-    void onError(Task task,String msg);
+    void onError(Task task, String msg);
     void onProgress(Task task);
     void onEnd(Task task);
 

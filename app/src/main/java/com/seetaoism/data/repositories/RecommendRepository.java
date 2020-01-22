@@ -7,6 +7,7 @@ import com.mr.k.mvp.exceptions.ResultException;
 import com.mr.k.mvp.utils.DataCacheUtils;
 import com.mr.k.mvp.utils.SPUtils;
 import com.seetaoism.AppConstant;
+import com.seetaoism.data.entity.Ad;
 import com.seetaoism.data.entity.HttpResult;
 import com.seetaoism.data.entity.NewsColumnData;
 import com.seetaoism.data.okhttp.JDDataService;
@@ -14,6 +15,7 @@ import com.seetaoism.home.recommend.RecommendContract;
 import com.trello.rxlifecycle2.LifecycleProvider;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -53,5 +55,15 @@ public class RecommendRepository extends BaseRepository implements RecommendCont
                 return Observable.error(new ResultException(stringHttpResult.message));
             }
         },callBack);
+    }
+    @Override
+    public void getSplashAd(LifecycleProvider provider, IBaseCallBack<List<Ad>> callBack) {
+        observer(provider, JDDataService.service().getSplashAd(), listHttpResult -> {
+            if(listHttpResult.code == 1 && listHttpResult.data != null && listHttpResult.data.size() > 0){
+                return Observable.just(listHttpResult.data);
+            }else{
+                return Observable.error(new ResultException(listHttpResult.message));
+            }
+        }, callBack);
     }
 }

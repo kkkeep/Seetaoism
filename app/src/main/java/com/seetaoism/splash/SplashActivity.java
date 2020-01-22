@@ -2,12 +2,20 @@ package com.seetaoism.splash;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.Image;
+import android.media.MediaMetadataRetriever;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -16,6 +24,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.viewpager.widget.PagerAdapter;
@@ -23,15 +32,25 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.mr.k.mvp.UserManager;
 import com.mr.k.mvp.base.MvpBaseActivity;
+import com.mr.k.mvp.utils.Logger;
 import com.mr.k.mvp.utils.SPUtils;
 import com.mr.k.mvp.utils.SystemFacade;
 import com.seetaoism.BuildConfig;
+import com.seetaoism.GlideApp;
 import com.seetaoism.R;
+import com.seetaoism.data.entity.Ad;
 import com.seetaoism.data.entity.User;
 import com.seetaoism.home.HomeActivity;
 import com.seetaoism.user.login.LoginContract;
 import com.seetaoism.user.login.LoginGetUserPresenter;
+import com.seetaoism.widgets.CountDownView;
 import com.seetaoism.widgets.SplashPopWindow;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
+
+import java.io.File;
+
+import retrofit2.http.Url;
 
 
 /*
@@ -44,6 +63,8 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
 
     private int[] mGuideImages;
     ImageView imageView;
+
+    private static Handler handler = new Handler();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -130,20 +151,127 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
             }
         }.start();
 
-        // 倒计时5秒，然后去获取用户信息
-        getWindow().getDecorView().postDelayed(new Runnable() {
+        handler.postDelayed(mJumpTask, 3000);
+        showAdView();
+
+        // 倒计时5秒，然后去获取用户
+
+    }
+
+    private Runnable mJumpTask = new Runnable() {
+        @Override
+        public void run() {
+            if (!isFinishing()) {
+                startMainActivity();
+            }
+        }
+    };
+
+    private void showAdView(){
+
+        Ad ad = SplashAdManager.INSTANCE.getLocalAd();
+        if(ad == null){
+            Logger.d("%s ad is null", TAG);
+            return;
+        }
+
+
+        setContentView(R.layout.layout_splash_pic_ad);
+
+
+        View decorView = getWindow().getDecorView();
+
+        int option = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE |View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+        decorView.setSystemUiVisibility(option);
+
+
+        if (Build.VERSION.SDK_INT >= 28) {
+            WindowManager.LayoutParams params = getWindow().getAttributes();
+            params.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+            getWindow().setAttributes(params);
+        }
+
+
+      /*  if(SystemFacade.hasP()){
+            WindowManager.LayoutParams lp =getWindow().getAttributes();
+            lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+            getWindow().setAttributes(lp);
+
+        }
+*/
+
+
+        CountDownView countDownView = findViewById(R.id.splash_pic_ad_tv_jump);
+
+        countDownView.setFinishListener(new CountDownView.OnCountDownFinishListener() {
             @Override
-            public void run() {
+            public void onFinish() {
                 if (!isFinishing()) {
                     startMainActivity();
                 }
             }
-        }, 3000);
+        });
+
+        countDownView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isFinishing()) {
+                    startMainActivity();
+                }
+            }
+        });
+        countDownView.start();
+
+
+        if(ad.getLayout() == 1){ // 图片广告
+            ImageView mask = findViewById(R.id.splash_pic_ad_video_mask);
+            mask.setVisibility(View.GONE);
+            ImageView imageView = findViewById(R.id.splash_pic_ad_iv_pic);
+            GlideApp.with(this).load(ad.getFilePath()).into(imageView);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+
+            getWindow().getDecorView().removeCallbacks(mJumpTask);
+        }else{
+            SplashVidio videoPlayer = findViewById(R.id.splash_pic_ad_video);
+            videoPlayer.setUp( Uri.fromFile(new File(ad.getFilePath())).toString(), true, "");
+            videoPlayer.startPlayLogic();
+            GSYVideoManager.instance().setNeedMute(true);
+            //Bitmap bitmap = getVideoThumb(ad.getFilePath());
+            ImageView mask = findViewById(R.id.splash_pic_ad_video_mask);
+            //mask.setImageBitmap(bitmap);
+           // mask.setScaleType(ImageView.ScaleType.FIT_XY);
+            handler.postDelayed(() ->{
+                mask.setVisibility(View.GONE);
+            }, 800);
+
+        }
+
+        handler.removeCallbacks(mJumpTask);
+        handler.postDelayed(mJumpTask, 4800);
+
+    }
+
+    public  static Bitmap getVideoThumb(String path) {
+
+        MediaMetadataRetriever media = new MediaMetadataRetriever();
+
+        media.setDataSource(path);
+
+        return  media.getFrameAtTime();
 
     }
 
 
     private void showGuidePage(){
+
         setContentView(R.layout.activity_splash);
         mViewPager = findViewById(R.id.splash_guild_page);
 
@@ -154,6 +282,19 @@ public class SplashActivity extends MvpBaseActivity<LoginContract.ILoginGetUserI
         SPUtils.saveIntValueToDefaultSpByApply("version", BuildConfig.VERSION_CODE);
 
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        GSYVideoManager.onPause();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        GSYVideoManager.releaseAllVideos();
     }
 
     @Override

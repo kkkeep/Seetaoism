@@ -168,7 +168,7 @@ dependencies {
     implementation project(path: ':libumengsharelogin')
     implementation project(path: ':libmrkmvp')
 
-    implementation 'me.jessyan:autosize:1.1.2'
+   // implementation 'me.jessyan:autosize:1.1.2'
 
     //万能的ImageView控件 implementation 'com.github.SheHuan:NiceImageView:1.0.5'
     implementation 'com.github.SheHuan:NiceImageView:1.0.5'

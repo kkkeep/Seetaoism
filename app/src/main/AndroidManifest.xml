@@ -9,10 +9,12 @@
         android:icon="@mipmap/ic_app_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:resizeableActivity="false"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".home.Main3Activity"></activity>
+        <meta-data android:name="android.max_aspect" android:value="2.4" />
+        <activity android:name=".AdDetailActivity"/>
         <activity android:name=".home.agreement.AgreementActivity" /> <!-- 屏幕适配 -->
         <activity android:name=".home.message.MessagedetailsActivity" />
         <activity android:name=".home.message.MessageActivity" />
@@ -24,8 +26,9 @@
         <activity
             android:name=".splash.SplashActivity"
             android:label="@string/app_name"
+            android:theme="@style/AppTheme.SplashTheme"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.SplashTheme">
+           >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -64,6 +67,7 @@
         <activity
             android:name=".home.push.SettingActivity"
             android:label="@string/app_name" />
+
         <activity
             android:name=".home.push.TestActivity"
             android:exported="false">

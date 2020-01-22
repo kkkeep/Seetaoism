@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/splash_pic_ad_iv_bottom"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:scaleType="center"
+        android:src="@drawable/splash_logo"
+        app:layout_constraintTop_toBottomOf="@id/splash_pic_ad_video"
+        />
+    <com.seetaoism.splash.SplashVidio
+        android:id="@+id/splash_pic_ad_video"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/splash_pic_ad_video_mask"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/splash_pic_ad_iv_pic"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+         />
+
+    <com.seetaoism.widgets.CountDownView
+        android:id="@+id/splash_pic_ad_tv_jump"
+        android:layout_width="61dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="15dp"
+        android:textColor="@color/black_2"
+        android:textSize="12dp"
+        android:gravity="center"
+        android:background="@drawable/splash_ad_jump"
+        app:countDownTextColor="@color/black_2"
+        app:countDownCount="5"
+        app:countDownInterval="1"
+        android:text="@string/text_jump"
+        app:countDownText="@string/text_jump"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

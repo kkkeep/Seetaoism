@@ -3,6 +3,7 @@ package com.seetaoism.home.recommend;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,12 +16,14 @@ import com.mr.k.mvp.base.MvpBaseFragment;
 import com.mr.k.mvp.utils.Logger;
 import com.mr.k.mvp.utils.SystemFacade;
 import com.seetaoism.R;
+import com.seetaoism.data.entity.Ad;
 import com.seetaoism.data.entity.NewsColumn;
 import com.seetaoism.data.entity.NewsColumnData;
 import com.seetaoism.home.HomeActivity;
 import com.seetaoism.home.SsearchActivity;
 import com.seetaoism.home.recommend.column.ColumnEditorFragment;
 import com.seetaoism.libloadingview.LoadingView;
+import com.seetaoism.splash.SplashAdManager;
 
 import java.util.List;
 
@@ -133,6 +136,7 @@ public class RecommendFragment extends MvpBaseFragment<RecommendContract.IRecomm
     protected void initData() {
         showLoading(LoadingView.LOADING_MODE_WHITE_BG);
         mPresenter.getNewsColumn();
+        mPresenter.getSplashAd();
     }
 
     @Override
@@ -195,7 +199,13 @@ public class RecommendFragment extends MvpBaseFragment<RecommendContract.IRecomm
             }
         });
     }
-
+    @Override
+    public void onAdResult(List<Ad> ads) {
+        Log.d("Test", "ad-----");
+        //  ads.get(0).setLayout(2);
+        // ads.get(0).setAd_url("http://s-dev.seetaoism.com/Public/Uploads/video/2019-08-21/5d5c9d1e6ccb7.mp4");
+        SplashAdManager.INSTANCE.onNewAd(ads);
+    }
     /*
         改变tab 滑块 和字体颜色
      */

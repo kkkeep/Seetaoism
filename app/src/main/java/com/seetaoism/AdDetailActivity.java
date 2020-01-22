@@ -1,4 +1,4 @@
-package com.seetaoism.home;
+package com.seetaoism;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,9 +13,8 @@ import android.widget.ProgressBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mr.k.mvp.statusbar.StatusBarUtils;
-import com.seetaoism.R;
 
-public class Main3Activity extends AppCompatActivity implements View.OnClickListener {
+public class AdDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView mFan;
     private ProgressBar mProgressBar1;
@@ -24,13 +23,16 @@ public class Main3Activity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main3);
+        setContentView(R.layout.activity_ad_detail);
         StatusBarUtils.setStatusBarLightMode(this, Color.WHITE);
 
         mFan = findViewById(R.id.fan);
         mFan.setOnClickListener(this);
         init();
-        mWebview1.loadUrl("https://www.jb51.net/article/161740.htm");
+
+        String url  = getIntent().getStringExtra("detail");
+
+        mWebview1.loadUrl(url);
 
 
     }

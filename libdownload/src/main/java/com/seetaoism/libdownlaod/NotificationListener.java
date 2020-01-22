@@ -12,7 +12,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
-import androidx.core.content.FileProvider;
 
 import java.io.File;
 

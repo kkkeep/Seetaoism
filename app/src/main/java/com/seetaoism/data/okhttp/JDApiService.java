@@ -5,6 +5,7 @@ import android.service.autofill.UserData;
 
 import com.seetaoism.AppConstant;
 import com.seetaoism.data.entity.AccessArticleData;
+import com.seetaoism.data.entity.Ad;
 import com.seetaoism.data.entity.CheckUpdateData;
 import com.seetaoism.data.entity.CommentData;
 import com.seetaoism.data.entity.CommentReplyData;
@@ -22,6 +23,7 @@ import com.seetaoism.data.entity.User;
 import com.seetaoism.data.entity.UserCollect;
 import com.seetaoism.data.entity.VideoData;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -376,4 +378,8 @@ public interface JDApiService {
      */
     @GET("/api/file/appupgrade")
     Observable<HttpResult<String>> appUpgrade(@QueryMap Map<String, String> map);
+
+
+    @GET("/app/v_1_3/ad/coopen")
+    Observable<HttpResult<List<Ad>>> getSplashAd();
 }

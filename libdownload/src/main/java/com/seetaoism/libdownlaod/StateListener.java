@@ -9,7 +9,7 @@ import java.lang.ref.WeakReference;
 /*
  * created by Cherry on 2019-10-28
  **/
-public abstract class StateListener implements DownloadListener{
+public abstract class StateListener implements DownloadListener {
 
     WeakReference<Activity> mActivityWeakReference;
     WeakReference<Fragment> mFragmentWeakReference;

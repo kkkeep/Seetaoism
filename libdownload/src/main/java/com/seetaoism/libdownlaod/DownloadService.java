@@ -39,10 +39,14 @@ public class  DownloadService extends IntentService {
             String url = intent.getStringExtra(DownLoadManager.URL);
             String pageName = intent.getStringExtra(DownLoadManager.PACKAGE_NAME);
             String fileName = intent.getStringExtra(DownLoadManager.FILE_NAME);
+
+            boolean isShowListener = intent.getBooleanExtra(DownLoadManager.NOTIFICATION,true);
             Task task = new Task(url,fileName,pageName);
 
+            if(isShowListener){
+                task.setListener(new NotificationListener(this));
+            }
 
-            task.setListener(new NotificationListener(this));
             DownLoadManager.getInstance(this).startLoad(task);
         }
 
